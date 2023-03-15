@@ -24,7 +24,24 @@ export function getCode(path: string): FileList {
 // eslint-disable-next-line max-len
 async function particleCompile(path: string, platformId: string, auth: string, targetVersion?: string): Promise<string | undefined> {
 	info(`Compiling code in ${path}`);
+	if (!path) {
+		throw new Error('No source code path specified');
+	}
+
+	if (path === './' || path === '.') {
+		path = __dirname;
+	}
+
 	const files = getCode(path);
+
+	console.info(`Compiling code for platform ${platformId} with target version ${targetVersion}`);
+	console.info(`Files: ${JSON.stringify(Object.keys(files))}`);
+
+	// handle internal implementation detail of the particle-api-js compile command
+	if (targetVersion === 'latest') {
+		targetVersion = undefined;
+	}
+
 	const resp = await particle.compileCode({
 		files,
 		platformId,
