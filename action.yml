@@ -1,0 +1,25 @@
+name: 'Particle Compile'
+description: 'Compiles application source code using the Particle Cloud'
+inputs:
+  particle_access_token:
+    required: true
+    description: 'Particle access token'
+    default: ''
+  particle_platform_name:
+    required: true
+    description: 'The platform name to target the compilation (example: photon, p1, electron, argon, asom, boron, bsom, tracker etc)'
+    default: ''
+  device_os_version:
+    required: false
+    description: 'Target Device OS firmware version'
+    default: 'latest'
+  sources_folder:
+    required: false
+    description: 'Path to directory with sources to compile'
+    default: '.'
+outputs:
+  path_to_binary:
+    description: 'Path to the compiled binary file'
+runs:
+  using: 'node16'
+  main: 'dist/index.js'
