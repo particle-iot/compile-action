@@ -36,7 +36,19 @@ exports.getCode = getCode;
 function particleCompile(path, platformId, auth, targetVersion) {
     return __awaiter(this, void 0, void 0, function* () {
         (0, core_1.info)(`Compiling code in ${path}`);
+        if (!path) {
+            throw new Error('No source code path specified');
+        }
+        if (path === './' || path === '.') {
+            path = __dirname;
+        }
         const files = getCode(path);
+        console.info(`Compiling code for platform ${platformId} with target version ${targetVersion}`);
+        console.info(`Files: ${JSON.stringify(Object.keys(files))}`);
+        // handle internal implementation detail of the particle-api-js compile command
+        if (targetVersion === 'latest') {
+            targetVersion = undefined;
+        }
         const resp = yield particle.compileCode({
             files,
             platformId,
