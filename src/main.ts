@@ -1,24 +1,21 @@
 import { getInput, info, setOutput, setFailed, error } from '@actions/core';
+import { writeFileSync, existsSync, mkdirSync } from 'fs';
 // @ts-ignore
-import { readdirSync, readFileSync, writeFileSync, existsSync, mkdirSync } from 'fs';
+import { _handleMultiFileArgs, populateFileMapping } from './cli';
 
 const Particle = require('particle-api-js');
 const particle = new Particle();
 
-interface FileList {
-    // Keys should be the filenames, including relative path.
-    // Values should be a path or Buffer of the file contents.
-    [key:string] : Buffer
-}
-
-export function getCode(path: string): FileList {
-	const code : FileList = {};
-	const dirData = readdirSync(path);
-	dirData.forEach((file) => {
-		const relativePath = path + '/' + file;
-		code[relativePath] = Buffer.from(readFileSync(relativePath, 'utf8'));
-	});
-	return code;
+// us
+export function getCode(path: string) {
+	const fileMapping = _handleMultiFileArgs([path]);
+	populateFileMapping(fileMapping);
+	// @ts-ignore
+	if (Object.keys(fileMapping.map).length === 0){
+		throw new Error('no files included');
+	}
+	// @ts-ignore
+	return fileMapping.map || fileMapping;
 }
 
 // eslint-disable-next-line max-len
@@ -34,8 +31,8 @@ async function particleCompile(path: string, platformId: string, auth: string, t
 
 	const files = getCode(path);
 
-	console.info(`Compiling code for platform ${platformId} with target version ${targetVersion}`);
-	console.info(`Files: ${JSON.stringify(Object.keys(files))}`);
+	info(`Compiling code for platform ${platformId} with target version ${targetVersion}`);
+	info(`Files: ${JSON.stringify(Object.keys(files))}`);
 
 	// handle internal implementation detail of the particle-api-js compile command
 	if (targetVersion === 'latest') {
