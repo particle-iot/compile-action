@@ -89,7 +89,7 @@ async function run(): Promise<void> {
 		const binaryId = await particleCompile(sources, platform, accessToken, target);
 		if (binaryId) {
 			const outputPath = await particleDownloadBinary(binaryId, accessToken);
-			setOutput('path_to_binary', outputPath);
+			setOutput('artifact_path', outputPath);
 		} else {
 			setFailed(`Failed to compile code in ${sources}`);
 		}
