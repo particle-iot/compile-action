@@ -18,7 +18,7 @@ inputs:
     description: 'Path to directory with sources to compile'
     default: '.'
 outputs:
-  path_to_binary:
+  artifact_path:
     description: 'Path to the compiled binary file'
 runs:
   using: 'node16'
