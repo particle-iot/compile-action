@@ -311,7 +311,7 @@ function run() {
             const binaryId = yield particleCompile(sources, platform, accessToken, target);
             if (binaryId) {
                 const outputPath = yield particleDownloadBinary(binaryId, accessToken);
-                (0, core_1.setOutput)('path_to_binary', outputPath);
+                (0, core_1.setOutput)('artifact_path', outputPath);
             }
             else {
                 (0, core_1.setFailed)(`Failed to compile code in ${sources}`);
