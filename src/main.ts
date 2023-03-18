@@ -1,7 +1,9 @@
-import { getInput, info, setOutput, setFailed, error } from '@actions/core';
+import { getInput, info, setOutput, setFailed, error, warning } from '@actions/core';
 import { writeFileSync, existsSync, mkdirSync } from 'fs';
+
 // @ts-ignore
 import { _handleMultiFileArgs, populateFileMapping } from './cli';
+import { execa } from 'execa';
 
 const Particle = require('particle-api-js');
 const particle = new Particle();
@@ -19,7 +21,7 @@ export function getCode(path: string) {
 }
 
 // eslint-disable-next-line max-len
-async function particleCompile(path: string, platformId: string, auth: string, targetVersion?: string): Promise<string | undefined> {
+async function particleCloudCompile(path: string, platformId: string, auth: string, targetVersion?: string): Promise<string | undefined> {
 	info(`Compiling code in ${path}`);
 	if (!path) {
 		throw new Error('No source code path specified');
@@ -69,7 +71,7 @@ async function particleDownloadBinary(binaryId: string, auth: string): Promise<s
 
 		const outputPath = `${destDir}/${destName}`;
 		if (!existsSync(destDir)){
-			console.log(`Creating directory ${destDir}...`);
+			info(`Creating directory ${destDir}...`);
 			mkdirSync(destDir);
 		}
 		writeFileSync(`${outputPath}`, resp, 'utf8');
@@ -79,6 +81,47 @@ async function particleDownloadBinary(binaryId: string, auth: string): Promise<s
 	}
 }
 
+// @todo: need translations for buildpack tags
+async function dockerBuildpackCompile(workingDir: string, sources: string, platform: string, target: string) {
+	// Note: the buildpack only detects *.c and *.cpp files
+	// https://github.com/particle-iot/device-os/blob/196d497dd4c16ab83db6ea610cf2433047226a6a/user/build.mk#L64-L65
+
+	info(`Fetching docker buildpack for platform ${platform} and target ${target}`);
+	info(`This can take a minute....`);
+	const dockerPull = await execa('docker', [
+		'pull',
+		`particle/buildpack-particle-firmware:4.0.2-argon`
+	]);
+	info(dockerPull.stdout);
+
+	const destDir = 'output';
+	const destName = 'firmware.bin';
+
+	const outputPath = `${destDir}/${destName}`;
+	if (!existsSync(destDir)){
+		info(`Creating output directory ${destDir}...`);
+		mkdirSync(destDir);
+	} else {
+		warning(`Output directory ${destDir} already exists. Contents will be overwritten.`);
+	}
+
+	const args = [
+		'run',
+		'--rm',
+		'-v',
+		`${workingDir}/${sources}:/input`,
+		'-v',
+		`${workingDir}/${destDir}:/output`,
+		'-e',
+		`PLATFORM_ID=${platform}`,
+		`particle/buildpack-particle-firmware:4.0.2-argon`
+	];
+	const dockerRun = await execa('docker', args);
+	info(dockerRun.stdout);
+
+	return outputPath;
+}
+
 async function run(): Promise<void> {
 	try {
 		const accessToken: string = getInput('particle_access_token');
@@ -86,9 +129,20 @@ async function run(): Promise<void> {
 		const target: string = getInput('device_os_version');
 		const sources: string = getInput('sources_folder');
 
-		const binaryId = await particleCompile(sources, platform, accessToken, target);
-		if (binaryId) {
-			const outputPath = await particleDownloadBinary(binaryId, accessToken);
+		let outputPath: string | undefined;
+		if (!accessToken) {
+			info('No access token provided, running local compilation');
+			outputPath = await dockerBuildpackCompile(process.cwd(), sources, platform, target);
+		} else {
+			info('Access token provided, running cloud compilation');
+			const binaryId = await particleCloudCompile(sources, platform, accessToken, target);
+			if (!binaryId) {
+				throw new Error('Failed to compile code in cloud');
+			}
+			outputPath = await particleDownloadBinary(binaryId, accessToken);
+		}
+
+		if (outputPath) {
 			setOutput('artifact_path', outputPath);
 		} else {
 			setFailed(`Failed to compile code in ${sources}`);
