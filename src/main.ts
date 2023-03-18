@@ -102,7 +102,7 @@ async function dockerBuildpackCompile(workingDir: string, sources: string, platf
 		info(`Creating output directory ${destDir}...`);
 		mkdirSync(destDir);
 	} else {
-		warning(`Output directory ${destDir} already exists. Contents will be overwritten.`);
+		warning(`Output directory ${destDir} already exists. Compile will overwrite firmware.bin if it exists.`);
 	}
 
 	const args = [
