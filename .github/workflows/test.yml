@@ -13,8 +13,11 @@ jobs:
           npm install
       - run: |
           npm run all
-  test: # make sure the action works on a clean machine without building
-    runs-on: ubuntu-latest
+  test-cloud-compile:
+    strategy:
+      matrix:
+        os: [ ubuntu-latest, windows-latest ]
+    runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v3
       - uses: ./
@@ -23,6 +26,13 @@ jobs:
           particle_access_token: ${{ secrets.PARTICLE_ACCESS_TOKEN }}
           particle_platform_name: '12'
           sources_folder: '__tests__/fixtures'
+  test-local-compile:
+    strategy:
+      matrix:
+        os: [ ubuntu-latest, windows-latest ]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v3
       - uses: ./
         name: 'Local compile'
         with:
