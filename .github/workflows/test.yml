@@ -20,7 +20,13 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - uses: ./
+        name: 'Cloud compile'
         with:
           particle_access_token: ${{ secrets.PARTICLE_ACCESS_TOKEN }}
+          particle_platform_name: '12'
+          sources_folder: '__tests__/fixtures'
+      - uses: ./
+        name: 'Local compile'
+        with:
           particle_platform_name: '12'
           sources_folder: '__tests__/fixtures'
