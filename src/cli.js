@@ -1,8 +1,8 @@
 // helper functions lifted from CloudCommand.flashDevice in particle-cli
 
-import path from 'path';
-import { existsSync, readFileSync, statSync } from 'fs';
-import glob from 'glob';
+const path = require('path');
+const { existsSync, readFileSync, statSync } = require('fs');
+const glob = require('glob');
 
 const MAX_FILE_SIZE = 1024 * 1024 * 10;
 const notSourceExtensions = [
@@ -100,7 +100,7 @@ function compliment(arr, excluded) {
  * compile File1 File2 File3 output.bin
  * compile File1 File2 File3 --saveTo anotherPlace.bin
  */
-export function _handleMultiFileArgs(filenames, { followSymlinks } = {}) {
+function _handleMultiFileArgs(filenames, { followSymlinks } = {}) {
 	const fileMapping = {
 		basePath: process.cwd(),
 		map: {}
@@ -158,7 +158,7 @@ export function _handleMultiFileArgs(filenames, { followSymlinks } = {}) {
  * @private
  * @returns {nothing} nothing
  */
-export function _processDirIncludes(fileMapping, dirname, { followSymlinks } = {}) {
+function _processDirIncludes(fileMapping, dirname, { followSymlinks } = {}) {
 	dirname = path.resolve(dirname);
 
 	const includesFile = path.join(dirname, 'particle.include');
@@ -215,7 +215,7 @@ export function _processDirIncludes(fileMapping, dirname, { followSymlinks } = {
 	});
 }
 
-export function populateFileMapping(fileMapping) {
+function populateFileMapping(fileMapping) {
 	if (!fileMapping.map) {
 		fileMapping.map = {};
 		if (fileMapping.list) {
@@ -227,3 +227,9 @@ export function populateFileMapping(fileMapping) {
 	}
 	return fileMapping;
 }
+
+module.exports = {
+	_handleMultiFileArgs,
+	_processDirIncludes,
+	populateFileMapping
+};
