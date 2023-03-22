@@ -2,19 +2,14 @@ require('./sourcemap-register.js');/******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
 /***/ 2504:
-/***/ (function(module, exports, __nccwpck_require__) {
+/***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
 
 "use strict";
 
 // helper functions lifted from CloudCommand.flashDevice in particle-cli
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.populateFileMapping = exports._processDirIncludes = exports._handleMultiFileArgs = void 0;
-const path_1 = __importDefault(__nccwpck_require__(5622));
-const fs_1 = __nccwpck_require__(5747);
-const glob_1 = __importDefault(__nccwpck_require__(1957));
+const path = __nccwpck_require__(5622);
+const { existsSync, readFileSync, statSync } = __nccwpck_require__(5747);
+const glob = __nccwpck_require__(1957);
 const MAX_FILE_SIZE = 1024 * 1024 * 10;
 const notSourceExtensions = [
     '.ds_store',
@@ -48,10 +43,10 @@ function trimBlankLinesAndComments(arr) {
     return arr;
 }
 function readAndTrimLines(file) {
-    if (!(0, fs_1.existsSync)(file)) {
+    if (!existsSync(file)) {
         return null;
     }
-    const str = (0, fs_1.readFileSync)(file).toString();
+    const str = readFileSync(file).toString();
     if (!str) {
         return null;
     }
@@ -68,9 +63,9 @@ function globList(basepath, arr, { followSymlinks } = {}) {
     for (let i = 0; i < arr.length; i++) {
         line = arr[i];
         if (basepath) {
-            line = path_1.default.join(basepath, line);
+            line = path.join(basepath, line);
         }
-        found = glob_1.default.sync(line, { nodir: true, follow: !!followSymlinks });
+        found = glob.sync(line, { nodir: true, follow: !!followSymlinks });
         if (found && (found.length > 0)) {
             files = files.concat(found);
         }
@@ -117,7 +112,7 @@ function _handleMultiFileArgs(filenames, { followSymlinks } = {}) {
         }
         let filestats;
         try {
-            filestats = (0, fs_1.statSync)(filename);
+            filestats = statSync(filename);
         }
         catch (ex) {
             console.error("I couldn't find the file " + filename);
@@ -134,14 +129,13 @@ function _handleMultiFileArgs(filenames, { followSymlinks } = {}) {
             console.log('Skipping ' + filename + " it's too big! " + filestats.size);
             continue;
         }
-        const relative = path_1.default.basename(filename);
+        const relative = path.basename(filename);
         fileMapping.map[relative] = filename;
     }
     // return this._handleLibraryExample(fileMapping).then(() => {
     return fileMapping;
     // });
 }
-exports._handleMultiFileArgs = _handleMultiFileArgs;
 /**
  * helper function for getting the contents of a directory,
  * checks for '.include', and a '.ignore' files, and uses their contents
@@ -153,9 +147,9 @@ exports._handleMultiFileArgs = _handleMultiFileArgs;
  * @returns {nothing} nothing
  */
 function _processDirIncludes(fileMapping, dirname, { followSymlinks } = {}) {
-    dirname = path_1.default.resolve(dirname);
-    const includesFile = path_1.default.join(dirname, 'particle.include');
-    const ignoreFile = path_1.default.join(dirname, 'particle.ignore');
+    dirname = path.resolve(dirname);
+    const includesFile = path.join(dirname, 'particle.include');
+    const ignoreFile = path.join(dirname, 'particle.ignore');
     let hasIncludeFile = false;
     // Recursively find source files
     let includes = [
@@ -168,13 +162,13 @@ function _processDirIncludes(fileMapping, dirname, { followSymlinks } = {}) {
         '**/*.c',
         'project.properties'
     ];
-    if ((0, fs_1.existsSync)(includesFile)) {
+    if (existsSync(includesFile)) {
         //grab and process all the files in the include file.
         includes = trimBlankLinesAndComments(readAndTrimLines(includesFile));
         hasIncludeFile = true;
     }
     let files = globList(dirname, includes, { followSymlinks });
-    if ((0, fs_1.existsSync)(ignoreFile)) {
+    if (existsSync(ignoreFile)) {
         const ignores = trimBlankLinesAndComments(readAndTrimLines(ignoreFile));
         const ignoredFiles = globList(dirname, ignores, { followSymlinks });
         files = compliment(files, ignoredFiles);
@@ -182,20 +176,19 @@ function _processDirIncludes(fileMapping, dirname, { followSymlinks } = {}) {
     // Add files to fileMapping
     files.forEach((file) => {
         // source relative to the base directory of the fileMapping (current directory)
-        const source = path_1.default.relative(fileMapping.basePath, file);
+        const source = path.relative(fileMapping.basePath, file);
         // If using an include file, only base names are supported since people are using those to
         // link across relative folders
         let target;
         if (hasIncludeFile) {
-            target = path_1.default.basename(file);
+            target = path.basename(file);
         }
         else {
-            target = path_1.default.relative(dirname, file);
+            target = path.relative(dirname, file);
         }
         fileMapping.map[target] = source;
     });
 }
-exports._processDirIncludes = _processDirIncludes;
 function populateFileMapping(fileMapping) {
     if (!fileMapping.map) {
         fileMapping.map = {};
@@ -208,7 +201,76 @@ function populateFileMapping(fileMapping) {
     }
     return fileMapping;
 }
-exports.populateFileMapping = populateFileMapping;
+module.exports = {
+    _handleMultiFileArgs,
+    _processDirIncludes,
+    populateFileMapping
+};
+
+
+/***/ }),
+
+/***/ 3758:
+/***/ (function(__unused_webpack_module, exports, __nccwpck_require__) {
+
+"use strict";
+
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.dockerBuildpackCompile = void 0;
+// @todo: need translations for buildpack tags
+const core_1 = __nccwpck_require__(2186);
+const fs_1 = __nccwpck_require__(5747);
+const execa_1 = __importDefault(__nccwpck_require__(5447));
+function dockerBuildpackCompile(workingDir, sources, platform, target) {
+    return __awaiter(this, void 0, void 0, function* () {
+        // Note: the buildpack only detects *.c and *.cpp files
+        // https://github.com/particle-iot/device-os/blob/196d497dd4c16ab83db6ea610cf2433047226a6a/user/build.mk#L64-L65
+        (0, core_1.info)(`Fetching docker buildpack for platform '${platform}' and target '${target}'`);
+        (0, core_1.info)(`This can take a minute....`);
+        const dockerPull = yield (0, execa_1.default)('docker', [
+            'pull',
+            `particle/buildpack-particle-firmware:4.0.2-argon`
+        ]);
+        (0, core_1.info)(dockerPull.stdout);
+        const destDir = 'output';
+        const destName = 'firmware.bin';
+        const outputPath = `${destDir}/${destName}`;
+        if (!(0, fs_1.existsSync)(destDir)) {
+            (0, core_1.info)(`Creating output directory ${destDir}...`);
+            (0, fs_1.mkdirSync)(destDir);
+        }
+        else {
+            (0, core_1.warning)(`Output directory ${destDir} already exists. Compile will overwrite firmware.bin if it exists.`);
+        }
+        const args = [
+            'run',
+            '--rm',
+            '-v',
+            `${workingDir}/${sources}:/input`,
+            '-v',
+            `${workingDir}/${destDir}:/output`,
+            '-e',
+            `PLATFORM_ID=${platform}`,
+            `particle/buildpack-particle-firmware:4.0.2-argon`
+        ];
+        const dockerRun = yield (0, execa_1.default)('docker', args);
+        (0, core_1.info)(dockerRun.stdout);
+        return outputPath;
+    });
+}
+exports.dockerBuildpackCompile = dockerBuildpackCompile;
 
 
 /***/ }),
@@ -228,26 +290,70 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.getCode = void 0;
+const core_1 = __nccwpck_require__(2186);
+const particle_1 = __nccwpck_require__(7088);
+const docker_1 = __nccwpck_require__(3758);
+function run() {
+    return __awaiter(this, void 0, void 0, function* () {
+        try {
+            const accessToken = (0, core_1.getInput)('particle_access_token');
+            const platform = (0, core_1.getInput)('particle_platform_name');
+            const target = (0, core_1.getInput)('device_os_version');
+            const sources = (0, core_1.getInput)('sources_folder');
+            let outputPath;
+            if (!accessToken) {
+                (0, core_1.info)('No access token provided, running local compilation');
+                outputPath = yield (0, docker_1.dockerBuildpackCompile)(process.cwd(), sources, platform, target);
+            }
+            else {
+                (0, core_1.info)('Access token provided, running cloud compilation');
+                const binaryId = yield (0, particle_1.particleCloudCompile)(sources, platform, accessToken, target);
+                if (!binaryId) {
+                    throw new Error('Failed to compile code in cloud');
+                }
+                outputPath = yield (0, particle_1.particleDownloadBinary)(binaryId, accessToken);
+            }
+            if (outputPath) {
+                (0, core_1.setOutput)('artifact_path', outputPath);
+            }
+            else {
+                (0, core_1.setFailed)(`Failed to compile code in ${sources}`);
+            }
+        }
+        catch (error) {
+            if (error instanceof Error) {
+                (0, core_1.setFailed)(error.message);
+            }
+        }
+    });
+}
+run();
+
+
+/***/ }),
+
+/***/ 7088:
+/***/ (function(__unused_webpack_module, exports, __nccwpck_require__) {
+
+"use strict";
+
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.particleDownloadBinary = exports.particleCloudCompile = void 0;
+// eslint-disable-next-line max-len
 const core_1 = __nccwpck_require__(2186);
 const fs_1 = __nccwpck_require__(5747);
-// @ts-ignore
-const cli_1 = __nccwpck_require__(2504);
-const execa_1 = __nccwpck_require__(982);
+const util_1 = __nccwpck_require__(4024);
 const Particle = __nccwpck_require__(2918);
 const particle = new Particle();
-// us
-function getCode(path) {
-    const fileMapping = (0, cli_1._handleMultiFileArgs)([path]);
-    (0, cli_1.populateFileMapping)(fileMapping);
-    // @ts-ignore
-    if (Object.keys(fileMapping.map).length === 0) {
-        throw new Error('no files included');
-    }
-    // @ts-ignore
-    return fileMapping.map || fileMapping;
-}
-exports.getCode = getCode;
 // eslint-disable-next-line max-len
 function particleCloudCompile(path, platformId, auth, targetVersion) {
     return __awaiter(this, void 0, void 0, function* () {
@@ -258,7 +364,7 @@ function particleCloudCompile(path, platformId, auth, targetVersion) {
         if (path === './' || path === '.') {
             path = __dirname;
         }
-        const files = getCode(path);
+        const files = (0, util_1.getCode)(path);
         (0, core_1.info)(`Compiling code for platform ${platformId} with target version ${targetVersion}`);
         (0, core_1.info)(`Files: ${JSON.stringify(Object.keys(files))}`);
         // handle internal implementation detail of the particle-api-js compile command
@@ -280,6 +386,7 @@ function particleCloudCompile(path, platformId, auth, targetVersion) {
         (0, core_1.setFailed)(body.output);
     });
 }
+exports.particleCloudCompile = particleCloudCompile;
 function particleDownloadBinary(binaryId, auth) {
     return __awaiter(this, void 0, void 0, function* () {
         (0, core_1.info)(`Downloading binary ${binaryId}`);
@@ -302,79 +409,30 @@ function particleDownloadBinary(binaryId, auth) {
         }
     });
 }
-function dockerBuildpackCompile(workingDir, sources, platform, target) {
-    return __awaiter(this, void 0, void 0, function* () {
-        // Note: the buildpack only detects *.c and *.cpp files
-        // https://github.com/particle-iot/device-os/blob/196d497dd4c16ab83db6ea610cf2433047226a6a/user/build.mk#L64-L65
-        (0, core_1.info)(`Fetching docker buildpack for platform ${platform} and target ${target}`);
-        (0, core_1.info)(`This can take a minute....`);
-        const dockerPull = yield (0, execa_1.execa)('docker', [
-            'pull',
-            `particle/buildpack-particle-firmware:4.0.2-argon`
-        ]);
-        (0, core_1.info)(dockerPull.stdout);
-        const destDir = 'output';
-        const destName = 'firmware.bin';
-        const outputPath = `${destDir}/${destName}`;
-        if (!(0, fs_1.existsSync)(destDir)) {
-            (0, core_1.info)(`Creating output directory ${destDir}...`);
-            (0, fs_1.mkdirSync)(destDir);
-        }
-        else {
-            (0, core_1.warning)(`Output directory ${destDir} already exists. Contents will be overwritten.`);
-        }
-        // @todo: need translations for buildpack tags
-        const args = [
-            'run',
-            '--rm',
-            '-v',
-            `${workingDir}/${sources}:/input`,
-            '-v',
-            `${workingDir}/${destDir}:/output`,
-            '-e',
-            `PLATFORM_ID=${platform}`,
-            `particle/buildpack-particle-firmware:4.0.2-argon`
-        ];
-        const dockerRun = yield (0, execa_1.execa)('docker', args);
-        (0, core_1.info)(dockerRun.stdout);
-        return outputPath;
-    });
+exports.particleDownloadBinary = particleDownloadBinary;
+
+
+/***/ }),
+
+/***/ 4024:
+/***/ ((__unused_webpack_module, exports, __nccwpck_require__) => {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.getCode = void 0;
+const cli_1 = __nccwpck_require__(2504);
+function getCode(path) {
+    const fileMapping = (0, cli_1._handleMultiFileArgs)([path]);
+    (0, cli_1.populateFileMapping)(fileMapping);
+    // @ts-ignore
+    if (Object.keys(fileMapping.map).length === 0) {
+        throw new Error(`no files included in ${path}`);
+    }
+    // @ts-ignore
+    return fileMapping.map || fileMapping;
 }
-function run() {
-    return __awaiter(this, void 0, void 0, function* () {
-        try {
-            const accessToken = (0, core_1.getInput)('particle_access_token');
-            const platform = (0, core_1.getInput)('particle_platform_name');
-            const target = (0, core_1.getInput)('device_os_version');
-            const sources = (0, core_1.getInput)('sources_folder');
-            let outputPath;
-            if (!accessToken) {
-                (0, core_1.info)('No access token provided, running local compilation');
-                outputPath = yield dockerBuildpackCompile(process.cwd(), sources, platform, target);
-            }
-            else {
-                (0, core_1.info)('Access token provided, running cloud compilation');
-                const binaryId = yield particleCloudCompile(sources, platform, accessToken, target);
-                if (!binaryId) {
-                    throw new Error('Failed to compile code in cloud');
-                }
-                outputPath = yield particleDownloadBinary(binaryId, accessToken);
-            }
-            if (outputPath) {
-                (0, core_1.setOutput)('artifact_path', outputPath);
-            }
-            else {
-                (0, core_1.setFailed)(`Failed to compile code in ${sources}`);
-            }
-        }
-        catch (error) {
-            if (error instanceof Error) {
-                (0, core_1.setFailed)(error.message);
-            }
-        }
-    });
-}
-run();
+exports.getCode = getCode;
 
 
 /***/ }),
@@ -4105,7 +4163,7 @@ module.exports = function (it) {
 
 /***/ }),
 
-/***/ 8868:
+/***/ 1766:
 /***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
 
 var global = __nccwpck_require__(8874);
@@ -4397,7 +4455,7 @@ module.exports = function (Constructor, NAME, next) {
 "use strict";
 
 var LIBRARY = __nccwpck_require__(8882);
-var $export = __nccwpck_require__(8868);
+var $export = __nccwpck_require__(1766);
 var redefine = __nccwpck_require__(3839);
 var hide = __nccwpck_require__(5096);
 var Iterators = __nccwpck_require__(7195);
@@ -4963,7 +5021,7 @@ exports.f = {}.propertyIsEnumerable;
 /***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
 
 // most Object methods by ES6 should accept primitives
-var $export = __nccwpck_require__(8868);
+var $export = __nccwpck_require__(1766);
 var core = __nccwpck_require__(1796);
 var fails = __nccwpck_require__(1000);
 module.exports = function (KEY, exec) {
@@ -5545,7 +5603,7 @@ addToUnscopables('entries');
 /***/ ((__unused_webpack_module, __unused_webpack_exports, __nccwpck_require__) => {
 
 // 19.1.3.1 Object.assign(target, source)
-var $export = __nccwpck_require__(8868);
+var $export = __nccwpck_require__(1766);
 
 $export($export.S + $export.F, 'Object', { assign: __nccwpck_require__(9537) });
 
@@ -5555,7 +5613,7 @@ $export($export.S + $export.F, 'Object', { assign: __nccwpck_require__(9537) });
 /***/ 1154:
 /***/ ((__unused_webpack_module, __unused_webpack_exports, __nccwpck_require__) => {
 
-var $export = __nccwpck_require__(8868);
+var $export = __nccwpck_require__(1766);
 // 19.1.2.2 / 15.2.3.5 Object.create(O [, Properties])
 $export($export.S, 'Object', { create: __nccwpck_require__(36) });
 
@@ -5565,7 +5623,7 @@ $export($export.S, 'Object', { create: __nccwpck_require__(36) });
 /***/ 9334:
 /***/ ((__unused_webpack_module, __unused_webpack_exports, __nccwpck_require__) => {
 
-var $export = __nccwpck_require__(8868);
+var $export = __nccwpck_require__(1766);
 // 19.1.2.4 / 15.2.3.6 Object.defineProperty(O, P, Attributes)
 $export($export.S + $export.F * !__nccwpck_require__(7045), 'Object', { defineProperty: __nccwpck_require__(7757).f });
 
@@ -5608,7 +5666,7 @@ __nccwpck_require__(8826)('keys', function () {
 /***/ ((__unused_webpack_module, __unused_webpack_exports, __nccwpck_require__) => {
 
 // 19.1.3.19 Object.setPrototypeOf(O, proto)
-var $export = __nccwpck_require__(8868);
+var $export = __nccwpck_require__(1766);
 $export($export.S, 'Object', { setPrototypeOf: __nccwpck_require__(7061).set });
 
 
@@ -5630,7 +5688,7 @@ var LIBRARY = __nccwpck_require__(8882);
 var global = __nccwpck_require__(8874);
 var ctx = __nccwpck_require__(3693);
 var classof = __nccwpck_require__(2798);
-var $export = __nccwpck_require__(8868);
+var $export = __nccwpck_require__(1766);
 var isObject = __nccwpck_require__(2712);
 var aFunction = __nccwpck_require__(4136);
 var anInstance = __nccwpck_require__(4260);
@@ -5949,7 +6007,7 @@ __nccwpck_require__(2343)(String, 'String', function (iterated) {
 var global = __nccwpck_require__(8874);
 var has = __nccwpck_require__(1621);
 var DESCRIPTORS = __nccwpck_require__(7045);
-var $export = __nccwpck_require__(8868);
+var $export = __nccwpck_require__(1766);
 var redefine = __nccwpck_require__(3839);
 var META = __nccwpck_require__(8018).KEY;
 var $fails = __nccwpck_require__(1000);
@@ -6198,7 +6256,7 @@ setToStringTag(global.JSON, 'JSON', true);
 /***/ ((__unused_webpack_module, __unused_webpack_exports, __nccwpck_require__) => {
 
 // https://github.com/tc39/proposal-object-values-entries
-var $export = __nccwpck_require__(8868);
+var $export = __nccwpck_require__(1766);
 var $entries = __nccwpck_require__(2584)(true);
 
 $export($export.S, 'Object', {
@@ -6216,7 +6274,7 @@ $export($export.S, 'Object', {
 "use strict";
 // https://github.com/tc39/proposal-promise-finally
 
-var $export = __nccwpck_require__(8868);
+var $export = __nccwpck_require__(1766);
 var core = __nccwpck_require__(1796);
 var global = __nccwpck_require__(8874);
 var speciesConstructor = __nccwpck_require__(471);
@@ -6244,7 +6302,7 @@ $export($export.P + $export.R, 'Promise', { 'finally': function (onFinally) {
 "use strict";
 
 // https://github.com/tc39/proposal-promise-try
-var $export = __nccwpck_require__(8868);
+var $export = __nccwpck_require__(1766);
 var newPromiseCapability = __nccwpck_require__(2234);
 var perform = __nccwpck_require__(6464);
 
@@ -7615,632 +7673,348 @@ DelayedStream.prototype._checkIfMaxDataSizeExceeded = function() {
 
 /***/ }),
 
-/***/ 982:
-/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __nccwpck_require__) => {
+/***/ 5447:
+/***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
 
 "use strict";
-// ESM COMPAT FLAG
-__nccwpck_require__.r(__webpack_exports__);
 
-// EXPORTS
-__nccwpck_require__.d(__webpack_exports__, {
-  "$": () => (/* binding */ $),
-  "execa": () => (/* binding */ execa),
-  "execaCommand": () => (/* binding */ execaCommand),
-  "execaCommandSync": () => (/* binding */ execaCommandSync),
-  "execaNode": () => (/* binding */ execaNode),
-  "execaSync": () => (/* binding */ execaSync)
-});
+const path = __nccwpck_require__(5622);
+const childProcess = __nccwpck_require__(3129);
+const crossSpawn = __nccwpck_require__(7881);
+const stripFinalNewline = __nccwpck_require__(8174);
+const npmRunPath = __nccwpck_require__(502);
+const onetime = __nccwpck_require__(9082);
+const makeError = __nccwpck_require__(2187);
+const normalizeStdio = __nccwpck_require__(166);
+const {spawnedKill, spawnedCancel, setupTimeout, validateTimeout, setExitHandler} = __nccwpck_require__(9819);
+const {handleInput, getSpawnedResult, makeAllStream, validateInputSync} = __nccwpck_require__(2592);
+const {mergePromise, getSpawnedPromise} = __nccwpck_require__(7814);
+const {joinCommand, parseCommand, getEscapedCommand} = __nccwpck_require__(8286);
 
-;// CONCATENATED MODULE: external "node:buffer"
-const external_node_buffer_namespaceObject = require("node:buffer");
-;// CONCATENATED MODULE: external "node:path"
-const external_node_path_namespaceObject = require("node:path");
-;// CONCATENATED MODULE: external "node:child_process"
-const external_node_child_process_namespaceObject = require("node:child_process");
-;// CONCATENATED MODULE: external "node:process"
-const external_node_process_namespaceObject = require("node:process");
-// EXTERNAL MODULE: ./node_modules/cross-spawn/index.js
-var cross_spawn = __nccwpck_require__(7881);
-;// CONCATENATED MODULE: ./node_modules/strip-final-newline/index.js
-function stripFinalNewline(input) {
-	const LF = typeof input === 'string' ? '\n' : '\n'.charCodeAt();
-	const CR = typeof input === 'string' ? '\r' : '\r'.charCodeAt();
+const DEFAULT_MAX_BUFFER = 1000 * 1000 * 100;
 
-	if (input[input.length - 1] === LF) {
-		input = input.slice(0, -1);
+const getEnv = ({env: envOption, extendEnv, preferLocal, localDir, execPath}) => {
+	const env = extendEnv ? {...process.env, ...envOption} : envOption;
+
+	if (preferLocal) {
+		return npmRunPath.env({env, cwd: localDir, execPath});
 	}
-
-	if (input[input.length - 1] === CR) {
-		input = input.slice(0, -1);
-	}
-
-	return input;
-}
-
-;// CONCATENATED MODULE: external "node:url"
-const external_node_url_namespaceObject = require("node:url");
-;// CONCATENATED MODULE: ./node_modules/npm-run-path/node_modules/path-key/index.js
-function pathKey(options = {}) {
-	const {
-		env = process.env,
-		platform = process.platform
-	} = options;
-
-	if (platform !== 'win32') {
-		return 'PATH';
-	}
-
-	return Object.keys(env).reverse().find(key => key.toUpperCase() === 'PATH') || 'Path';
-}
-
-;// CONCATENATED MODULE: ./node_modules/npm-run-path/index.js
-
-
-
-
-
-function npmRunPath(options = {}) {
-	const {
-		cwd = external_node_process_namespaceObject.cwd(),
-		path: path_ = external_node_process_namespaceObject.env[pathKey()],
-		execPath = external_node_process_namespaceObject.execPath,
-	} = options;
-
-	let previous;
-	const cwdString = cwd instanceof URL ? external_node_url_namespaceObject.fileURLToPath(cwd) : cwd;
-	let cwdPath = external_node_path_namespaceObject.resolve(cwdString);
-	const result = [];
-
-	while (previous !== cwdPath) {
-		result.push(external_node_path_namespaceObject.join(cwdPath, 'node_modules/.bin'));
-		previous = cwdPath;
-		cwdPath = external_node_path_namespaceObject.resolve(cwdPath, '..');
-	}
-
-	// Ensure the running `node` binary is used.
-	result.push(external_node_path_namespaceObject.resolve(cwdString, execPath, '..'));
-
-	return [...result, path_].join(external_node_path_namespaceObject.delimiter);
-}
-
-function npmRunPathEnv({env = external_node_process_namespaceObject.env, ...options} = {}) {
-	env = {...env};
-
-	const path = pathKey({env});
-	options.path = env[path];
-	env[path] = npmRunPath(options);
 
 	return env;
-}
-
-;// CONCATENATED MODULE: ./node_modules/mimic-fn/index.js
-const copyProperty = (to, from, property, ignoreNonConfigurable) => {
-	// `Function#length` should reflect the parameters of `to` not `from` since we keep its body.
-	// `Function#prototype` is non-writable and non-configurable so can never be modified.
-	if (property === 'length' || property === 'prototype') {
-		return;
-	}
-
-	// `Function#arguments` and `Function#caller` should not be copied. They were reported to be present in `Reflect.ownKeys` for some devices in React Native (#41), so we explicitly ignore them here.
-	if (property === 'arguments' || property === 'caller') {
-		return;
-	}
-
-	const toDescriptor = Object.getOwnPropertyDescriptor(to, property);
-	const fromDescriptor = Object.getOwnPropertyDescriptor(from, property);
-
-	if (!canCopyProperty(toDescriptor, fromDescriptor) && ignoreNonConfigurable) {
-		return;
-	}
-
-	Object.defineProperty(to, property, fromDescriptor);
 };
 
-// `Object.defineProperty()` throws if the property exists, is not configurable and either:
-// - one its descriptors is changed
-// - it is non-writable and its value is changed
-const canCopyProperty = function (toDescriptor, fromDescriptor) {
-	return toDescriptor === undefined || toDescriptor.configurable || (
-		toDescriptor.writable === fromDescriptor.writable &&
-		toDescriptor.enumerable === fromDescriptor.enumerable &&
-		toDescriptor.configurable === fromDescriptor.configurable &&
-		(toDescriptor.writable || toDescriptor.value === fromDescriptor.value)
+const handleArguments = (file, args, options = {}) => {
+	const parsed = crossSpawn._parse(file, args, options);
+	file = parsed.command;
+	args = parsed.args;
+	options = parsed.options;
+
+	options = {
+		maxBuffer: DEFAULT_MAX_BUFFER,
+		buffer: true,
+		stripFinalNewline: true,
+		extendEnv: true,
+		preferLocal: false,
+		localDir: options.cwd || process.cwd(),
+		execPath: process.execPath,
+		encoding: 'utf8',
+		reject: true,
+		cleanup: true,
+		all: false,
+		windowsHide: true,
+		...options
+	};
+
+	options.env = getEnv(options);
+
+	options.stdio = normalizeStdio(options);
+
+	if (process.platform === 'win32' && path.basename(file, '.exe') === 'cmd') {
+		// #116
+		args.unshift('/q');
+	}
+
+	return {file, args, options, parsed};
+};
+
+const handleOutput = (options, value, error) => {
+	if (typeof value !== 'string' && !Buffer.isBuffer(value)) {
+		// When `execa.sync()` errors, we normalize it to '' to mimic `execa()`
+		return error === undefined ? undefined : '';
+	}
+
+	if (options.stripFinalNewline) {
+		return stripFinalNewline(value);
+	}
+
+	return value;
+};
+
+const execa = (file, args, options) => {
+	const parsed = handleArguments(file, args, options);
+	const command = joinCommand(file, args);
+	const escapedCommand = getEscapedCommand(file, args);
+
+	validateTimeout(parsed.options);
+
+	let spawned;
+	try {
+		spawned = childProcess.spawn(parsed.file, parsed.args, parsed.options);
+	} catch (error) {
+		// Ensure the returned error is always both a promise and a child process
+		const dummySpawned = new childProcess.ChildProcess();
+		const errorPromise = Promise.reject(makeError({
+			error,
+			stdout: '',
+			stderr: '',
+			all: '',
+			command,
+			escapedCommand,
+			parsed,
+			timedOut: false,
+			isCanceled: false,
+			killed: false
+		}));
+		return mergePromise(dummySpawned, errorPromise);
+	}
+
+	const spawnedPromise = getSpawnedPromise(spawned);
+	const timedPromise = setupTimeout(spawned, parsed.options, spawnedPromise);
+	const processDone = setExitHandler(spawned, parsed.options, timedPromise);
+
+	const context = {isCanceled: false};
+
+	spawned.kill = spawnedKill.bind(null, spawned.kill.bind(spawned));
+	spawned.cancel = spawnedCancel.bind(null, spawned, context);
+
+	const handlePromise = async () => {
+		const [{error, exitCode, signal, timedOut}, stdoutResult, stderrResult, allResult] = await getSpawnedResult(spawned, parsed.options, processDone);
+		const stdout = handleOutput(parsed.options, stdoutResult);
+		const stderr = handleOutput(parsed.options, stderrResult);
+		const all = handleOutput(parsed.options, allResult);
+
+		if (error || exitCode !== 0 || signal !== null) {
+			const returnedError = makeError({
+				error,
+				exitCode,
+				signal,
+				stdout,
+				stderr,
+				all,
+				command,
+				escapedCommand,
+				parsed,
+				timedOut,
+				isCanceled: context.isCanceled,
+				killed: spawned.killed
+			});
+
+			if (!parsed.options.reject) {
+				return returnedError;
+			}
+
+			throw returnedError;
+		}
+
+		return {
+			command,
+			escapedCommand,
+			exitCode: 0,
+			stdout,
+			stderr,
+			all,
+			failed: false,
+			timedOut: false,
+			isCanceled: false,
+			killed: false
+		};
+	};
+
+	const handlePromiseOnce = onetime(handlePromise);
+
+	handleInput(spawned, parsed.options.input);
+
+	spawned.all = makeAllStream(spawned, parsed.options);
+
+	return mergePromise(spawned, handlePromiseOnce);
+};
+
+module.exports = execa;
+
+module.exports.sync = (file, args, options) => {
+	const parsed = handleArguments(file, args, options);
+	const command = joinCommand(file, args);
+	const escapedCommand = getEscapedCommand(file, args);
+
+	validateInputSync(parsed.options);
+
+	let result;
+	try {
+		result = childProcess.spawnSync(parsed.file, parsed.args, parsed.options);
+	} catch (error) {
+		throw makeError({
+			error,
+			stdout: '',
+			stderr: '',
+			all: '',
+			command,
+			escapedCommand,
+			parsed,
+			timedOut: false,
+			isCanceled: false,
+			killed: false
+		});
+	}
+
+	const stdout = handleOutput(parsed.options, result.stdout, result.error);
+	const stderr = handleOutput(parsed.options, result.stderr, result.error);
+
+	if (result.error || result.status !== 0 || result.signal !== null) {
+		const error = makeError({
+			stdout,
+			stderr,
+			error: result.error,
+			signal: result.signal,
+			exitCode: result.status,
+			command,
+			escapedCommand,
+			parsed,
+			timedOut: result.error && result.error.code === 'ETIMEDOUT',
+			isCanceled: false,
+			killed: result.signal !== null
+		});
+
+		if (!parsed.options.reject) {
+			return error;
+		}
+
+		throw error;
+	}
+
+	return {
+		command,
+		escapedCommand,
+		exitCode: 0,
+		stdout,
+		stderr,
+		failed: false,
+		timedOut: false,
+		isCanceled: false,
+		killed: false
+	};
+};
+
+module.exports.command = (command, options) => {
+	const [file, ...args] = parseCommand(command);
+	return execa(file, args, options);
+};
+
+module.exports.commandSync = (command, options) => {
+	const [file, ...args] = parseCommand(command);
+	return execa.sync(file, args, options);
+};
+
+module.exports.node = (scriptPath, args, options = {}) => {
+	if (args && !Array.isArray(args) && typeof args === 'object') {
+		options = args;
+		args = [];
+	}
+
+	const stdio = normalizeStdio.node(options);
+	const defaultExecArgv = process.execArgv.filter(arg => !arg.startsWith('--inspect'));
+
+	const {
+		nodePath = process.execPath,
+		nodeOptions = defaultExecArgv
+	} = options;
+
+	return execa(
+		nodePath,
+		[
+			...nodeOptions,
+			scriptPath,
+			...(Array.isArray(args) ? args : [])
+		],
+		{
+			...options,
+			stdin: undefined,
+			stdout: undefined,
+			stderr: undefined,
+			stdio,
+			shell: false
+		}
 	);
 };
 
-const changePrototype = (to, from) => {
-	const fromPrototype = Object.getPrototypeOf(from);
-	if (fromPrototype === Object.getPrototypeOf(to)) {
-		return;
+
+/***/ }),
+
+/***/ 8286:
+/***/ ((module) => {
+
+"use strict";
+
+const normalizeArgs = (file, args = []) => {
+	if (!Array.isArray(args)) {
+		return [file];
 	}
 
-	Object.setPrototypeOf(to, fromPrototype);
+	return [file, ...args];
 };
 
-const wrappedToString = (withName, fromBody) => `/* Wrapped ${withName}*/\n${fromBody}`;
+const NO_ESCAPE_REGEXP = /^[\w.-]+$/;
+const DOUBLE_QUOTES_REGEXP = /"/g;
 
-const toStringDescriptor = Object.getOwnPropertyDescriptor(Function.prototype, 'toString');
-const toStringName = Object.getOwnPropertyDescriptor(Function.prototype.toString, 'name');
+const escapeArg = arg => {
+	if (typeof arg !== 'string' || NO_ESCAPE_REGEXP.test(arg)) {
+		return arg;
+	}
 
-// We call `from.toString()` early (not lazily) to ensure `from` can be garbage collected.
-// We use `bind()` instead of a closure for the same reason.
-// Calling `from.toString()` early also allows caching it in case `to.toString()` is called several times.
-const changeToString = (to, from, name) => {
-	const withName = name === '' ? '' : `with ${name.trim()}() `;
-	const newToString = wrappedToString.bind(null, withName, from.toString());
-	// Ensure `to.toString.toString` is non-enumerable and has the same `same`
-	Object.defineProperty(newToString, 'name', toStringName);
-	Object.defineProperty(to, 'toString', {...toStringDescriptor, value: newToString});
+	return `"${arg.replace(DOUBLE_QUOTES_REGEXP, '\\"')}"`;
 };
 
-function mimicFunction(to, from, {ignoreNonConfigurable = false} = {}) {
-	const {name} = to;
+const joinCommand = (file, args) => {
+	return normalizeArgs(file, args).join(' ');
+};
 
-	for (const property of Reflect.ownKeys(from)) {
-		copyProperty(to, from, property, ignoreNonConfigurable);
-	}
+const getEscapedCommand = (file, args) => {
+	return normalizeArgs(file, args).map(arg => escapeArg(arg)).join(' ');
+};
 
-	changePrototype(to, from);
-	changeToString(to, from, name);
+const SPACES_REGEXP = / +/g;
 
-	return to;
-}
-
-;// CONCATENATED MODULE: ./node_modules/onetime/index.js
-
-
-const calledFunctions = new WeakMap();
-
-const onetime = (function_, options = {}) => {
-	if (typeof function_ !== 'function') {
-		throw new TypeError('Expected a function');
-	}
-
-	let returnValue;
-	let callCount = 0;
-	const functionName = function_.displayName || function_.name || '<anonymous>';
-
-	const onetime = function (...arguments_) {
-		calledFunctions.set(onetime, ++callCount);
-
-		if (callCount === 1) {
-			returnValue = function_.apply(this, arguments_);
-			function_ = null;
-		} else if (options.throw === true) {
-			throw new Error(`Function \`${functionName}\` can only be called once`);
+// Handle `execa.command()`
+const parseCommand = command => {
+	const tokens = [];
+	for (const token of command.trim().split(SPACES_REGEXP)) {
+		// Allow spaces to be escaped by a backslash if not meant as a delimiter
+		const previousToken = tokens[tokens.length - 1];
+		if (previousToken && previousToken.endsWith('\\')) {
+			// Merge previous token with current one
+			tokens[tokens.length - 1] = `${previousToken.slice(0, -1)} ${token}`;
+		} else {
+			tokens.push(token);
 		}
-
-		return returnValue;
-	};
-
-	mimicFunction(onetime, function_);
-	calledFunctions.set(onetime, callCount);
-
-	return onetime;
-};
-
-onetime.callCount = function_ => {
-	if (!calledFunctions.has(function_)) {
-		throw new Error(`The given function \`${function_.name}\` is not wrapped by the \`onetime\` package`);
 	}
 
-	return calledFunctions.get(function_);
+	return tokens;
 };
 
-/* harmony default export */ const node_modules_onetime = (onetime);
-
-;// CONCATENATED MODULE: external "node:os"
-const external_node_os_namespaceObject = require("node:os");
-;// CONCATENATED MODULE: ./node_modules/human-signals/build/src/realtime.js
-
-const getRealtimeSignals=function(){
-const length=SIGRTMAX-SIGRTMIN+1;
-return Array.from({length},getRealtimeSignal);
-};
-
-const getRealtimeSignal=function(value,index){
-return{
-name:`SIGRT${index+1}`,
-number:SIGRTMIN+index,
-action:"terminate",
-description:"Application-specific signal (realtime)",
-standard:"posix"};
-
-};
-
-const SIGRTMIN=34;
-const SIGRTMAX=64;
-//# sourceMappingURL=realtime.js.map
-;// CONCATENATED MODULE: ./node_modules/human-signals/build/src/core.js
-
-
-const SIGNALS=[
-{
-name:"SIGHUP",
-number:1,
-action:"terminate",
-description:"Terminal closed",
-standard:"posix"},
-
-{
-name:"SIGINT",
-number:2,
-action:"terminate",
-description:"User interruption with CTRL-C",
-standard:"ansi"},
-
-{
-name:"SIGQUIT",
-number:3,
-action:"core",
-description:"User interruption with CTRL-\\",
-standard:"posix"},
-
-{
-name:"SIGILL",
-number:4,
-action:"core",
-description:"Invalid machine instruction",
-standard:"ansi"},
-
-{
-name:"SIGTRAP",
-number:5,
-action:"core",
-description:"Debugger breakpoint",
-standard:"posix"},
-
-{
-name:"SIGABRT",
-number:6,
-action:"core",
-description:"Aborted",
-standard:"ansi"},
-
-{
-name:"SIGIOT",
-number:6,
-action:"core",
-description:"Aborted",
-standard:"bsd"},
-
-{
-name:"SIGBUS",
-number:7,
-action:"core",
-description:
-"Bus error due to misaligned, non-existing address or paging error",
-standard:"bsd"},
-
-{
-name:"SIGEMT",
-number:7,
-action:"terminate",
-description:"Command should be emulated but is not implemented",
-standard:"other"},
-
-{
-name:"SIGFPE",
-number:8,
-action:"core",
-description:"Floating point arithmetic error",
-standard:"ansi"},
-
-{
-name:"SIGKILL",
-number:9,
-action:"terminate",
-description:"Forced termination",
-standard:"posix",
-forced:true},
-
-{
-name:"SIGUSR1",
-number:10,
-action:"terminate",
-description:"Application-specific signal",
-standard:"posix"},
-
-{
-name:"SIGSEGV",
-number:11,
-action:"core",
-description:"Segmentation fault",
-standard:"ansi"},
-
-{
-name:"SIGUSR2",
-number:12,
-action:"terminate",
-description:"Application-specific signal",
-standard:"posix"},
-
-{
-name:"SIGPIPE",
-number:13,
-action:"terminate",
-description:"Broken pipe or socket",
-standard:"posix"},
-
-{
-name:"SIGALRM",
-number:14,
-action:"terminate",
-description:"Timeout or timer",
-standard:"posix"},
-
-{
-name:"SIGTERM",
-number:15,
-action:"terminate",
-description:"Termination",
-standard:"ansi"},
-
-{
-name:"SIGSTKFLT",
-number:16,
-action:"terminate",
-description:"Stack is empty or overflowed",
-standard:"other"},
-
-{
-name:"SIGCHLD",
-number:17,
-action:"ignore",
-description:"Child process terminated, paused or unpaused",
-standard:"posix"},
-
-{
-name:"SIGCLD",
-number:17,
-action:"ignore",
-description:"Child process terminated, paused or unpaused",
-standard:"other"},
-
-{
-name:"SIGCONT",
-number:18,
-action:"unpause",
-description:"Unpaused",
-standard:"posix",
-forced:true},
-
-{
-name:"SIGSTOP",
-number:19,
-action:"pause",
-description:"Paused",
-standard:"posix",
-forced:true},
-
-{
-name:"SIGTSTP",
-number:20,
-action:"pause",
-description:"Paused using CTRL-Z or \"suspend\"",
-standard:"posix"},
-
-{
-name:"SIGTTIN",
-number:21,
-action:"pause",
-description:"Background process cannot read terminal input",
-standard:"posix"},
-
-{
-name:"SIGBREAK",
-number:21,
-action:"terminate",
-description:"User interruption with CTRL-BREAK",
-standard:"other"},
-
-{
-name:"SIGTTOU",
-number:22,
-action:"pause",
-description:"Background process cannot write to terminal output",
-standard:"posix"},
-
-{
-name:"SIGURG",
-number:23,
-action:"ignore",
-description:"Socket received out-of-band data",
-standard:"bsd"},
-
-{
-name:"SIGXCPU",
-number:24,
-action:"core",
-description:"Process timed out",
-standard:"bsd"},
-
-{
-name:"SIGXFSZ",
-number:25,
-action:"core",
-description:"File too big",
-standard:"bsd"},
-
-{
-name:"SIGVTALRM",
-number:26,
-action:"terminate",
-description:"Timeout or timer",
-standard:"bsd"},
-
-{
-name:"SIGPROF",
-number:27,
-action:"terminate",
-description:"Timeout or timer",
-standard:"bsd"},
-
-{
-name:"SIGWINCH",
-number:28,
-action:"ignore",
-description:"Terminal window size changed",
-standard:"bsd"},
-
-{
-name:"SIGIO",
-number:29,
-action:"terminate",
-description:"I/O is available",
-standard:"other"},
-
-{
-name:"SIGPOLL",
-number:29,
-action:"terminate",
-description:"Watched event",
-standard:"other"},
-
-{
-name:"SIGINFO",
-number:29,
-action:"ignore",
-description:"Request for process information",
-standard:"other"},
-
-{
-name:"SIGPWR",
-number:30,
-action:"terminate",
-description:"Device running out of power",
-standard:"systemv"},
-
-{
-name:"SIGSYS",
-number:31,
-action:"core",
-description:"Invalid system call",
-standard:"other"},
-
-{
-name:"SIGUNUSED",
-number:31,
-action:"terminate",
-description:"Invalid system call",
-standard:"other"}];
-//# sourceMappingURL=core.js.map
-;// CONCATENATED MODULE: ./node_modules/human-signals/build/src/signals.js
-
-
-
-
-
-
-
-const getSignals=function(){
-const realtimeSignals=getRealtimeSignals();
-const signals=[...SIGNALS,...realtimeSignals].map(normalizeSignal);
-return signals;
+module.exports = {
+	joinCommand,
+	getEscapedCommand,
+	parseCommand
 };
 
 
+/***/ }),
 
+/***/ 2187:
+/***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
 
+"use strict";
 
-
-
-const normalizeSignal=function({
-name,
-number:defaultNumber,
-description,
-action,
-forced=false,
-standard})
-{
-const{
-signals:{[name]:constantSignal}}=
-external_node_os_namespaceObject.constants;
-const supported=constantSignal!==undefined;
-const number=supported?constantSignal:defaultNumber;
-return{name,number,description,supported,action,forced,standard};
-};
-//# sourceMappingURL=signals.js.map
-;// CONCATENATED MODULE: ./node_modules/human-signals/build/src/main.js
-
-
-
-
-
-
-
-const getSignalsByName=function(){
-const signals=getSignals();
-return Object.fromEntries(signals.map(getSignalByName));
-};
-
-const getSignalByName=function({
-name,
-number,
-description,
-supported,
-action,
-forced,
-standard})
-{
-return[
-name,
-{name,number,description,supported,action,forced,standard}];
-
-};
-
-const signalsByName=getSignalsByName();
-
-
-
-
-const getSignalsByNumber=function(){
-const signals=getSignals();
-const length=SIGRTMAX+1;
-const signalsA=Array.from({length},(value,number)=>
-getSignalByNumber(number,signals));
-
-return Object.assign({},...signalsA);
-};
-
-const getSignalByNumber=function(number,signals){
-const signal=findSignalByNumber(number,signals);
-
-if(signal===undefined){
-return{};
-}
-
-const{name,description,supported,action,forced,standard}=signal;
-return{
-[number]:{
-name,
-number,
-description,
-supported,
-action,
-forced,
-standard}};
-
-
-};
-
-
-
-const findSignalByNumber=function(number,signals){
-const signal=signals.find(({name})=>external_node_os_namespaceObject.constants.signals[name]===number);
-
-if(signal!==undefined){
-return signal;
-}
-
-return signals.find((signalA)=>signalA.number===number);
-};
-
-const signalsByNumber=getSignalsByNumber();
-//# sourceMappingURL=main.js.map
-;// CONCATENATED MODULE: ./node_modules/execa/lib/error.js
-
+const {signalsByName} = __nccwpck_require__(2779);
 
 const getErrorPrefix = ({timedOut, timeout, errorCode, signal, signalDescription, exitCode, isCanceled}) => {
 	if (timedOut) {
@@ -8278,7 +8052,7 @@ const makeError = ({
 	timedOut,
 	isCanceled,
 	killed,
-	parsed: {options: {timeout}},
+	parsed: {options: {timeout}}
 }) => {
 	// `signal` and `exitCode` emitted on `spawned.on('exit')` event can be `null`.
 	// We normalize them to `undefined`
@@ -8326,62 +8100,18 @@ const makeError = ({
 	return error;
 };
 
-;// CONCATENATED MODULE: ./node_modules/execa/lib/stdio.js
-const aliases = ['stdin', 'stdout', 'stderr'];
-
-const hasAlias = options => aliases.some(alias => options[alias] !== undefined);
-
-const normalizeStdio = options => {
-	if (!options) {
-		return;
-	}
-
-	const {stdio} = options;
-
-	if (stdio === undefined) {
-		return aliases.map(alias => options[alias]);
-	}
-
-	if (hasAlias(options)) {
-		throw new Error(`It's not possible to provide \`stdio\` in combination with one of ${aliases.map(alias => `\`${alias}\``).join(', ')}`);
-	}
-
-	if (typeof stdio === 'string') {
-		return stdio;
-	}
-
-	if (!Array.isArray(stdio)) {
-		throw new TypeError(`Expected \`stdio\` to be of type \`string\` or \`Array\`, got \`${typeof stdio}\``);
-	}
-
-	const length = Math.max(stdio.length, aliases.length);
-	return Array.from({length}, (value, index) => stdio[index]);
-};
-
-// `ipc` is pushed unless it is already present
-const normalizeStdioNode = options => {
-	const stdio = normalizeStdio(options);
-
-	if (stdio === 'ipc') {
-		return 'ipc';
-	}
-
-	if (stdio === undefined || typeof stdio === 'string') {
-		return [stdio, stdio, stdio, 'ipc'];
-	}
-
-	if (stdio.includes('ipc')) {
-		return stdio;
-	}
-
-	return [...stdio, 'ipc'];
-};
-
-// EXTERNAL MODULE: ./node_modules/signal-exit/index.js
-var signal_exit = __nccwpck_require__(4931);
-;// CONCATENATED MODULE: ./node_modules/execa/lib/kill.js
+module.exports = makeError;
 
 
+/***/ }),
+
+/***/ 9819:
+/***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
+
+"use strict";
+
+const os = __nccwpck_require__(2087);
+const onExit = __nccwpck_require__(4931);
 
 const DEFAULT_FORCE_KILL_TIMEOUT = 1000 * 5;
 
@@ -8411,10 +8141,14 @@ const setKillTimeout = (kill, signal, options, killResult) => {
 	}
 };
 
-const shouldForceKill = (signal, {forceKillAfterTimeout}, killResult) => isSigterm(signal) && forceKillAfterTimeout !== false && killResult;
+const shouldForceKill = (signal, {forceKillAfterTimeout}, killResult) => {
+	return isSigterm(signal) && forceKillAfterTimeout !== false && killResult;
+};
 
-const isSigterm = signal => signal === external_node_os_namespaceObject.constants.signals.SIGTERM
-		|| (typeof signal === 'string' && signal.toUpperCase() === 'SIGTERM');
+const isSigterm = signal => {
+	return signal === os.constants.signals.SIGTERM ||
+		(typeof signal === 'string' && signal.toUpperCase() === 'SIGTERM');
+};
 
 const getForceKillAfterTimeout = ({forceKillAfterTimeout = true}) => {
 	if (forceKillAfterTimeout === true) {
@@ -8474,7 +8208,7 @@ const setExitHandler = async (spawned, {cleanup, detached}, timedPromise) => {
 		return timedPromise;
 	}
 
-	const removeExitHandler = signal_exit(() => {
+	const removeExitHandler = onExit(() => {
 		spawned.kill();
 	});
 
@@ -8483,133 +8217,145 @@ const setExitHandler = async (spawned, {cleanup, detached}, timedPromise) => {
 	});
 };
 
-;// CONCATENATED MODULE: external "node:fs"
-const external_node_fs_namespaceObject = require("node:fs");
-;// CONCATENATED MODULE: ./node_modules/is-stream/index.js
-function isStream(stream) {
-	return stream !== null
-		&& typeof stream === 'object'
-		&& typeof stream.pipe === 'function';
-}
-
-function isWritableStream(stream) {
-	return isStream(stream)
-		&& stream.writable !== false
-		&& typeof stream._write === 'function'
-		&& typeof stream._writableState === 'object';
-}
-
-function isReadableStream(stream) {
-	return isStream(stream)
-		&& stream.readable !== false
-		&& typeof stream._read === 'function'
-		&& typeof stream._readableState === 'object';
-}
-
-function isDuplexStream(stream) {
-	return isWritableStream(stream)
-		&& isReadableStream(stream);
-}
-
-function isTransformStream(stream) {
-	return isDuplexStream(stream)
-		&& typeof stream._transform === 'function';
-}
-
-;// CONCATENATED MODULE: ./node_modules/execa/lib/pipe.js
-
-
-
-
-const isExecaChildProcess = target => target instanceof external_node_child_process_namespaceObject.ChildProcess && typeof target.then === 'function';
-
-const pipeToTarget = (spawned, streamName, target) => {
-	if (typeof target === 'string') {
-		spawned[streamName].pipe((0,external_node_fs_namespaceObject.createWriteStream)(target));
-		return spawned;
-	}
-
-	if (isWritableStream(target)) {
-		spawned[streamName].pipe(target);
-		return spawned;
-	}
-
-	if (!isExecaChildProcess(target)) {
-		throw new TypeError('The second argument must be a string, a stream or an Execa child process.');
-	}
-
-	if (!isWritableStream(target.stdin)) {
-		throw new TypeError('The target child process\'s stdin must be available.');
-	}
-
-	spawned[streamName].pipe(target.stdin);
-	return target;
+module.exports = {
+	spawnedKill,
+	spawnedCancel,
+	setupTimeout,
+	validateTimeout,
+	setExitHandler
 };
 
-const addPipeMethods = spawned => {
-	if (spawned.stdout !== null) {
-		spawned.pipeStdout = pipeToTarget.bind(undefined, spawned, 'stdout');
+
+/***/ }),
+
+/***/ 7814:
+/***/ ((module) => {
+
+"use strict";
+
+
+const nativePromisePrototype = (async () => {})().constructor.prototype;
+const descriptors = ['then', 'catch', 'finally'].map(property => [
+	property,
+	Reflect.getOwnPropertyDescriptor(nativePromisePrototype, property)
+]);
+
+// The return value is a mixin of `childProcess` and `Promise`
+const mergePromise = (spawned, promise) => {
+	for (const [property, descriptor] of descriptors) {
+		// Starting the main `promise` is deferred to avoid consuming streams
+		const value = typeof promise === 'function' ?
+			(...args) => Reflect.apply(descriptor.value, promise(), args) :
+			descriptor.value.bind(promise);
+
+		Reflect.defineProperty(spawned, property, {...descriptor, value});
 	}
 
-	if (spawned.stderr !== null) {
-		spawned.pipeStderr = pipeToTarget.bind(undefined, spawned, 'stderr');
-	}
-
-	if (spawned.all !== undefined) {
-		spawned.pipeAll = pipeToTarget.bind(undefined, spawned, 'all');
-	}
+	return spawned;
 };
 
-// EXTERNAL MODULE: ./node_modules/get-stream/index.js
-var get_stream = __nccwpck_require__(1766);
-// EXTERNAL MODULE: ./node_modules/merge-stream/index.js
-var merge_stream = __nccwpck_require__(2621);
-;// CONCATENATED MODULE: ./node_modules/execa/lib/stream.js
+// Use promises instead of `child_process` events
+const getSpawnedPromise = spawned => {
+	return new Promise((resolve, reject) => {
+		spawned.on('exit', (exitCode, signal) => {
+			resolve({exitCode, signal});
+		});
 
+		spawned.on('error', error => {
+			reject(error);
+		});
 
-
-
-
-const validateInputOptions = input => {
-	if (input !== undefined) {
-		throw new TypeError('The `input` and `inputFile` options cannot be both set.');
-	}
+		if (spawned.stdin) {
+			spawned.stdin.on('error', error => {
+				reject(error);
+			});
+		}
+	});
 };
 
-const getInputSync = ({input, inputFile}) => {
-	if (typeof inputFile !== 'string') {
-		return input;
-	}
-
-	validateInputOptions(input);
-	return (0,external_node_fs_namespaceObject.readFileSync)(inputFile);
+module.exports = {
+	mergePromise,
+	getSpawnedPromise
 };
 
-// `input` and `inputFile` option in sync mode
-const handleInputSync = options => {
-	const input = getInputSync(options);
 
-	if (isStream(input)) {
-		throw new TypeError('The `input` option cannot be a stream in sync mode');
+
+/***/ }),
+
+/***/ 166:
+/***/ ((module) => {
+
+"use strict";
+
+const aliases = ['stdin', 'stdout', 'stderr'];
+
+const hasAlias = options => aliases.some(alias => options[alias] !== undefined);
+
+const normalizeStdio = options => {
+	if (!options) {
+		return;
 	}
 
-	return input;
-};
+	const {stdio} = options;
 
-const getInput = ({input, inputFile}) => {
-	if (typeof inputFile !== 'string') {
-		return input;
+	if (stdio === undefined) {
+		return aliases.map(alias => options[alias]);
 	}
 
-	validateInputOptions(input);
-	return (0,external_node_fs_namespaceObject.createReadStream)(inputFile);
+	if (hasAlias(options)) {
+		throw new Error(`It's not possible to provide \`stdio\` in combination with one of ${aliases.map(alias => `\`${alias}\``).join(', ')}`);
+	}
+
+	if (typeof stdio === 'string') {
+		return stdio;
+	}
+
+	if (!Array.isArray(stdio)) {
+		throw new TypeError(`Expected \`stdio\` to be of type \`string\` or \`Array\`, got \`${typeof stdio}\``);
+	}
+
+	const length = Math.max(stdio.length, aliases.length);
+	return Array.from({length}, (value, index) => stdio[index]);
 };
 
-// `input` and `inputFile` option in async mode
-const handleInput = (spawned, options) => {
-	const input = getInput(options);
+module.exports = normalizeStdio;
 
-	if (input === undefined) {
+// `ipc` is pushed unless it is already present
+module.exports.node = options => {
+	const stdio = normalizeStdio(options);
+
+	if (stdio === 'ipc') {
+		return 'ipc';
+	}
+
+	if (stdio === undefined || typeof stdio === 'string') {
+		return [stdio, stdio, stdio, 'ipc'];
+	}
+
+	if (stdio.includes('ipc')) {
+		return stdio;
+	}
+
+	return [...stdio, 'ipc'];
+};
+
+
+/***/ }),
+
+/***/ 2592:
+/***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
+
+"use strict";
+
+const isStream = __nccwpck_require__(1554);
+const getStream = __nccwpck_require__(1996);
+const mergeStream = __nccwpck_require__(2621);
+
+// `input` option
+const handleInput = (spawned, input) => {
+	// Checking for stdin is workaround for https://github.com/nodejs/node/issues/26852
+	// @todo remove `|| spawned.stdin === undefined` once we drop support for Node.js <=12.2.0
+	if (input === undefined || spawned.stdin === undefined) {
 		return;
 	}
 
@@ -8626,7 +8372,7 @@ const makeAllStream = (spawned, {all}) => {
 		return;
 	}
 
-	const mixed = merge_stream();
+	const mixed = mergeStream();
 
 	if (spawned.stdout) {
 		mixed.add(spawned.stdout);
@@ -8641,8 +8387,7 @@ const makeAllStream = (spawned, {all}) => {
 
 // On failure, `result.stdout|stderr|all` should contain the currently buffered stream
 const getBufferedData = async (stream, streamPromise) => {
-	// When `buffer` is `false`, `streamPromise` is `undefined` and there is no buffered data to retrieve
-	if (!stream || streamPromise === undefined) {
+	if (!stream) {
 		return;
 	}
 
@@ -8661,10 +8406,10 @@ const getStreamPromise = (stream, {encoding, buffer, maxBuffer}) => {
 	}
 
 	if (encoding) {
-		return get_stream(stream, {encoding, maxBuffer});
+		return getStream(stream, {encoding, maxBuffer});
 	}
 
-	return get_stream.buffer(stream, {maxBuffer});
+	return getStream.buffer(stream, {maxBuffer});
 };
 
 // Retrieve result of child process: exit code, signal, error, streams (stdout/stderr/all)
@@ -8680,504 +8425,24 @@ const getSpawnedResult = async ({stdout, stderr, all}, {encoding, buffer, maxBuf
 			{error, signal: error.signal, timedOut: error.timedOut},
 			getBufferedData(stdout, stdoutPromise),
 			getBufferedData(stderr, stderrPromise),
-			getBufferedData(all, allPromise),
+			getBufferedData(all, allPromise)
 		]);
 	}
 };
 
-;// CONCATENATED MODULE: ./node_modules/execa/lib/promise.js
-// eslint-disable-next-line unicorn/prefer-top-level-await
-const nativePromisePrototype = (async () => {})().constructor.prototype;
-
-const descriptors = ['then', 'catch', 'finally'].map(property => [
-	property,
-	Reflect.getOwnPropertyDescriptor(nativePromisePrototype, property),
-]);
-
-// The return value is a mixin of `childProcess` and `Promise`
-const mergePromise = (spawned, promise) => {
-	for (const [property, descriptor] of descriptors) {
-		// Starting the main `promise` is deferred to avoid consuming streams
-		const value = typeof promise === 'function'
-			? (...args) => Reflect.apply(descriptor.value, promise(), args)
-			: descriptor.value.bind(promise);
-
-		Reflect.defineProperty(spawned, property, {...descriptor, value});
+const validateInputSync = ({input}) => {
+	if (isStream(input)) {
+		throw new TypeError('The `input` option cannot be a stream in sync mode');
 	}
 };
 
-// Use promises instead of `child_process` events
-const getSpawnedPromise = spawned => new Promise((resolve, reject) => {
-	spawned.on('exit', (exitCode, signal) => {
-		resolve({exitCode, signal});
-	});
-
-	spawned.on('error', error => {
-		reject(error);
-	});
-
-	if (spawned.stdin) {
-		spawned.stdin.on('error', error => {
-			reject(error);
-		});
-	}
-});
-
-;// CONCATENATED MODULE: ./node_modules/execa/lib/command.js
-
-
-
-const normalizeArgs = (file, args = []) => {
-	if (!Array.isArray(args)) {
-		return [file];
-	}
-
-	return [file, ...args];
+module.exports = {
+	handleInput,
+	makeAllStream,
+	getSpawnedResult,
+	validateInputSync
 };
 
-const NO_ESCAPE_REGEXP = /^[\w.-]+$/;
-const DOUBLE_QUOTES_REGEXP = /"/g;
-
-const escapeArg = arg => {
-	if (typeof arg !== 'string' || NO_ESCAPE_REGEXP.test(arg)) {
-		return arg;
-	}
-
-	return `"${arg.replace(DOUBLE_QUOTES_REGEXP, '\\"')}"`;
-};
-
-const joinCommand = (file, args) => normalizeArgs(file, args).join(' ');
-
-const getEscapedCommand = (file, args) => normalizeArgs(file, args).map(arg => escapeArg(arg)).join(' ');
-
-const SPACES_REGEXP = / +/g;
-
-// Handle `execaCommand()`
-const parseCommand = command => {
-	const tokens = [];
-	for (const token of command.trim().split(SPACES_REGEXP)) {
-		// Allow spaces to be escaped by a backslash if not meant as a delimiter
-		const previousToken = tokens[tokens.length - 1];
-		if (previousToken && previousToken.endsWith('\\')) {
-			// Merge previous token with current one
-			tokens[tokens.length - 1] = `${previousToken.slice(0, -1)} ${token}`;
-		} else {
-			tokens.push(token);
-		}
-	}
-
-	return tokens;
-};
-
-const parseExpression = expression => {
-	const typeOfExpression = typeof expression;
-
-	if (typeOfExpression === 'string') {
-		return expression;
-	}
-
-	if (typeOfExpression === 'number') {
-		return String(expression);
-	}
-
-	if (
-		typeOfExpression === 'object'
-		&& expression !== null
-		&& !(expression instanceof external_node_child_process_namespaceObject.ChildProcess)
-		&& 'stdout' in expression
-	) {
-		const typeOfStdout = typeof expression.stdout;
-
-		if (typeOfStdout === 'string') {
-			return expression.stdout;
-		}
-
-		if (external_node_buffer_namespaceObject.Buffer.isBuffer(expression.stdout)) {
-			return expression.stdout.toString();
-		}
-
-		throw new TypeError(`Unexpected "${typeOfStdout}" stdout in template expression`);
-	}
-
-	throw new TypeError(`Unexpected "${typeOfExpression}" in template expression`);
-};
-
-const concatTokens = (tokens, nextTokens, isNew) => isNew || tokens.length === 0 || nextTokens.length === 0
-	? [...tokens, ...nextTokens]
-	: [
-		...tokens.slice(0, -1),
-		`${tokens[tokens.length - 1]}${nextTokens[0]}`,
-		...nextTokens.slice(1),
-	];
-
-const parseTemplate = ({templates, expressions, tokens, index, template}) => {
-	const templateString = template ?? templates.raw[index];
-	const templateTokens = templateString.split(SPACES_REGEXP).filter(Boolean);
-	const newTokens = concatTokens(
-		tokens,
-		templateTokens,
-		templateString.startsWith(' '),
-	);
-
-	if (index === expressions.length) {
-		return newTokens;
-	}
-
-	const expression = expressions[index];
-	const expressionTokens = Array.isArray(expression)
-		? expression.map(expression => parseExpression(expression))
-		: [parseExpression(expression)];
-	return concatTokens(
-		newTokens,
-		expressionTokens,
-		templateString.endsWith(' '),
-	);
-};
-
-const parseTemplates = (templates, expressions) => {
-	let tokens = [];
-
-	for (const [index, template] of templates.entries()) {
-		tokens = parseTemplate({templates, expressions, tokens, index, template});
-	}
-
-	return tokens;
-};
-
-
-;// CONCATENATED MODULE: external "node:util"
-const external_node_util_namespaceObject = require("node:util");
-;// CONCATENATED MODULE: ./node_modules/execa/lib/verbose.js
-
-
-
-const verboseDefault = (0,external_node_util_namespaceObject.debuglog)('execa').enabled;
-
-const padField = (field, padding) => String(field).padStart(padding, '0');
-
-const getTimestamp = () => {
-	const date = new Date();
-	return `${padField(date.getHours(), 2)}:${padField(date.getMinutes(), 2)}:${padField(date.getSeconds(), 2)}.${padField(date.getMilliseconds(), 3)}`;
-};
-
-const logCommand = (escapedCommand, {verbose}) => {
-	if (!verbose) {
-		return;
-	}
-
-	external_node_process_namespaceObject.stderr.write(`[${getTimestamp()}] ${escapedCommand}\n`);
-};
-
-;// CONCATENATED MODULE: ./node_modules/execa/index.js
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-const DEFAULT_MAX_BUFFER = 1000 * 1000 * 100;
-
-const getEnv = ({env: envOption, extendEnv, preferLocal, localDir, execPath}) => {
-	const env = extendEnv ? {...external_node_process_namespaceObject.env, ...envOption} : envOption;
-
-	if (preferLocal) {
-		return npmRunPathEnv({env, cwd: localDir, execPath});
-	}
-
-	return env;
-};
-
-const handleArguments = (file, args, options = {}) => {
-	const parsed = cross_spawn._parse(file, args, options);
-	file = parsed.command;
-	args = parsed.args;
-	options = parsed.options;
-
-	options = {
-		maxBuffer: DEFAULT_MAX_BUFFER,
-		buffer: true,
-		stripFinalNewline: true,
-		extendEnv: true,
-		preferLocal: false,
-		localDir: options.cwd || external_node_process_namespaceObject.cwd(),
-		execPath: external_node_process_namespaceObject.execPath,
-		encoding: 'utf8',
-		reject: true,
-		cleanup: true,
-		all: false,
-		windowsHide: true,
-		verbose: verboseDefault,
-		...options,
-	};
-
-	options.env = getEnv(options);
-
-	options.stdio = normalizeStdio(options);
-
-	if (external_node_process_namespaceObject.platform === 'win32' && external_node_path_namespaceObject.basename(file, '.exe') === 'cmd') {
-		// #116
-		args.unshift('/q');
-	}
-
-	return {file, args, options, parsed};
-};
-
-const handleOutput = (options, value, error) => {
-	if (typeof value !== 'string' && !external_node_buffer_namespaceObject.Buffer.isBuffer(value)) {
-		// When `execaSync()` errors, we normalize it to '' to mimic `execa()`
-		return error === undefined ? undefined : '';
-	}
-
-	if (options.stripFinalNewline) {
-		return stripFinalNewline(value);
-	}
-
-	return value;
-};
-
-function execa(file, args, options) {
-	const parsed = handleArguments(file, args, options);
-	const command = joinCommand(file, args);
-	const escapedCommand = getEscapedCommand(file, args);
-	logCommand(escapedCommand, parsed.options);
-
-	validateTimeout(parsed.options);
-
-	let spawned;
-	try {
-		spawned = external_node_child_process_namespaceObject.spawn(parsed.file, parsed.args, parsed.options);
-	} catch (error) {
-		// Ensure the returned error is always both a promise and a child process
-		const dummySpawned = new external_node_child_process_namespaceObject.ChildProcess();
-		const errorPromise = Promise.reject(makeError({
-			error,
-			stdout: '',
-			stderr: '',
-			all: '',
-			command,
-			escapedCommand,
-			parsed,
-			timedOut: false,
-			isCanceled: false,
-			killed: false,
-		}));
-		mergePromise(dummySpawned, errorPromise);
-		return dummySpawned;
-	}
-
-	const spawnedPromise = getSpawnedPromise(spawned);
-	const timedPromise = setupTimeout(spawned, parsed.options, spawnedPromise);
-	const processDone = setExitHandler(spawned, parsed.options, timedPromise);
-
-	const context = {isCanceled: false};
-
-	spawned.kill = spawnedKill.bind(null, spawned.kill.bind(spawned));
-	spawned.cancel = spawnedCancel.bind(null, spawned, context);
-
-	const handlePromise = async () => {
-		const [{error, exitCode, signal, timedOut}, stdoutResult, stderrResult, allResult] = await getSpawnedResult(spawned, parsed.options, processDone);
-		const stdout = handleOutput(parsed.options, stdoutResult);
-		const stderr = handleOutput(parsed.options, stderrResult);
-		const all = handleOutput(parsed.options, allResult);
-
-		if (error || exitCode !== 0 || signal !== null) {
-			const returnedError = makeError({
-				error,
-				exitCode,
-				signal,
-				stdout,
-				stderr,
-				all,
-				command,
-				escapedCommand,
-				parsed,
-				timedOut,
-				isCanceled: context.isCanceled || (parsed.options.signal ? parsed.options.signal.aborted : false),
-				killed: spawned.killed,
-			});
-
-			if (!parsed.options.reject) {
-				return returnedError;
-			}
-
-			throw returnedError;
-		}
-
-		return {
-			command,
-			escapedCommand,
-			exitCode: 0,
-			stdout,
-			stderr,
-			all,
-			failed: false,
-			timedOut: false,
-			isCanceled: false,
-			killed: false,
-		};
-	};
-
-	const handlePromiseOnce = node_modules_onetime(handlePromise);
-
-	handleInput(spawned, parsed.options);
-
-	spawned.all = makeAllStream(spawned, parsed.options);
-
-	addPipeMethods(spawned);
-	mergePromise(spawned, handlePromiseOnce);
-	return spawned;
-}
-
-function execaSync(file, args, options) {
-	const parsed = handleArguments(file, args, options);
-	const command = joinCommand(file, args);
-	const escapedCommand = getEscapedCommand(file, args);
-	logCommand(escapedCommand, parsed.options);
-
-	const input = handleInputSync(parsed.options);
-
-	let result;
-	try {
-		result = external_node_child_process_namespaceObject.spawnSync(parsed.file, parsed.args, {...parsed.options, input});
-	} catch (error) {
-		throw makeError({
-			error,
-			stdout: '',
-			stderr: '',
-			all: '',
-			command,
-			escapedCommand,
-			parsed,
-			timedOut: false,
-			isCanceled: false,
-			killed: false,
-		});
-	}
-
-	const stdout = handleOutput(parsed.options, result.stdout, result.error);
-	const stderr = handleOutput(parsed.options, result.stderr, result.error);
-
-	if (result.error || result.status !== 0 || result.signal !== null) {
-		const error = makeError({
-			stdout,
-			stderr,
-			error: result.error,
-			signal: result.signal,
-			exitCode: result.status,
-			command,
-			escapedCommand,
-			parsed,
-			timedOut: result.error && result.error.code === 'ETIMEDOUT',
-			isCanceled: false,
-			killed: result.signal !== null,
-		});
-
-		if (!parsed.options.reject) {
-			return error;
-		}
-
-		throw error;
-	}
-
-	return {
-		command,
-		escapedCommand,
-		exitCode: 0,
-		stdout,
-		stderr,
-		failed: false,
-		timedOut: false,
-		isCanceled: false,
-		killed: false,
-	};
-}
-
-const normalizeScriptStdin = ({input, inputFile, stdio}) => input === undefined && inputFile === undefined && stdio === undefined
-	? {stdin: 'inherit'}
-	: {};
-
-const normalizeScriptOptions = (options = {}) => ({
-	preferLocal: true,
-	...normalizeScriptStdin(options),
-	...options,
-});
-
-function create$(options) {
-	function $(templatesOrOptions, ...expressions) {
-		if (!Array.isArray(templatesOrOptions)) {
-			return create$({...options, ...templatesOrOptions});
-		}
-
-		const [file, ...args] = parseTemplates(templatesOrOptions, expressions);
-		return execa(file, args, normalizeScriptOptions(options));
-	}
-
-	$.sync = (templates, ...expressions) => {
-		if (!Array.isArray(templates)) {
-			throw new TypeError('Please use $(options).sync`command` instead of $.sync(options)`command`.');
-		}
-
-		const [file, ...args] = parseTemplates(templates, expressions);
-		return execaSync(file, args, normalizeScriptOptions(options));
-	};
-
-	return $;
-}
-
-const $ = create$();
-
-function execaCommand(command, options) {
-	const [file, ...args] = parseCommand(command);
-	return execa(file, args, options);
-}
-
-function execaCommandSync(command, options) {
-	const [file, ...args] = parseCommand(command);
-	return execaSync(file, args, options);
-}
-
-function execaNode(scriptPath, args, options = {}) {
-	if (args && !Array.isArray(args) && typeof args === 'object') {
-		options = args;
-		args = [];
-	}
-
-	const stdio = normalizeStdioNode(options);
-	const defaultExecArgv = external_node_process_namespaceObject.execArgv.filter(arg => !arg.startsWith('--inspect'));
-
-	const {
-		nodePath = external_node_process_namespaceObject.execPath,
-		nodeOptions = defaultExecArgv,
-	} = options;
-
-	return execa(
-		nodePath,
-		[
-			...nodeOptions,
-			scriptPath,
-			...(Array.isArray(args) ? args : []),
-		],
-		{
-			...options,
-			stdin: undefined,
-			stdout: undefined,
-			stderr: undefined,
-			stdio,
-			shell: false,
-		},
-	);
-}
 
 
 /***/ }),
@@ -11914,7 +11179,7 @@ module.exports = options => {
 
 /***/ }),
 
-/***/ 1766:
+/***/ 1996:
 /***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
 
 "use strict";
@@ -13618,6 +12883,432 @@ module.exports = bind.call(Function.call, Object.prototype.hasOwnProperty);
 
 /***/ }),
 
+/***/ 8213:
+/***/ ((__unused_webpack_module, exports) => {
+
+"use strict";
+Object.defineProperty(exports, "__esModule", ({value:true}));exports.SIGNALS=void 0;
+
+const SIGNALS=[
+{
+name:"SIGHUP",
+number:1,
+action:"terminate",
+description:"Terminal closed",
+standard:"posix"},
+
+{
+name:"SIGINT",
+number:2,
+action:"terminate",
+description:"User interruption with CTRL-C",
+standard:"ansi"},
+
+{
+name:"SIGQUIT",
+number:3,
+action:"core",
+description:"User interruption with CTRL-\\",
+standard:"posix"},
+
+{
+name:"SIGILL",
+number:4,
+action:"core",
+description:"Invalid machine instruction",
+standard:"ansi"},
+
+{
+name:"SIGTRAP",
+number:5,
+action:"core",
+description:"Debugger breakpoint",
+standard:"posix"},
+
+{
+name:"SIGABRT",
+number:6,
+action:"core",
+description:"Aborted",
+standard:"ansi"},
+
+{
+name:"SIGIOT",
+number:6,
+action:"core",
+description:"Aborted",
+standard:"bsd"},
+
+{
+name:"SIGBUS",
+number:7,
+action:"core",
+description:
+"Bus error due to misaligned, non-existing address or paging error",
+standard:"bsd"},
+
+{
+name:"SIGEMT",
+number:7,
+action:"terminate",
+description:"Command should be emulated but is not implemented",
+standard:"other"},
+
+{
+name:"SIGFPE",
+number:8,
+action:"core",
+description:"Floating point arithmetic error",
+standard:"ansi"},
+
+{
+name:"SIGKILL",
+number:9,
+action:"terminate",
+description:"Forced termination",
+standard:"posix",
+forced:true},
+
+{
+name:"SIGUSR1",
+number:10,
+action:"terminate",
+description:"Application-specific signal",
+standard:"posix"},
+
+{
+name:"SIGSEGV",
+number:11,
+action:"core",
+description:"Segmentation fault",
+standard:"ansi"},
+
+{
+name:"SIGUSR2",
+number:12,
+action:"terminate",
+description:"Application-specific signal",
+standard:"posix"},
+
+{
+name:"SIGPIPE",
+number:13,
+action:"terminate",
+description:"Broken pipe or socket",
+standard:"posix"},
+
+{
+name:"SIGALRM",
+number:14,
+action:"terminate",
+description:"Timeout or timer",
+standard:"posix"},
+
+{
+name:"SIGTERM",
+number:15,
+action:"terminate",
+description:"Termination",
+standard:"ansi"},
+
+{
+name:"SIGSTKFLT",
+number:16,
+action:"terminate",
+description:"Stack is empty or overflowed",
+standard:"other"},
+
+{
+name:"SIGCHLD",
+number:17,
+action:"ignore",
+description:"Child process terminated, paused or unpaused",
+standard:"posix"},
+
+{
+name:"SIGCLD",
+number:17,
+action:"ignore",
+description:"Child process terminated, paused or unpaused",
+standard:"other"},
+
+{
+name:"SIGCONT",
+number:18,
+action:"unpause",
+description:"Unpaused",
+standard:"posix",
+forced:true},
+
+{
+name:"SIGSTOP",
+number:19,
+action:"pause",
+description:"Paused",
+standard:"posix",
+forced:true},
+
+{
+name:"SIGTSTP",
+number:20,
+action:"pause",
+description:"Paused using CTRL-Z or \"suspend\"",
+standard:"posix"},
+
+{
+name:"SIGTTIN",
+number:21,
+action:"pause",
+description:"Background process cannot read terminal input",
+standard:"posix"},
+
+{
+name:"SIGBREAK",
+number:21,
+action:"terminate",
+description:"User interruption with CTRL-BREAK",
+standard:"other"},
+
+{
+name:"SIGTTOU",
+number:22,
+action:"pause",
+description:"Background process cannot write to terminal output",
+standard:"posix"},
+
+{
+name:"SIGURG",
+number:23,
+action:"ignore",
+description:"Socket received out-of-band data",
+standard:"bsd"},
+
+{
+name:"SIGXCPU",
+number:24,
+action:"core",
+description:"Process timed out",
+standard:"bsd"},
+
+{
+name:"SIGXFSZ",
+number:25,
+action:"core",
+description:"File too big",
+standard:"bsd"},
+
+{
+name:"SIGVTALRM",
+number:26,
+action:"terminate",
+description:"Timeout or timer",
+standard:"bsd"},
+
+{
+name:"SIGPROF",
+number:27,
+action:"terminate",
+description:"Timeout or timer",
+standard:"bsd"},
+
+{
+name:"SIGWINCH",
+number:28,
+action:"ignore",
+description:"Terminal window size changed",
+standard:"bsd"},
+
+{
+name:"SIGIO",
+number:29,
+action:"terminate",
+description:"I/O is available",
+standard:"other"},
+
+{
+name:"SIGPOLL",
+number:29,
+action:"terminate",
+description:"Watched event",
+standard:"other"},
+
+{
+name:"SIGINFO",
+number:29,
+action:"ignore",
+description:"Request for process information",
+standard:"other"},
+
+{
+name:"SIGPWR",
+number:30,
+action:"terminate",
+description:"Device running out of power",
+standard:"systemv"},
+
+{
+name:"SIGSYS",
+number:31,
+action:"core",
+description:"Invalid system call",
+standard:"other"},
+
+{
+name:"SIGUNUSED",
+number:31,
+action:"terminate",
+description:"Invalid system call",
+standard:"other"}];exports.SIGNALS=SIGNALS;
+//# sourceMappingURL=core.js.map
+
+/***/ }),
+
+/***/ 2779:
+/***/ ((__unused_webpack_module, exports, __nccwpck_require__) => {
+
+"use strict";
+Object.defineProperty(exports, "__esModule", ({value:true}));exports.signalsByNumber=exports.signalsByName=void 0;var _os=__nccwpck_require__(2087);
+
+var _signals=__nccwpck_require__(6435);
+var _realtime=__nccwpck_require__(1229);
+
+
+
+const getSignalsByName=function(){
+const signals=(0,_signals.getSignals)();
+return signals.reduce(getSignalByName,{});
+};
+
+const getSignalByName=function(
+signalByNameMemo,
+{name,number,description,supported,action,forced,standard})
+{
+return{
+...signalByNameMemo,
+[name]:{name,number,description,supported,action,forced,standard}};
+
+};
+
+const signalsByName=getSignalsByName();exports.signalsByName=signalsByName;
+
+
+
+
+const getSignalsByNumber=function(){
+const signals=(0,_signals.getSignals)();
+const length=_realtime.SIGRTMAX+1;
+const signalsA=Array.from({length},(value,number)=>
+getSignalByNumber(number,signals));
+
+return Object.assign({},...signalsA);
+};
+
+const getSignalByNumber=function(number,signals){
+const signal=findSignalByNumber(number,signals);
+
+if(signal===undefined){
+return{};
+}
+
+const{name,description,supported,action,forced,standard}=signal;
+return{
+[number]:{
+name,
+number,
+description,
+supported,
+action,
+forced,
+standard}};
+
+
+};
+
+
+
+const findSignalByNumber=function(number,signals){
+const signal=signals.find(({name})=>_os.constants.signals[name]===number);
+
+if(signal!==undefined){
+return signal;
+}
+
+return signals.find(signalA=>signalA.number===number);
+};
+
+const signalsByNumber=getSignalsByNumber();exports.signalsByNumber=signalsByNumber;
+//# sourceMappingURL=main.js.map
+
+/***/ }),
+
+/***/ 1229:
+/***/ ((__unused_webpack_module, exports) => {
+
+"use strict";
+Object.defineProperty(exports, "__esModule", ({value:true}));exports.SIGRTMAX=exports.getRealtimeSignals=void 0;
+const getRealtimeSignals=function(){
+const length=SIGRTMAX-SIGRTMIN+1;
+return Array.from({length},getRealtimeSignal);
+};exports.getRealtimeSignals=getRealtimeSignals;
+
+const getRealtimeSignal=function(value,index){
+return{
+name:`SIGRT${index+1}`,
+number:SIGRTMIN+index,
+action:"terminate",
+description:"Application-specific signal (realtime)",
+standard:"posix"};
+
+};
+
+const SIGRTMIN=34;
+const SIGRTMAX=64;exports.SIGRTMAX=SIGRTMAX;
+//# sourceMappingURL=realtime.js.map
+
+/***/ }),
+
+/***/ 6435:
+/***/ ((__unused_webpack_module, exports, __nccwpck_require__) => {
+
+"use strict";
+Object.defineProperty(exports, "__esModule", ({value:true}));exports.getSignals=void 0;var _os=__nccwpck_require__(2087);
+
+var _core=__nccwpck_require__(8213);
+var _realtime=__nccwpck_require__(1229);
+
+
+
+const getSignals=function(){
+const realtimeSignals=(0,_realtime.getRealtimeSignals)();
+const signals=[..._core.SIGNALS,...realtimeSignals].map(normalizeSignal);
+return signals;
+};exports.getSignals=getSignals;
+
+
+
+
+
+
+
+const normalizeSignal=function({
+name,
+number:defaultNumber,
+description,
+action,
+forced=false,
+standard})
+{
+const{
+signals:{[name]:constantSignal}}=
+_os.constants;
+const supported=constantSignal!==undefined;
+const number=supported?constantSignal:defaultNumber;
+return{name,number,description,supported,action,forced,standard};
+};
+//# sourceMappingURL=signals.js.map
+
+/***/ }),
+
 /***/ 2492:
 /***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
 
@@ -13725,6 +13416,42 @@ if (typeof Object.create === 'function') {
     }
   }
 }
+
+
+/***/ }),
+
+/***/ 1554:
+/***/ ((module) => {
+
+"use strict";
+
+
+const isStream = stream =>
+	stream !== null &&
+	typeof stream === 'object' &&
+	typeof stream.pipe === 'function';
+
+isStream.writable = stream =>
+	isStream(stream) &&
+	stream.writable !== false &&
+	typeof stream._write === 'function' &&
+	typeof stream._writableState === 'object';
+
+isStream.readable = stream =>
+	isStream(stream) &&
+	stream.readable !== false &&
+	typeof stream._read === 'function' &&
+	typeof stream._readableState === 'object';
+
+isStream.duplex = stream =>
+	isStream.writable(stream) &&
+	isStream.readable(stream);
+
+isStream.transform = stream =>
+	isStream.duplex(stream) &&
+	typeof stream._transform === 'function';
+
+module.exports = isStream;
 
 
 /***/ }),
@@ -14359,6 +14086,27 @@ module.exports = {"application/prs.cww":["cww"],"application/vnd.1000minds.decis
 /***/ ((module) => {
 
 module.exports = {"application/andrew-inset":["ez"],"application/applixware":["aw"],"application/atom+xml":["atom"],"application/atomcat+xml":["atomcat"],"application/atomdeleted+xml":["atomdeleted"],"application/atomsvc+xml":["atomsvc"],"application/atsc-dwd+xml":["dwd"],"application/atsc-held+xml":["held"],"application/atsc-rsat+xml":["rsat"],"application/bdoc":["bdoc"],"application/calendar+xml":["xcs"],"application/ccxml+xml":["ccxml"],"application/cdfx+xml":["cdfx"],"application/cdmi-capability":["cdmia"],"application/cdmi-container":["cdmic"],"application/cdmi-domain":["cdmid"],"application/cdmi-object":["cdmio"],"application/cdmi-queue":["cdmiq"],"application/cu-seeme":["cu"],"application/dash+xml":["mpd"],"application/davmount+xml":["davmount"],"application/docbook+xml":["dbk"],"application/dssc+der":["dssc"],"application/dssc+xml":["xdssc"],"application/ecmascript":["es","ecma"],"application/emma+xml":["emma"],"application/emotionml+xml":["emotionml"],"application/epub+zip":["epub"],"application/exi":["exi"],"application/express":["exp"],"application/fdt+xml":["fdt"],"application/font-tdpfr":["pfr"],"application/geo+json":["geojson"],"application/gml+xml":["gml"],"application/gpx+xml":["gpx"],"application/gxf":["gxf"],"application/gzip":["gz"],"application/hjson":["hjson"],"application/hyperstudio":["stk"],"application/inkml+xml":["ink","inkml"],"application/ipfix":["ipfix"],"application/its+xml":["its"],"application/java-archive":["jar","war","ear"],"application/java-serialized-object":["ser"],"application/java-vm":["class"],"application/javascript":["js","mjs"],"application/json":["json","map"],"application/json5":["json5"],"application/jsonml+json":["jsonml"],"application/ld+json":["jsonld"],"application/lgr+xml":["lgr"],"application/lost+xml":["lostxml"],"application/mac-binhex40":["hqx"],"application/mac-compactpro":["cpt"],"application/mads+xml":["mads"],"application/manifest+json":["webmanifest"],"application/marc":["mrc"],"application/marcxml+xml":["mrcx"],"application/mathematica":["ma","nb","mb"],"application/mathml+xml":["mathml"],"application/mbox":["mbox"],"application/mediaservercontrol+xml":["mscml"],"application/metalink+xml":["metalink"],"application/metalink4+xml":["meta4"],"application/mets+xml":["mets"],"application/mmt-aei+xml":["maei"],"application/mmt-usd+xml":["musd"],"application/mods+xml":["mods"],"application/mp21":["m21","mp21"],"application/mp4":["mp4s","m4p"],"application/msword":["doc","dot"],"application/mxf":["mxf"],"application/n-quads":["nq"],"application/n-triples":["nt"],"application/node":["cjs"],"application/octet-stream":["bin","dms","lrf","mar","so","dist","distz","pkg","bpk","dump","elc","deploy","exe","dll","deb","dmg","iso","img","msi","msp","msm","buffer"],"application/oda":["oda"],"application/oebps-package+xml":["opf"],"application/ogg":["ogx"],"application/omdoc+xml":["omdoc"],"application/onenote":["onetoc","onetoc2","onetmp","onepkg"],"application/oxps":["oxps"],"application/p2p-overlay+xml":["relo"],"application/patch-ops-error+xml":["xer"],"application/pdf":["pdf"],"application/pgp-encrypted":["pgp"],"application/pgp-signature":["asc","sig"],"application/pics-rules":["prf"],"application/pkcs10":["p10"],"application/pkcs7-mime":["p7m","p7c"],"application/pkcs7-signature":["p7s"],"application/pkcs8":["p8"],"application/pkix-attr-cert":["ac"],"application/pkix-cert":["cer"],"application/pkix-crl":["crl"],"application/pkix-pkipath":["pkipath"],"application/pkixcmp":["pki"],"application/pls+xml":["pls"],"application/postscript":["ai","eps","ps"],"application/provenance+xml":["provx"],"application/pskc+xml":["pskcxml"],"application/raml+yaml":["raml"],"application/rdf+xml":["rdf","owl"],"application/reginfo+xml":["rif"],"application/relax-ng-compact-syntax":["rnc"],"application/resource-lists+xml":["rl"],"application/resource-lists-diff+xml":["rld"],"application/rls-services+xml":["rs"],"application/route-apd+xml":["rapd"],"application/route-s-tsid+xml":["sls"],"application/route-usd+xml":["rusd"],"application/rpki-ghostbusters":["gbr"],"application/rpki-manifest":["mft"],"application/rpki-roa":["roa"],"application/rsd+xml":["rsd"],"application/rss+xml":["rss"],"application/rtf":["rtf"],"application/sbml+xml":["sbml"],"application/scvp-cv-request":["scq"],"application/scvp-cv-response":["scs"],"application/scvp-vp-request":["spq"],"application/scvp-vp-response":["spp"],"application/sdp":["sdp"],"application/senml+xml":["senmlx"],"application/sensml+xml":["sensmlx"],"application/set-payment-initiation":["setpay"],"application/set-registration-initiation":["setreg"],"application/shf+xml":["shf"],"application/sieve":["siv","sieve"],"application/smil+xml":["smi","smil"],"application/sparql-query":["rq"],"application/sparql-results+xml":["srx"],"application/srgs":["gram"],"application/srgs+xml":["grxml"],"application/sru+xml":["sru"],"application/ssdl+xml":["ssdl"],"application/ssml+xml":["ssml"],"application/swid+xml":["swidtag"],"application/tei+xml":["tei","teicorpus"],"application/thraud+xml":["tfi"],"application/timestamped-data":["tsd"],"application/toml":["toml"],"application/trig":["trig"],"application/ttml+xml":["ttml"],"application/ubjson":["ubj"],"application/urc-ressheet+xml":["rsheet"],"application/urc-targetdesc+xml":["td"],"application/voicexml+xml":["vxml"],"application/wasm":["wasm"],"application/widget":["wgt"],"application/winhlp":["hlp"],"application/wsdl+xml":["wsdl"],"application/wspolicy+xml":["wspolicy"],"application/xaml+xml":["xaml"],"application/xcap-att+xml":["xav"],"application/xcap-caps+xml":["xca"],"application/xcap-diff+xml":["xdf"],"application/xcap-el+xml":["xel"],"application/xcap-ns+xml":["xns"],"application/xenc+xml":["xenc"],"application/xhtml+xml":["xhtml","xht"],"application/xliff+xml":["xlf"],"application/xml":["xml","xsl","xsd","rng"],"application/xml-dtd":["dtd"],"application/xop+xml":["xop"],"application/xproc+xml":["xpl"],"application/xslt+xml":["*xsl","xslt"],"application/xspf+xml":["xspf"],"application/xv+xml":["mxml","xhvml","xvml","xvm"],"application/yang":["yang"],"application/yin+xml":["yin"],"application/zip":["zip"],"audio/3gpp":["*3gpp"],"audio/adpcm":["adp"],"audio/amr":["amr"],"audio/basic":["au","snd"],"audio/midi":["mid","midi","kar","rmi"],"audio/mobile-xmf":["mxmf"],"audio/mp3":["*mp3"],"audio/mp4":["m4a","mp4a"],"audio/mpeg":["mpga","mp2","mp2a","mp3","m2a","m3a"],"audio/ogg":["oga","ogg","spx","opus"],"audio/s3m":["s3m"],"audio/silk":["sil"],"audio/wav":["wav"],"audio/wave":["*wav"],"audio/webm":["weba"],"audio/xm":["xm"],"font/collection":["ttc"],"font/otf":["otf"],"font/ttf":["ttf"],"font/woff":["woff"],"font/woff2":["woff2"],"image/aces":["exr"],"image/apng":["apng"],"image/avif":["avif"],"image/bmp":["bmp"],"image/cgm":["cgm"],"image/dicom-rle":["drle"],"image/emf":["emf"],"image/fits":["fits"],"image/g3fax":["g3"],"image/gif":["gif"],"image/heic":["heic"],"image/heic-sequence":["heics"],"image/heif":["heif"],"image/heif-sequence":["heifs"],"image/hej2k":["hej2"],"image/hsj2":["hsj2"],"image/ief":["ief"],"image/jls":["jls"],"image/jp2":["jp2","jpg2"],"image/jpeg":["jpeg","jpg","jpe"],"image/jph":["jph"],"image/jphc":["jhc"],"image/jpm":["jpm"],"image/jpx":["jpx","jpf"],"image/jxr":["jxr"],"image/jxra":["jxra"],"image/jxrs":["jxrs"],"image/jxs":["jxs"],"image/jxsc":["jxsc"],"image/jxsi":["jxsi"],"image/jxss":["jxss"],"image/ktx":["ktx"],"image/ktx2":["ktx2"],"image/png":["png"],"image/sgi":["sgi"],"image/svg+xml":["svg","svgz"],"image/t38":["t38"],"image/tiff":["tif","tiff"],"image/tiff-fx":["tfx"],"image/webp":["webp"],"image/wmf":["wmf"],"message/disposition-notification":["disposition-notification"],"message/global":["u8msg"],"message/global-delivery-status":["u8dsn"],"message/global-disposition-notification":["u8mdn"],"message/global-headers":["u8hdr"],"message/rfc822":["eml","mime"],"model/3mf":["3mf"],"model/gltf+json":["gltf"],"model/gltf-binary":["glb"],"model/iges":["igs","iges"],"model/mesh":["msh","mesh","silo"],"model/mtl":["mtl"],"model/obj":["obj"],"model/step+xml":["stpx"],"model/step+zip":["stpz"],"model/step-xml+zip":["stpxz"],"model/stl":["stl"],"model/vrml":["wrl","vrml"],"model/x3d+binary":["*x3db","x3dbz"],"model/x3d+fastinfoset":["x3db"],"model/x3d+vrml":["*x3dv","x3dvz"],"model/x3d+xml":["x3d","x3dz"],"model/x3d-vrml":["x3dv"],"text/cache-manifest":["appcache","manifest"],"text/calendar":["ics","ifb"],"text/coffeescript":["coffee","litcoffee"],"text/css":["css"],"text/csv":["csv"],"text/html":["html","htm","shtml"],"text/jade":["jade"],"text/jsx":["jsx"],"text/less":["less"],"text/markdown":["markdown","md"],"text/mathml":["mml"],"text/mdx":["mdx"],"text/n3":["n3"],"text/plain":["txt","text","conf","def","list","log","in","ini"],"text/richtext":["rtx"],"text/rtf":["*rtf"],"text/sgml":["sgml","sgm"],"text/shex":["shex"],"text/slim":["slim","slm"],"text/spdx":["spdx"],"text/stylus":["stylus","styl"],"text/tab-separated-values":["tsv"],"text/troff":["t","tr","roff","man","me","ms"],"text/turtle":["ttl"],"text/uri-list":["uri","uris","urls"],"text/vcard":["vcard"],"text/vtt":["vtt"],"text/xml":["*xml"],"text/yaml":["yaml","yml"],"video/3gpp":["3gp","3gpp"],"video/3gpp2":["3g2"],"video/h261":["h261"],"video/h263":["h263"],"video/h264":["h264"],"video/iso.segment":["m4s"],"video/jpeg":["jpgv"],"video/jpm":["*jpm","jpgm"],"video/mj2":["mj2","mjp2"],"video/mp2t":["ts"],"video/mp4":["mp4","mp4v","mpg4"],"video/mpeg":["mpeg","mpg","mpe","m1v","m2v"],"video/ogg":["ogv"],"video/quicktime":["qt","mov"],"video/webm":["webm"]};
+
+/***/ }),
+
+/***/ 6047:
+/***/ ((module) => {
+
+"use strict";
+
+
+const mimicFn = (to, from) => {
+	for (const prop of Reflect.ownKeys(from)) {
+		Object.defineProperty(to, prop, Object.getOwnPropertyDescriptor(from, prop));
+	}
+
+	return to;
+};
+
+module.exports = mimicFn;
+// TODO: Remove this for the next major release
+module.exports.default = mimicFn;
+
 
 /***/ }),
 
@@ -15485,6 +15233,61 @@ function plural(ms, msAbs, n, name) {
 
 /***/ }),
 
+/***/ 502:
+/***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
+
+"use strict";
+
+const path = __nccwpck_require__(5622);
+const pathKey = __nccwpck_require__(539);
+
+const npmRunPath = options => {
+	options = {
+		cwd: process.cwd(),
+		path: process.env[pathKey()],
+		execPath: process.execPath,
+		...options
+	};
+
+	let previous;
+	let cwdPath = path.resolve(options.cwd);
+	const result = [];
+
+	while (previous !== cwdPath) {
+		result.push(path.join(cwdPath, 'node_modules/.bin'));
+		previous = cwdPath;
+		cwdPath = path.resolve(cwdPath, '..');
+	}
+
+	// Ensure the running `node` binary is used
+	const execPathDir = path.resolve(options.cwd, options.execPath, '..');
+	result.push(execPathDir);
+
+	return result.concat(options.path).join(path.delimiter);
+};
+
+module.exports = npmRunPath;
+// TODO: Remove this for the next major release
+module.exports.default = npmRunPath;
+
+module.exports.env = options => {
+	options = {
+		env: process.env,
+		...options
+	};
+
+	const env = {...options.env};
+	const path = pathKey({env});
+
+	options.path = env[path];
+	env[path] = module.exports(options);
+
+	return env;
+};
+
+
+/***/ }),
+
 /***/ 504:
 /***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
 
@@ -16061,6 +15864,58 @@ function onceStrict (fn) {
   f.called = false
   return f
 }
+
+
+/***/ }),
+
+/***/ 9082:
+/***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
+
+"use strict";
+
+const mimicFn = __nccwpck_require__(6047);
+
+const calledFunctions = new WeakMap();
+
+const onetime = (function_, options = {}) => {
+	if (typeof function_ !== 'function') {
+		throw new TypeError('Expected a function');
+	}
+
+	let returnValue;
+	let callCount = 0;
+	const functionName = function_.displayName || function_.name || '<anonymous>';
+
+	const onetime = function (...arguments_) {
+		calledFunctions.set(onetime, ++callCount);
+
+		if (callCount === 1) {
+			returnValue = function_.apply(this, arguments_);
+			function_ = null;
+		} else if (options.throw === true) {
+			throw new Error(`Function \`${functionName}\` can only be called once`);
+		}
+
+		return returnValue;
+	};
+
+	mimicFn(onetime, function_);
+	calledFunctions.set(onetime, callCount);
+
+	return onetime;
+};
+
+module.exports = onetime;
+// TODO: Remove this for the next major release
+module.exports.default = onetime;
+
+module.exports.callCount = function_ => {
+	if (!calledFunctions.has(function_)) {
+		throw new Error(`The given function \`${function_.name}\` is not wrapped by the \`onetime\` package`);
+	}
+
+	return calledFunctions.get(function_);
+};
 
 
 /***/ }),
@@ -25172,6 +25027,30 @@ if (process.platform === 'linux') {
 
 /***/ }),
 
+/***/ 8174:
+/***/ ((module) => {
+
+"use strict";
+
+
+module.exports = input => {
+	const LF = typeof input === 'string' ? '\n' : '\n'.charCodeAt();
+	const CR = typeof input === 'string' ? '\r' : '\r'.charCodeAt();
+
+	if (input[input.length - 1] === LF) {
+		input = input.slice(0, input.length - 1);
+	}
+
+	if (input[input.length - 1] === CR) {
+		input = input.slice(0, input.length - 1);
+	}
+
+	return input;
+};
+
+
+/***/ }),
+
 /***/ 1189:
 /***/ ((module) => {
 
@@ -29756,32 +29635,9 @@ module.exports = require("zlib");
 /******/ 	}
 /******/ 	
 /************************************************************************/
-/******/ 	/* webpack/runtime/define property getters */
-/******/ 	(() => {
-/******/ 		// define getter functions for harmony exports
-/******/ 		__nccwpck_require__.d = (exports, definition) => {
-/******/ 			for(var key in definition) {
-/******/ 				if(__nccwpck_require__.o(definition, key) && !__nccwpck_require__.o(exports, key)) {
-/******/ 					Object.defineProperty(exports, key, { enumerable: true, get: definition[key] });
-/******/ 				}
-/******/ 			}
-/******/ 		};
-/******/ 	})();
-/******/ 	
 /******/ 	/* webpack/runtime/hasOwnProperty shorthand */
 /******/ 	(() => {
 /******/ 		__nccwpck_require__.o = (obj, prop) => (Object.prototype.hasOwnProperty.call(obj, prop))
-/******/ 	})();
-/******/ 	
-/******/ 	/* webpack/runtime/make namespace object */
-/******/ 	(() => {
-/******/ 		// define __esModule on exports
-/******/ 		__nccwpck_require__.r = (exports) => {
-/******/ 			if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
-/******/ 				Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
-/******/ 			}
-/******/ 			Object.defineProperty(exports, '__esModule', { value: true });
-/******/ 		};
 /******/ 	})();
 /******/ 	
 /******/ 	/* webpack/runtime/compat */
