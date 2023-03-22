@@ -1,9 +1,9 @@
 name: 'Particle Compile'
-description: 'Compiles application source code using the Particle Cloud'
+description: 'Compiles application source code'
 inputs:
   particle_access_token:
-    required: true
-    description: 'Particle access token'
+    required: false
+    description: 'Particle access token. If provided, the action will use the Particle Cloud Compiler instead of compiling within the GitHub Action runner'
     default: ''
   particle_platform_name:
     required: true
