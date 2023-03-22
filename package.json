@@ -8,7 +8,7 @@
     "build": "tsc",
     "lint": "eslint src/**/*.ts -f unix",
     "lint:fix": "eslint src/**/*.ts --fix -f unix",
-    "package": "NODE_OPTIONS='--openssl-legacy-provider' ncc build --source-map --license licenses.txt",
+    "package": "ncc build --source-map --license licenses.txt",
     "test": "jest",
     "all": "npm run build && npm run lint && npm run package && npm test"
   },
@@ -34,7 +34,7 @@
     "@types/node": "^18.14.0",
     "@typescript-eslint/eslint-plugin": "^5.55.0",
     "@typescript-eslint/parser": "^5.55.0",
-    "@vercel/ncc": "^0.31.1",
+    "@vercel/ncc": "^0.36.1",
     "eslint": "^8.36.0",
     "eslint-config-particle": "^2.5.0",
     "eslint-plugin-github": "^4.6.1",
