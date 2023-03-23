@@ -230,20 +230,43 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.dockerBuildpackCompile = void 0;
-// @todo: need translations for buildpack tags
+exports.dockerBuildpackCompile = exports.dockerCheck = void 0;
 const core_1 = __nccwpck_require__(2186);
 const fs_1 = __nccwpck_require__(7147);
 const execa_1 = __importDefault(__nccwpck_require__(5447));
+const util_1 = __nccwpck_require__(4024);
+function dockerCheck() {
+    return __awaiter(this, void 0, void 0, function* () {
+        let dockerVersion;
+        try {
+            dockerVersion = yield (0, execa_1.default)('docker', ['version']);
+        }
+        catch (e) {
+            const msg = (dockerVersion === null || dockerVersion === void 0 ? void 0 : dockerVersion.stdout) || (dockerVersion === null || dockerVersion === void 0 ? void 0 : dockerVersion.stderr) || String(e);
+            (0, core_1.info)(msg);
+            throw new Error(`Docker is not installed or is not available in the path.`);
+        }
+        return true;
+    });
+}
+exports.dockerCheck = dockerCheck;
 function dockerBuildpackCompile(workingDir, sources, platform, target) {
     return __awaiter(this, void 0, void 0, function* () {
         // Note: the buildpack only detects *.c and *.cpp files
         // https://github.com/particle-iot/device-os/blob/196d497dd4c16ab83db6ea610cf2433047226a6a/user/build.mk#L64-L65
-        (0, core_1.info)(`Fetching docker buildpack for platform '${platform}' and target '${target}'`);
+        // todo: need validation on target/platform compatibility
+        const platformId = (0, util_1.getPlatformId)(platform);
+        // todo: need to source this from somewhere
+        let targetFriendly = target;
+        if (target === 'latest' || target === '') {
+            target = '4.0.2';
+            targetFriendly = `${target} (latest)`;
+        }
+        (0, core_1.info)(`Fetching docker buildpack for platform '${platform}' and target '${targetFriendly}'`);
         (0, core_1.info)(`This can take a minute....`);
         const dockerPull = yield (0, execa_1.default)('docker', [
             'pull',
-            `particle/buildpack-particle-firmware:4.0.2-argon`
+            `particle/buildpack-particle-firmware:${target}-${platform}`
         ]);
         (0, core_1.info)(dockerPull.stdout);
         const destDir = 'output';
@@ -264,8 +287,8 @@ function dockerBuildpackCompile(workingDir, sources, platform, target) {
             '-v',
             `${workingDir}/${destDir}:/output`,
             '-e',
-            `PLATFORM_ID=${platform}`,
-            `particle/buildpack-particle-firmware:4.0.2-argon`
+            `PLATFORM_ID=${platformId}`,
+            `particle/buildpack-particle-firmware:${target}-${platform}`
         ];
         const dockerRun = yield (0, execa_1.default)('docker', args);
         (0, core_1.info)(dockerRun.stdout);
@@ -305,6 +328,7 @@ function run() {
             let outputPath;
             if (!accessToken) {
                 (0, core_1.info)('No access token provided, running local compilation');
+                yield (0, docker_1.dockerCheck)();
                 outputPath = yield (0, docker_1.dockerBuildpackCompile)(process.cwd(), sources, platform, target);
             }
             else {
@@ -357,7 +381,7 @@ const util_1 = __nccwpck_require__(4024);
 const ParticleApi = __nccwpck_require__(2918);
 const particle = new ParticleApi();
 // eslint-disable-next-line max-len
-function particleCloudCompile(path, platformId, auth, targetVersion) {
+function particleCloudCompile(path, platform, auth, targetVersion) {
     return __awaiter(this, void 0, void 0, function* () {
         (0, core_1.info)(`Compiling code in ${path}`);
         if (!path) {
@@ -366,8 +390,10 @@ function particleCloudCompile(path, platformId, auth, targetVersion) {
         if (path === './' || path === '.') {
             path = process.cwd();
         }
+        // todo: need validation on target/platform compatibility
+        const platformId = (0, util_1.getPlatformId)(platform);
         const files = (0, util_1.getCode)(path);
-        (0, core_1.info)(`Compiling code for platform '${platformId}' with target version '${targetVersion}'`);
+        (0, core_1.info)(`Compiling code for platform '${platform}' with target version '${targetVersion}'`);
         (0, core_1.info)(`Files: ${JSON.stringify(Object.keys(files))}`);
         // handle internal implementation detail of the particle-api-js compile command
         if (targetVersion === 'latest') {
@@ -417,14 +443,19 @@ exports.particleDownloadBinary = particleDownloadBinary;
 /***/ }),
 
 /***/ 4024:
-/***/ ((__unused_webpack_module, exports, __nccwpck_require__) => {
+/***/ (function(__unused_webpack_module, exports, __nccwpck_require__) {
 
 "use strict";
 
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.getCode = void 0;
+exports.getPlatformId = exports.getCode = void 0;
 const cli_1 = __nccwpck_require__(2504);
 const fs_1 = __nccwpck_require__(7147);
+// @ts-ignore
+const device_constants_1 = __importDefault(__nccwpck_require__(9452));
 function getCode(path) {
     if (!(0, fs_1.existsSync)(path)) {
         throw new Error(`Source code ${path} does not exist`);
@@ -439,6 +470,19 @@ function getCode(path) {
     return fileMapping.map;
 }
 exports.getCode = getCode;
+function getPlatformId(platform) {
+    const publicPlatforms = Object.values(device_constants_1.default).filter((p) => p.public);
+    const publicPlatformStr = publicPlatforms.map((p) => p.name).join(', ');
+    if (!platform) {
+        throw new Error(`Platform is required. Valid platforms are: ${publicPlatformStr}`);
+    }
+    const p = device_constants_1.default[platform];
+    if (!p || !p.public) {
+        throw new Error(`Platform ${platform} is not valid. Valid platforms are: ${publicPlatformStr}`);
+    }
+    return p.id;
+}
+exports.getPlatformId = getPlatformId;
 
 
 /***/ }),
@@ -29582,6 +29626,14 @@ module.exports = require("util");
 
 "use strict";
 module.exports = require("zlib");
+
+/***/ }),
+
+/***/ 9452:
+/***/ ((module) => {
+
+"use strict";
+module.exports = JSON.parse('{"core":{"id":0,"name":"core","displayName":"Core","generation":1,"baseMcu":"stm32f1xx","features":["wifi","tcp"],"billingConnectivity":"wifi","productEligible":false,"public":true,"usb":{"vendorId":"0x1d50","productId":"0x607d"},"dfu":{"vendorId":"0x1d50","productId":"0x607f","segments":{"factoryReset":{"address":"0x00020000","alt":1}}}},"gcc":{"id":3,"name":"gcc","displayName":"GCC","generation":-1,"baseMcu":"gcc","features":["wifi","tcp"],"billingConnectivity":"wifi","productEligible":false,"public":false,"usb":{"vendorId":"0x0","productId":"0x0"},"dfu":{"vendorId":"0x0","productId":"0x0"}},"photon":{"id":6,"name":"photon","displayName":"Photon","generation":2,"baseMcu":"stm32f2xx","features":["wifi","tcp"],"billingConnectivity":"wifi","productEligible":true,"public":true,"firmwareModules":[{"type":"bootloader","storage":"internalFlash"},{"type":"systemPart","index":1,"storage":"internalFlash"},{"type":"systemPart","index":2,"storage":"internalFlash"},{"type":"userPart","storage":"internalFlash"}],"usb":{"vendorId":"0x2b04","productId":"0xc006"},"dfu":{"vendorId":"0x2b04","productId":"0xd006","storage":[{"type":"internalFlash","alt":0}],"segments":{"factoryReset":{"address":"0x080e0000","alt":0}}}},"p1":{"id":8,"name":"p1","displayName":"P1","generation":2,"baseMcu":"stm32f2xx","features":["wifi","tcp"],"billingConnectivity":"wifi","productEligible":true,"public":true,"firmwareModules":[{"type":"bootloader","storage":"internalFlash"},{"type":"systemPart","index":1,"storage":"internalFlash"},{"type":"systemPart","index":2,"storage":"internalFlash"},{"type":"userPart","storage":"internalFlash"}],"usb":{"vendorId":"0x2b04","productId":"0xc008"},"dfu":{"vendorId":"0x2b04","productId":"0xd008","storage":[{"type":"internalFlash","alt":0}],"segments":{"factoryReset":{"address":"0x080e0000","alt":0}}}},"electron":{"id":10,"name":"electron","displayName":"Electron","generation":2,"baseMcu":"stm32f2xx","features":["cellular","udp"],"billingConnectivity":"cellular","productEligible":true,"public":true,"firmwareModules":[{"type":"bootloader","storage":"internalFlash"},{"type":"systemPart","index":1,"storage":"internalFlash"},{"type":"systemPart","index":2,"storage":"internalFlash"},{"type":"systemPart","index":3,"storage":"internalFlash"},{"type":"userPart","storage":"internalFlash"}],"usb":{"vendorId":"0x2b04","productId":"0xc00a"},"dfu":{"vendorId":"0x2b04","productId":"0xd00a","storage":[{"type":"internalFlash","alt":0}],"segments":{"factoryReset":{"address":"0x080a0000","alt":0},"transport":{"address":"2977","alt":1,"size":1}}}},"esp32":{"id":11,"name":"esp32","displayName":"ESP32","generation":-1,"baseMcu":"esp32xx","features":["wifi","udp","ble"],"billingConnectivity":"wifi","productEligible":false,"public":false,"usb":{"vendorId":"0x0","productId":"0x0"},"dfu":{"vendorId":"0x0","productId":"0x0"}},"argon":{"id":12,"name":"argon","displayName":"Argon","generation":3,"baseMcu":"nrf52840","features":["wifi","udp","mesh","ble"],"billingConnectivity":"wifi","productEligible":true,"public":true,"firmwareModules":[{"type":"bootloader","storage":"internalFlash"},{"type":"systemPart","storage":"internalFlash"},{"type":"userPart","storage":"internalFlash"},{"type":"radioStack","storage":"internalFlash"},{"type":"ncpFirmware","storage":"externalMcu"}],"usb":{"vendorId":"0x2b04","productId":"0xc00c"},"dfu":{"vendorId":"0x2b04","productId":"0xd00c","storage":[{"type":"internalFlash","alt":0},{"type":"externalFlash","alt":2}],"segments":{"factoryReset":{"address":"0x00200000","alt":2}}}},"boron":{"id":13,"name":"boron","displayName":"Boron","generation":3,"baseMcu":"nrf52840","features":["cellular","udp","mesh","ble"],"billingConnectivity":"cellular","productEligible":true,"public":true,"firmwareModules":[{"type":"bootloader","storage":"internalFlash"},{"type":"systemPart","storage":"internalFlash"},{"type":"userPart","storage":"internalFlash"},{"type":"radioStack","storage":"internalFlash"}],"usb":{"vendorId":"0x2b04","productId":"0xc00d"},"dfu":{"vendorId":"0x2b04","productId":"0xd00d","storage":[{"type":"internalFlash","alt":0},{"type":"externalFlash","alt":2}],"segments":{"factoryReset":{"address":"0x00200000","alt":2}}}},"xenon":{"id":14,"name":"xenon","displayName":"Xenon","generation":3,"baseMcu":"nrf52840","features":["mesh","ble"],"billingConnectivity":"wifi","productEligible":false,"public":true,"firmwareModules":[{"type":"bootloader","storage":"internalFlash"},{"type":"systemPart","storage":"internalFlash"},{"type":"userPart","storage":"internalFlash"},{"type":"radioStack","storage":"internalFlash"}],"usb":{"vendorId":"0x2b04","productId":"0xc00e"},"dfu":{"vendorId":"0x2b04","productId":"0xd00e","storage":[{"type":"internalFlash","alt":0},{"type":"externalFlash","alt":2}],"segments":{"factoryReset":{"address":"0x00200000","alt":2}}}},"esomx":{"id":15,"name":"esomx","displayName":"E SoM X","generation":3,"baseMcu":"nrf52840","features":["som","cellular","udp","ble"],"billingConnectivity":"cellular","productEligible":true,"public":true,"firmwareModules":[{"type":"bootloader","storage":"internalFlash"},{"type":"systemPart","storage":"internalFlash"},{"type":"userPart","storage":"internalFlash"},{"type":"radioStack","storage":"internalFlash"}],"usb":{"vendorId":"0x2b04","productId":"0xc00f"},"dfu":{"vendorId":"0x2b04","productId":"0xd00f","storage":[{"type":"internalFlash","alt":0},{"type":"externalFlash","alt":2}],"segments":{"factoryReset":{"address":"0x00200000","alt":2}}}},"asom":{"id":22,"name":"asom","displayName":"A SoM","generation":3,"baseMcu":"nrf52840","features":["som","wifi","mesh","udp","ble"],"billingConnectivity":"wifi","productEligible":false,"public":false,"firmwareModules":[{"type":"bootloader","storage":"internalFlash"},{"type":"systemPart","storage":"internalFlash"},{"type":"userPart","storage":"internalFlash"},{"type":"radioStack","storage":"internalFlash"},{"type":"ncpFirmware","storage":"externalMcu"}],"usb":{"vendorId":"0x2b04","productId":"0xc016"},"dfu":{"vendorId":"0x2b04","productId":"0xd016","storage":[{"type":"internalFlash","alt":0},{"type":"externalFlash","alt":2}],"segments":{"factoryReset":{"address":"0x00200000","alt":2}}}},"bsom":{"id":23,"name":"bsom","displayName":"B SoM","generation":3,"baseMcu":"nrf52840","features":["som","cellular","mesh","udp","ble"],"billingConnectivity":"cellular","productEligible":true,"public":true,"firmwareModules":[{"type":"bootloader","storage":"internalFlash"},{"type":"systemPart","storage":"internalFlash"},{"type":"userPart","storage":"internalFlash"},{"type":"radioStack","storage":"internalFlash"}],"usb":{"vendorId":"0x2b04","productId":"0xc017"},"dfu":{"vendorId":"0x2b04","productId":"0xd017","storage":[{"type":"internalFlash","alt":0},{"type":"externalFlash","alt":2}],"segments":{"factoryReset":{"address":"0x00200000","alt":2}}}},"xsom":{"id":24,"name":"xsom","displayName":"X SoM","generation":3,"baseMcu":"nrf52840","features":["mesh","ble"],"billingConnectivity":"wifi","productEligible":false,"public":false,"firmwareModules":[{"type":"bootloader","storage":"internalFlash"},{"type":"systemPart","storage":"internalFlash"},{"type":"userPart","storage":"internalFlash"},{"type":"radioStack","storage":"internalFlash"}],"usb":{"vendorId":"0x2b04","productId":"0xc018"},"dfu":{"vendorId":"0x2b04","productId":"0xd018","storage":[{"type":"internalFlash","alt":0},{"type":"externalFlash","alt":2}],"segments":{"factoryReset":{"address":"0x00200000","alt":2}}}},"b5som":{"id":25,"name":"b5som","displayName":"B5 SoM","generation":3,"baseMcu":"nrf52840","features":["som","cellular","mesh","udp","ble"],"billingConnectivity":"cellular","productEligible":true,"public":true,"firmwareModules":[{"type":"bootloader","storage":"internalFlash"},{"type":"systemPart","storage":"internalFlash"},{"type":"userPart","storage":"internalFlash"},{"type":"radioStack","storage":"internalFlash"}],"usb":{"vendorId":"0x2b04","productId":"0xc019"},"dfu":{"vendorId":"0x2b04","productId":"0xd019","storage":[{"type":"internalFlash","alt":0},{"type":"externalFlash","alt":2}],"segments":{"factoryReset":{"address":"0x00600000","alt":2}}}},"tracker":{"id":26,"name":"tracker","displayName":"Asset Tracker","generation":3,"baseMcu":"nrf52840","features":["som","cellular","udp","ble","gnss","trackerServices"],"billingConnectivity":"cellular","productEligible":true,"public":true,"firmwareModules":[{"type":"bootloader","storage":"internalFlash"},{"type":"systemPart","storage":"internalFlash"},{"type":"userPart","storage":"internalFlash"},{"type":"radioStack","storage":"internalFlash"},{"type":"ncpFirmware","storage":"externalMcu"}],"usb":{"vendorId":"0x2b04","productId":"0xc01a"},"dfu":{"vendorId":"0x2b04","productId":"0xd01a","storage":[{"type":"internalFlash","alt":0},{"type":"externalFlash","alt":2}],"segments":{"factoryReset":{"address":"0x00600000","alt":2}}}},"trackerm":{"id":28,"name":"trackerm","displayName":"Tracker M","generation":3,"baseMcu":"rtl872x","features":["som","cellular","udp","ble","gnss","trackerServices"],"billingConnectivity":"cellular","productEligible":true,"public":true,"firmwareModules":[{"type":"bootloader","index":0,"storage":"internalFlash"},{"type":"bootloader","index":1,"storage":"internalFlash","encrypted":true},{"type":"bootloader","index":2,"storage":"internalFlash"},{"type":"systemPart","storage":"internalFlash"},{"type":"userPart","storage":"internalFlash"}],"usb":{"vendorId":"0x2b04","productId":"0xc01c","quirks":{"controlOutTransfersRequireDataStage":true}},"dfu":{"vendorId":"0x2b04","productId":"0xd01c","storage":[{"type":"internalFlash","alt":0}]}},"raspi":{"id":31,"name":"raspi","displayName":"Raspberry Pi","generation":-1,"baseMcu":"raspi","features":["wifi","tcp"],"billingConnectivity":"wifi","productEligible":false,"public":false,"usb":{"vendorId":"0x0","productId":"0x0"},"dfu":{"vendorId":"0x0","productId":"0x0"}},"p2":{"id":32,"name":"p2","displayName":"Photon 2 / P2","generation":3,"baseMcu":"rtl872x","features":["wifi","udp","ble"],"billingConnectivity":"wifi","productEligible":true,"public":true,"firmwareModules":[{"type":"bootloader","index":0,"storage":"internalFlash"},{"type":"bootloader","index":1,"storage":"internalFlash","encrypted":true},{"type":"bootloader","index":2,"storage":"internalFlash"},{"type":"systemPart","storage":"internalFlash"},{"type":"userPart","storage":"internalFlash"}],"usb":{"vendorId":"0x2b04","productId":"0xc020","quirks":{"controlOutTransfersRequireDataStage":true}},"dfu":{"vendorId":"0x2b04","productId":"0xd020","storage":[{"type":"internalFlash","alt":0}]}},"muon":{"id":35,"name":"muon","displayName":"Muon","generation":3,"baseMcu":"rtl872x","features":["wifi","cellular","udp","ble","gnss","trackerServices"],"billingConnectivity":"cellular","productEligible":true,"public":true,"firmwareModules":[{"type":"bootloader","index":0,"storage":"internalFlash"},{"type":"bootloader","index":1,"storage":"internalFlash","encrypted":true},{"type":"bootloader","index":2,"storage":"internalFlash"},{"type":"systemPart","storage":"internalFlash"},{"type":"userPart","storage":"internalFlash"}],"usb":{"vendorId":"0x2b04","productId":"0xc023","quirks":{"controlOutTransfersRequireDataStage":true}},"dfu":{"vendorId":"0x2b04","productId":"0xd023","storage":[{"type":"internalFlash","alt":0}]}},"oak":{"id":82,"name":"oak","displayName":"Oak","generation":-1,"baseMcu":"esp8266","features":["wifi","tcp"],"billingConnectivity":"wifi","productEligible":false,"public":false,"usb":{"vendorId":"0x0","productId":"0x0"},"dfu":{"vendorId":"0x0","productId":"0x0"}},"duo":{"id":88,"name":"duo","displayName":"Duo","generation":-1,"baseMcu":"stm32f2xx","features":["wifi","tcp","ble"],"billingConnectivity":"wifi","productEligible":false,"public":false,"usb":{"vendorId":"0x0","productId":"0x0"},"dfu":{"vendorId":"0x0","productId":"0x0"}},"bluz":{"id":103,"name":"bluz","displayName":"Bluz","generation":-1,"baseMcu":"stm32f2xx","features":["wifi","tcp","ble"],"billingConnectivity":"wifi","productEligible":false,"public":false,"usb":{"vendorId":"0x0","productId":"0x0"},"dfu":{"vendorId":"0x0","productId":"0x0"}}}');
 
 /***/ }),
 
