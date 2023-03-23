@@ -321,10 +321,10 @@ const docker_1 = __nccwpck_require__(3758);
 function run() {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            const accessToken = (0, core_1.getInput)('particle_access_token');
-            const platform = (0, core_1.getInput)('particle_platform_name');
-            const target = (0, core_1.getInput)('device_os_version');
-            const sources = (0, core_1.getInput)('sources_folder');
+            const accessToken = (0, core_1.getInput)('particle-access-token');
+            const platform = (0, core_1.getInput)('particle-platform-name');
+            const target = (0, core_1.getInput)('device-os-version');
+            const sources = (0, core_1.getInput)('sources-folder');
             let outputPath;
             if (!accessToken) {
                 (0, core_1.info)('No access token provided, running local compilation');
