@@ -340,7 +340,7 @@ function run() {
                 outputPath = yield (0, particle_api_1.particleDownloadBinary)(binaryId, accessToken);
             }
             if (outputPath) {
-                (0, core_1.setOutput)('artifact_path', outputPath);
+                (0, core_1.setOutput)('artifact-path', outputPath);
             }
             else {
                 (0, core_1.setFailed)(`Failed to compile code in '${sources}'`);
