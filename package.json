@@ -2,7 +2,7 @@
   "name": "compile-action",
   "version": "0.1.0-1",
   "private": true,
-  "description": "GitHub action for Particle Compile",
+  "description": "GitHub action for compiling Particle firmware code",
   "main": "lib/main.js",
   "scripts": {
     "build": "tsc",
@@ -19,7 +19,8 @@
   "keywords": [
     "actions",
     "particle",
-    "compile"
+    "compile",
+    "firmware"
   ],
   "author": "",
   "license": "MIT",
