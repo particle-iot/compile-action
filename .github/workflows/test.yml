@@ -25,7 +25,7 @@ jobs:
         with:
           particle_access_token: ${{ secrets.PARTICLE_ACCESS_TOKEN }}
           particle_platform_name: '12'
-          sources_folder: '__tests__/fixtures'
+          sources_folder: 'test/fixtures/single-file-firmware'
   test-local-compile:
     strategy:
       matrix:
@@ -38,4 +38,4 @@ jobs:
         name: 'Local compile'
         with:
           particle_platform_name: '12'
-          sources_folder: '__tests__/fixtures'
+          sources_folder: 'test/fixtures/single-file-firmware'
