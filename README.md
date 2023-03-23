@@ -36,7 +36,7 @@ See [`action.yml`](action.yml) for the full documentation for this action's inpu
 
 ### Cloud Compilation
 
-To compile in the cloud, set the `particle_access_token` input to a Particle access token with the `compile` scope. Example:
+To compile in the cloud, set the `particle_access_token` input to a Particle access token. Example:
 
 ```yaml
       - name: Compile application
