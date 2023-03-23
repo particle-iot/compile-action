@@ -2,6 +2,17 @@
 import { info, warning } from '@actions/core';
 import { existsSync, mkdirSync } from 'fs';
 import execa from 'execa';
+export async function dockerCheck(): Promise<boolean> {
+	let dockerVersion;
+	try {
+		dockerVersion = await execa('docker', ['version']);
+	} catch (e) {
+		const msg = dockerVersion?.stdout || dockerVersion?.stderr || String(e);
+		info(msg);
+		throw new Error(`Docker is not installed or is not available in the path.`);
+	}
+	return true;
+}
 
 export async function dockerBuildpackCompile(workingDir: string, sources: string, platform: string, target: string) {
 	// Note: the buildpack only detects *.c and *.cpp files

@@ -1,6 +1,6 @@
 import { getInput, info, setFailed, setOutput } from '@actions/core';
 import { particleCloudCompile, particleDownloadBinary } from './particle-api';
-import { dockerBuildpackCompile } from './docker';
+import { dockerBuildpackCompile, dockerCheck } from './docker';
 
 async function run(): Promise<void> {
 	try {
@@ -12,6 +12,7 @@ async function run(): Promise<void> {
 		let outputPath: string | undefined;
 		if (!accessToken) {
 			info('No access token provided, running local compilation');
+			await dockerCheck();
 			outputPath = await dockerBuildpackCompile(process.cwd(), sources, platform, target);
 		} else {
 			info('Access token provided, running cloud compilation');
