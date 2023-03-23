@@ -35,6 +35,7 @@ function cleanDir() {
 		fs.rmSync(dir, { recursive: true });
 	}
 }
+
 beforeEach(() => {
 	cleanDir();
 });
@@ -127,7 +128,7 @@ describe('particleCloudCompile', () => {
 			},
 			'platformId': 0,
 			'targetVersion': undefined,
-			'headers': { 'User-Agent': 'particle-compile-action' },
+			'headers': { 'User-Agent': 'particle-compile-action' }
 		});
 	});
 
@@ -142,7 +143,7 @@ describe('particleCloudCompile', () => {
 			},
 			'platformId': 12,
 			'targetVersion': undefined,
-			'headers': { 'User-Agent': 'particle-compile-action' },
+			'headers': { 'User-Agent': 'particle-compile-action' }
 		});
 	});
 
@@ -156,7 +157,7 @@ describe('particleCloudCompile', () => {
 			},
 			'platformId': 10,
 			'targetVersion': undefined,
-			'headers': { 'User-Agent': 'particle-compile-action' },
+			'headers': { 'User-Agent': 'particle-compile-action' }
 		});
 	});
 
@@ -166,16 +167,35 @@ describe('particleCloudCompile', () => {
 		expect(result).toEqual('abc123');
 	});
 
-	it('should return undefined on unsuccessful compile', async () => {
+	it('should return an empty string on a user-error compile', async () => {
+		mockCompileCode.mockImplementation(() => {
+			const err: Error = Error('Compilation failed');
+			// @ts-ignore
+			err.body = {
+				ok: false,
+				code: 200,
+				output: 'Compiler timed out or encountered an error',
+				errors: ['make -C ../modules/p1/user-part all\n']
+			};
+			throw err;
+		});
+
+		const result = await particleCloudCompile('test/fixtures/single-file-firmware', 'core', 'token');
+		expect(mockCompileCode).toHaveBeenCalledTimes(1);
+		expect(result).toEqual('');
+	});
+
+	it('should throw when there is a unknown response from the cloud', async () => {
 		mockCompileCode.mockImplementation(() => ({
 			body: {
 				ok: false
 			}
 		}));
 
-		const result = await particleCloudCompile('test/fixtures/single-file-firmware', 'core', 'token');
-		expect(mockCompileCode).toHaveBeenCalledTimes(1);
-		expect(result).toBeUndefined();
+		return expect(async () => {
+			await particleCloudCompile('test/fixtures/single-file-firmware', 'core', 'token');
+		}).rejects.toThrow(`Error: unknown response from Particle Cloud: {"body":{"ok":false}}`);
+
 	});
 
 });
@@ -188,7 +208,7 @@ describe('particleCloudDownload', () => {
 		expect(mockDownloadFirmwareBinary).toHaveBeenCalledWith({
 			'binaryId': '1234',
 			'auth': 'token',
-			'headers': { 'User-Agent': 'particle-compile-action' },
+			'headers': { 'User-Agent': 'particle-compile-action' }
 		});
 		expect(path).toEqual('output/firmware.bin');
 		expect(readFileSync(path || '').toString()).toEqual('test');

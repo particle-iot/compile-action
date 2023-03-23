@@ -1,5 +1,5 @@
 // eslint-disable-next-line max-len
-import { error, info, setFailed } from '@actions/core';
+import { error, info } from '@actions/core';
 import { existsSync, mkdirSync, writeFileSync } from 'fs';
 import { getCode, getPlatformId } from './util';
 
@@ -7,7 +7,7 @@ const ParticleApi = require('particle-api-js');
 const particle = new ParticleApi();
 
 // eslint-disable-next-line max-len
-export async function particleCloudCompile(path: string, platform: string, auth: string, targetVersion?: string): Promise<string | undefined> {
+export async function particleCloudCompile(path: string, platform: string, auth: string, targetVersion?: string): Promise<string> {
 	info(`Compiling code in ${path}`);
 	if (!path) {
 		throw new Error('No source code path specified');
@@ -30,22 +30,32 @@ export async function particleCloudCompile(path: string, platform: string, auth:
 		targetVersion = undefined;
 	}
 
-	const resp = await particle.compileCode({
-		files,
-		platformId,
-		targetVersion,
-		auth,
-		headers: { 'User-Agent': 'particle-compile-action' }
-	});
-
-	const body = resp.body;
-	if (body.ok) {
+	let binaryId = '';
+	try {
+		const resp = await particle.compileCode({
+			files,
+			platformId,
+			targetVersion,
+			auth,
+			headers: { 'User-Agent': 'particle-compile-action' }
+		});
+		const body = resp.body;
+		if (!body || !body.binary_id) {
+			throw new Error(`Error: unknown response from Particle Cloud: ${JSON.stringify(resp)}`);
+		}
 		info(`Code compiled successfully. Binary ID: '${body.binary_id}'`);
-		return body.binary_id;
+		binaryId = body.binary_id;
+	} catch (e: any) {
+		// Log custom error response from Particle API
+		// Specifically this is stdout from the compiler (why the compile failed)
+		if (e.body && e.body.output && e.body.errors) {
+			error(`${e.body.output}\n${e.body.errors}`);
+		} else {
+			throw e;
+		}
 	}
 
-	error(`Error compiling code:\n\n${body.errors}`);
-	setFailed(body.output);
+	return binaryId;
 }
 
 export async function particleDownloadBinary(binaryId: string, auth: string): Promise<string | undefined> {
