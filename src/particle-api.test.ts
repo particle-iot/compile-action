@@ -27,6 +27,20 @@ jest.mock('particle-api-js', () => {
 	});
 });
 
+// todo(matt): it actually writes to the file system, so we should mock that
+//             or find a better approach
+function cleanDir() {
+	const dir = 'output';
+	if (fs.existsSync(dir) && fs.lstatSync(dir).isDirectory()) {
+		fs.rmSync(dir, { recursive: true });
+	}
+}
+beforeEach(() => {
+	cleanDir();
+});
+afterEach(() => {
+	cleanDir();
+});
 
 describe('particleCloudCompile', () => {
 	const originalDir = process.cwd();
@@ -165,15 +179,6 @@ describe('particleCloudCompile', () => {
 
 describe('particleCloudDownload', () => {
 
-	afterEach(() => {
-		fs.unlinkSync('output/firmware.bin');
-		if (fs.existsSync('output/memory-use.log')) {
-			fs.unlinkSync('output/memory-use.log');
-		}
-		fs.rmdirSync('output');
-	});
-
-	// todo(matt): it actually writes to the file system, so we should mock that
 	it('should return a file path on a successful download', async () => {
 		const path = await particleDownloadBinary('1234', 'token');
 		expect(mockDownloadFirmwareBinary).toHaveBeenCalledTimes(1);
