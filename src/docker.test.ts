@@ -1,5 +1,5 @@
 import { dockerBuildpackCompile, dockerCheck } from './docker';
-import fs from "fs";
+import fs from 'fs';
 
 const execa = require('execa');
 jest.mock('execa');
