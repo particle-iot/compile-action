@@ -24,7 +24,7 @@ async function run(): Promise<void> {
 		}
 
 		if (outputPath) {
-			setOutput('artifact_path', outputPath);
+			setOutput('artifact-path', outputPath);
 		} else {
 			setFailed(`Failed to compile code in '${sources}'`);
 		}

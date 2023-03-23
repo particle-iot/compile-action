@@ -27,7 +27,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: tracker-firmware
-          path: ${{ steps.compile.outputs.artifact_path }}
+          path: ${{ steps.compile.outputs.artifact-path }}
 ```
 
 Compilation occurs inside the GitHub Action runner using the Particle [Buildpack Docker images](https://github.com/particle-iot/firmware-buildpack-builder).
