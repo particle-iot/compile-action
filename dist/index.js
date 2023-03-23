@@ -403,7 +403,8 @@ function particleCloudCompile(path, platform, auth, targetVersion) {
             files,
             platformId,
             targetVersion,
-            auth
+            auth,
+            headers: { 'User-Agent': 'particle-compile-action' }
         });
         const body = resp.body;
         if (body.ok) {
@@ -420,7 +421,8 @@ function particleDownloadBinary(binaryId, auth) {
         (0, core_1.info)(`Downloading binary ${binaryId}`);
         const resp = yield particle.downloadFirmwareBinary({
             binaryId,
-            auth
+            auth,
+            headers: { 'User-Agent': 'particle-compile-action' }
         });
         if (resp instanceof Buffer) {
             (0, core_1.info)(`Binary downloaded successfully.`);
