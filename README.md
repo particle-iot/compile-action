@@ -57,7 +57,8 @@ Here's an example of how to create a new Particle access token for use with this
 ```bash
 # Create a new Particle access token with the `binary:compile` scope
 $ export TOKEN=<your Particle access token>
-$ curl "https://api.particle.io/v1/orgs/particle/team?access_token=$TOKEN" -H "Content-Type: application/json" -d '{ "friendly_name": "GitHub Actions Compiling", "scopes": [ "binary:compile" ] }'
+$ export ORG_SLUG=<your Particle organization slug, vislble in urls>
+$ curl "https://api.particle.io/v1/orgs/$ORG_SLUG/team?access_token=$TOKEN" -H "Content-Type: application/json" -d '{ "friendly_name": "GitHub Actions Compiling", "scopes": [ "binary:compile" ] }'
 {
   "ok": true,
   "created": {
