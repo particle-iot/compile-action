@@ -9,7 +9,7 @@
     "lint": "eslint src/**/*.ts -f unix",
     "lint:fix": "eslint src/**/*.ts --fix -f unix",
     "package": "ncc build --source-map --license licenses.txt",
-    "test": "jest --coverage",
+    "test": "jest --coverage --runInBand",
     "all": "npm run build && npm run lint && npm run package && npm test"
   },
   "repository": {
