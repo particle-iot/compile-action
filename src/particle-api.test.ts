@@ -126,7 +126,8 @@ describe('particleCloudCompile', () => {
 				'application.cpp': 'application.cpp'
 			},
 			'platformId': 0,
-			'targetVersion': undefined
+			'targetVersion': undefined,
+			'headers': { 'User-Agent': 'particle-compile-action' },
 		});
 	});
 
@@ -140,7 +141,8 @@ describe('particleCloudCompile', () => {
 				'application.cpp': 'application.cpp'
 			},
 			'platformId': 12,
-			'targetVersion': undefined
+			'targetVersion': undefined,
+			'headers': { 'User-Agent': 'particle-compile-action' },
 		});
 	});
 
@@ -153,7 +155,8 @@ describe('particleCloudCompile', () => {
 				'application.cpp': 'test/fixtures/single-file-firmware/application.cpp'
 			},
 			'platformId': 10,
-			'targetVersion': undefined
+			'targetVersion': undefined,
+			'headers': { 'User-Agent': 'particle-compile-action' },
 		});
 	});
 
@@ -184,7 +187,8 @@ describe('particleCloudDownload', () => {
 		expect(mockDownloadFirmwareBinary).toHaveBeenCalledTimes(1);
 		expect(mockDownloadFirmwareBinary).toHaveBeenCalledWith({
 			'binaryId': '1234',
-			'auth': 'token'
+			'auth': 'token',
+			'headers': { 'User-Agent': 'particle-compile-action' },
 		});
 		expect(path).toEqual('output/firmware.bin');
 		expect(readFileSync(path || '').toString()).toEqual('test');

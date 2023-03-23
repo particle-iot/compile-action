@@ -34,7 +34,8 @@ export async function particleCloudCompile(path: string, platform: string, auth:
 		files,
 		platformId,
 		targetVersion,
-		auth
+		auth,
+		headers: { 'User-Agent': 'particle-compile-action' }
 	});
 
 	const body = resp.body;
@@ -51,7 +52,8 @@ export async function particleDownloadBinary(binaryId: string, auth: string): Pr
 	info(`Downloading binary ${binaryId}`);
 	const resp = await particle.downloadFirmwareBinary({
 		binaryId,
-		auth
+		auth,
+		headers: { 'User-Agent': 'particle-compile-action' }
 	});
 	if (resp instanceof Buffer) {
 		info(`Binary downloaded successfully.`);
