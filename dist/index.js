@@ -343,7 +343,7 @@ function run() {
                 (0, core_1.setOutput)('artifact_path', outputPath);
             }
             else {
-                (0, core_1.setFailed)(`Failed to compile code in ${sources}`);
+                (0, core_1.setFailed)(`Failed to compile code in '${sources}'`);
             }
         }
         catch (error) {
@@ -399,20 +399,33 @@ function particleCloudCompile(path, platform, auth, targetVersion) {
         if (targetVersion === 'latest') {
             targetVersion = undefined;
         }
-        const resp = yield particle.compileCode({
-            files,
-            platformId,
-            targetVersion,
-            auth,
-            headers: { 'User-Agent': 'particle-compile-action' }
-        });
-        const body = resp.body;
-        if (body.ok) {
+        let binaryId = '';
+        try {
+            const resp = yield particle.compileCode({
+                files,
+                platformId,
+                targetVersion,
+                auth,
+                headers: { 'User-Agent': 'particle-compile-action' }
+            });
+            const body = resp.body;
+            if (!body || !body.binary_id) {
+                throw new Error(`Error: unknown response from Particle Cloud: ${JSON.stringify(resp)}`);
+            }
             (0, core_1.info)(`Code compiled successfully. Binary ID: '${body.binary_id}'`);
-            return body.binary_id;
+            binaryId = body.binary_id;
         }
-        (0, core_1.error)(`Error compiling code:\n\n${body.errors}`);
-        (0, core_1.setFailed)(body.output);
+        catch (e) {
+            // Log custom error response from Particle API
+            // Specifically this is stdout from the compiler (why the compile failed)
+            if (e.body && e.body.output && e.body.errors) {
+                (0, core_1.error)(`${e.body.output}\n${e.body.errors}`);
+            }
+            else {
+                throw e;
+            }
+        }
+        return binaryId;
     });
 }
 exports.particleCloudCompile = particleCloudCompile;
