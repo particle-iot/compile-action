@@ -4,10 +4,10 @@ import { dockerBuildpackCompile, dockerCheck } from './docker';
 
 async function run(): Promise<void> {
 	try {
-		const accessToken: string = getInput('particle_access_token');
-		const platform: string = getInput('particle_platform_name');
-		const target: string = getInput('device_os_version');
-		const sources: string = getInput('sources_folder');
+		const accessToken: string = getInput('particle-access-token');
+		const platform: string = getInput('particle-platform-name');
+		const target: string = getInput('device-os-version');
+		const sources: string = getInput('sources-folder');
 
 		let outputPath: string | undefined;
 		if (!accessToken) {

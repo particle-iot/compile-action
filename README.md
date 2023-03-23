@@ -20,8 +20,8 @@ jobs:
         id: compile
         uses: particle-iot/compile-action@v1
         with:
-          particle_platform_name: 'boron'
-          sources_folder: 'src'
+          particle-platform-name: 'boron'
+          sources-folder: 'src'
 
       - name: Upload artifact
         uses: actions/upload-artifact@v3
@@ -36,16 +36,16 @@ See [`action.yml`](action.yml) for the full documentation for this action's inpu
 
 ### Cloud Compilation
 
-To compile in the cloud, set the `particle_access_token` input to a Particle access token. Example:
+To compile in the cloud, set the `particle-access-token` input to a Particle access token. Example:
 
 ```yaml
       - name: Compile application
         id: compile
         uses: particle-iot/compile-action@v1
         with:
-          particle_access_token: ${{ secrets.PARTICLE_ACCESS_TOKEN }}
-          particle_platform_name: 'boron'
-          sources_folder: 'src'
+          particle-access-token: ${{ secrets.PARTICLE_ACCESS_TOKEN }}
+          particle-platform-name: 'boron'
+          sources-folder: 'src'
 ```
 
 Compiling in the cloud can be 30 to 60 seconds faster than compiling locally. 
