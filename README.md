@@ -48,7 +48,9 @@ To compile in the cloud, set the `particle_access_token` input to a Particle acc
           sources_folder: 'src'
 ```
 
-Compiling in the cloud can be 30 to 60 seconds faster than compiling locally. This is due to overhead related to downloading and extracting the buildpack Docker image.
+Compiling in the cloud can be 30 to 60 seconds faster than compiling locally. 
+
+Compiling locally has overhead related to downloading and extracting buildpack Docker images to the Action runner.
 
 Your access token should be tightly scoped to the minimum required permissions. 
 
