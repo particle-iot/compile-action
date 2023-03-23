@@ -1,4 +1,4 @@
-import { getCode } from './util';
+import { getCode, getPlatformId } from './util';
 
 describe('getCode', () => {
 	it('should return file for application.cpp', () => {
@@ -65,5 +65,22 @@ describe('getCode', () => {
 			'src/tracker_sleep.cpp': `${path}/src/tracker_sleep.cpp`,
 			'src/tracker_sleep.h': `${path}/src/tracker_sleep.h`
 		});
+	});
+});
+
+describe('getPlatformId', () => {
+	it('should return the correct platform id', () => {
+		expect(getPlatformId('electron')).toEqual(10);
+		expect(getPlatformId('argon')).toEqual(12);
+		expect(getPlatformId('boron')).toEqual(13);
+		expect(getPlatformId('tracker')).toEqual(26);
+	});
+
+	it('should throw an error if the platform is not supported', () => {
+		expect(() => getPlatformId('not_a_platform')).toThrow();
+	});
+
+	it('should throw an error if the platform is not public', () => {
+		expect(() => getPlatformId('gcc')).toThrow();
 	});
 });
