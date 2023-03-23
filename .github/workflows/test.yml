@@ -24,7 +24,7 @@ jobs:
         name: 'Cloud compile'
         with:
           particle_access_token: ${{ secrets.PARTICLE_ACCESS_TOKEN }}
-          particle_platform_name: '12'
+          particle_platform_name: 'argon'
           sources_folder: 'test/fixtures/single-file-firmware'
   test-local-compile:
     strategy:
@@ -37,5 +37,5 @@ jobs:
       - uses: ./
         name: 'Local compile'
         with:
-          particle_platform_name: '12'
+          particle_platform_name: 'argon'
           sources_folder: 'test/fixtures/single-file-firmware'
