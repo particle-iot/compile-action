@@ -3,8 +3,8 @@ import { error, info, setFailed } from '@actions/core';
 import { existsSync, mkdirSync, writeFileSync } from 'fs';
 import { getCode } from './util';
 
-const Particle = require('particle-api-js');
-const particle = new Particle();
+const ParticleApi = require('particle-api-js');
+const particle = new ParticleApi();
 
 // eslint-disable-next-line max-len
 export async function particleCloudCompile(path: string, platformId: string, auth: string, targetVersion?: string): Promise<string | undefined> {
@@ -14,12 +14,12 @@ export async function particleCloudCompile(path: string, platformId: string, aut
 	}
 
 	if (path === './' || path === '.') {
-		path = __dirname;
+		path = process.cwd();
 	}
 
 	const files = getCode(path);
 
-	info(`Compiling code for platform ${platformId} with target version ${targetVersion}`);
+	info(`Compiling code for platform '${platformId}' with target version '${targetVersion}'`);
 	info(`Files: ${JSON.stringify(Object.keys(files))}`);
 
 	// handle internal implementation detail of the particle-api-js compile command
@@ -36,7 +36,7 @@ export async function particleCloudCompile(path: string, platformId: string, aut
 
 	const body = resp.body;
 	if (body.ok) {
-		info(`Code compiled successfully. Binary ID: ${body.binary_id}`);
+		info(`Code compiled successfully. Binary ID: '${body.binary_id}'`);
 		return body.binary_id;
 	}
 

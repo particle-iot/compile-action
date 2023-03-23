@@ -6,7 +6,9 @@ require('./sourcemap-register.js');/******/ (() => { // webpackBootstrap
 
 "use strict";
 
-// helper functions lifted from CloudCommand.flashDevice in particle-cli
+/* istanbul ignore file */
+// Helper functions lifted from CloudCommand.flashDevice in particle-cli
+// They are not individually tested in this project, but getCode is tested and uses code here
 const path = __nccwpck_require__(1017);
 const { existsSync, readFileSync, statSync } = __nccwpck_require__(7147);
 const glob = __nccwpck_require__(1957);
@@ -291,7 +293,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 const core_1 = __nccwpck_require__(2186);
-const particle_1 = __nccwpck_require__(7088);
+const particle_api_1 = __nccwpck_require__(5813);
 const docker_1 = __nccwpck_require__(3758);
 function run() {
     return __awaiter(this, void 0, void 0, function* () {
@@ -307,11 +309,11 @@ function run() {
             }
             else {
                 (0, core_1.info)('Access token provided, running cloud compilation');
-                const binaryId = yield (0, particle_1.particleCloudCompile)(sources, platform, accessToken, target);
+                const binaryId = yield (0, particle_api_1.particleCloudCompile)(sources, platform, accessToken, target);
                 if (!binaryId) {
                     throw new Error('Failed to compile code in cloud');
                 }
-                outputPath = yield (0, particle_1.particleDownloadBinary)(binaryId, accessToken);
+                outputPath = yield (0, particle_api_1.particleDownloadBinary)(binaryId, accessToken);
             }
             if (outputPath) {
                 (0, core_1.setOutput)('artifact_path', outputPath);
@@ -332,7 +334,7 @@ run();
 
 /***/ }),
 
-/***/ 7088:
+/***/ 5813:
 /***/ (function(__unused_webpack_module, exports, __nccwpck_require__) {
 
 "use strict";
@@ -352,8 +354,8 @@ exports.particleDownloadBinary = exports.particleCloudCompile = void 0;
 const core_1 = __nccwpck_require__(2186);
 const fs_1 = __nccwpck_require__(7147);
 const util_1 = __nccwpck_require__(4024);
-const Particle = __nccwpck_require__(2918);
-const particle = new Particle();
+const ParticleApi = __nccwpck_require__(2918);
+const particle = new ParticleApi();
 // eslint-disable-next-line max-len
 function particleCloudCompile(path, platformId, auth, targetVersion) {
     return __awaiter(this, void 0, void 0, function* () {
@@ -362,10 +364,10 @@ function particleCloudCompile(path, platformId, auth, targetVersion) {
             throw new Error('No source code path specified');
         }
         if (path === './' || path === '.') {
-            path = __dirname;
+            path = process.cwd();
         }
         const files = (0, util_1.getCode)(path);
-        (0, core_1.info)(`Compiling code for platform ${platformId} with target version ${targetVersion}`);
+        (0, core_1.info)(`Compiling code for platform '${platformId}' with target version '${targetVersion}'`);
         (0, core_1.info)(`Files: ${JSON.stringify(Object.keys(files))}`);
         // handle internal implementation detail of the particle-api-js compile command
         if (targetVersion === 'latest') {
@@ -379,7 +381,7 @@ function particleCloudCompile(path, platformId, auth, targetVersion) {
         });
         const body = resp.body;
         if (body.ok) {
-            (0, core_1.info)(`Code compiled successfully. Binary ID: ${body.binary_id}`);
+            (0, core_1.info)(`Code compiled successfully. Binary ID: '${body.binary_id}'`);
             return body.binary_id;
         }
         (0, core_1.error)(`Error compiling code:\n\n${body.errors}`);
@@ -422,15 +424,19 @@ exports.particleDownloadBinary = particleDownloadBinary;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.getCode = void 0;
 const cli_1 = __nccwpck_require__(2504);
+const fs_1 = __nccwpck_require__(7147);
 function getCode(path) {
+    if (!(0, fs_1.existsSync)(path)) {
+        throw new Error(`Source code ${path} does not exist`);
+    }
     const fileMapping = (0, cli_1._handleMultiFileArgs)([path]);
+    // @ts-ignore
+    if (!Object.keys(fileMapping.map).length) {
+        throw new Error(`There are no valid source code files included in ${path}`);
+    }
     (0, cli_1.populateFileMapping)(fileMapping);
     // @ts-ignore
-    if (Object.keys(fileMapping.map).length === 0) {
-        throw new Error(`no files included in ${path}`);
-    }
-    // @ts-ignore
-    return fileMapping.map || fileMapping;
+    return fileMapping.map;
 }
 exports.getCode = getCode;
 

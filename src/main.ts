@@ -1,5 +1,5 @@
 import { getInput, info, setFailed, setOutput } from '@actions/core';
-import { particleCloudCompile, particleDownloadBinary } from './particle';
+import { particleCloudCompile, particleDownloadBinary } from './particle-api';
 import { dockerBuildpackCompile } from './docker';
 
 async function run(): Promise<void> {

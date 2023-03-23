@@ -1,4 +1,6 @@
-// helper functions lifted from CloudCommand.flashDevice in particle-cli
+/* istanbul ignore file */
+// Helper functions lifted from CloudCommand.flashDevice in particle-cli
+// They are not individually tested in this project, but getCode is tested and uses code here
 
 const path = require('path');
 const { existsSync, readFileSync, statSync } = require('fs');
