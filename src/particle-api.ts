@@ -1,13 +1,13 @@
 // eslint-disable-next-line max-len
 import { error, info, setFailed } from '@actions/core';
 import { existsSync, mkdirSync, writeFileSync } from 'fs';
-import { getCode } from './util';
+import { getCode, getPlatformId } from './util';
 
 const ParticleApi = require('particle-api-js');
 const particle = new ParticleApi();
 
 // eslint-disable-next-line max-len
-export async function particleCloudCompile(path: string, platformId: string, auth: string, targetVersion?: string): Promise<string | undefined> {
+export async function particleCloudCompile(path: string, platform: string, auth: string, targetVersion?: string): Promise<string | undefined> {
 	info(`Compiling code in ${path}`);
 	if (!path) {
 		throw new Error('No source code path specified');
@@ -17,9 +17,12 @@ export async function particleCloudCompile(path: string, platformId: string, aut
 		path = process.cwd();
 	}
 
+	// todo: need validation on target/platform compatibility
+	const platformId = getPlatformId(platform);
+
 	const files = getCode(path);
 
-	info(`Compiling code for platform '${platformId}' with target version '${targetVersion}'`);
+	info(`Compiling code for platform '${platform}' with target version '${targetVersion}'`);
 	info(`Files: ${JSON.stringify(Object.keys(files))}`);
 
 	// handle internal implementation detail of the particle-api-js compile command

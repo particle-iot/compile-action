@@ -125,34 +125,34 @@ describe('particleCloudCompile', () => {
 			'files': {
 				'application.cpp': 'application.cpp'
 			},
-			'platformId': 'core',
+			'platformId': 0,
 			'targetVersion': undefined
 		});
 	});
 
 	it('should handle ./ source directory', async () => {
 		process.chdir('test/fixtures/single-file-firmware');
-		await particleCloudCompile('./', 'core', 'token', 'latest');
+		await particleCloudCompile('./', 'argon', 'token', 'latest');
 		expect(mockCompileCode).toHaveBeenCalledTimes(1);
 		expect(mockCompileCode).toHaveBeenCalledWith({
 			'auth': 'token',
 			'files': {
 				'application.cpp': 'application.cpp'
 			},
-			'platformId': 'core',
+			'platformId': 12,
 			'targetVersion': undefined
 		});
 	});
 
 	it('should reset targetVersion to undefined if passed latest', async () => {
-		await particleCloudCompile('test/fixtures/single-file-firmware', 'core', 'token', 'latest');
+		await particleCloudCompile('test/fixtures/single-file-firmware', 'electron', 'token', 'latest');
 		expect(mockCompileCode).toHaveBeenCalledTimes(1);
 		expect(mockCompileCode).toHaveBeenCalledWith({
 			'auth': 'token',
 			'files': {
 				'application.cpp': 'test/fixtures/single-file-firmware/application.cpp'
 			},
-			'platformId': 'core',
+			'platformId': 10,
 			'targetVersion': undefined
 		});
 	});
