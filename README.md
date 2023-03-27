@@ -1,8 +1,35 @@
 # Particle Compile Action
 
-A GitHub Action to compile Particle firmware.
+A GitHub Action to compile Particle application firmware
 
 ## Usage
+
+```yaml
+- uses: particle-iot/compile-action@v1
+  with:
+    # The platform name to target the compilation
+    # Allowed values: core, photon, p1, electron, argon, boron, xenon, esomx, bsom, b5som, tracker, trackerm, p2, muon
+    # Required: true
+    particle-platform-name: ''
+      
+    # Path to directory with sources to compile
+    # Required: false
+    sources-folder: 'src'
+      
+    # Target Device OS firmware version
+    # For production projects, you should pin to a specific Device OS version
+    # Required: false
+    device-os-version: 'latest'
+      
+    # Particle access token
+    # If provided, the action will use the Particle Cloud Compiler instead of compiling within the GitHub Action runner
+    # Required: false
+    particle-access-token: ''
+```
+
+### Example Pipeline
+
+This is a simple example of a GitHub Actions pipeline that compiles a firmware project and uploads the compiled binary as an artifact.
 
 ```yaml
 name: CI
