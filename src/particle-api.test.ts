@@ -52,14 +52,22 @@ describe('particleCloudCompile', () => {
 
 	it('should throw an error if passed empty string', () => {
 		return expect(async () => {
-			await particleCloudCompile('', 'core', 'token');
-		}).rejects.toThrow('No source code path specified');
+			await particleCloudCompile({
+				sources: '',
+				platform: 'core',
+				auth: 'token'
+			});
+		}).rejects.toThrow('No source code sources specified');
 	});
 
 	it('should throw an error on non-existent directory', () => {
 		return expect(async () => {
-			await particleCloudCompile('./fake-src-path', 'core', 'token');
-		}).rejects.toThrow('Source code ./fake-src-path does not exist');
+			await particleCloudCompile({
+				sources: './fake-src-sources',
+				platform: 'core',
+				auth: 'token'
+			});
+		}).rejects.toThrow('Source code ./fake-src-sources does not exist');
 	});
 
 	it('should throw an error on an empty directory', async () => {
@@ -75,7 +83,11 @@ describe('particleCloudCompile', () => {
 		});
 
 		return expect(async () => {
-			await particleCloudCompile(emptySrcDir, 'core', 'token');
+			await particleCloudCompile({
+				sources: emptySrcDir,
+				platform: 'core',
+				auth: 'token'
+			});
 		}).rejects.toThrow(`There are no valid source code files included in ${emptySrcDir}`);
 	});
 
@@ -93,7 +105,11 @@ describe('particleCloudCompile', () => {
 		writeFileSync(testFile, 'test');
 
 		return expect(async () => {
-			await particleCloudCompile(emptySrcDir, 'core', 'token');
+			await particleCloudCompile({
+				sources: emptySrcDir,
+				platform: 'core',
+				auth: 'token'
+			});
 		}).rejects.toThrow(`There are no valid source code files included in ${emptySrcDir}`);
 
 	});
@@ -112,14 +128,23 @@ describe('particleCloudCompile', () => {
 		writeFileSync(testFile, 'test');
 
 		return expect(async () => {
-			await particleCloudCompile(emptySrcDir, 'core', 'token');
+			await particleCloudCompile({
+				sources: emptySrcDir,
+				platform: 'core',
+				auth: 'token'
+			});
 		}).rejects.toThrow(`There are no valid source code files included in ${emptySrcDir}`);
 
 	});
 
 	it('should handle . source directory', async () => {
 		process.chdir('test/fixtures/single-file-firmware');
-		await particleCloudCompile('.', 'core', 'token', 'latest');
+		await particleCloudCompile({
+			sources: '.',
+			platform: 'core',
+			auth: 'token',
+			targetVersion: 'latest'
+		});
 		expect(mockCompileCode).toHaveBeenCalledTimes(1);
 		expect(mockCompileCode).toHaveBeenCalledWith({
 			'auth': 'token',
@@ -134,7 +159,12 @@ describe('particleCloudCompile', () => {
 
 	it('should handle ./ source directory', async () => {
 		process.chdir('test/fixtures/single-file-firmware');
-		await particleCloudCompile('./', 'argon', 'token', 'latest');
+		await particleCloudCompile({
+			sources: './',
+			platform: 'argon',
+			auth: 'token',
+			targetVersion: 'latest'
+		});
 		expect(mockCompileCode).toHaveBeenCalledTimes(1);
 		expect(mockCompileCode).toHaveBeenCalledWith({
 			'auth': 'token',
@@ -148,7 +178,12 @@ describe('particleCloudCompile', () => {
 	});
 
 	it('should reset targetVersion to undefined if passed latest', async () => {
-		await particleCloudCompile('test/fixtures/single-file-firmware', 'electron', 'token', 'latest');
+		await particleCloudCompile({
+			sources: 'test/fixtures/single-file-firmware',
+			platform: 'electron',
+			auth: 'token',
+			targetVersion: 'latest'
+		});
 		expect(mockCompileCode).toHaveBeenCalledTimes(1);
 		expect(mockCompileCode).toHaveBeenCalledWith({
 			'auth': 'token',
@@ -162,7 +197,11 @@ describe('particleCloudCompile', () => {
 	});
 
 	it('should return binary_id on a successful compile', async () => {
-		const result = await particleCloudCompile('test/fixtures/single-file-firmware', 'core', 'token');
+		const result = await particleCloudCompile({
+			sources: 'test/fixtures/single-file-firmware',
+			platform: 'core',
+			auth: 'token'
+		});
 		expect(mockCompileCode).toHaveBeenCalledTimes(1);
 		expect(result).toEqual('abc123');
 	});
@@ -180,7 +219,11 @@ describe('particleCloudCompile', () => {
 			throw err;
 		});
 
-		const result = await particleCloudCompile('test/fixtures/single-file-firmware', 'core', 'token');
+		const result = await particleCloudCompile({
+			sources: 'test/fixtures/single-file-firmware',
+			platform: 'core',
+			auth: 'token'
+		});
 		expect(mockCompileCode).toHaveBeenCalledTimes(1);
 		expect(result).toEqual('');
 	});
@@ -193,7 +236,11 @@ describe('particleCloudCompile', () => {
 		}));
 
 		return expect(async () => {
-			await particleCloudCompile('test/fixtures/single-file-firmware', 'core', 'token');
+			await particleCloudCompile({
+				sources: 'test/fixtures/single-file-firmware',
+				platform: 'core',
+				auth: 'token'
+			});
 		}).rejects.toThrow(`Error: unknown response from Particle Cloud: {"body":{"ok":false}}`);
 
 	});
@@ -202,8 +249,8 @@ describe('particleCloudCompile', () => {
 
 describe('particleCloudDownload', () => {
 
-	it('should return a file path on a successful download', async () => {
-		const path = await particleDownloadBinary('1234', 'token');
+	it('should return a file sources on a successful download', async () => {
+		const path = await particleDownloadBinary({ binaryId: '1234', auth: 'token' });
 		expect(mockDownloadFirmwareBinary).toHaveBeenCalledTimes(1);
 		expect(mockDownloadFirmwareBinary).toHaveBeenCalledWith({
 			'binaryId': '1234',

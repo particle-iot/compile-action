@@ -54,11 +54,21 @@ describe('dockerCheck', () => {
 
 describe('dockerBuildpackCompile', () => {
 	it('should throw on invalid platform', () => {
-		return expect(dockerBuildpackCompile('workingDir', 'sources', 'invalid', 'latest')).rejects.toThrow();
+		return expect(dockerBuildpackCompile({
+			workingDir : 'workingDir',
+			sources : 'sources',
+			platform : 'invalid',
+			targetVersion : 'latest'
+		})).rejects.toThrow();
 	});
 
-	it('should set target to 4.0.2 if target is latest', async () => {
-		const path = await dockerBuildpackCompile('workingDir', 'sources', 'argon', 'latest');
+	it('should set targetVersion to 4.0.2 if targetVersion is latest', async () => {
+		const path = await dockerBuildpackCompile({
+			workingDir : 'workingDir',
+			sources : 'sources',
+			platform : 'argon',
+			targetVersion : 'latest'
+		});
 		expect(execa).toHaveBeenCalledTimes(2);
 		expect(execa.mock.calls[0]).toEqual([
 			'docker',

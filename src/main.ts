@@ -4,23 +4,23 @@ import { dockerBuildpackCompile, dockerCheck } from './docker';
 
 async function run(): Promise<void> {
 	try {
-		const accessToken: string = getInput('particle-access-token');
+		const auth: string = getInput('particle-access-token');
 		const platform: string = getInput('particle-platform-name');
-		const target: string = getInput('device-os-version');
+		const targetVersion: string = getInput('device-os-version');
 		const sources: string = getInput('sources-folder');
 
 		let outputPath: string | undefined;
-		if (!accessToken) {
+		if (!auth) {
 			info('No access token provided, running local compilation');
 			await dockerCheck();
-			outputPath = await dockerBuildpackCompile(process.cwd(), sources, platform, target);
+			outputPath = await dockerBuildpackCompile({ sources, platform, targetVersion, workingDir: process.cwd() });
 		} else {
 			info('Access token provided, running cloud compilation');
-			const binaryId = await particleCloudCompile(sources, platform, accessToken, target);
+			const binaryId = await particleCloudCompile({ sources, platform, targetVersion, auth });
 			if (!binaryId) {
 				throw new Error('Failed to compile code in cloud');
 			}
-			outputPath = await particleDownloadBinary(binaryId, accessToken);
+			outputPath = await particleDownloadBinary({ binaryId, auth });
 		}
 
 		if (outputPath) {

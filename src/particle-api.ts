@@ -6,21 +6,29 @@ import { getCode, getPlatformId } from './util';
 const ParticleApi = require('particle-api-js');
 const particle = new ParticleApi();
 
-// eslint-disable-next-line max-len
-export async function particleCloudCompile(path: string, platform: string, auth: string, targetVersion?: string): Promise<string> {
-	info(`Compiling code in ${path}`);
-	if (!path) {
-		throw new Error('No source code path specified');
+interface ParticleCloudCompileParams {
+	sources: string;
+	platform: string;
+	auth: string;
+	targetVersion?: string;
+}
+
+export async function particleCloudCompile(
+	{ sources, platform, auth, targetVersion }: ParticleCloudCompileParams
+): Promise<string> {
+	info(`Compiling code in ${sources}`);
+	if (!sources) {
+		throw new Error('No source code sources specified');
 	}
 
-	if (path === './' || path === '.') {
-		path = process.cwd();
+	if (sources === './' || sources === '.') {
+		sources = process.cwd();
 	}
 
-	// todo: need validation on target/platform compatibility
+	// todo: need validation on targetVersion/platform compatibility
 	const platformId = getPlatformId(platform);
 
-	const files = getCode(path);
+	const files = getCode(sources);
 
 	info(`Compiling code for platform '${platform}' with target version '${targetVersion}'`);
 	info(`Files: ${JSON.stringify(Object.keys(files))}`);
@@ -58,7 +66,14 @@ export async function particleCloudCompile(path: string, platform: string, auth:
 	return binaryId;
 }
 
-export async function particleDownloadBinary(binaryId: string, auth: string): Promise<string | undefined> {
+interface ParticleDownloadBinaryParams {
+	binaryId: string;
+	auth: string;
+}
+
+export async function particleDownloadBinary(
+	{ binaryId, auth }: ParticleDownloadBinaryParams
+): Promise<string | undefined> {
 	info(`Downloading binary ${binaryId}`);
 	const resp = await particle.downloadFirmwareBinary({
 		binaryId,

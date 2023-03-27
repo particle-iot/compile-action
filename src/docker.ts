@@ -1,4 +1,4 @@
-import { info, warning } from '@actions/core';
+import 	{ info, warning } from '@actions/core';
 import { existsSync, mkdirSync } from 'fs';
 import execa from 'execa';
 import { getPlatformId } from './util';
@@ -15,25 +15,34 @@ export async function dockerCheck(): Promise<boolean> {
 	return true;
 }
 
-export async function dockerBuildpackCompile(workingDir: string, sources: string, platform: string, target: string) {
+interface DockerBuildpackCompileParams {
+	workingDir: string;
+	sources: string;
+	platform: string;
+	targetVersion: string;
+}
+
+export async function dockerBuildpackCompile(
+	{ workingDir, sources, platform, targetVersion }: DockerBuildpackCompileParams
+): Promise<string> {
 	// Note: the buildpack only detects *.c and *.cpp files
 	// https://github.com/particle-iot/device-os/blob/196d497dd4c16ab83db6ea610cf2433047226a6a/user/build.mk#L64-L65
 
-	// todo: need validation on target/platform compatibility
+	// todo: need validation on targetVersion/platform compatibility
 	const platformId = getPlatformId(platform);
 
 	// todo: need to source this from somewhere
-	let targetFriendly = target;
-	if (target === 'latest' || target === '') {
-		target = '4.0.2';
-		targetFriendly = `${target} (latest)`;
+	let targetFriendly = targetVersion;
+	if (targetVersion === 'latest' || targetVersion === '') {
+		targetVersion = '4.0.2';
+		targetFriendly = `${targetVersion} (latest)`;
 	}
 
 	info(`Fetching docker buildpack for platform '${platform}' and target '${targetFriendly}'`);
 	info(`This can take a minute....`);
 	const dockerPull = await execa('docker', [
 		'pull',
-		`particle/buildpack-particle-firmware:${target}-${platform}`
+		`particle/buildpack-particle-firmware:${targetVersion}-${platform}`
 	]);
 	info(dockerPull.stdout);
 
@@ -57,7 +66,7 @@ export async function dockerBuildpackCompile(workingDir: string, sources: string
 		`${workingDir}/${destDir}:/output`,
 		'-e',
 		`PLATFORM_ID=${platformId}`,
-		`particle/buildpack-particle-firmware:${target}-${platform}`
+		`particle/buildpack-particle-firmware:${targetVersion}-${platform}`
 	];
 	const dockerRun = await execa('docker', args);
 	info(dockerRun.stdout);
