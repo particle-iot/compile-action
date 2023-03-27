@@ -2,14 +2,14 @@
   "name": "compile-action",
   "version": "0.1.0-1",
   "private": true,
-  "description": "GitHub action for Particle Compile",
+  "description": "GitHub action for compiling Particle firmware code",
   "main": "lib/main.js",
   "scripts": {
     "build": "tsc",
     "lint": "eslint src/**/*.ts -f unix",
     "lint:fix": "eslint src/**/*.ts --fix -f unix",
-    "package": "NODE_OPTIONS='--openssl-legacy-provider' ncc build --source-map --license licenses.txt",
-    "test": "jest",
+    "package": "ncc build --source-map --license licenses.txt",
+    "test": "jest --coverage --runInBand",
     "all": "npm run build && npm run lint && npm run package && npm test"
   },
   "repository": {
@@ -19,21 +19,24 @@
   "keywords": [
     "actions",
     "particle",
-    "compile"
+    "compile",
+    "firmware"
   ],
   "author": "",
   "license": "MIT",
   "dependencies": {
     "@actions/core": "^1.10.0",
-    "particle-api-js": "^9.4.1",
-    "glob": "^7.2.3"
+    "@particle/device-constants": "^3.1.7",
+    "execa": "^5.0.0",
+    "glob": "^7.2.3",
+    "particle-api-js": "^9.4.1"
   },
   "devDependencies": {
     "@types/jest": "^27.5.2",
     "@types/node": "^18.14.0",
     "@typescript-eslint/eslint-plugin": "^5.55.0",
     "@typescript-eslint/parser": "^5.55.0",
-    "@vercel/ncc": "^0.31.1",
+    "@vercel/ncc": "^0.36.1",
     "eslint": "^8.36.0",
     "eslint-config-particle": "^2.5.0",
     "eslint-plugin-github": "^4.6.1",

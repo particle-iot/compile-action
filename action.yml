@@ -1,25 +1,25 @@
 name: 'Particle Compile'
-description: 'Compiles application source code using the Particle Cloud'
+description: 'Compiles application source code'
 inputs:
-  particle_access_token:
+  particle-platform-name:
     required: true
-    description: 'Particle access token'
+    description: 'The platform name to target the compilation. Example: photon, p1, electron, argon, asom, boron'
     default: ''
-  particle_platform_name:
-    required: true
-    description: 'The platform name to target the compilation (example: photon, p1, electron, argon, asom, boron, bsom, tracker etc)'
-    default: ''
-  device_os_version:
+  particle-access-token:
     required: false
-    description: 'Target Device OS firmware version'
+    description: 'Particle access token. If provided, the action will use the Particle Cloud Compiler instead of compiling within the GitHub Action runner'
+    default: ''
+  device-os-version:
+    required: false
+    description: 'Target Device OS firmware version. Example: 4.0.2'
     default: 'latest'
-  sources_folder:
+  sources-folder:
     required: false
-    description: 'Path to directory with sources to compile'
-    default: '.'
+    description: 'Path to directory with sources to compile. Example: src'
+    default: 'src'
 outputs:
-  artifact_path:
-    description: 'Path to the compiled binary file'
+  artifact-path:
+    description: 'Path to the compiled binary file. Example: output/firmware.bin'
 runs:
   using: 'node16'
   main: 'dist/index.js'

@@ -2,9 +2,7 @@ name: 'build-test'
 on: # rebuild any PRs and main branch changes
   pull_request:
   push:
-    branches:
-      - main
-      - 'releases/*'
+
 
 jobs:
   build: # make sure build/ci work properly
@@ -15,12 +13,29 @@ jobs:
           npm install
       - run: |
           npm run all
-  test: # make sure the action works on a clean machine without building
-    runs-on: ubuntu-latest
+  test-cloud-compile:
+    strategy:
+      matrix:
+        os: [ ubuntu-latest ]
+    runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v3
       - uses: ./
+        name: 'Cloud compile'
         with:
-          particle_access_token: ${{ secrets.PARTICLE_ACCESS_TOKEN }}
-          particle_platform_name: '12'
-          sources_folder: '__tests__/fixtures'
+          particle-access-token: ${{ secrets.PARTICLE_ACCESS_TOKEN }}
+          particle-platform-name: 'argon'
+          sources-folder: 'test/fixtures/single-file-firmware'
+  test-local-compile:
+    strategy:
+      matrix:
+        # note - local compile only works on linux
+        os: [ ubuntu-latest ]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v3
+      - uses: ./
+        name: 'Local compile'
+        with:
+          particle-platform-name: 'argon'
+          sources-folder: 'test/fixtures/single-file-firmware'
