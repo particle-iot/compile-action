@@ -250,23 +250,23 @@ function dockerCheck() {
     });
 }
 exports.dockerCheck = dockerCheck;
-function dockerBuildpackCompile(workingDir, sources, platform, target) {
+function dockerBuildpackCompile({ workingDir, sources, platform, targetVersion }) {
     return __awaiter(this, void 0, void 0, function* () {
         // Note: the buildpack only detects *.c and *.cpp files
         // https://github.com/particle-iot/device-os/blob/196d497dd4c16ab83db6ea610cf2433047226a6a/user/build.mk#L64-L65
-        // todo: need validation on target/platform compatibility
+        // todo: need validation on targetVersion/platform compatibility
         const platformId = (0, util_1.getPlatformId)(platform);
         // todo: need to source this from somewhere
-        let targetFriendly = target;
-        if (target === 'latest' || target === '') {
-            target = '4.0.2';
-            targetFriendly = `${target} (latest)`;
+        let targetFriendly = targetVersion;
+        if (targetVersion === 'latest' || targetVersion === '') {
+            targetVersion = '4.0.2';
+            targetFriendly = `${targetVersion} (latest)`;
         }
         (0, core_1.info)(`Fetching docker buildpack for platform '${platform}' and target '${targetFriendly}'`);
         (0, core_1.info)(`This can take a minute....`);
         const dockerPull = yield (0, execa_1.default)('docker', [
             'pull',
-            `particle/buildpack-particle-firmware:${target}-${platform}`
+            `particle/buildpack-particle-firmware:${targetVersion}-${platform}`
         ]);
         (0, core_1.info)(dockerPull.stdout);
         const destDir = 'output';
@@ -288,7 +288,7 @@ function dockerBuildpackCompile(workingDir, sources, platform, target) {
             `${workingDir}/${destDir}:/output`,
             '-e',
             `PLATFORM_ID=${platformId}`,
-            `particle/buildpack-particle-firmware:${target}-${platform}`
+            `particle/buildpack-particle-firmware:${targetVersion}-${platform}`
         ];
         const dockerRun = yield (0, execa_1.default)('docker', args);
         (0, core_1.info)(dockerRun.stdout);
@@ -321,23 +321,23 @@ const docker_1 = __nccwpck_require__(3758);
 function run() {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            const accessToken = (0, core_1.getInput)('particle-access-token');
+            const auth = (0, core_1.getInput)('particle-access-token');
             const platform = (0, core_1.getInput)('particle-platform-name');
-            const target = (0, core_1.getInput)('device-os-version');
+            const targetVersion = (0, core_1.getInput)('device-os-version');
             const sources = (0, core_1.getInput)('sources-folder');
             let outputPath;
-            if (!accessToken) {
+            if (!auth) {
                 (0, core_1.info)('No access token provided, running local compilation');
                 yield (0, docker_1.dockerCheck)();
-                outputPath = yield (0, docker_1.dockerBuildpackCompile)(process.cwd(), sources, platform, target);
+                outputPath = yield (0, docker_1.dockerBuildpackCompile)({ sources, platform, targetVersion, workingDir: process.cwd() });
             }
             else {
                 (0, core_1.info)('Access token provided, running cloud compilation');
-                const binaryId = yield (0, particle_api_1.particleCloudCompile)(sources, platform, accessToken, target);
+                const binaryId = yield (0, particle_api_1.particleCloudCompile)({ sources, platform, targetVersion, auth });
                 if (!binaryId) {
                     throw new Error('Failed to compile code in cloud');
                 }
-                outputPath = yield (0, particle_api_1.particleDownloadBinary)(binaryId, accessToken);
+                outputPath = yield (0, particle_api_1.particleDownloadBinary)({ binaryId, auth });
             }
             if (outputPath) {
                 (0, core_1.setOutput)('artifact-path', outputPath);
@@ -380,19 +380,18 @@ const fs_1 = __nccwpck_require__(7147);
 const util_1 = __nccwpck_require__(4024);
 const ParticleApi = __nccwpck_require__(2918);
 const particle = new ParticleApi();
-// eslint-disable-next-line max-len
-function particleCloudCompile(path, platform, auth, targetVersion) {
+function particleCloudCompile({ sources, platform, auth, targetVersion }) {
     return __awaiter(this, void 0, void 0, function* () {
-        (0, core_1.info)(`Compiling code in ${path}`);
-        if (!path) {
-            throw new Error('No source code path specified');
+        (0, core_1.info)(`Compiling code in ${sources}`);
+        if (!sources) {
+            throw new Error('No source code sources specified');
         }
-        if (path === './' || path === '.') {
-            path = process.cwd();
+        if (sources === './' || sources === '.') {
+            sources = process.cwd();
         }
-        // todo: need validation on target/platform compatibility
+        // todo: need validation on targetVersion/platform compatibility
         const platformId = (0, util_1.getPlatformId)(platform);
-        const files = (0, util_1.getCode)(path);
+        const files = (0, util_1.getCode)(sources);
         (0, core_1.info)(`Compiling code for platform '${platform}' with target version '${targetVersion}'`);
         (0, core_1.info)(`Files: ${JSON.stringify(Object.keys(files))}`);
         // handle internal implementation detail of the particle-api-js compile command
@@ -429,7 +428,7 @@ function particleCloudCompile(path, platform, auth, targetVersion) {
     });
 }
 exports.particleCloudCompile = particleCloudCompile;
-function particleDownloadBinary(binaryId, auth) {
+function particleDownloadBinary({ binaryId, auth }) {
     return __awaiter(this, void 0, void 0, function* () {
         (0, core_1.info)(`Downloading binary ${binaryId}`);
         const resp = yield particle.downloadFirmwareBinary({
