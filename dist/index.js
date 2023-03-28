@@ -1829,7 +1829,7 @@ function clean(key)
 /***/ 2794:
 /***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
 
-var defer = __nccwpck_require__(5295);
+var defer = __nccwpck_require__(8737);
 
 // API
 module.exports = async;
@@ -1867,7 +1867,7 @@ function async(callback)
 
 /***/ }),
 
-/***/ 5295:
+/***/ 8737:
 /***/ ((module) => {
 
 module.exports = defer;
@@ -3727,7 +3727,7 @@ module.exports = function (it) {
 
 /***/ }),
 
-/***/ 1766:
+/***/ 8868:
 /***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
 
 var global = __nccwpck_require__(8874);
@@ -4019,7 +4019,7 @@ module.exports = function (Constructor, NAME, next) {
 "use strict";
 
 var LIBRARY = __nccwpck_require__(8882);
-var $export = __nccwpck_require__(1766);
+var $export = __nccwpck_require__(8868);
 var redefine = __nccwpck_require__(3839);
 var hide = __nccwpck_require__(5096);
 var Iterators = __nccwpck_require__(7195);
@@ -4585,7 +4585,7 @@ exports.f = {}.propertyIsEnumerable;
 /***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
 
 // most Object methods by ES6 should accept primitives
-var $export = __nccwpck_require__(1766);
+var $export = __nccwpck_require__(8868);
 var core = __nccwpck_require__(1796);
 var fails = __nccwpck_require__(1000);
 module.exports = function (KEY, exec) {
@@ -5167,7 +5167,7 @@ addToUnscopables('entries');
 /***/ ((__unused_webpack_module, __unused_webpack_exports, __nccwpck_require__) => {
 
 // 19.1.3.1 Object.assign(target, source)
-var $export = __nccwpck_require__(1766);
+var $export = __nccwpck_require__(8868);
 
 $export($export.S + $export.F, 'Object', { assign: __nccwpck_require__(9537) });
 
@@ -5177,7 +5177,7 @@ $export($export.S + $export.F, 'Object', { assign: __nccwpck_require__(9537) });
 /***/ 1154:
 /***/ ((__unused_webpack_module, __unused_webpack_exports, __nccwpck_require__) => {
 
-var $export = __nccwpck_require__(1766);
+var $export = __nccwpck_require__(8868);
 // 19.1.2.2 / 15.2.3.5 Object.create(O [, Properties])
 $export($export.S, 'Object', { create: __nccwpck_require__(36) });
 
@@ -5187,7 +5187,7 @@ $export($export.S, 'Object', { create: __nccwpck_require__(36) });
 /***/ 9334:
 /***/ ((__unused_webpack_module, __unused_webpack_exports, __nccwpck_require__) => {
 
-var $export = __nccwpck_require__(1766);
+var $export = __nccwpck_require__(8868);
 // 19.1.2.4 / 15.2.3.6 Object.defineProperty(O, P, Attributes)
 $export($export.S + $export.F * !__nccwpck_require__(7045), 'Object', { defineProperty: (__nccwpck_require__(7757).f) });
 
@@ -5230,7 +5230,7 @@ __nccwpck_require__(8826)('keys', function () {
 /***/ ((__unused_webpack_module, __unused_webpack_exports, __nccwpck_require__) => {
 
 // 19.1.3.19 Object.setPrototypeOf(O, proto)
-var $export = __nccwpck_require__(1766);
+var $export = __nccwpck_require__(8868);
 $export($export.S, 'Object', { setPrototypeOf: (__nccwpck_require__(7061).set) });
 
 
@@ -5252,7 +5252,7 @@ var LIBRARY = __nccwpck_require__(8882);
 var global = __nccwpck_require__(8874);
 var ctx = __nccwpck_require__(3693);
 var classof = __nccwpck_require__(2798);
-var $export = __nccwpck_require__(1766);
+var $export = __nccwpck_require__(8868);
 var isObject = __nccwpck_require__(2712);
 var aFunction = __nccwpck_require__(4136);
 var anInstance = __nccwpck_require__(4260);
@@ -5571,7 +5571,7 @@ __nccwpck_require__(2343)(String, 'String', function (iterated) {
 var global = __nccwpck_require__(8874);
 var has = __nccwpck_require__(1621);
 var DESCRIPTORS = __nccwpck_require__(7045);
-var $export = __nccwpck_require__(1766);
+var $export = __nccwpck_require__(8868);
 var redefine = __nccwpck_require__(3839);
 var META = (__nccwpck_require__(8018).KEY);
 var $fails = __nccwpck_require__(1000);
@@ -5820,7 +5820,7 @@ setToStringTag(global.JSON, 'JSON', true);
 /***/ ((__unused_webpack_module, __unused_webpack_exports, __nccwpck_require__) => {
 
 // https://github.com/tc39/proposal-object-values-entries
-var $export = __nccwpck_require__(1766);
+var $export = __nccwpck_require__(8868);
 var $entries = __nccwpck_require__(2584)(true);
 
 $export($export.S, 'Object', {
@@ -5838,7 +5838,7 @@ $export($export.S, 'Object', {
 "use strict";
 // https://github.com/tc39/proposal-promise-finally
 
-var $export = __nccwpck_require__(1766);
+var $export = __nccwpck_require__(8868);
 var core = __nccwpck_require__(1796);
 var global = __nccwpck_require__(8874);
 var speciesConstructor = __nccwpck_require__(471);
@@ -5866,7 +5866,7 @@ $export($export.P + $export.R, 'Promise', { 'finally': function (onFinally) {
 "use strict";
 
 // https://github.com/tc39/proposal-promise-try
-var $export = __nccwpck_require__(1766);
+var $export = __nccwpck_require__(8868);
 var newPromiseCapability = __nccwpck_require__(2234);
 var perform = __nccwpck_require__(6464);
 
@@ -7912,7 +7912,7 @@ module.exports.node = options => {
 "use strict";
 
 const isStream = __nccwpck_require__(1554);
-const getStream = __nccwpck_require__(1996);
+const getStream = __nccwpck_require__(1766);
 const mergeStream = __nccwpck_require__(2621);
 
 // `input` option
@@ -10743,7 +10743,7 @@ module.exports = options => {
 
 /***/ }),
 
-/***/ 1996:
+/***/ 1766:
 /***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
 
 "use strict";
@@ -12734,7 +12734,7 @@ standard:"other"}];exports.SIGNALS=SIGNALS;
 Object.defineProperty(exports, "__esModule", ({value:true}));exports.signalsByNumber=exports.signalsByName=void 0;var _os=__nccwpck_require__(2037);
 
 var _signals=__nccwpck_require__(6435);
-var _realtime=__nccwpck_require__(1229);
+var _realtime=__nccwpck_require__(5295);
 
 
 
@@ -12805,7 +12805,7 @@ const signalsByNumber=getSignalsByNumber();exports.signalsByNumber=signalsByNumb
 
 /***/ }),
 
-/***/ 1229:
+/***/ 5295:
 /***/ ((__unused_webpack_module, exports) => {
 
 "use strict";
@@ -12838,7 +12838,7 @@ const SIGRTMAX=64;exports.SIGRTMAX=SIGRTMAX;
 Object.defineProperty(exports, "__esModule", ({value:true}));exports.getSignals=void 0;var _os=__nccwpck_require__(2037);
 
 var _core=__nccwpck_require__(8213);
-var _realtime=__nccwpck_require__(1229);
+var _realtime=__nccwpck_require__(5295);
 
 
 
@@ -29227,6 +29227,65 @@ module.exports = {
 
 /***/ }),
 
+/***/ 7672:
+/***/ (function(__unused_webpack_module, exports, __nccwpck_require__) {
+
+"use strict";
+
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.compileAction = void 0;
+const core_1 = __nccwpck_require__(2186);
+const docker_1 = __nccwpck_require__(6512);
+const particle_api_1 = __nccwpck_require__(6032);
+function compileAction() {
+    return __awaiter(this, void 0, void 0, function* () {
+        try {
+            const auth = (0, core_1.getInput)('particle-access-token');
+            const platform = (0, core_1.getInput)('particle-platform-name');
+            const targetVersion = (0, core_1.getInput)('device-os-version');
+            const sources = (0, core_1.getInput)('sources-folder');
+            let outputPath;
+            if (!auth) {
+                (0, core_1.info)('No access token provided, running local compilation');
+                yield (0, docker_1.dockerCheck)();
+                outputPath = yield (0, docker_1.dockerBuildpackCompile)({ sources, platform, targetVersion, workingDir: process.cwd() });
+            }
+            else {
+                (0, core_1.info)('Access token provided, running cloud compilation');
+                const binaryId = yield (0, particle_api_1.particleCloudCompile)({ sources, platform, targetVersion, auth });
+                if (!binaryId) {
+                    throw new Error('Failed to compile code in cloud');
+                }
+                outputPath = yield (0, particle_api_1.particleDownloadBinary)({ binaryId, auth });
+            }
+            if (outputPath) {
+                (0, core_1.setOutput)('artifact-path', outputPath);
+            }
+            else {
+                (0, core_1.setFailed)(`Failed to compile code in '${sources}'`);
+            }
+        }
+        catch (error) {
+            if (error instanceof Error) {
+                (0, core_1.setFailed)(error.message);
+            }
+        }
+    });
+}
+exports.compileAction = compileAction;
+
+
+/***/ }),
+
 /***/ 6512:
 /***/ (function(__unused_webpack_module, exports, __nccwpck_require__) {
 
@@ -29312,64 +29371,6 @@ function dockerBuildpackCompile({ workingDir, sources, platform, targetVersion }
     });
 }
 exports.dockerBuildpackCompile = dockerBuildpackCompile;
-
-
-/***/ }),
-
-/***/ 399:
-/***/ (function(__unused_webpack_module, exports, __nccwpck_require__) {
-
-"use strict";
-
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-const core_1 = __nccwpck_require__(2186);
-const particle_api_1 = __nccwpck_require__(6032);
-const docker_1 = __nccwpck_require__(6512);
-function run() {
-    return __awaiter(this, void 0, void 0, function* () {
-        try {
-            const auth = (0, core_1.getInput)('particle-access-token');
-            const platform = (0, core_1.getInput)('particle-platform-name');
-            const targetVersion = (0, core_1.getInput)('device-os-version');
-            const sources = (0, core_1.getInput)('sources-folder');
-            let outputPath;
-            if (!auth) {
-                (0, core_1.info)('No access token provided, running local compilation');
-                yield (0, docker_1.dockerCheck)();
-                outputPath = yield (0, docker_1.dockerBuildpackCompile)({ sources, platform, targetVersion, workingDir: process.cwd() });
-            }
-            else {
-                (0, core_1.info)('Access token provided, running cloud compilation');
-                const binaryId = yield (0, particle_api_1.particleCloudCompile)({ sources, platform, targetVersion, auth });
-                if (!binaryId) {
-                    throw new Error('Failed to compile code in cloud');
-                }
-                outputPath = yield (0, particle_api_1.particleDownloadBinary)({ binaryId, auth });
-            }
-            if (outputPath) {
-                (0, core_1.setOutput)('artifact-path', outputPath);
-            }
-            else {
-                (0, core_1.setFailed)(`Failed to compile code in '${sources}'`);
-            }
-        }
-        catch (error) {
-            if (error instanceof Error) {
-                (0, core_1.setFailed)(error.message);
-            }
-        }
-    });
-}
-run();
 
 
 /***/ }),
@@ -29807,12 +29808,18 @@ module.exports = JSON.parse('{"application/1d-interleaved-parityfec":{"source":"
 /******/ 	if (typeof __nccwpck_require__ !== 'undefined') __nccwpck_require__.ab = __dirname + "/";
 /******/ 	
 /************************************************************************/
-/******/ 	
-/******/ 	// startup
-/******/ 	// Load entry module and return exports
-/******/ 	// This entry module is referenced by other modules so it can't be inlined
-/******/ 	var __webpack_exports__ = __nccwpck_require__(399);
-/******/ 	module.exports = __webpack_exports__;
-/******/ 	
+var __webpack_exports__ = {};
+// This entry need to be wrapped in an IIFE because it need to be in strict mode.
+(() => {
+"use strict";
+var exports = __webpack_exports__;
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+const action_1 = __nccwpck_require__(7672);
+(0, action_1.compileAction)();
+
+})();
+
+module.exports = __webpack_exports__;
 /******/ })()
 ;
