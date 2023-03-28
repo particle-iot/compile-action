@@ -1,4 +1,5 @@
 # Particle Compile Action
+[![Build and Test](https://github.com/particle-iot/compile-action/actions/workflows/test.yml/badge.svg)](https://github.com/particle-iot/compile-action/actions/workflows/test.yml)
 
 A GitHub Action to compile Particle application firmware
 
