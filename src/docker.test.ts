@@ -92,4 +92,77 @@ describe('dockerBuildpackCompile', () => {
 			]]);
 		expect(path).toBe('output/firmware.bin');
 	});
+
+	it('should mount source code from a relative path', async () => {
+		const path = await dockerBuildpackCompile({
+			workingDir : 'workingDir',
+			sources : 'src',
+			platform : 'argon',
+			targetVersion : 'latest'
+		});
+		expect(execa).toHaveBeenCalledTimes(2);
+		expect(execa.mock.calls[1]).toEqual([
+			'docker',
+			[
+				'run',
+				'--rm',
+				'-v',
+				'workingDir/src:/input',
+				'-v',
+				'workingDir/output:/output',
+				'-e',
+				'PLATFORM_ID=12',
+				'particle/buildpack-particle-firmware:4.0.2-argon'
+			]]);
+		expect(path).toBe('output/firmware.bin');
+	});
+
+	it('should mount source code from a relative path with a parent directory', async () => {
+		const path = await dockerBuildpackCompile({
+			workingDir : 'workingDir',
+			sources : '../../src',
+			platform : 'argon',
+			targetVersion : 'latest'
+		});
+		expect(execa).toHaveBeenCalledTimes(2);
+		expect(execa.mock.calls[1]).toEqual([
+			'docker',
+			[
+				'run',
+				'--rm',
+				'-v',
+				'workingDir/../../src:/input',
+				'-v',
+				'workingDir/output:/output',
+				'-e',
+				'PLATFORM_ID=12',
+				'particle/buildpack-particle-firmware:4.0.2-argon'
+			]]);
+		expect(path).toBe('output/firmware.bin');
+	});
+
+	it('should mount source code from an absolute path', async () => {
+		const path = await dockerBuildpackCompile({
+			workingDir : 'workingDir',
+			sources : '/absolute/path/to/src',
+			platform : 'argon',
+			targetVersion : 'latest'
+		});
+		expect(execa).toHaveBeenCalledTimes(2);
+		expect(execa.mock.calls[1]).toEqual([
+			'docker',
+			[
+				'run',
+				'--rm',
+				'-v',
+				'/absolute/path/to/src:/input',
+				'-v',
+				'workingDir/output:/output',
+				'-e',
+				'PLATFORM_ID=12',
+				'particle/buildpack-particle-firmware:4.0.2-argon'
+			]]);
+		expect(path).toBe('output/firmware.bin');
+	});
+
 });

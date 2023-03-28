@@ -29294,11 +29294,13 @@ function dockerBuildpackCompile({ workingDir, sources, platform, targetVersion }
         else {
             (0, core_1.warning)(`Output directory ${destDir} already exists. Compile will overwrite firmware.bin if it exists.`);
         }
+        (0, core_1.info)(`Compiling...`);
+        const inputDir = sources.charAt(0) === '/' ? sources : `${workingDir}/${sources}`;
         const args = [
             'run',
             '--rm',
             '-v',
-            `${workingDir}/${sources}:/input`,
+            `${inputDir}:/input`,
             '-v',
             `${workingDir}/${destDir}:/output`,
             '-e',

@@ -229,13 +229,14 @@ describe('particleCloudCompile', () => {
 	});
 
 	it('should throw when there is a unknown response from the cloud', async () => {
+		const prevImplementation = mockCompileCode.getMockImplementation();
 		mockCompileCode.mockImplementation(() => ({
 			body: {
 				ok: false
 			}
 		}));
 
-		return expect(async () => {
+		await expect(async () => {
 			await particleCloudCompile({
 				sources: 'test/fixtures/single-file-firmware',
 				platform: 'core',
@@ -243,8 +244,29 @@ describe('particleCloudCompile', () => {
 			});
 		}).rejects.toThrow(`Error: unknown response from Particle Cloud: {"body":{"ok":false}}`);
 
+		// reset mock implementation
+		mockCompileCode.mockImplementation(prevImplementation);
 	});
 
+	it('should handle source code from an absolute path', async () => {
+		const cwd = process.cwd();
+		await particleCloudCompile({
+			sources: `${cwd}/test/fixtures/single-file-firmware`,
+			platform: 'electron',
+			auth: 'token',
+			targetVersion: 'latest'
+		});
+		expect(mockCompileCode).toHaveBeenCalledTimes(1);
+		expect(mockCompileCode).toHaveBeenCalledWith({
+			'auth': 'token',
+			'files': {
+				'application.cpp': `test/fixtures/single-file-firmware/application.cpp`
+			},
+			'platformId': 10,
+			'targetVersion': undefined,
+			'headers': { 'User-Agent': 'particle-compile-action' }
+		});
+	});
 });
 
 describe('particleCloudDownload', () => {
