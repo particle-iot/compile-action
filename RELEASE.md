@@ -16,3 +16,7 @@ GitHub Actions will automatically package the compiled JS file.
 It will force push `action.yml` and the compiled JS file to the release's tag. 
 
 The release process will keep major (`v1`) and minor (`v1.1`) tags current to the latest appropriate commit (this is skipped for pre-releases).
+
+Note that it is possible to publish a prerelease from a branch. This is useful for testing the release process.
+
+If you need to test functionality, you can use a `@main` or `@feature/new-capability` branch reference instead of a released tag.
