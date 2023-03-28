@@ -1,6 +1,5 @@
 {
   "name": "compile-action",
-  "version": "0.1.0-1",
   "private": true,
   "description": "GitHub action for compiling Particle firmware code",
   "main": "dist/index.js",
