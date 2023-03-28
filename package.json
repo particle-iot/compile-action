@@ -5,7 +5,7 @@
   "main": "dist/index.js",
   "scripts": {
     "start": "npx ncc run ./src/main.ts",
-    "build": "npx ncc build ./src/main.ts --source-map --license licenses.txt",
+    "build": "npx ncc build ./src/main.ts",
     "lint": "eslint src/**/*.ts -f unix",
     "lint:fix": "eslint src/**/*.ts --fix -f unix",
     "test": "jest --coverage --runInBand",
