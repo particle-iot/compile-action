@@ -3,7 +3,7 @@
   "version": "0.1.0-1",
   "private": true,
   "description": "GitHub action for compiling Particle firmware code",
-  "main": "lib/main.js",
+  "main": "dist/index.js",
   "scripts": {
     "build": "tsc",
     "lint": "eslint src/**/*.ts -f unix",
