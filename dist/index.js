@@ -1,505 +1,5 @@
-require('./sourcemap-register.js');/******/ (() => { // webpackBootstrap
+/******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
-
-/***/ 2504:
-/***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
-
-"use strict";
-
-/* istanbul ignore file */
-// Helper functions lifted from CloudCommand.flashDevice in particle-cli
-// They are not individually tested in this project, but getCode is tested and uses code here
-const path = __nccwpck_require__(1017);
-const { existsSync, readFileSync, statSync } = __nccwpck_require__(7147);
-const glob = __nccwpck_require__(1957);
-const MAX_FILE_SIZE = 1024 * 1024 * 10;
-const notSourceExtensions = [
-    '.ds_store',
-    '.jpg',
-    '.gif',
-    '.png',
-    '.include',
-    '.ignore',
-    '.ds_store',
-    '.git',
-    '.bin'
-];
-function getFilenameExt(filename) {
-    if (!filename || (filename.length === 0)) {
-        return filename;
-    }
-    const idx = filename.lastIndexOf('.');
-    if (idx >= 0) {
-        return filename.substr(idx);
-    }
-    else {
-        return filename;
-    }
-}
-function trimBlankLinesAndComments(arr) {
-    if (arr && (arr.length !== 0)) {
-        return arr.filter((obj) => {
-            return obj && (obj !== '') && (obj.indexOf('#') !== 0);
-        });
-    }
-    return arr;
-}
-function readAndTrimLines(file) {
-    if (!existsSync(file)) {
-        return null;
-    }
-    const str = readFileSync(file).toString();
-    if (!str) {
-        return null;
-    }
-    const arr = str.split('\n');
-    if (arr && (arr.length > 0)) {
-        for (let i = 0; i < arr.length; i++) {
-            arr[i] = arr[i].trim();
-        }
-    }
-    return arr;
-}
-function globList(basepath, arr, { followSymlinks } = {}) {
-    let line, found, files = [];
-    for (let i = 0; i < arr.length; i++) {
-        line = arr[i];
-        if (basepath) {
-            line = path.join(basepath, line);
-        }
-        found = glob.sync(line, { nodir: true, follow: !!followSymlinks });
-        if (found && (found.length > 0)) {
-            files = files.concat(found);
-        }
-    }
-    return files;
-}
-function compliment(arr, excluded) {
-    const { arrayToHashSet } = module.exports;
-    const hash = arrayToHashSet(excluded);
-    const result = [];
-    for (let i = 0; i < arr.length; i++) {
-        const key = arr[i];
-        if (!hash[key]) {
-            result.push(key);
-        }
-    }
-    return result;
-}
-/**
- * Recursively adds files to compile to an object mapping between relative path on the compile server and
- * path on the local filesystem
- * @param {Array<string>} filenames  Array of filenames or directory names to include
- * @returns {Object} Object mapping from filenames seen by the compile server to local relative filenames
- *
- * use cases:
- * compile someDir
- * compile someFile
- * compile File1 File2 File3 output.bin
- * compile File1 File2 File3 --saveTo anotherPlace.bin
- */
-function _handleMultiFileArgs(filenames, { followSymlinks } = {}) {
-    const fileMapping = {
-        basePath: process.cwd(),
-        map: {}
-    };
-    for (let i = 0; i < filenames.length; i++) {
-        const filename = filenames[i];
-        const ext = getFilenameExt(filename).toLowerCase();
-        const alwaysIncludeThisFile = ((ext === '.bin') && (i === 0) && (filenames.length === 1));
-        if (filename.indexOf('--') === 0) {
-            // go over the argument
-            i++;
-            continue;
-        }
-        let filestats;
-        try {
-            filestats = statSync(filename);
-        }
-        catch (ex) {
-            console.error("I couldn't find the file " + filename);
-            return null;
-        }
-        if (filestats.isDirectory()) {
-            _processDirIncludes(fileMapping, filename, { followSymlinks });
-            continue;
-        }
-        if (!alwaysIncludeThisFile && notSourceExtensions.includes(ext)) {
-            continue;
-        }
-        if (!alwaysIncludeThisFile && filestats.size > MAX_FILE_SIZE) {
-            console.log('Skipping ' + filename + " it's too big! " + filestats.size);
-            continue;
-        }
-        const relative = path.basename(filename);
-        fileMapping.map[relative] = filename;
-    }
-    // return this._handleLibraryExample(fileMapping).then(() => {
-    return fileMapping;
-    // });
-}
-/**
- * helper function for getting the contents of a directory,
- * checks for '.include', and a '.ignore' files, and uses their contents
- * instead
- * @param {Object} fileMapping Object mapping from filenames seen by the compile server to local filenames,
- *                             relative to a base path
- * @param {String} dirname
- * @private
- * @returns {nothing} nothing
- */
-function _processDirIncludes(fileMapping, dirname, { followSymlinks } = {}) {
-    dirname = path.resolve(dirname);
-    const includesFile = path.join(dirname, 'particle.include');
-    const ignoreFile = path.join(dirname, 'particle.ignore');
-    let hasIncludeFile = false;
-    // Recursively find source files
-    let includes = [
-        '**/*.h',
-        '**/*.hpp',
-        '**/*.hh',
-        '**/*.hxx',
-        '**/*.ino',
-        '**/*.cpp',
-        '**/*.c',
-        'project.properties'
-    ];
-    if (existsSync(includesFile)) {
-        //grab and process all the files in the include file.
-        includes = trimBlankLinesAndComments(readAndTrimLines(includesFile));
-        hasIncludeFile = true;
-    }
-    let files = globList(dirname, includes, { followSymlinks });
-    if (existsSync(ignoreFile)) {
-        const ignores = trimBlankLinesAndComments(readAndTrimLines(ignoreFile));
-        const ignoredFiles = globList(dirname, ignores, { followSymlinks });
-        files = compliment(files, ignoredFiles);
-    }
-    // Add files to fileMapping
-    files.forEach((file) => {
-        // source relative to the base directory of the fileMapping (current directory)
-        const source = path.relative(fileMapping.basePath, file);
-        // If using an include file, only base names are supported since people are using those to
-        // link across relative folders
-        let target;
-        if (hasIncludeFile) {
-            target = path.basename(file);
-        }
-        else {
-            target = path.relative(dirname, file);
-        }
-        fileMapping.map[target] = source;
-    });
-}
-function populateFileMapping(fileMapping) {
-    if (!fileMapping.map) {
-        fileMapping.map = {};
-        if (fileMapping.list) {
-            for (let i = 0; i < fileMapping.list.length; i++) {
-                const item = fileMapping.list[i];
-                fileMapping.map[item] = item;
-            }
-        }
-    }
-    return fileMapping;
-}
-module.exports = {
-    _handleMultiFileArgs,
-    _processDirIncludes,
-    populateFileMapping
-};
-
-
-/***/ }),
-
-/***/ 3758:
-/***/ (function(__unused_webpack_module, exports, __nccwpck_require__) {
-
-"use strict";
-
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.dockerBuildpackCompile = exports.dockerCheck = void 0;
-const core_1 = __nccwpck_require__(2186);
-const fs_1 = __nccwpck_require__(7147);
-const execa_1 = __importDefault(__nccwpck_require__(5447));
-const util_1 = __nccwpck_require__(4024);
-function dockerCheck() {
-    return __awaiter(this, void 0, void 0, function* () {
-        let dockerVersion;
-        try {
-            dockerVersion = yield (0, execa_1.default)('docker', ['version']);
-        }
-        catch (e) {
-            const msg = (dockerVersion === null || dockerVersion === void 0 ? void 0 : dockerVersion.stdout) || (dockerVersion === null || dockerVersion === void 0 ? void 0 : dockerVersion.stderr) || String(e);
-            (0, core_1.info)(msg);
-            throw new Error(`Docker is not installed or is not available in the path.`);
-        }
-        return true;
-    });
-}
-exports.dockerCheck = dockerCheck;
-function dockerBuildpackCompile({ workingDir, sources, platform, targetVersion }) {
-    return __awaiter(this, void 0, void 0, function* () {
-        // Note: the buildpack only detects *.c and *.cpp files
-        // https://github.com/particle-iot/device-os/blob/196d497dd4c16ab83db6ea610cf2433047226a6a/user/build.mk#L64-L65
-        // todo: need validation on targetVersion/platform compatibility
-        const platformId = (0, util_1.getPlatformId)(platform);
-        // todo: need to source this from somewhere
-        let targetFriendly = targetVersion;
-        if (targetVersion === 'latest' || targetVersion === '') {
-            targetVersion = '4.0.2';
-            targetFriendly = `${targetVersion} (latest)`;
-        }
-        (0, core_1.info)(`Fetching docker buildpack for platform '${platform}' and target '${targetFriendly}'`);
-        (0, core_1.info)(`This can take a minute....`);
-        const dockerPull = yield (0, execa_1.default)('docker', [
-            'pull',
-            `particle/buildpack-particle-firmware:${targetVersion}-${platform}`
-        ]);
-        (0, core_1.info)(dockerPull.stdout);
-        const destDir = 'output';
-        const destName = 'firmware.bin';
-        const outputPath = `${destDir}/${destName}`;
-        if (!(0, fs_1.existsSync)(destDir)) {
-            (0, core_1.info)(`Creating output directory ${destDir}...`);
-            (0, fs_1.mkdirSync)(destDir);
-        }
-        else {
-            (0, core_1.warning)(`Output directory ${destDir} already exists. Compile will overwrite firmware.bin if it exists.`);
-        }
-        const args = [
-            'run',
-            '--rm',
-            '-v',
-            `${workingDir}/${sources}:/input`,
-            '-v',
-            `${workingDir}/${destDir}:/output`,
-            '-e',
-            `PLATFORM_ID=${platformId}`,
-            `particle/buildpack-particle-firmware:${targetVersion}-${platform}`
-        ];
-        const dockerRun = yield (0, execa_1.default)('docker', args);
-        (0, core_1.info)(dockerRun.stdout);
-        return outputPath;
-    });
-}
-exports.dockerBuildpackCompile = dockerBuildpackCompile;
-
-
-/***/ }),
-
-/***/ 3109:
-/***/ (function(__unused_webpack_module, exports, __nccwpck_require__) {
-
-"use strict";
-
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-const core_1 = __nccwpck_require__(2186);
-const particle_api_1 = __nccwpck_require__(5813);
-const docker_1 = __nccwpck_require__(3758);
-function run() {
-    return __awaiter(this, void 0, void 0, function* () {
-        try {
-            const auth = (0, core_1.getInput)('particle-access-token');
-            const platform = (0, core_1.getInput)('particle-platform-name');
-            const targetVersion = (0, core_1.getInput)('device-os-version');
-            const sources = (0, core_1.getInput)('sources-folder');
-            let outputPath;
-            if (!auth) {
-                (0, core_1.info)('No access token provided, running local compilation');
-                yield (0, docker_1.dockerCheck)();
-                outputPath = yield (0, docker_1.dockerBuildpackCompile)({ sources, platform, targetVersion, workingDir: process.cwd() });
-            }
-            else {
-                (0, core_1.info)('Access token provided, running cloud compilation');
-                const binaryId = yield (0, particle_api_1.particleCloudCompile)({ sources, platform, targetVersion, auth });
-                if (!binaryId) {
-                    throw new Error('Failed to compile code in cloud');
-                }
-                outputPath = yield (0, particle_api_1.particleDownloadBinary)({ binaryId, auth });
-            }
-            if (outputPath) {
-                (0, core_1.setOutput)('artifact-path', outputPath);
-            }
-            else {
-                (0, core_1.setFailed)(`Failed to compile code in '${sources}'`);
-            }
-        }
-        catch (error) {
-            if (error instanceof Error) {
-                (0, core_1.setFailed)(error.message);
-            }
-        }
-    });
-}
-run();
-
-
-/***/ }),
-
-/***/ 5813:
-/***/ (function(__unused_webpack_module, exports, __nccwpck_require__) {
-
-"use strict";
-
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.particleDownloadBinary = exports.particleCloudCompile = void 0;
-// eslint-disable-next-line max-len
-const core_1 = __nccwpck_require__(2186);
-const fs_1 = __nccwpck_require__(7147);
-const util_1 = __nccwpck_require__(4024);
-const ParticleApi = __nccwpck_require__(2918);
-const particle = new ParticleApi();
-function particleCloudCompile({ sources, platform, auth, targetVersion }) {
-    return __awaiter(this, void 0, void 0, function* () {
-        (0, core_1.info)(`Compiling code in ${sources}`);
-        if (!sources) {
-            throw new Error('No source code sources specified');
-        }
-        if (sources === './' || sources === '.') {
-            sources = process.cwd();
-        }
-        // todo: need validation on targetVersion/platform compatibility
-        const platformId = (0, util_1.getPlatformId)(platform);
-        const files = (0, util_1.getCode)(sources);
-        (0, core_1.info)(`Compiling code for platform '${platform}' with target version '${targetVersion}'`);
-        (0, core_1.info)(`Files: ${JSON.stringify(Object.keys(files))}`);
-        // handle internal implementation detail of the particle-api-js compile command
-        if (targetVersion === 'latest') {
-            targetVersion = undefined;
-        }
-        let binaryId = '';
-        try {
-            const resp = yield particle.compileCode({
-                files,
-                platformId,
-                targetVersion,
-                auth,
-                headers: { 'User-Agent': 'particle-compile-action' }
-            });
-            const body = resp.body;
-            if (!body || !body.binary_id) {
-                throw new Error(`Error: unknown response from Particle Cloud: ${JSON.stringify(resp)}`);
-            }
-            (0, core_1.info)(`Code compiled successfully. Binary ID: '${body.binary_id}'`);
-            binaryId = body.binary_id;
-        }
-        catch (e) {
-            // Log custom error response from Particle API
-            // Specifically this is stdout from the compiler (why the compile failed)
-            if (e.body && e.body.output && e.body.errors) {
-                (0, core_1.error)(`${e.body.output}\n${e.body.errors}`);
-            }
-            else {
-                throw e;
-            }
-        }
-        return binaryId;
-    });
-}
-exports.particleCloudCompile = particleCloudCompile;
-function particleDownloadBinary({ binaryId, auth }) {
-    return __awaiter(this, void 0, void 0, function* () {
-        (0, core_1.info)(`Downloading binary ${binaryId}`);
-        const resp = yield particle.downloadFirmwareBinary({
-            binaryId,
-            auth,
-            headers: { 'User-Agent': 'particle-compile-action' }
-        });
-        if (resp instanceof Buffer) {
-            (0, core_1.info)(`Binary downloaded successfully.`);
-            const destDir = 'output';
-            const destName = 'firmware.bin';
-            const outputPath = `${destDir}/${destName}`;
-            if (!(0, fs_1.existsSync)(destDir)) {
-                (0, core_1.info)(`Creating directory ${destDir}...`);
-                (0, fs_1.mkdirSync)(destDir);
-            }
-            (0, fs_1.writeFileSync)(`${outputPath}`, resp, 'utf8');
-            (0, core_1.info)(`File written to ${outputPath} successfully.`);
-            return outputPath;
-        }
-    });
-}
-exports.particleDownloadBinary = particleDownloadBinary;
-
-
-/***/ }),
-
-/***/ 4024:
-/***/ (function(__unused_webpack_module, exports, __nccwpck_require__) {
-
-"use strict";
-
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.getPlatformId = exports.getCode = void 0;
-const cli_1 = __nccwpck_require__(2504);
-const fs_1 = __nccwpck_require__(7147);
-// @ts-ignore
-const device_constants_1 = __importDefault(__nccwpck_require__(9452));
-function getCode(path) {
-    if (!(0, fs_1.existsSync)(path)) {
-        throw new Error(`Source code ${path} does not exist`);
-    }
-    const fileMapping = (0, cli_1._handleMultiFileArgs)([path]);
-    // @ts-ignore
-    if (!Object.keys(fileMapping.map).length) {
-        throw new Error(`There are no valid source code files included in ${path}`);
-    }
-    (0, cli_1.populateFileMapping)(fileMapping);
-    // @ts-ignore
-    return fileMapping.map;
-}
-exports.getCode = getCode;
-function getPlatformId(platform) {
-    const publicPlatforms = Object.values(device_constants_1.default).filter((p) => p.public);
-    const publicPlatformStr = publicPlatforms.map((p) => p.name).join(', ');
-    if (!platform) {
-        throw new Error(`Platform is required. Valid platforms are: ${publicPlatformStr}`);
-    }
-    const p = device_constants_1.default[platform];
-    if (!p || !p.public) {
-        throw new Error(`Platform ${platform} is not valid. Valid platforms are: ${publicPlatformStr}`);
-    }
-    return p.id;
-}
-exports.getPlatformId = getPlatformId;
-
-
-/***/ }),
 
 /***/ 7351:
 /***/ (function(__unused_webpack_module, exports, __nccwpck_require__) {
@@ -29483,6 +28983,539 @@ function wrappy (fn, cb) {
 
 /***/ }),
 
+/***/ 6815:
+/***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
+
+/* istanbul ignore file */
+// Helper functions lifted from CloudCommand.flashDevice in particle-cli
+// They are not individually tested in this project, but getCode is tested and uses code here
+
+const path = __nccwpck_require__(1017);
+const { existsSync, readFileSync, statSync } = __nccwpck_require__(7147);
+const glob = __nccwpck_require__(1957);
+
+const MAX_FILE_SIZE = 1024 * 1024 * 10;
+const notSourceExtensions = [
+	'.ds_store',
+	'.jpg',
+	'.gif',
+	'.png',
+	'.include',
+	'.ignore',
+	'.ds_store',
+	'.git',
+	'.bin'
+];
+
+function getFilenameExt(filename) {
+	if (!filename || (filename.length === 0)) {
+		return filename;
+	}
+
+	const idx = filename.lastIndexOf('.');
+	if (idx >= 0) {
+		return filename.substr(idx);
+	} else {
+		return filename;
+	}
+}
+
+function trimBlankLinesAndComments(arr) {
+	if (arr && (arr.length !== 0)) {
+		return arr.filter((obj) => {
+			return obj && (obj !== '') && (obj.indexOf('#') !== 0);
+		});
+	}
+	return arr;
+}
+
+function readAndTrimLines(file) {
+	if (!existsSync(file)) {
+		return null;
+	}
+
+	const str = readFileSync(file).toString();
+	if (!str) {
+		return null;
+	}
+
+	const arr = str.split('\n');
+	if (arr && (arr.length > 0)) {
+		for (let i = 0; i < arr.length; i++) {
+			arr[i] = arr[i].trim();
+		}
+	}
+	return arr;
+}
+
+function globList(basepath, arr, { followSymlinks } = {}) {
+	let line, found, files = [];
+	for (let i = 0; i < arr.length; i++) {
+		line = arr[i];
+		if (basepath) {
+			line = path.join(basepath, line);
+		}
+		found = glob.sync(line, { nodir: true, follow: !!followSymlinks });
+
+		if (found && (found.length > 0)) {
+			files = files.concat(found);
+		}
+	}
+	return files;
+}
+
+function compliment(arr, excluded) {
+	const { arrayToHashSet } = module.exports;
+	const hash = arrayToHashSet(excluded);
+
+	const result = [];
+	for (let i = 0; i < arr.length; i++) {
+		const key = arr[i];
+		if (!hash[key]) {
+			result.push(key);
+		}
+	}
+	return result;
+}
+
+/**
+ * Recursively adds files to compile to an object mapping between relative path on the compile server and
+ * path on the local filesystem
+ * @param {Array<string>} filenames  Array of filenames or directory names to include
+ * @returns {Object} Object mapping from filenames seen by the compile server to local relative filenames
+ *
+ * use cases:
+ * compile someDir
+ * compile someFile
+ * compile File1 File2 File3 output.bin
+ * compile File1 File2 File3 --saveTo anotherPlace.bin
+ */
+function _handleMultiFileArgs(filenames, { followSymlinks } = {}) {
+	const fileMapping = {
+		basePath: process.cwd(),
+		map: {}
+	};
+
+	for (let i = 0; i < filenames.length; i++) {
+		const filename = filenames[i];
+		const ext = getFilenameExt(filename).toLowerCase();
+		const alwaysIncludeThisFile = ((ext === '.bin') && (i === 0) && (filenames.length === 1));
+
+		if (filename.indexOf('--') === 0) {
+			// go over the argument
+			i++;
+			continue;
+		}
+
+		let filestats;
+		try {
+			filestats = statSync(filename);
+		} catch (ex) {
+			console.error("I couldn't find the file " + filename);
+			return null;
+		}
+
+		if (filestats.isDirectory()) {
+			_processDirIncludes(fileMapping, filename, { followSymlinks });
+			continue;
+		}
+
+		if (!alwaysIncludeThisFile && notSourceExtensions.includes(ext)) {
+			continue;
+		}
+
+		if (!alwaysIncludeThisFile && filestats.size > MAX_FILE_SIZE) {
+			console.log('Skipping ' + filename + " it's too big! " + filestats.size);
+			continue;
+		}
+
+		const relative = path.basename(filename);
+		fileMapping.map[relative] = filename;
+	}
+
+	// return this._handleLibraryExample(fileMapping).then(() => {
+	return fileMapping;
+	// });
+}
+
+/**
+ * helper function for getting the contents of a directory,
+ * checks for '.include', and a '.ignore' files, and uses their contents
+ * instead
+ * @param {Object} fileMapping Object mapping from filenames seen by the compile server to local filenames,
+ *                             relative to a base path
+ * @param {String} dirname
+ * @private
+ * @returns {nothing} nothing
+ */
+function _processDirIncludes(fileMapping, dirname, { followSymlinks } = {}) {
+	dirname = path.resolve(dirname);
+
+	const includesFile = path.join(dirname, 'particle.include');
+	const ignoreFile = path.join(dirname, 'particle.ignore');
+	let hasIncludeFile = false;
+
+	// Recursively find source files
+	let includes = [
+		'**/*.h',
+		'**/*.hpp',
+		'**/*.hh',
+		'**/*.hxx',
+		'**/*.ino',
+		'**/*.cpp',
+		'**/*.c',
+		'project.properties'
+	];
+
+	if (existsSync(includesFile)) {
+		//grab and process all the files in the include file.
+
+		includes = trimBlankLinesAndComments(
+			readAndTrimLines(includesFile)
+		);
+		hasIncludeFile = true;
+
+	}
+
+	let files = globList(dirname, includes, { followSymlinks });
+
+	if (existsSync(ignoreFile)) {
+		const ignores = trimBlankLinesAndComments(
+			readAndTrimLines(ignoreFile)
+		);
+
+		const ignoredFiles = globList(dirname, ignores, { followSymlinks });
+		files = compliment(files, ignoredFiles);
+	}
+
+	// Add files to fileMapping
+	files.forEach((file) => {
+		// source relative to the base directory of the fileMapping (current directory)
+		const source = path.relative(fileMapping.basePath, file);
+
+		// If using an include file, only base names are supported since people are using those to
+		// link across relative folders
+		let target;
+		if (hasIncludeFile) {
+			target = path.basename(file);
+		} else {
+			target = path.relative(dirname, file);
+		}
+		fileMapping.map[target] = source;
+	});
+}
+
+function populateFileMapping(fileMapping) {
+	if (!fileMapping.map) {
+		fileMapping.map = {};
+		if (fileMapping.list) {
+			for (let i = 0; i < fileMapping.list.length; i++) {
+				const item = fileMapping.list[i];
+				fileMapping.map[item] = item;
+			}
+		}
+	}
+	return fileMapping;
+}
+
+module.exports = {
+	_handleMultiFileArgs,
+	_processDirIncludes,
+	populateFileMapping
+};
+
+
+/***/ }),
+
+/***/ 6512:
+/***/ (function(__unused_webpack_module, exports, __nccwpck_require__) {
+
+"use strict";
+
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.dockerBuildpackCompile = exports.dockerCheck = void 0;
+const core_1 = __nccwpck_require__(2186);
+const fs_1 = __nccwpck_require__(7147);
+const execa_1 = __importDefault(__nccwpck_require__(5447));
+const util_1 = __nccwpck_require__(2629);
+function dockerCheck() {
+    return __awaiter(this, void 0, void 0, function* () {
+        let dockerVersion;
+        try {
+            dockerVersion = yield (0, execa_1.default)('docker', ['version']);
+        }
+        catch (e) {
+            const msg = (dockerVersion === null || dockerVersion === void 0 ? void 0 : dockerVersion.stdout) || (dockerVersion === null || dockerVersion === void 0 ? void 0 : dockerVersion.stderr) || String(e);
+            (0, core_1.info)(msg);
+            throw new Error(`Docker is not installed or is not available in the path.`);
+        }
+        return true;
+    });
+}
+exports.dockerCheck = dockerCheck;
+function dockerBuildpackCompile({ workingDir, sources, platform, targetVersion }) {
+    return __awaiter(this, void 0, void 0, function* () {
+        // Note: the buildpack only detects *.c and *.cpp files
+        // https://github.com/particle-iot/device-os/blob/196d497dd4c16ab83db6ea610cf2433047226a6a/user/build.mk#L64-L65
+        // todo: need validation on targetVersion/platform compatibility
+        const platformId = (0, util_1.getPlatformId)(platform);
+        // todo: need to source this from somewhere
+        let targetFriendly = targetVersion;
+        if (targetVersion === 'latest' || targetVersion === '') {
+            targetVersion = '4.0.2';
+            targetFriendly = `${targetVersion} (latest)`;
+        }
+        (0, core_1.info)(`Fetching docker buildpack for platform '${platform}' and target '${targetFriendly}'`);
+        (0, core_1.info)(`This can take a minute....`);
+        const dockerPull = yield (0, execa_1.default)('docker', [
+            'pull',
+            `particle/buildpack-particle-firmware:${targetVersion}-${platform}`
+        ]);
+        (0, core_1.info)(dockerPull.stdout);
+        const destDir = 'output';
+        const destName = 'firmware.bin';
+        const outputPath = `${destDir}/${destName}`;
+        if (!(0, fs_1.existsSync)(destDir)) {
+            (0, core_1.info)(`Creating output directory ${destDir}...`);
+            (0, fs_1.mkdirSync)(destDir);
+        }
+        else {
+            (0, core_1.warning)(`Output directory ${destDir} already exists. Compile will overwrite firmware.bin if it exists.`);
+        }
+        const args = [
+            'run',
+            '--rm',
+            '-v',
+            `${workingDir}/${sources}:/input`,
+            '-v',
+            `${workingDir}/${destDir}:/output`,
+            '-e',
+            `PLATFORM_ID=${platformId}`,
+            `particle/buildpack-particle-firmware:${targetVersion}-${platform}`
+        ];
+        const dockerRun = yield (0, execa_1.default)('docker', args);
+        (0, core_1.info)(dockerRun.stdout);
+        return outputPath;
+    });
+}
+exports.dockerBuildpackCompile = dockerBuildpackCompile;
+
+
+/***/ }),
+
+/***/ 399:
+/***/ (function(__unused_webpack_module, exports, __nccwpck_require__) {
+
+"use strict";
+
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+const core_1 = __nccwpck_require__(2186);
+const particle_api_1 = __nccwpck_require__(6032);
+const docker_1 = __nccwpck_require__(6512);
+function run() {
+    return __awaiter(this, void 0, void 0, function* () {
+        try {
+            const auth = (0, core_1.getInput)('particle-access-token');
+            const platform = (0, core_1.getInput)('particle-platform-name');
+            const targetVersion = (0, core_1.getInput)('device-os-version');
+            const sources = (0, core_1.getInput)('sources-folder');
+            let outputPath;
+            if (!auth) {
+                (0, core_1.info)('No access token provided, running local compilation');
+                yield (0, docker_1.dockerCheck)();
+                outputPath = yield (0, docker_1.dockerBuildpackCompile)({ sources, platform, targetVersion, workingDir: process.cwd() });
+            }
+            else {
+                (0, core_1.info)('Access token provided, running cloud compilation');
+                const binaryId = yield (0, particle_api_1.particleCloudCompile)({ sources, platform, targetVersion, auth });
+                if (!binaryId) {
+                    throw new Error('Failed to compile code in cloud');
+                }
+                outputPath = yield (0, particle_api_1.particleDownloadBinary)({ binaryId, auth });
+            }
+            if (outputPath) {
+                (0, core_1.setOutput)('artifact-path', outputPath);
+            }
+            else {
+                (0, core_1.setFailed)(`Failed to compile code in '${sources}'`);
+            }
+        }
+        catch (error) {
+            if (error instanceof Error) {
+                (0, core_1.setFailed)(error.message);
+            }
+        }
+    });
+}
+run();
+
+
+/***/ }),
+
+/***/ 6032:
+/***/ (function(__unused_webpack_module, exports, __nccwpck_require__) {
+
+"use strict";
+
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.particleDownloadBinary = exports.particleCloudCompile = void 0;
+// eslint-disable-next-line max-len
+const core_1 = __nccwpck_require__(2186);
+const fs_1 = __nccwpck_require__(7147);
+const util_1 = __nccwpck_require__(2629);
+const ParticleApi = __nccwpck_require__(2918);
+const particle = new ParticleApi();
+function particleCloudCompile({ sources, platform, auth, targetVersion }) {
+    return __awaiter(this, void 0, void 0, function* () {
+        (0, core_1.info)(`Compiling code in ${sources}`);
+        if (!sources) {
+            throw new Error('No source code sources specified');
+        }
+        if (sources === './' || sources === '.') {
+            sources = process.cwd();
+        }
+        // todo: need validation on targetVersion/platform compatibility
+        const platformId = (0, util_1.getPlatformId)(platform);
+        const files = (0, util_1.getCode)(sources);
+        (0, core_1.info)(`Compiling code for platform '${platform}' with target version '${targetVersion}'`);
+        (0, core_1.info)(`Files: ${JSON.stringify(Object.keys(files))}`);
+        // handle internal implementation detail of the particle-api-js compile command
+        if (targetVersion === 'latest') {
+            targetVersion = undefined;
+        }
+        let binaryId = '';
+        try {
+            const resp = yield particle.compileCode({
+                files,
+                platformId,
+                targetVersion,
+                auth,
+                headers: { 'User-Agent': 'particle-compile-action' }
+            });
+            const body = resp.body;
+            if (!body || !body.binary_id) {
+                throw new Error(`Error: unknown response from Particle Cloud: ${JSON.stringify(resp)}`);
+            }
+            (0, core_1.info)(`Code compiled successfully. Binary ID: '${body.binary_id}'`);
+            binaryId = body.binary_id;
+        }
+        catch (e) {
+            // Log custom error response from Particle API
+            // Specifically this is stdout from the compiler (why the compile failed)
+            if (e.body && e.body.output && e.body.errors) {
+                (0, core_1.error)(`${e.body.output}\n${e.body.errors}`);
+            }
+            else {
+                throw e;
+            }
+        }
+        return binaryId;
+    });
+}
+exports.particleCloudCompile = particleCloudCompile;
+function particleDownloadBinary({ binaryId, auth }) {
+    return __awaiter(this, void 0, void 0, function* () {
+        (0, core_1.info)(`Downloading binary ${binaryId}`);
+        const resp = yield particle.downloadFirmwareBinary({
+            binaryId,
+            auth,
+            headers: { 'User-Agent': 'particle-compile-action' }
+        });
+        if (resp instanceof Buffer) {
+            (0, core_1.info)(`Binary downloaded successfully.`);
+            const destDir = 'output';
+            const destName = 'firmware.bin';
+            const outputPath = `${destDir}/${destName}`;
+            if (!(0, fs_1.existsSync)(destDir)) {
+                (0, core_1.info)(`Creating directory ${destDir}...`);
+                (0, fs_1.mkdirSync)(destDir);
+            }
+            (0, fs_1.writeFileSync)(`${outputPath}`, resp, 'utf8');
+            (0, core_1.info)(`File written to ${outputPath} successfully.`);
+            return outputPath;
+        }
+    });
+}
+exports.particleDownloadBinary = particleDownloadBinary;
+
+
+/***/ }),
+
+/***/ 2629:
+/***/ (function(__unused_webpack_module, exports, __nccwpck_require__) {
+
+"use strict";
+
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.getPlatformId = exports.getCode = void 0;
+const cli_1 = __nccwpck_require__(6815);
+const fs_1 = __nccwpck_require__(7147);
+// @ts-ignore
+const device_constants_1 = __importDefault(__nccwpck_require__(9452));
+function getCode(path) {
+    if (!(0, fs_1.existsSync)(path)) {
+        throw new Error(`Source code ${path} does not exist`);
+    }
+    const fileMapping = (0, cli_1._handleMultiFileArgs)([path]);
+    // @ts-ignore
+    if (!Object.keys(fileMapping.map).length) {
+        throw new Error(`There are no valid source code files included in ${path}`);
+    }
+    (0, cli_1.populateFileMapping)(fileMapping);
+    // @ts-ignore
+    return fileMapping.map;
+}
+exports.getCode = getCode;
+function getPlatformId(platform) {
+    const publicPlatforms = Object.values(device_constants_1.default).filter((p) => p.public);
+    const publicPlatformStr = publicPlatforms.map((p) => p.name).join(', ');
+    if (!platform) {
+        throw new Error(`Platform is required. Valid platforms are: ${publicPlatformStr}`);
+    }
+    const p = device_constants_1.default[platform];
+    if (!p || !p.public) {
+        throw new Error(`Platform ${platform} is not valid. Valid platforms are: ${publicPlatformStr}`);
+    }
+    return p.id;
+}
+exports.getPlatformId = getPlatformId;
+
+
+/***/ }),
+
 /***/ 9491:
 /***/ ((module) => {
 
@@ -29701,9 +29734,8 @@ module.exports = JSON.parse('{"application/1d-interleaved-parityfec":{"source":"
 /******/ 	// startup
 /******/ 	// Load entry module and return exports
 /******/ 	// This entry module is referenced by other modules so it can't be inlined
-/******/ 	var __webpack_exports__ = __nccwpck_require__(3109);
+/******/ 	var __webpack_exports__ = __nccwpck_require__(399);
 /******/ 	module.exports = __webpack_exports__;
 /******/ 	
 /******/ })()
 ;
-//# sourceMappingURL=index.js.map

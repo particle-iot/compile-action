@@ -1,16 +1,15 @@
 {
   "name": "compile-action",
-  "version": "0.1.0-1",
   "private": true,
   "description": "GitHub action for compiling Particle firmware code",
-  "main": "lib/main.js",
+  "main": "dist/index.js",
   "scripts": {
-    "build": "tsc",
+    "start": "npx ncc run ./src/main.ts",
+    "build": "npx ncc build ./src/main.ts",
     "lint": "eslint src/**/*.ts -f unix",
     "lint:fix": "eslint src/**/*.ts --fix -f unix",
-    "package": "ncc build --source-map --license licenses.txt",
     "test": "jest --coverage --runInBand",
-    "all": "npm run build && npm run lint && npm run package && npm test"
+    "all": "npm run build && npm run lint && npm test"
   },
   "repository": {
     "type": "git",
