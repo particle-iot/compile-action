@@ -1,7 +1,8 @@
-import 	{ info, warning } from '@actions/core';
+import { info, warning } from '@actions/core';
 import { existsSync, mkdirSync } from 'fs';
 import execa from 'execa';
 import { getPlatformId } from './util';
+import path from 'path';
 
 export async function dockerCheck(): Promise<boolean> {
 	let dockerVersion;
@@ -57,11 +58,13 @@ export async function dockerBuildpackCompile(
 		warning(`Output directory ${destDir} already exists. Compile will overwrite firmware.bin if it exists.`);
 	}
 
+	info(`Compiling...`);
+	const inputDir = path.isAbsolute(sources) ? sources : path.join(workingDir, sources);
 	const args = [
 		'run',
 		'--rm',
 		'-v',
-		`${workingDir}/${sources}:/input`,
+		`${inputDir}:/input`,
 		'-v',
 		`${workingDir}/${destDir}:/output`,
 		'-e',
