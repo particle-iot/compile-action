@@ -1,7 +1,8 @@
-import 	{ info, warning } from '@actions/core';
+import { info, warning } from '@actions/core';
 import { existsSync, mkdirSync } from 'fs';
 import execa from 'execa';
 import { getPlatformId } from './util';
+import path from 'path';
 
 export async function dockerCheck(): Promise<boolean> {
 	let dockerVersion;
@@ -58,7 +59,7 @@ export async function dockerBuildpackCompile(
 	}
 
 	info(`Compiling...`);
-	const inputDir = sources.charAt(0) === '/' ? sources : `${workingDir}/${sources}`;
+	const inputDir = path.isAbsolute(sources) ? sources : path.join(workingDir, sources);
 	const args = [
 		'run',
 		'--rm',

@@ -1,5 +1,6 @@
 import { dockerBuildpackCompile, dockerCheck } from './docker';
 import fs from 'fs';
+import { normalize } from 'path';
 
 const execa = require('execa');
 jest.mock('execa');
@@ -118,9 +119,11 @@ describe('dockerBuildpackCompile', () => {
 	});
 
 	it('should mount source code from a relative path with a parent directory', async () => {
+		const workingDir = 'workingDir';
+		const sources = '../../src';
 		const path = await dockerBuildpackCompile({
-			workingDir : 'workingDir',
-			sources : '../../src',
+			workingDir,
+			sources,
 			platform : 'argon',
 			targetVersion : 'latest'
 		});
@@ -131,7 +134,7 @@ describe('dockerBuildpackCompile', () => {
 				'run',
 				'--rm',
 				'-v',
-				'workingDir/../../src:/input',
+				`${normalize(`${workingDir}/${sources}`)}:/input`,
 				'-v',
 				'workingDir/output:/output',
 				'-e',

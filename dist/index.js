@@ -29250,6 +29250,7 @@ const core_1 = __nccwpck_require__(2186);
 const fs_1 = __nccwpck_require__(7147);
 const execa_1 = __importDefault(__nccwpck_require__(5447));
 const util_1 = __nccwpck_require__(2629);
+const path_1 = __importDefault(__nccwpck_require__(1017));
 function dockerCheck() {
     return __awaiter(this, void 0, void 0, function* () {
         let dockerVersion;
@@ -29295,7 +29296,7 @@ function dockerBuildpackCompile({ workingDir, sources, platform, targetVersion }
             (0, core_1.warning)(`Output directory ${destDir} already exists. Compile will overwrite firmware.bin if it exists.`);
         }
         (0, core_1.info)(`Compiling...`);
-        const inputDir = sources.charAt(0) === '/' ? sources : `${workingDir}/${sources}`;
+        const inputDir = path_1.default.isAbsolute(sources) ? sources : path_1.default.join(workingDir, sources);
         const args = [
             'run',
             '--rm',
