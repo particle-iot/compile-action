@@ -1,7 +1,7 @@
 import { info, warning } from '@actions/core';
 import { existsSync, mkdirSync } from 'fs';
 import execa from 'execa';
-import { getPlatformId } from './util';
+import { getLatestFirmwareVersion, getPlatformId, validatePlatformFirmware } from './util';
 import path from 'path';
 
 export async function dockerCheck(): Promise<boolean> {
@@ -29,17 +29,15 @@ export async function dockerBuildpackCompile(
 	// Note: the buildpack only detects *.c and *.cpp files
 	// https://github.com/particle-iot/device-os/blob/196d497dd4c16ab83db6ea610cf2433047226a6a/user/build.mk#L64-L65
 
-	// todo: need validation on targetVersion/platform compatibility
 	const platformId = getPlatformId(platform);
 
-	// todo: need to source this from somewhere
-	let targetFriendly = targetVersion;
-	if (targetVersion === 'latest' || targetVersion === '') {
-		targetVersion = '4.0.2';
-		targetFriendly = `${targetVersion} (latest)`;
+	if (targetVersion === 'latest' || !targetVersion) {
+		targetVersion = await getLatestFirmwareVersion(platform);
+		info(`No device os version specified, using '${targetVersion}' as latest version for platform '${platform}'`);
 	}
+	await validatePlatformFirmware(platform, targetVersion);
 
-	info(`Fetching docker buildpack for platform '${platform}' and target '${targetFriendly}'`);
+	info(`Fetching docker buildpack for platform '${platform}' and target '${targetVersion}'`);
 	info(`This can take a minute....`);
 	const dockerPull = await execa('docker', [
 		'pull',

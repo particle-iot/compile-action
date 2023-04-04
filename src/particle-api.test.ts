@@ -152,7 +152,7 @@ describe('particleCloudCompile', () => {
 				'application.cpp': 'application.cpp'
 			},
 			'platformId': 0,
-			'targetVersion': undefined,
+			'targetVersion': '1.4.4',
 			'headers': { 'User-Agent': 'particle-compile-action' }
 		});
 	});
@@ -172,7 +172,7 @@ describe('particleCloudCompile', () => {
 				'application.cpp': 'application.cpp'
 			},
 			'platformId': 12,
-			'targetVersion': undefined,
+			'targetVersion': '4.0.2',
 			'headers': { 'User-Agent': 'particle-compile-action' }
 		});
 	});
@@ -191,7 +191,7 @@ describe('particleCloudCompile', () => {
 				'application.cpp': 'test/fixtures/single-file-firmware/application.cpp'
 			},
 			'platformId': 10,
-			'targetVersion': undefined,
+			'targetVersion': '2.3.1',
 			'headers': { 'User-Agent': 'particle-compile-action' }
 		});
 	});
@@ -263,7 +263,7 @@ describe('particleCloudCompile', () => {
 				'application.cpp': `test/fixtures/single-file-firmware/application.cpp`
 			},
 			'platformId': 10,
-			'targetVersion': undefined,
+			'targetVersion': '2.3.1',
 			'headers': { 'User-Agent': 'particle-compile-action' }
 		});
 	});

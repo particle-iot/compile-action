@@ -29270,15 +29270,13 @@ function dockerBuildpackCompile({ workingDir, sources, platform, targetVersion }
     return __awaiter(this, void 0, void 0, function* () {
         // Note: the buildpack only detects *.c and *.cpp files
         // https://github.com/particle-iot/device-os/blob/196d497dd4c16ab83db6ea610cf2433047226a6a/user/build.mk#L64-L65
-        // todo: need validation on targetVersion/platform compatibility
         const platformId = (0, util_1.getPlatformId)(platform);
-        // todo: need to source this from somewhere
-        let targetFriendly = targetVersion;
-        if (targetVersion === 'latest' || targetVersion === '') {
-            targetVersion = '4.0.2';
-            targetFriendly = `${targetVersion} (latest)`;
+        if (targetVersion === 'latest' || !targetVersion) {
+            targetVersion = yield (0, util_1.getLatestFirmwareVersion)(platform);
+            (0, core_1.info)(`No device os version specified, using '${targetVersion}' as latest version for platform '${platform}'`);
         }
-        (0, core_1.info)(`Fetching docker buildpack for platform '${platform}' and target '${targetFriendly}'`);
+        yield (0, util_1.validatePlatformFirmware)(platform, targetVersion);
+        (0, core_1.info)(`Fetching docker buildpack for platform '${platform}' and target '${targetVersion}'`);
         (0, core_1.info)(`This can take a minute....`);
         const dockerPull = yield (0, execa_1.default)('docker', [
             'pull',
@@ -29407,15 +29405,15 @@ function particleCloudCompile({ sources, platform, auth, targetVersion }) {
         if (sources === './' || sources === '.') {
             sources = process.cwd();
         }
-        // todo: need validation on targetVersion/platform compatibility
+        if (targetVersion === 'latest' || !targetVersion) {
+            targetVersion = yield (0, util_1.getLatestFirmwareVersion)(platform);
+            (0, core_1.info)(`No device os version specified, using '${targetVersion}' as latest version for platform '${platform}'`);
+        }
+        yield (0, util_1.validatePlatformFirmware)(platform, targetVersion);
         const platformId = (0, util_1.getPlatformId)(platform);
         const files = (0, util_1.getCode)(sources);
         (0, core_1.info)(`Compiling code for platform '${platform}' with target version '${targetVersion}'`);
         (0, core_1.info)(`Files: ${JSON.stringify(Object.keys(files))}`);
-        // handle internal implementation detail of the particle-api-js compile command
-        if (targetVersion === 'latest') {
-            targetVersion = undefined;
-        }
         let binaryId = '';
         try {
             const resp = yield particle.compileCode({
@@ -29479,15 +29477,48 @@ exports.particleDownloadBinary = particleDownloadBinary;
 
 "use strict";
 
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    var desc = Object.getOwnPropertyDescriptor(m, k);
+    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+      desc = { enumerable: true, get: function() { return m[k]; } };
+    }
+    Object.defineProperty(o, k2, desc);
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
+});
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+    __setModuleDefault(result, mod);
+    return result;
+};
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.getPlatformId = exports.getCode = void 0;
+exports._resetFirmwareManifest = exports.fetchFirmwareManifest = exports.getLatestFirmwareVersion = exports.validatePlatformFirmware = exports.getPlatformId = exports.getCode = void 0;
 const cli_1 = __nccwpck_require__(6815);
 const fs_1 = __nccwpck_require__(7147);
 // @ts-ignore
 const device_constants_1 = __importDefault(__nccwpck_require__(9452));
+const httpm = __importStar(__nccwpck_require__(6255));
 function getCode(path) {
     if (!(0, fs_1.existsSync)(path)) {
         throw new Error(`Source code ${path} does not exist`);
@@ -29515,6 +29546,49 @@ function getPlatformId(platform) {
     return p.id;
 }
 exports.getPlatformId = getPlatformId;
+function validatePlatformFirmware(platform, version) {
+    return __awaiter(this, void 0, void 0, function* () {
+        const manifest = yield fetchFirmwareManifest();
+        const dvos = manifest.binaryDataDeviceOS[version];
+        if (!dvos) {
+            throw new Error(`Device OS version '${version}' does not exist`);
+        }
+        if (!dvos[platform]) {
+            throw new Error(`Device OS version '${version}' does not support platform '${platform}'`);
+        }
+        return true;
+    });
+}
+exports.validatePlatformFirmware = validatePlatformFirmware;
+function getLatestFirmwareVersion(platform) {
+    return __awaiter(this, void 0, void 0, function* () {
+        const manifest = yield fetchFirmwareManifest();
+        return manifest.defaultVersions[platform];
+    });
+}
+exports.getLatestFirmwareVersion = getLatestFirmwareVersion;
+let firmwareManifest;
+function fetchFirmwareManifest() {
+    return __awaiter(this, void 0, void 0, function* () {
+        if (firmwareManifest) {
+            return firmwareManifest;
+        }
+        const client = new httpm.HttpClient('particle-compile-action');
+        const res = yield client.get('https://binaries.particle.io/firmware-versions-manifest.json');
+        if (res.message.statusCode !== 200) {
+            throw new Error(`Error fetching firmware manifest: ${res.message.statusCode}`);
+        }
+        firmwareManifest = JSON.parse(yield res.readBody());
+        return firmwareManifest;
+    });
+}
+exports.fetchFirmwareManifest = fetchFirmwareManifest;
+// For testing
+function _resetFirmwareManifest() {
+    // @ts-ignore
+    firmwareManifest = undefined;
+}
+exports._resetFirmwareManifest = _resetFirmwareManifest;
 
 
 /***/ }),

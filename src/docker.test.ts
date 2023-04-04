@@ -4,6 +4,7 @@ import { normalize } from 'path';
 
 const execa = require('execa');
 jest.mock('execa');
+
 function resetMock() {
 	execa.mockImplementation(() => {
 		return jest.fn().mockImplementation(() => {
@@ -30,6 +31,7 @@ function cleanDir() {
 		fs.rmSync(dir, { recursive: true });
 	}
 }
+
 beforeEach(() => {
 	cleanDir();
 });
@@ -56,19 +58,19 @@ describe('dockerCheck', () => {
 describe('dockerBuildpackCompile', () => {
 	it('should throw on invalid platform', () => {
 		return expect(dockerBuildpackCompile({
-			workingDir : 'workingDir',
-			sources : 'sources',
-			platform : 'invalid',
-			targetVersion : 'latest'
+			workingDir: 'workingDir',
+			sources: 'sources',
+			platform: 'invalid',
+			targetVersion: 'latest'
 		})).rejects.toThrow();
 	});
 
 	it('should set targetVersion to 4.0.2 if targetVersion is latest', async () => {
 		const path = await dockerBuildpackCompile({
-			workingDir : 'workingDir',
-			sources : 'sources',
-			platform : 'argon',
-			targetVersion : 'latest'
+			workingDir: 'workingDir',
+			sources: 'sources',
+			platform: 'argon',
+			targetVersion: 'latest'
 		});
 		expect(execa).toHaveBeenCalledTimes(2);
 		expect(execa.mock.calls[0]).toEqual([
@@ -96,10 +98,10 @@ describe('dockerBuildpackCompile', () => {
 
 	it('should mount source code from a relative path', async () => {
 		const path = await dockerBuildpackCompile({
-			workingDir : 'workingDir',
-			sources : 'src',
-			platform : 'argon',
-			targetVersion : 'latest'
+			workingDir: 'workingDir',
+			sources: 'src',
+			platform: 'argon',
+			targetVersion: 'latest'
 		});
 		expect(execa).toHaveBeenCalledTimes(2);
 		expect(execa.mock.calls[1]).toEqual([
@@ -124,8 +126,8 @@ describe('dockerBuildpackCompile', () => {
 		const path = await dockerBuildpackCompile({
 			workingDir,
 			sources,
-			platform : 'argon',
-			targetVersion : 'latest'
+			platform: 'argon',
+			targetVersion: 'latest'
 		});
 		expect(execa).toHaveBeenCalledTimes(2);
 		expect(execa.mock.calls[1]).toEqual([
@@ -146,10 +148,10 @@ describe('dockerBuildpackCompile', () => {
 
 	it('should mount source code from an absolute path', async () => {
 		const path = await dockerBuildpackCompile({
-			workingDir : 'workingDir',
-			sources : '/absolute/path/to/src',
-			platform : 'argon',
-			targetVersion : 'latest'
+			workingDir: 'workingDir',
+			sources: '/absolute/path/to/src',
+			platform: 'argon',
+			targetVersion: 'latest'
 		});
 		expect(execa).toHaveBeenCalledTimes(2);
 		expect(execa.mock.calls[1]).toEqual([

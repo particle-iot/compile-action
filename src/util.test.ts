@@ -1,4 +1,13 @@
-import { getCode, getPlatformId } from './util';
+import {
+	_resetFirmwareManifest,
+	fetchFirmwareManifest,
+	getCode,
+	getLatestFirmwareVersion,
+	getPlatformId,
+	validatePlatformFirmware
+} from './util';
+import nock from 'nock';
+import { readFileSync } from 'fs';
 
 describe('getCode', () => {
 	it('should return file for application.cpp', () => {
@@ -82,5 +91,83 @@ describe('getPlatformId', () => {
 
 	it('should throw an error if the platform is not public', () => {
 		expect(() => getPlatformId('gcc')).toThrow();
+	});
+});
+
+describe('fetchFirmwareManifest', () => {
+
+	beforeEach(() => {
+		_resetFirmwareManifest();
+	});
+
+	it('should return the firmware manifest', async () => {
+		nock('https://binaries.particle.io')
+			.get('/firmware-versions-manifest.json')
+			.replyWithFile(200, `test/fixtures/firmware-manifest-v1/manifest.json`);
+
+		const manifest = JSON.parse(readFileSync(`test/fixtures/firmware-manifest-v1/manifest.json`).toString());
+
+		expect(await fetchFirmwareManifest()).toEqual(manifest);
+	});
+
+	it('should return the cached manifest if it has already been fetched', async () => {
+		nock('https://binaries.particle.io')
+			.get('/firmware-versions-manifest.json')
+			.once()
+			.replyWithFile(200, `test/fixtures/firmware-manifest-v1/manifest.json`);
+
+		const res1 = await fetchFirmwareManifest();
+		const res2 = await fetchFirmwareManifest();
+		expect(res1).toEqual(res2);
+		expect(nock.pendingMocks()).toHaveLength(0);
+	});
+
+	it('should throw an error if the manifest is not found', async () => {
+		nock('https://binaries.particle.io')
+			.get('/firmware-versions-manifest.json')
+			.reply(404);
+
+		await expect(fetchFirmwareManifest()).rejects.toThrow('Error fetching firmware manifest: 404');
+	});
+});
+
+describe('getLatestFirmwareVersion', () => {
+	it('should return the latest version', async () => {
+		nock('https://binaries.particle.io')
+			.get('/firmware-versions-manifest.json')
+			.replyWithFile(200, `test/fixtures/firmware-manifest-v1/manifest.json`);
+
+		expect(await getLatestFirmwareVersion('core')).toEqual('1.4.4');
+		expect(await getLatestFirmwareVersion('argon')).toEqual('4.0.2');
+		expect(await getLatestFirmwareVersion('p1')).toEqual('2.3.1');
+		expect(await getLatestFirmwareVersion('p2')).toEqual('5.3.0');
+	});
+});
+
+describe('validatePlatformFirmware', () => {
+	it('should return true if there is a device os version the supports the target platform', async () => {
+		nock('https://binaries.particle.io')
+			.get('/firmware-versions-manifest.json')
+			.replyWithFile(200, `test/fixtures/firmware-manifest-v1/manifest.json`);
+
+		expect(await validatePlatformFirmware('core', '1.4.4')).toEqual(true);
+		expect(await validatePlatformFirmware('argon', '4.0.2')).toEqual(true);
+	});
+
+	it('should throw if there is not a device os version the supports the target platform', async () => {
+		nock('https://binaries.particle.io')
+			.get('/firmware-versions-manifest.json')
+			.replyWithFile(200, `test/fixtures/firmware-manifest-v1/manifest.json`);
+
+		await expect(validatePlatformFirmware('core', '2.3.1')).rejects.toThrow(`Device OS version '2.3.1' does not support platform 'core'`);
+		await expect(validatePlatformFirmware('trackerm', '2.3.1')).rejects.toThrow(`Device OS version '2.3.1' does not support platform 'trackerm'`);
+	});
+
+	it('should throw if the device os version is not valid', async () => {
+		nock('https://binaries.particle.io')
+			.get('/firmware-versions-manifest.json')
+			.replyWithFile(200, `test/fixtures/firmware-manifest-v1/manifest.json`);
+
+		await expect(validatePlatformFirmware('core', '0.0.0')).rejects.toThrow(`Device OS version '0.0.0' does not exist`);
 	});
 });
