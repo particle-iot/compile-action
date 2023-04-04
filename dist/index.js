@@ -29270,7 +29270,7 @@ function compileAction() {
             }
             if (outputPath) {
                 (0, core_1.setOutput)('artifact-path', outputPath);
-                const version = targetVersion === 'latest' ? yield (0, util_1.getLatestFirmwareVersion)(platform) : targetVersion;
+                const version = targetVersion === 'latest' || !targetVersion ? yield (0, util_1.getLatestFirmwareVersion)(platform) : targetVersion;
                 (0, core_1.setOutput)('device-os-version', version);
             }
             else {

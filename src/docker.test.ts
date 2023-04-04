@@ -1,7 +1,7 @@
 import { dockerBuildpackCompile, dockerCheck } from './docker';
 import fs from 'fs';
 import { normalize } from 'path';
-import nock from "nock";
+import nock from 'nock';
 
 const execa = require('execa');
 jest.mock('execa');
