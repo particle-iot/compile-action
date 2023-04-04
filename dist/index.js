@@ -29246,6 +29246,7 @@ exports.compileAction = void 0;
 const core_1 = __nccwpck_require__(2186);
 const docker_1 = __nccwpck_require__(6512);
 const particle_api_1 = __nccwpck_require__(6032);
+const util_1 = __nccwpck_require__(2629);
 function compileAction() {
     return __awaiter(this, void 0, void 0, function* () {
         try {
@@ -29269,6 +29270,8 @@ function compileAction() {
             }
             if (outputPath) {
                 (0, core_1.setOutput)('artifact-path', outputPath);
+                const version = targetVersion === 'latest' ? yield (0, util_1.getLatestFirmwareVersion)(platform) : targetVersion;
+                (0, core_1.setOutput)('device-os-version', version);
             }
             else {
                 (0, core_1.setFailed)(`Failed to compile code in '${sources}'`);

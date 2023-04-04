@@ -1,6 +1,7 @@
 import { dockerBuildpackCompile, dockerCheck } from './docker';
 import fs from 'fs';
 import { normalize } from 'path';
+import nock from "nock";
 
 const execa = require('execa');
 jest.mock('execa');
@@ -56,6 +57,12 @@ describe('dockerCheck', () => {
 });
 
 describe('dockerBuildpackCompile', () => {
+	beforeEach(() => {
+		nock('https://binaries.particle.io')
+			.get('/firmware-versions-manifest.json')
+			.replyWithFile(200, `test/fixtures/firmware-manifest-v1/manifest.json`);
+	});
+
 	it('should throw on invalid platform', () => {
 		return expect(dockerBuildpackCompile({
 			workingDir: 'workingDir',

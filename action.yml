@@ -20,6 +20,8 @@ inputs:
 outputs:
   artifact-path:
     description: 'Path to the compiled binary file. Example: output/firmware.bin'
+  device-os-version:
+    description: 'When inputs.device-os-version=latest, this output contains the actual Device OS version used for compilation. Example: 4.0.2'
 runs:
   using: 'node16'
   main: 'dist/index.js'

@@ -2,6 +2,7 @@ import { sep } from 'node:path';
 import { mkdtemp } from 'node:fs';
 import { tmpdir } from 'os';
 import { readFileSync, writeFileSync } from 'fs';
+import nock from 'nock';
 
 // Need to be before imports
 const mockCompileCode = jest.fn().mockImplementation(() => {
@@ -45,6 +46,12 @@ afterEach(() => {
 
 describe('particleCloudCompile', () => {
 	const originalDir = process.cwd();
+
+	beforeEach(() => {
+		nock('https://binaries.particle.io')
+			.get('/firmware-versions-manifest.json')
+			.replyWithFile(200, `test/fixtures/firmware-manifest-v1/manifest.json`);
+	});
 
 	afterEach(() => {
 		process.chdir(originalDir);
