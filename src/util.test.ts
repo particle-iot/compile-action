@@ -2,7 +2,7 @@ import {
 	_resetFirmwareManifest,
 	fetchFirmwareManifest,
 	getCode,
-	getLatestFirmwareVersion,
+	resolveVersion,
 	getPlatformId,
 	validatePlatformFirmware
 } from './util';
@@ -131,19 +131,6 @@ describe('fetchFirmwareManifest', () => {
 	});
 });
 
-describe('getLatestFirmwareVersion', () => {
-	it('should return the latest version', async () => {
-		nock('https://binaries.particle.io')
-			.get('/firmware-versions-manifest.json')
-			.replyWithFile(200, `test/fixtures/firmware-manifest-v1/manifest.json`);
-
-		expect(await getLatestFirmwareVersion('core')).toEqual('1.4.4');
-		expect(await getLatestFirmwareVersion('argon')).toEqual('4.0.2');
-		expect(await getLatestFirmwareVersion('p1')).toEqual('2.3.1');
-		expect(await getLatestFirmwareVersion('p2')).toEqual('5.3.0');
-	});
-});
-
 describe('validatePlatformFirmware', () => {
 	it('should return true if there is a device os version the supports the target platform', async () => {
 		nock('https://binaries.particle.io')
@@ -169,5 +156,80 @@ describe('validatePlatformFirmware', () => {
 			.replyWithFile(200, `test/fixtures/firmware-manifest-v1/manifest.json`);
 
 		await expect(validatePlatformFirmware('core', '0.0.0')).rejects.toThrow(`Device OS version '0.0.0' does not exist`);
+	});
+});
+
+describe('resolveVersion', () => {
+	beforeAll(() => {
+		nock('https://binaries.particle.io')
+			.get('/firmware-versions-manifest.json')
+			.replyWithFile(200, `test/fixtures/firmware-manifest-v1/manifest.json`);
+	});
+
+	it('should return the latest version for each platform', async () => {
+		expect(await resolveVersion('argon', 'latest')).toEqual('4.0.2');
+		expect(await resolveVersion('boron', 'latest')).toEqual('4.0.2');
+		expect(await resolveVersion('esomx', 'latest')).toEqual('4.0.2');
+		expect(await resolveVersion('bsom', 'latest')).toEqual('4.0.2');
+		expect(await resolveVersion('b5som', 'latest')).toEqual('4.0.2');
+		expect(await resolveVersion('tracker', 'latest')).toEqual('4.0.2');
+		expect(await resolveVersion('electron', 'latest')).toEqual('2.3.1');
+		expect(await resolveVersion('photon', 'latest')).toEqual('2.3.1');
+		expect(await resolveVersion('xenon', 'latest')).toEqual('1.5.2');
+		expect(await resolveVersion('xsom', 'latest')).toEqual('1.4.4');
+		expect(await resolveVersion('asom', 'latest')).toEqual('1.4.4');
+		expect(await resolveVersion('core', 'latest')).toEqual('1.4.4');
+		expect(await resolveVersion('p1', 'latest')).toEqual('2.3.1');
+		expect(await resolveVersion('trackerm', 'latest')).toEqual('5.3.0');
+		expect(await resolveVersion('p2', 'latest')).toEqual('5.3.0');
+	});
+
+	it('should return the latest LTS version for each platform that has one', async () => {
+		expect(await resolveVersion('argon', 'latest-lts')).toEqual('4.0.2');
+		expect(await resolveVersion('boron', 'latest-lts')).toEqual('4.0.2');
+		expect(await resolveVersion('esomx', 'latest-lts')).toEqual('4.0.2');
+		expect(await resolveVersion('bsom', 'latest-lts')).toEqual('4.0.2');
+		expect(await resolveVersion('b5som', 'latest-lts')).toEqual('4.0.2');
+		expect(await resolveVersion('tracker', 'latest-lts')).toEqual('4.0.2');
+		expect(await resolveVersion('electron', 'latest-lts')).toEqual('2.3.1');
+		expect(await resolveVersion('photon', 'latest-lts')).toEqual('2.3.1');
+		expect(await resolveVersion('p1', 'latest-lts')).toEqual('2.3.1');
+	});
+
+	it('should throw for platforms that do not have an LTS version', async () => {
+		await expect(resolveVersion('xenon', 'latest-lts')).rejects.toThrow(`No latest-lts version found for 'xenon'. The latest supported Device OS version is '1.5.2'`);
+		await expect(resolveVersion('xsom', 'latest-lts')).rejects.toThrow(`No latest-lts version found for 'xsom'. The latest supported Device OS version is '1.4.4'`);
+		await expect(resolveVersion('asom', 'latest-lts')).rejects.toThrow(`No latest-lts version found for 'asom'. The latest supported Device OS version is '1.4.4'`);
+		await expect(resolveVersion('core', 'latest-lts')).rejects.toThrow(`No latest-lts version found for 'core'. The latest supported Device OS version is '1.4.4'`);
+		await expect(resolveVersion('trackerm', 'latest-lts')).rejects.toThrow(`No latest-lts version found for 'trackerm'. The latest supported Device OS version is '5.3.0'`);
+		await expect(resolveVersion('p2', 'latest-lts')).rejects.toThrow(`No latest-lts version found for 'p2'. The latest supported Device OS version is '5.3.0'`);
+	});
+
+	it('should return a fixed version', async () => {
+		expect(await resolveVersion('argon', '2.3.1')).toEqual('2.3.1');
+	});
+
+	it('should return the latest 2.x version', async () => {
+		expect(await resolveVersion('argon', '2.x')).toEqual('2.3.1');
+	});
+
+	it('should return the latest 2.3.x version', async () => {
+		expect(await resolveVersion('argon', '2.3.x')).toEqual('2.3.1');
+	});
+
+	it('should handle tilde versions', async () => {
+		expect(await resolveVersion('argon', '~4.0.0')).toEqual('4.0.2');
+	});
+
+	it('should handle caret versions', async () => {
+		expect(await resolveVersion('argon', '^5.0.0')).toEqual('5.3.0');
+	});
+
+	it('should throw if the version is not valid', async () => {
+		await expect(resolveVersion('argon', '100.0.0')).rejects.toThrow(`No Device OS version satisfies '100.0.0'`);
+	});
+
+	it('should throw if the semver version is not valid', async () => {
+		await expect(resolveVersion('argon', '^100.0.0')).rejects.toThrow(`No Device OS version satisfies '^100.0.0'`);
 	});
 });

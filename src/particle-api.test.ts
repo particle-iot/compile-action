@@ -62,7 +62,8 @@ describe('particleCloudCompile', () => {
 			await particleCloudCompile({
 				sources: '',
 				platform: 'core',
-				auth: 'token'
+				auth: 'token',
+				targetVersion: '1.4.4'
 			});
 		}).rejects.toThrow('No source code sources specified');
 	});
@@ -72,7 +73,8 @@ describe('particleCloudCompile', () => {
 			await particleCloudCompile({
 				sources: './fake-src-sources',
 				platform: 'core',
-				auth: 'token'
+				auth: 'token',
+				targetVersion: '1.4.4'
 			});
 		}).rejects.toThrow('Source code ./fake-src-sources does not exist');
 	});
@@ -93,7 +95,8 @@ describe('particleCloudCompile', () => {
 			await particleCloudCompile({
 				sources: emptySrcDir,
 				platform: 'core',
-				auth: 'token'
+				auth: 'token',
+				targetVersion: '1.4.4'
 			});
 		}).rejects.toThrow(`There are no valid source code files included in ${emptySrcDir}`);
 	});
@@ -115,7 +118,8 @@ describe('particleCloudCompile', () => {
 			await particleCloudCompile({
 				sources: emptySrcDir,
 				platform: 'core',
-				auth: 'token'
+				auth: 'token',
+				targetVersion: '1.4.4'
 			});
 		}).rejects.toThrow(`There are no valid source code files included in ${emptySrcDir}`);
 
@@ -138,7 +142,8 @@ describe('particleCloudCompile', () => {
 			await particleCloudCompile({
 				sources: emptySrcDir,
 				platform: 'core',
-				auth: 'token'
+				auth: 'token',
+				targetVersion: '1.4.4'
 			});
 		}).rejects.toThrow(`There are no valid source code files included in ${emptySrcDir}`);
 
@@ -150,7 +155,7 @@ describe('particleCloudCompile', () => {
 			sources: '.',
 			platform: 'core',
 			auth: 'token',
-			targetVersion: 'latest'
+			targetVersion: '1.4.4'
 		});
 		expect(mockCompileCode).toHaveBeenCalledTimes(1);
 		expect(mockCompileCode).toHaveBeenCalledWith({
@@ -170,7 +175,7 @@ describe('particleCloudCompile', () => {
 			sources: './',
 			platform: 'argon',
 			auth: 'token',
-			targetVersion: 'latest'
+			targetVersion: '4.0.2'
 		});
 		expect(mockCompileCode).toHaveBeenCalledTimes(1);
 		expect(mockCompileCode).toHaveBeenCalledWith({
@@ -189,7 +194,7 @@ describe('particleCloudCompile', () => {
 			sources: 'test/fixtures/single-file-firmware',
 			platform: 'electron',
 			auth: 'token',
-			targetVersion: 'latest'
+			targetVersion: '2.3.1'
 		});
 		expect(mockCompileCode).toHaveBeenCalledTimes(1);
 		expect(mockCompileCode).toHaveBeenCalledWith({
@@ -207,7 +212,8 @@ describe('particleCloudCompile', () => {
 		const result = await particleCloudCompile({
 			sources: 'test/fixtures/single-file-firmware',
 			platform: 'core',
-			auth: 'token'
+			auth: 'token',
+			targetVersion: 'latest-lts'
 		});
 		expect(mockCompileCode).toHaveBeenCalledTimes(1);
 		expect(result).toEqual('abc123');
@@ -229,7 +235,8 @@ describe('particleCloudCompile', () => {
 		const result = await particleCloudCompile({
 			sources: 'test/fixtures/single-file-firmware',
 			platform: 'core',
-			auth: 'token'
+			auth: 'token',
+			targetVersion: 'latest'
 		});
 		expect(mockCompileCode).toHaveBeenCalledTimes(1);
 		expect(result).toEqual('');
@@ -247,7 +254,8 @@ describe('particleCloudCompile', () => {
 			await particleCloudCompile({
 				sources: 'test/fixtures/single-file-firmware',
 				platform: 'core',
-				auth: 'token'
+				auth: 'token',
+				targetVersion: 'latest'
 			});
 		}).rejects.toThrow(`Error: unknown response from Particle Cloud: {"body":{"ok":false}}`);
 
@@ -261,7 +269,7 @@ describe('particleCloudCompile', () => {
 			sources: `${cwd}/test/fixtures/single-file-firmware`,
 			platform: 'electron',
 			auth: 'token',
-			targetVersion: 'latest'
+			targetVersion: '2.3.1'
 		});
 		expect(mockCompileCode).toHaveBeenCalledTimes(1);
 		expect(mockCompileCode).toHaveBeenCalledWith({

@@ -3,6 +3,7 @@ import { existsSync } from 'fs';
 // @ts-ignore
 import deviceConstants from '@particle/device-constants';
 import * as httpm from '@actions/http-client';
+import { maxSatisfying, major } from 'semver';
 
 export function getCode(path: string) {
 	if (!existsSync(path)) {
@@ -43,11 +44,6 @@ export async function validatePlatformFirmware(platform: string, version: string
 	return true;
 }
 
-export async function getLatestFirmwareVersion(platform: string): Promise<string> {
-	const manifest = await fetchFirmwareManifest();
-	return manifest.defaultVersions[platform];
-}
-
 // Incomplete type definition for firmware manifest
 export interface FirmwareManifestV1 {
 	defaultVersions: { [key: string]: string };
@@ -69,6 +65,42 @@ export async function fetchFirmwareManifest(): Promise<FirmwareManifestV1> {
 	}
 	firmwareManifest = JSON.parse(await res.readBody());
 	return firmwareManifest;
+}
+
+export async function resolveVersion(platform: string, version: string): Promise<string> {
+	if (!version) {
+		throw new Error(`Device OS version is required`);
+	}
+
+	const manifest = await fetchFirmwareManifest();
+	const latest = manifest.defaultVersions[platform];
+	if (version === 'latest') {
+		return latest;
+	}
+
+	if (version === 'latest-lts') {
+		// if latest major is even, then it is the latest lts
+		if (major(latest) % 2 === 0) {
+			return latest;
+		}
+		// otherwise, find the latest lts
+		delete manifest.binaryDataDeviceOS.binaryUrlGithub;
+		delete manifest.binaryDataDeviceOS.binaryUrlApi;
+		const versions = Object.keys(manifest.binaryDataDeviceOS);
+		const ltsVersions = versions.filter((v) => major(v) % 2 === 0);
+		const ltsVersion = maxSatisfying(ltsVersions, version);
+		if (!ltsVersion) {
+			throw new Error(`No latest-lts version found for '${platform}'. The latest supported Device OS version is '${latest}'`);
+		}
+		return ltsVersion;
+	}
+
+	const versions = Object.keys(manifest.binaryDataDeviceOS);
+	const maxVersion = maxSatisfying(versions, version);
+	if (!maxVersion) {
+		throw new Error(`No Device OS version satisfies '${version}'`);
+	}
+	return maxVersion;
 }
 
 // For testing

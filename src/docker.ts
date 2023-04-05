@@ -1,7 +1,7 @@
 import { info, warning } from '@actions/core';
 import { existsSync, mkdirSync } from 'fs';
 import execa from 'execa';
-import { getLatestFirmwareVersion, getPlatformId, validatePlatformFirmware } from './util';
+import { getPlatformId } from './util';
 import path from 'path';
 
 export async function dockerCheck(): Promise<boolean> {
@@ -30,12 +30,6 @@ export async function dockerBuildpackCompile(
 	// https://github.com/particle-iot/device-os/blob/196d497dd4c16ab83db6ea610cf2433047226a6a/user/build.mk#L64-L65
 
 	const platformId = getPlatformId(platform);
-
-	if (targetVersion === 'latest' || !targetVersion) {
-		targetVersion = await getLatestFirmwareVersion(platform);
-		info(`No device os version specified, using '${targetVersion}' as latest version for platform '${platform}'`);
-	}
-	await validatePlatformFirmware(platform, targetVersion);
 
 	info(`Fetching docker buildpack for platform '${platform}' and target '${targetVersion}'`);
 	info(`This can take a minute....`);

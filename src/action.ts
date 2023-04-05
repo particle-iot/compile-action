@@ -1,14 +1,18 @@
 import { getInput, info, setFailed, setOutput } from '@actions/core';
 import { dockerBuildpackCompile, dockerCheck } from './docker';
 import { particleCloudCompile, particleDownloadBinary } from './particle-api';
-import { getLatestFirmwareVersion } from './util';
+import { resolveVersion, validatePlatformFirmware } from './util';
 
 export async function compileAction(): Promise<void> {
 	try {
 		const auth: string = getInput('particle-access-token');
 		const platform: string = getInput('particle-platform-name');
-		const targetVersion: string = getInput('device-os-version');
+		const version: string = getInput('device-os-version');
 		const sources: string = getInput('sources-folder');
+
+		const targetVersion = await resolveVersion(platform, version);
+		await validatePlatformFirmware(platform, targetVersion);
+		info(`Targeting '${targetVersion}' Device OS version for platform '${platform}'`);
 
 		let outputPath: string | undefined;
 		if (!auth) {
@@ -26,8 +30,7 @@ export async function compileAction(): Promise<void> {
 
 		if (outputPath) {
 			setOutput('artifact-path', outputPath);
-			const version = targetVersion === 'latest' || !targetVersion ? await getLatestFirmwareVersion(platform) : targetVersion;
-			setOutput('device-os-version', version);
+			setOutput('device-os-version', targetVersion);
 		} else {
 			setFailed(`Failed to compile code in '${sources}'`);
 		}

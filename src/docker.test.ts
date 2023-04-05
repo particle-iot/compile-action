@@ -77,7 +77,7 @@ describe('dockerBuildpackCompile', () => {
 			workingDir: 'workingDir',
 			sources: 'sources',
 			platform: 'argon',
-			targetVersion: 'latest'
+			targetVersion: '4.0.2'
 		});
 		expect(execa).toHaveBeenCalledTimes(2);
 		expect(execa.mock.calls[0]).toEqual([
@@ -108,7 +108,7 @@ describe('dockerBuildpackCompile', () => {
 			workingDir: 'workingDir',
 			sources: 'src',
 			platform: 'argon',
-			targetVersion: 'latest'
+			targetVersion: '4.0.2'
 		});
 		expect(execa).toHaveBeenCalledTimes(2);
 		expect(execa.mock.calls[1]).toEqual([
@@ -134,7 +134,7 @@ describe('dockerBuildpackCompile', () => {
 			workingDir,
 			sources,
 			platform: 'argon',
-			targetVersion: 'latest'
+			targetVersion: '4.0.2'
 		});
 		expect(execa).toHaveBeenCalledTimes(2);
 		expect(execa.mock.calls[1]).toEqual([
@@ -158,7 +158,7 @@ describe('dockerBuildpackCompile', () => {
 			workingDir: 'workingDir',
 			sources: '/absolute/path/to/src',
 			platform: 'argon',
-			targetVersion: 'latest'
+			targetVersion: '4.0.2'
 		});
 		expect(execa).toHaveBeenCalledTimes(2);
 		expect(execa.mock.calls[1]).toEqual([

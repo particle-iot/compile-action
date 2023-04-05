@@ -1,7 +1,7 @@
 // eslint-disable-next-line max-len
 import { error, info } from '@actions/core';
 import { existsSync, mkdirSync, writeFileSync } from 'fs';
-import { getCode, getLatestFirmwareVersion, getPlatformId, validatePlatformFirmware } from './util';
+import { getCode, getPlatformId } from './util';
 
 const ParticleApi = require('particle-api-js');
 const particle = new ParticleApi();
@@ -10,7 +10,7 @@ interface ParticleCloudCompileParams {
 	sources: string;
 	platform: string;
 	auth: string;
-	targetVersion?: string;
+	targetVersion: string;
 }
 
 export async function particleCloudCompile(
@@ -24,12 +24,6 @@ export async function particleCloudCompile(
 	if (sources === './' || sources === '.') {
 		sources = process.cwd();
 	}
-
-	if (targetVersion === 'latest' || !targetVersion) {
-		targetVersion = await getLatestFirmwareVersion(platform);
-		info(`No device os version specified, using '${targetVersion}' as latest version for platform '${platform}'`);
-	}
-	await validatePlatformFirmware(platform, targetVersion);
 
 	const platformId = getPlatformId(platform);
 

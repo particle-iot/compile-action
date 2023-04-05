@@ -18,15 +18,25 @@ A GitHub Action to compile Particle application firmware
     sources-folder: 'src'
       
     # Target Device OS firmware version
-    # For production projects, you should pin to a specific Device OS version
+    # Allowed values:
+    #   * latest:     the most recent Device OS version for the platform
+    #   * latest-lts: the most recent LTS Device OS version for the platform
+    #   * <version>:  a specific Device OS version, e.g. 2.3.1
+    #   * ^<version>: a semver range, e.g. ^5.3.0
+    # For production projects, you should pin to a specific Device OS semver range, e.g. ^4.0.0
     # Required: false
-    device-os-version: 'latest'
+    device-os-version: 'latest-lts'
       
     # Particle access token
     # If provided, the action will use the Particle Cloud Compiler instead of compiling within the GitHub Action runner
     # Required: false
     particle-access-token: ''
 ```
+
+### Outputs
+
+* `artifact-path`: Path to the compiled binary artifact. Typically, it will be `output/firmware.bin`
+* `device-os-version`: The Device OS version that was used for compilation. This may differ from the requested version if the requested version is a semver range or `latest` or `latest-lts`.
 
 ### Example Pipeline
 
