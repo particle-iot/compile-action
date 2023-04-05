@@ -12,7 +12,7 @@ inputs:
   device-os-version:
     required: false
     description: 'Target Device OS firmware version. Allowed values: latest, latest-lts, or a semver version number. Example: latest, latest-lts, 4.x, ^5.3.0, 1.4.4'
-    default: 'latest'
+    default: 'latest-lts'
   sources-folder:
     required: false
     description: 'Path to directory with sources to compile. Example: src'
