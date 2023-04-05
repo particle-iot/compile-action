@@ -1,7 +1,7 @@
 import { getInput, info, setFailed, setOutput } from '@actions/core';
 import { dockerBuildpackCompile, dockerCheck } from './docker';
 import { particleCloudCompile, particleDownloadBinary } from './particle-api';
-import { resolveVersion, validatePlatformFirmware } from './util';
+import { resolveVersion, validatePlatformDeviceOsTarget, validatePlatformName } from './util';
 
 export async function compileAction(): Promise<void> {
 	try {
@@ -10,8 +10,10 @@ export async function compileAction(): Promise<void> {
 		const version: string = getInput('device-os-version');
 		const sources: string = getInput('sources-folder');
 
+		validatePlatformName(platform);
+
 		const targetVersion = await resolveVersion(platform, version);
-		await validatePlatformFirmware(platform, targetVersion);
+		await validatePlatformDeviceOsTarget(platform, targetVersion);
 		info(`Targeting '${targetVersion}' Device OS version for platform '${platform}'`);
 
 		let outputPath: string | undefined;

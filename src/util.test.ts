@@ -4,7 +4,7 @@ import {
 	getCode,
 	resolveVersion,
 	getPlatformId,
-	validatePlatformFirmware
+	validatePlatformDeviceOsTarget, validatePlatformName
 } from './util';
 import nock from 'nock';
 import { readFileSync } from 'fs';
@@ -131,14 +131,23 @@ describe('fetchFirmwareManifest', () => {
 	});
 });
 
-describe('validatePlatformFirmware', () => {
+describe('validatePlatformName', () => {
+	it('should return true if the platform is valid', () => {
+		expect(validatePlatformName('electron')).toEqual(true);
+	});
+	it('should throw an error if the platform is not valid', () => {
+		expect(() => validatePlatformName('not_a_platform')).toThrow();
+	});
+});
+
+describe('validatePlatformDeviceOsTarget', () => {
 	it('should return true if there is a device os version the supports the target platform', async () => {
 		nock('https://binaries.particle.io')
 			.get('/firmware-versions-manifest.json')
 			.replyWithFile(200, `test/fixtures/firmware-manifest-v1/manifest.json`);
 
-		expect(await validatePlatformFirmware('core', '1.4.4')).toEqual(true);
-		expect(await validatePlatformFirmware('argon', '4.0.2')).toEqual(true);
+		expect(await validatePlatformDeviceOsTarget('core', '1.4.4')).toEqual(true);
+		expect(await validatePlatformDeviceOsTarget('argon', '4.0.2')).toEqual(true);
 	});
 
 	it('should throw if there is not a device os version the supports the target platform', async () => {
@@ -146,8 +155,8 @@ describe('validatePlatformFirmware', () => {
 			.get('/firmware-versions-manifest.json')
 			.replyWithFile(200, `test/fixtures/firmware-manifest-v1/manifest.json`);
 
-		await expect(validatePlatformFirmware('core', '2.3.1')).rejects.toThrow(`Device OS version '2.3.1' does not support platform 'core'`);
-		await expect(validatePlatformFirmware('trackerm', '2.3.1')).rejects.toThrow(`Device OS version '2.3.1' does not support platform 'trackerm'`);
+		await expect(validatePlatformDeviceOsTarget('core', '2.3.1')).rejects.toThrow(`Device OS version '2.3.1' does not support platform 'core'`);
+		await expect(validatePlatformDeviceOsTarget('trackerm', '2.3.1')).rejects.toThrow(`Device OS version '2.3.1' does not support platform 'trackerm'`);
 	});
 
 	it('should throw if the device os version is not valid', async () => {
@@ -155,7 +164,7 @@ describe('validatePlatformFirmware', () => {
 			.get('/firmware-versions-manifest.json')
 			.replyWithFile(200, `test/fixtures/firmware-manifest-v1/manifest.json`);
 
-		await expect(validatePlatformFirmware('core', '0.0.0')).rejects.toThrow(`Device OS version '0.0.0' does not exist`);
+		await expect(validatePlatformDeviceOsTarget('core', '0.0.0')).rejects.toThrow(`Device OS version '0.0.0' does not exist`);
 	});
 });
 
@@ -167,19 +176,19 @@ describe('resolveVersion', () => {
 	});
 
 	it('should return the latest version for each platform', async () => {
-		expect(await resolveVersion('argon', 'latest')).toEqual('4.0.2');
-		expect(await resolveVersion('boron', 'latest')).toEqual('4.0.2');
-		expect(await resolveVersion('esomx', 'latest')).toEqual('4.0.2');
-		expect(await resolveVersion('bsom', 'latest')).toEqual('4.0.2');
-		expect(await resolveVersion('b5som', 'latest')).toEqual('4.0.2');
-		expect(await resolveVersion('tracker', 'latest')).toEqual('4.0.2');
-		expect(await resolveVersion('electron', 'latest')).toEqual('2.3.1');
-		expect(await resolveVersion('photon', 'latest')).toEqual('2.3.1');
+		expect(await resolveVersion('argon', 'latest')).toEqual('5.3.0');
+		expect(await resolveVersion('boron', 'latest')).toEqual('5.3.0');
+		expect(await resolveVersion('esomx', 'latest')).toEqual('5.3.0');
+		expect(await resolveVersion('bsom', 'latest')).toEqual('5.3.0');
+		expect(await resolveVersion('b5som', 'latest')).toEqual('5.3.0');
+		expect(await resolveVersion('tracker', 'latest')).toEqual('5.3.0');
+		expect(await resolveVersion('electron', 'latest')).toEqual('3.3.1');
+		expect(await resolveVersion('photon', 'latest')).toEqual('3.3.1');
 		expect(await resolveVersion('xenon', 'latest')).toEqual('1.5.2');
 		expect(await resolveVersion('xsom', 'latest')).toEqual('1.4.4');
 		expect(await resolveVersion('asom', 'latest')).toEqual('1.4.4');
 		expect(await resolveVersion('core', 'latest')).toEqual('1.4.4');
-		expect(await resolveVersion('p1', 'latest')).toEqual('2.3.1');
+		expect(await resolveVersion('p1', 'latest')).toEqual('3.3.1');
 		expect(await resolveVersion('trackerm', 'latest')).toEqual('5.3.0');
 		expect(await resolveVersion('p2', 'latest')).toEqual('5.3.0');
 	});

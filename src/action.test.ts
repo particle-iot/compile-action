@@ -9,7 +9,8 @@ describe('compileAction', () => {
 		const dockerBuildpackCompileMock = jest.fn();
 		jest.mock('./util', () => ({
 			resolveVersion: jest.fn(),
-			validatePlatformFirmware: jest.fn()
+			validatePlatformName: jest.fn(),
+			validatePlatformDeviceOsTarget: jest.fn()
 		}));
 		jest.mock('./docker', () => ({
 			dockerCheck: dockerCheckMock,
@@ -24,7 +25,8 @@ describe('compileAction', () => {
 	it('should use compile in the cloud if access token is provided', async () => {
 		jest.mock('./util', () => ({
 			resolveVersion: jest.fn(),
-			validatePlatformFirmware: jest.fn()
+			validatePlatformName: jest.fn(),
+			validatePlatformDeviceOsTarget: jest.fn()
 		}));
 		// mock particle-access-token input
 		jest.mock('@actions/core', () => ({
