@@ -19,10 +19,10 @@ A GitHub Action to compile Particle application firmware
       
     # Target Device OS firmware version
     # Allowed values:
-    #   * latest:     the most recent Device OS version for the platform
-    #   * latest-lts: the most recent LTS Device OS version for the platform
-    #   * <version>:  a specific Device OS version, e.g. 2.3.1
-    #   * ^<version>: a semver range, e.g. ^5.3.0
+    #   latest:     the most recent Device OS version for the platform
+    #   latest-lts: the most recent LTS Device OS version for the platform
+    #   <version>:  a specific Device OS version, e.g. 2.3.1
+    #   ^<version>: a semver range, e.g. ^5.3.0
     # For production projects, you should pin to a specific Device OS semver range, e.g. ^4.0.0
     # Required: false
     device-os-version: 'latest-lts'
@@ -36,7 +36,7 @@ A GitHub Action to compile Particle application firmware
 ### Outputs
 
 * `artifact-path`: Path to the compiled binary artifact. Typically, it will be `output/firmware.bin`
-* `device-os-version`: The Device OS version that was used for compilation. This may differ from the requested version if the requested version is a semver range or `latest` or `latest-lts`.
+* `device-os-version`: The Device OS version that was used for compilation. This may differ from the requested version if the requested version is a semver range or `latest` or `latest-lts`. Example: `2.3.1`
 
 ### Example Pipeline
 
