@@ -29,10 +29,7 @@ export async function dockerBuildpackCompile(
 	// Note: the buildpack only detects *.c and *.cpp files
 	// https://github.com/particle-iot/device-os/blob/196d497dd4c16ab83db6ea610cf2433047226a6a/user/build.mk#L64-L65
 
-	const platformId = getPlatformId(platform);
-
-	info(`Fetching docker buildpack for platform '${platform}' and target '${targetVersion}'`);
-	info(`This can take a minute....`);
+	info(`Fetching docker buildpack. This can take a minute...`);
 	const dockerPull = await execa('docker', [
 		'pull',
 		`particle/buildpack-particle-firmware:${targetVersion}-${platform}`
@@ -50,8 +47,9 @@ export async function dockerBuildpackCompile(
 		warning(`Output directory ${destDir} already exists. Compile will overwrite firmware.bin if it exists.`);
 	}
 
-	info(`Compiling...`);
+	info(`Compiling code in '${sources}' for platform '${platform}' with target version '${targetVersion}'`);
 	const inputDir = path.isAbsolute(sources) ? sources : path.join(workingDir, sources);
+	const platformId = getPlatformId(platform);
 	const args = [
 		'run',
 		'--rm',

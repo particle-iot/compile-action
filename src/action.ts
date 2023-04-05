@@ -14,7 +14,6 @@ export async function compileAction(): Promise<void> {
 
 		const targetVersion = await resolveVersion(platform, version);
 		await validatePlatformDeviceOsTarget(platform, targetVersion);
-		info(`Targeting '${targetVersion}' Device OS version for platform '${platform}'`);
 
 		let outputPath: string | undefined;
 		if (!auth) {

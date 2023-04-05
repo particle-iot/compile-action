@@ -16,7 +16,7 @@ interface ParticleCloudCompileParams {
 export async function particleCloudCompile(
 	{ sources, platform, auth, targetVersion }: ParticleCloudCompileParams
 ): Promise<string> {
-	info(`Compiling code in ${sources}`);
+	info(`Compiling code in '${sources}' for platform '${platform}' with target version '${targetVersion}'`);
 	if (!sources) {
 		throw new Error('No source code sources specified');
 	}
@@ -25,13 +25,11 @@ export async function particleCloudCompile(
 		sources = process.cwd();
 	}
 
-	const platformId = getPlatformId(platform);
 
 	const files = getCode(sources);
-
-	info(`Compiling code for platform '${platform}' with target version '${targetVersion}'`);
 	info(`Files: ${JSON.stringify(Object.keys(files))}`);
 
+	const platformId = getPlatformId(platform);
 	let binaryId = '';
 	try {
 		const resp = await particle.compileCode({
