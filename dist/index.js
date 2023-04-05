@@ -29257,7 +29257,6 @@ function compileAction() {
             (0, util_1.validatePlatformName)(platform);
             const targetVersion = yield (0, util_1.resolveVersion)(platform, version);
             yield (0, util_1.validatePlatformDeviceOsTarget)(platform, targetVersion);
-            (0, core_1.info)(`Targeting '${targetVersion}' Device OS version for platform '${platform}'`);
             let outputPath;
             if (!auth) {
                 (0, core_1.info)('No access token provided, running local compilation');
@@ -29335,9 +29334,7 @@ function dockerBuildpackCompile({ workingDir, sources, platform, targetVersion }
     return __awaiter(this, void 0, void 0, function* () {
         // Note: the buildpack only detects *.c and *.cpp files
         // https://github.com/particle-iot/device-os/blob/196d497dd4c16ab83db6ea610cf2433047226a6a/user/build.mk#L64-L65
-        const platformId = (0, util_1.getPlatformId)(platform);
-        (0, core_1.info)(`Fetching docker buildpack for platform '${platform}' and target '${targetVersion}'`);
-        (0, core_1.info)(`This can take a minute....`);
+        (0, core_1.info)(`Fetching docker buildpack. This can take a minute...`);
         const dockerPull = yield (0, execa_1.default)('docker', [
             'pull',
             `particle/buildpack-particle-firmware:${targetVersion}-${platform}`
@@ -29353,8 +29350,9 @@ function dockerBuildpackCompile({ workingDir, sources, platform, targetVersion }
         else {
             (0, core_1.warning)(`Output directory ${destDir} already exists. Compile will overwrite firmware.bin if it exists.`);
         }
-        (0, core_1.info)(`Compiling...`);
+        (0, core_1.info)(`Compiling code in '${sources}' for platform '${platform}' with target version '${targetVersion}'`);
         const inputDir = path_1.default.isAbsolute(sources) ? sources : path_1.default.join(workingDir, sources);
+        const platformId = (0, util_1.getPlatformId)(platform);
         const args = [
             'run',
             '--rm',
@@ -29400,17 +29398,16 @@ const ParticleApi = __nccwpck_require__(2918);
 const particle = new ParticleApi();
 function particleCloudCompile({ sources, platform, auth, targetVersion }) {
     return __awaiter(this, void 0, void 0, function* () {
-        (0, core_1.info)(`Compiling code in ${sources}`);
+        (0, core_1.info)(`Compiling code in '${sources}' for platform '${platform}' with target version '${targetVersion}'`);
         if (!sources) {
             throw new Error('No source code sources specified');
         }
         if (sources === './' || sources === '.') {
             sources = process.cwd();
         }
-        const platformId = (0, util_1.getPlatformId)(platform);
         const files = (0, util_1.getCode)(sources);
-        (0, core_1.info)(`Compiling code for platform '${platform}' with target version '${targetVersion}'`);
         (0, core_1.info)(`Files: ${JSON.stringify(Object.keys(files))}`);
+        const platformId = (0, util_1.getPlatformId)(platform);
         let binaryId = '';
         try {
             const resp = yield particle.compileCode({
