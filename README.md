@@ -23,7 +23,7 @@ A GitHub Action to compile Particle application firmware
     #   latest-lts: the most recent LTS Device OS version for the platform
     #   <version>:  a specific Device OS version, e.g. 2.3.1
     #   ^<version>: a semver range, e.g. ^5.3.0
-    # For production projects, you should pin to a specific Device OS semver range, e.g. ^4.0.0
+    # For production projects, you should pin to a specific Device OS version or semver range, e.g. ^4.0.0
     # Required: false
     device-os-version: 'latest-lts'
       
