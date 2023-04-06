@@ -6571,7 +6571,7 @@ function setup(env) {
 	createDebug.disable = disable;
 	createDebug.enable = enable;
 	createDebug.enabled = enabled;
-	createDebug.humanize = __nccwpck_require__(900);
+	createDebug.humanize = __nccwpck_require__(9992);
 	createDebug.destroy = destroy;
 
 	Object.keys(env).forEach(key => {
@@ -14628,7 +14628,7 @@ function regExpEscape (s) {
 
 /***/ }),
 
-/***/ 900:
+/***/ 9992:
 /***/ ((module) => {
 
 /**
@@ -22199,7 +22199,7 @@ module.exports = gte
 
 /***/ }),
 
-/***/ 929:
+/***/ 900:
 /***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
 
 const SemVer = __nccwpck_require__(8088)
@@ -22408,7 +22408,7 @@ const identifiers = __nccwpck_require__(2463)
 const parse = __nccwpck_require__(5925)
 const valid = __nccwpck_require__(9601)
 const clean = __nccwpck_require__(8848)
-const inc = __nccwpck_require__(929)
+const inc = __nccwpck_require__(900)
 const diff = __nccwpck_require__(4297)
 const major = __nccwpck_require__(6688)
 const minor = __nccwpck_require__(8447)
@@ -29246,13 +29246,17 @@ exports.compileAction = void 0;
 const core_1 = __nccwpck_require__(2186);
 const docker_1 = __nccwpck_require__(6512);
 const particle_api_1 = __nccwpck_require__(6032);
+const util_1 = __nccwpck_require__(2629);
 function compileAction() {
     return __awaiter(this, void 0, void 0, function* () {
         try {
             const auth = (0, core_1.getInput)('particle-access-token');
             const platform = (0, core_1.getInput)('particle-platform-name');
-            const targetVersion = (0, core_1.getInput)('device-os-version');
+            const version = (0, core_1.getInput)('device-os-version');
             const sources = (0, core_1.getInput)('sources-folder');
+            (0, util_1.validatePlatformName)(platform);
+            const targetVersion = yield (0, util_1.resolveVersion)(platform, version);
+            yield (0, util_1.validatePlatformDeviceOsTarget)(platform, targetVersion);
             let outputPath;
             if (!auth) {
                 (0, core_1.info)('No access token provided, running local compilation');
@@ -29269,6 +29273,7 @@ function compileAction() {
             }
             if (outputPath) {
                 (0, core_1.setOutput)('artifact-path', outputPath);
+                (0, core_1.setOutput)('device-os-version', targetVersion);
             }
             else {
                 (0, core_1.setFailed)(`Failed to compile code in '${sources}'`);
@@ -29329,14 +29334,7 @@ function dockerBuildpackCompile({ workingDir, sources, platform, targetVersion }
     return __awaiter(this, void 0, void 0, function* () {
         // Note: the buildpack only detects *.c and *.cpp files
         // https://github.com/particle-iot/device-os/blob/196d497dd4c16ab83db6ea610cf2433047226a6a/user/build.mk#L64-L65
-        const platformId = (0, util_1.getPlatformId)(platform);
-        if (targetVersion === 'latest' || !targetVersion) {
-            targetVersion = yield (0, util_1.getLatestFirmwareVersion)(platform);
-            (0, core_1.info)(`No device os version specified, using '${targetVersion}' as latest version for platform '${platform}'`);
-        }
-        yield (0, util_1.validatePlatformFirmware)(platform, targetVersion);
-        (0, core_1.info)(`Fetching docker buildpack for platform '${platform}' and target '${targetVersion}'`);
-        (0, core_1.info)(`This can take a minute....`);
+        (0, core_1.info)(`Fetching docker buildpack. This can take a minute...`);
         const dockerPull = yield (0, execa_1.default)('docker', [
             'pull',
             `particle/buildpack-particle-firmware:${targetVersion}-${platform}`
@@ -29352,8 +29350,9 @@ function dockerBuildpackCompile({ workingDir, sources, platform, targetVersion }
         else {
             (0, core_1.warning)(`Output directory ${destDir} already exists. Compile will overwrite firmware.bin if it exists.`);
         }
-        (0, core_1.info)(`Compiling...`);
+        (0, core_1.info)(`Compiling code in '${sources}' for platform '${platform}' with target version '${targetVersion}'`);
         const inputDir = path_1.default.isAbsolute(sources) ? sources : path_1.default.join(workingDir, sources);
+        const platformId = (0, util_1.getPlatformId)(platform);
         const args = [
             'run',
             '--rm',
@@ -29399,22 +29398,16 @@ const ParticleApi = __nccwpck_require__(2918);
 const particle = new ParticleApi();
 function particleCloudCompile({ sources, platform, auth, targetVersion }) {
     return __awaiter(this, void 0, void 0, function* () {
-        (0, core_1.info)(`Compiling code in ${sources}`);
+        (0, core_1.info)(`Compiling code in '${sources}' for platform '${platform}' with target version '${targetVersion}'`);
         if (!sources) {
             throw new Error('No source code sources specified');
         }
         if (sources === './' || sources === '.') {
             sources = process.cwd();
         }
-        if (targetVersion === 'latest' || !targetVersion) {
-            targetVersion = yield (0, util_1.getLatestFirmwareVersion)(platform);
-            (0, core_1.info)(`No device os version specified, using '${targetVersion}' as latest version for platform '${platform}'`);
-        }
-        yield (0, util_1.validatePlatformFirmware)(platform, targetVersion);
-        const platformId = (0, util_1.getPlatformId)(platform);
         const files = (0, util_1.getCode)(sources);
-        (0, core_1.info)(`Compiling code for platform '${platform}' with target version '${targetVersion}'`);
         (0, core_1.info)(`Files: ${JSON.stringify(Object.keys(files))}`);
+        const platformId = (0, util_1.getPlatformId)(platform);
         let binaryId = '';
         try {
             const resp = yield particle.compileCode({
@@ -29514,12 +29507,13 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports._resetFirmwareManifest = exports.fetchFirmwareManifest = exports.getLatestFirmwareVersion = exports.validatePlatformFirmware = exports.getPlatformId = exports.getCode = void 0;
+exports._resetFirmwareManifest = exports.resolveVersion = exports.fetchFirmwareManifest = exports.validatePlatformDeviceOsTarget = exports.validatePlatformName = exports.getPlatformId = exports.getCode = void 0;
 const cli_1 = __nccwpck_require__(6815);
 const fs_1 = __nccwpck_require__(7147);
 // @ts-ignore
 const device_constants_1 = __importDefault(__nccwpck_require__(9452));
 const httpm = __importStar(__nccwpck_require__(6255));
+const semver_1 = __nccwpck_require__(1383);
 function getCode(path) {
     if (!(0, fs_1.existsSync)(path)) {
         throw new Error(`Source code ${path} does not exist`);
@@ -29542,12 +29536,16 @@ function getPlatformId(platform) {
     }
     const p = device_constants_1.default[platform];
     if (!p || !p.public) {
-        throw new Error(`Platform ${platform} is not valid. Valid platforms are: ${publicPlatformStr}`);
+        throw new Error(`Platform '${platform}' is not valid. Valid platforms are: ${publicPlatformStr}`);
     }
     return p.id;
 }
 exports.getPlatformId = getPlatformId;
-function validatePlatformFirmware(platform, version) {
+function validatePlatformName(platform) {
+    return Number.isInteger(getPlatformId(platform));
+}
+exports.validatePlatformName = validatePlatformName;
+function validatePlatformDeviceOsTarget(platform, version) {
     return __awaiter(this, void 0, void 0, function* () {
         const manifest = yield fetchFirmwareManifest();
         const dvos = manifest.binaryDataDeviceOS[version];
@@ -29560,14 +29558,7 @@ function validatePlatformFirmware(platform, version) {
         return true;
     });
 }
-exports.validatePlatformFirmware = validatePlatformFirmware;
-function getLatestFirmwareVersion(platform) {
-    return __awaiter(this, void 0, void 0, function* () {
-        const manifest = yield fetchFirmwareManifest();
-        return manifest.defaultVersions[platform];
-    });
-}
-exports.getLatestFirmwareVersion = getLatestFirmwareVersion;
+exports.validatePlatformDeviceOsTarget = validatePlatformDeviceOsTarget;
 let firmwareManifest;
 function fetchFirmwareManifest() {
     return __awaiter(this, void 0, void 0, function* () {
@@ -29584,6 +29575,46 @@ function fetchFirmwareManifest() {
     });
 }
 exports.fetchFirmwareManifest = fetchFirmwareManifest;
+function resolveVersion(platform, version) {
+    return __awaiter(this, void 0, void 0, function* () {
+        if (!version) {
+            throw new Error(`Device OS version is required`);
+        }
+        const manifest = yield fetchFirmwareManifest();
+        const latest = manifest.defaultVersions[platform];
+        delete manifest.binaryDataDeviceOS.binaryUrlGithub;
+        delete manifest.binaryDataDeviceOS.binaryUrlApi;
+        const versions = Object.keys(manifest.binaryDataDeviceOS).sort();
+        if (version === 'latest') {
+            // find latest version that supports this platform
+            const latestVersions = Object.keys(manifest.binaryDataDeviceOS).sort();
+            let latestVersion = latestVersions.pop();
+            while (latestVersion && !manifest.binaryDataDeviceOS[latestVersion][platform]) {
+                latestVersion = versions.pop();
+            }
+            return String(latestVersion);
+        }
+        if (version === 'latest-lts') {
+            // find latest lts version that supports this platform
+            const ltsVersions = versions.filter((v) => (0, semver_1.major)(v) % 2 === 0 && (0, semver_1.major)(v) >= 2).sort();
+            let ltsVersion = ltsVersions.pop();
+            while (ltsVersion && !manifest.binaryDataDeviceOS[ltsVersion][platform]) {
+                ltsVersion = ltsVersions.pop();
+            }
+            if (!ltsVersion) {
+                throw new Error(`No latest-lts version found for '${platform}'. The latest supported Device OS version is '${latest}'`);
+            }
+            return ltsVersion;
+        }
+        // find the latest version that satisfies the version range
+        const maxVersion = (0, semver_1.maxSatisfying)(versions, version);
+        if (!maxVersion) {
+            throw new Error(`No Device OS version satisfies '${version}'`);
+        }
+        return maxVersion;
+    });
+}
+exports.resolveVersion = resolveVersion;
 // For testing
 function _resetFirmwareManifest() {
     // @ts-ignore

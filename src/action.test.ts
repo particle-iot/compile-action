@@ -7,6 +7,11 @@ describe('compileAction', () => {
 	it('should use compile locally with docker by default', async () => {
 		const dockerCheckMock = jest.fn();
 		const dockerBuildpackCompileMock = jest.fn();
+		jest.mock('./util', () => ({
+			resolveVersion: jest.fn(),
+			validatePlatformName: jest.fn(),
+			validatePlatformDeviceOsTarget: jest.fn()
+		}));
 		jest.mock('./docker', () => ({
 			dockerCheck: dockerCheckMock,
 			dockerBuildpackCompile: dockerBuildpackCompileMock
@@ -18,6 +23,11 @@ describe('compileAction', () => {
 	});
 
 	it('should use compile in the cloud if access token is provided', async () => {
+		jest.mock('./util', () => ({
+			resolveVersion: jest.fn(),
+			validatePlatformName: jest.fn(),
+			validatePlatformDeviceOsTarget: jest.fn()
+		}));
 		// mock particle-access-token input
 		jest.mock('@actions/core', () => ({
 			getInput: jest.fn().mockImplementation((name: string) => {
@@ -67,4 +77,5 @@ describe('compileAction', () => {
 		expect(setFailedMock).toHaveBeenCalled();
 		expect(setFailedMock).toHaveBeenCalledWith('Failed to compile code in cloud');
 	});
+
 });

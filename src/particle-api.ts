@@ -1,7 +1,7 @@
 // eslint-disable-next-line max-len
 import { error, info } from '@actions/core';
 import { existsSync, mkdirSync, writeFileSync } from 'fs';
-import { getCode, getLatestFirmwareVersion, getPlatformId, validatePlatformFirmware } from './util';
+import { getCode, getPlatformId } from './util';
 
 const ParticleApi = require('particle-api-js');
 const particle = new ParticleApi();
@@ -10,13 +10,13 @@ interface ParticleCloudCompileParams {
 	sources: string;
 	platform: string;
 	auth: string;
-	targetVersion?: string;
+	targetVersion: string;
 }
 
 export async function particleCloudCompile(
 	{ sources, platform, auth, targetVersion }: ParticleCloudCompileParams
 ): Promise<string> {
-	info(`Compiling code in ${sources}`);
+	info(`Compiling code in '${sources}' for platform '${platform}' with target version '${targetVersion}'`);
 	if (!sources) {
 		throw new Error('No source code sources specified');
 	}
@@ -25,19 +25,11 @@ export async function particleCloudCompile(
 		sources = process.cwd();
 	}
 
-	if (targetVersion === 'latest' || !targetVersion) {
-		targetVersion = await getLatestFirmwareVersion(platform);
-		info(`No device os version specified, using '${targetVersion}' as latest version for platform '${platform}'`);
-	}
-	await validatePlatformFirmware(platform, targetVersion);
-
-	const platformId = getPlatformId(platform);
 
 	const files = getCode(sources);
-
-	info(`Compiling code for platform '${platform}' with target version '${targetVersion}'`);
 	info(`Files: ${JSON.stringify(Object.keys(files))}`);
 
+	const platformId = getPlatformId(platform);
 	let binaryId = '';
 	try {
 		const resp = await particle.compileCode({

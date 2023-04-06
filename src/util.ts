@@ -3,6 +3,7 @@ import { existsSync } from 'fs';
 // @ts-ignore
 import deviceConstants from '@particle/device-constants';
 import * as httpm from '@actions/http-client';
+import { maxSatisfying, major } from 'semver';
 
 export function getCode(path: string) {
 	if (!existsSync(path)) {
@@ -26,12 +27,16 @@ export function getPlatformId(platform: string) {
 	}
 	const p = deviceConstants[platform];
 	if (!p || !p.public) {
-		throw new Error(`Platform ${platform} is not valid. Valid platforms are: ${publicPlatformStr}`);
+		throw new Error(`Platform '${platform}' is not valid. Valid platforms are: ${publicPlatformStr}`);
 	}
 	return p.id;
 }
 
-export async function validatePlatformFirmware(platform: string, version: string): Promise<boolean> {
+export function validatePlatformName(platform: string): boolean {
+	return Number.isInteger(getPlatformId(platform));
+}
+
+export async function validatePlatformDeviceOsTarget(platform: string, version: string): Promise<boolean> {
 	const manifest = await fetchFirmwareManifest();
 	const dvos = manifest.binaryDataDeviceOS[version];
 	if (!dvos) {
@@ -41,11 +46,6 @@ export async function validatePlatformFirmware(platform: string, version: string
 		throw new Error(`Device OS version '${version}' does not support platform '${platform}'`);
 	}
 	return true;
-}
-
-export async function getLatestFirmwareVersion(platform: string): Promise<string> {
-	const manifest = await fetchFirmwareManifest();
-	return manifest.defaultVersions[platform];
 }
 
 // Incomplete type definition for firmware manifest
@@ -69,6 +69,49 @@ export async function fetchFirmwareManifest(): Promise<FirmwareManifestV1> {
 	}
 	firmwareManifest = JSON.parse(await res.readBody());
 	return firmwareManifest;
+}
+
+export async function resolveVersion(platform: string, version: string): Promise<string> {
+	if (!version) {
+		throw new Error(`Device OS version is required`);
+	}
+
+	const manifest = await fetchFirmwareManifest();
+	const latest = manifest.defaultVersions[platform];
+
+	delete manifest.binaryDataDeviceOS.binaryUrlGithub;
+	delete manifest.binaryDataDeviceOS.binaryUrlApi;
+	const versions = Object.keys(manifest.binaryDataDeviceOS).sort();
+
+	if (version === 'latest') {
+		// find latest version that supports this platform
+		const latestVersions = Object.keys(manifest.binaryDataDeviceOS).sort();
+		let latestVersion = latestVersions.pop();
+		while (latestVersion && !manifest.binaryDataDeviceOS[latestVersion][platform]) {
+			latestVersion = versions.pop();
+		}
+		return String(latestVersion);
+	}
+
+	if (version === 'latest-lts') {
+		// find latest lts version that supports this platform
+		const ltsVersions = versions.filter((v) => major(v) % 2 === 0 && major(v) >= 2).sort();
+		let ltsVersion = ltsVersions.pop();
+		while (ltsVersion && !manifest.binaryDataDeviceOS[ltsVersion][platform]) {
+			ltsVersion = ltsVersions.pop();
+		}
+		if (!ltsVersion) {
+			throw new Error(`No latest-lts version found for '${platform}'. The latest supported Device OS version is '${latest}'`);
+		}
+		return ltsVersion;
+	}
+
+	// find the latest version that satisfies the version range
+	const maxVersion = maxSatisfying(versions, version);
+	if (!maxVersion) {
+		throw new Error(`No Device OS version satisfies '${version}'`);
+	}
+	return maxVersion;
 }
 
 // For testing

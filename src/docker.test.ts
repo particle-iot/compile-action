@@ -1,6 +1,7 @@
 import { dockerBuildpackCompile, dockerCheck } from './docker';
 import fs from 'fs';
 import { normalize } from 'path';
+import nock from 'nock';
 
 const execa = require('execa');
 jest.mock('execa');
@@ -56,6 +57,12 @@ describe('dockerCheck', () => {
 });
 
 describe('dockerBuildpackCompile', () => {
+	beforeEach(() => {
+		nock('https://binaries.particle.io')
+			.get('/firmware-versions-manifest.json')
+			.replyWithFile(200, `test/fixtures/firmware-manifest-v1/manifest.json`);
+	});
+
 	it('should throw on invalid platform', () => {
 		return expect(dockerBuildpackCompile({
 			workingDir: 'workingDir',
@@ -70,7 +77,7 @@ describe('dockerBuildpackCompile', () => {
 			workingDir: 'workingDir',
 			sources: 'sources',
 			platform: 'argon',
-			targetVersion: 'latest'
+			targetVersion: '4.0.2'
 		});
 		expect(execa).toHaveBeenCalledTimes(2);
 		expect(execa.mock.calls[0]).toEqual([
@@ -101,7 +108,7 @@ describe('dockerBuildpackCompile', () => {
 			workingDir: 'workingDir',
 			sources: 'src',
 			platform: 'argon',
-			targetVersion: 'latest'
+			targetVersion: '4.0.2'
 		});
 		expect(execa).toHaveBeenCalledTimes(2);
 		expect(execa.mock.calls[1]).toEqual([
@@ -127,7 +134,7 @@ describe('dockerBuildpackCompile', () => {
 			workingDir,
 			sources,
 			platform: 'argon',
-			targetVersion: 'latest'
+			targetVersion: '4.0.2'
 		});
 		expect(execa).toHaveBeenCalledTimes(2);
 		expect(execa.mock.calls[1]).toEqual([
@@ -151,7 +158,7 @@ describe('dockerBuildpackCompile', () => {
 			workingDir: 'workingDir',
 			sources: '/absolute/path/to/src',
 			platform: 'argon',
-			targetVersion: 'latest'
+			targetVersion: '4.0.2'
 		});
 		expect(execa).toHaveBeenCalledTimes(2);
 		expect(execa.mock.calls[1]).toEqual([
