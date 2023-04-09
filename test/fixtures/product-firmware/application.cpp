@@ -1,6 +1,6 @@
 #include "application.h"
 
-PRODUCT_VERSION(99);
+PRODUCT_VERSION(100);
 
 void setup() {}
 
