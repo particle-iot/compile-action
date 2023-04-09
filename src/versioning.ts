@@ -9,23 +9,32 @@ import {
 	revisionOfLastVersionBump
 } from './git';
 
-interface ShouldIncrementVersionParams {
-	gitRepo: string;
-	sources: string;
-	productVersionMacroName: string;
-}
-
 export async function shouldIncrementVersion(
-	{ gitRepo, sources, productVersionMacroName }: ShouldIncrementVersionParams
+	{ gitRepo, sources, productVersionMacroName }: {
+		gitRepo: string;
+		sources: string;
+		productVersionMacroName: string;
+	}
 ): Promise<boolean> {
-	const versionFilePath = await findProductVersionMacroFile(sources, productVersionMacroName);
+	const versionFilePath = await findProductVersionMacroFile({
+		sources,
+		productVersionMacroName
+	});
 	if (!versionFilePath) {
 		throw new Error('Could not find a file containing the version macro.');
 	}
 
-	const lastChangeRevision = await revisionOfLastVersionBump(gitRepo, versionFilePath, productVersionMacroName);
-	const currentSourcesRevision = await mostRecentRevisionInFolder(gitRepo, sources);
-	const currentProductVersion = await currentFirmwareVersion(gitRepo, versionFilePath, productVersionMacroName);
+	const lastChangeRevision = await revisionOfLastVersionBump({
+		gitRepo: gitRepo,
+		versionFilePath: versionFilePath,
+		productVersionMacroName: productVersionMacroName
+	});
+	const currentSourcesRevision = await mostRecentRevisionInFolder({ gitRepo: gitRepo, folderPath: sources });
+	const currentProductVersion = await currentFirmwareVersion({
+		gitRepo: gitRepo,
+		versionFilePath: versionFilePath,
+		productVersionMacroName: productVersionMacroName
+	});
 
 	if (!lastChangeRevision) {
 		throw new Error('Could not find the last version increment.');
@@ -46,24 +55,24 @@ export async function shouldIncrementVersion(
 	return true;
 }
 
-interface IncrementVersionParams {
-	gitRepo: string;
-	sources: string;
-	productVersionMacroName: string;
-}
-
-export async function incrementVersion({ gitRepo, sources, productVersionMacroName }: IncrementVersionParams): Promise<{
+export async function incrementVersion(
+	{ gitRepo, sources, productVersionMacroName }: {
+		gitRepo: string;
+		sources: string;
+		productVersionMacroName: string;
+	}): Promise<{
 	file: string;
 	version: number
 }> {
 	// find the file containing the version macro
-	const versionFilePath = await findProductVersionMacroFile(sources, productVersionMacroName);
+	const versionFilePath = await findProductVersionMacroFile({
+		sources: sources,
+		productVersionMacroName: productVersionMacroName
+	});
 
 	// get the current version
 	const current = await currentFirmwareVersion(
-		gitRepo,
-		versionFilePath,
-		productVersionMacroName
+		{ gitRepo: gitRepo, versionFilePath: versionFilePath, productVersionMacroName: productVersionMacroName }
 	);
 
 	// increment the version
@@ -89,15 +98,18 @@ export async function incrementVersion({ gitRepo, sources, productVersionMacroNa
 	};
 }
 
-interface ProductFirmware {
-	sources: string;
-	productVersionMacroName: string;
-}
 
-export async function isProductFirmware({ sources, productVersionMacroName }: ProductFirmware): Promise<boolean> {
+export async function isProductFirmware(
+	{ sources, productVersionMacroName }: {
+		sources: string;
+		productVersionMacroName: string;
+	}): Promise<boolean> {
 	let isProductFirmware = false;
 	try {
-		isProductFirmware = !!await findProductVersionMacroFile(sources, productVersionMacroName);
+		isProductFirmware = !!await findProductVersionMacroFile({
+			sources: sources,
+			productVersionMacroName: productVersionMacroName
+		});
 	} catch (error) {
 		// Ignore
 	}

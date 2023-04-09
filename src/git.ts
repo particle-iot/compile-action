@@ -3,9 +3,11 @@ import { dirname, join } from 'path';
 import simpleGit, { SimpleGit } from 'simple-git';
 
 export async function currentFirmwareVersion(
-	gitRepo: string,
-	versionFilePath: string,
-	productVersionMacroName: string
+	{ gitRepo, versionFilePath, productVersionMacroName }: {
+		gitRepo: string,
+		versionFilePath: string,
+		productVersionMacroName: string
+	}
 ): Promise<number> {
 	const git: SimpleGit = simpleGit(gitRepo);
 
@@ -18,7 +20,7 @@ export async function currentFirmwareVersion(
 
 	let highestVersion = 0;
 
-	// if versionFilePath starts with gitRepo, remove it
+	// if versionFilePath starts with sources, remove it
 	if (versionFilePath.startsWith(gitRepo)) {
 		versionFilePath = versionFilePath.substring(gitRepo.length + 1);
 	}
@@ -46,9 +48,11 @@ export async function currentFirmwareVersion(
 }
 
 export async function revisionOfLastVersionBump(
-	gitRepo: string,
-	versionFilePath: string,
-	productVersionMacroName: string
+	{ gitRepo, versionFilePath, productVersionMacroName }: {
+		gitRepo: string,
+		versionFilePath: string,
+		productVersionMacroName: string
+	}
 ): Promise<string> {
 	const git: SimpleGit = simpleGit(gitRepo);
 
@@ -68,13 +72,12 @@ export async function revisionOfLastVersionBump(
 }
 
 export async function findProductVersionMacroFile(
-	gitRepo: string,
-	productVersionMacroName: string
+	{ sources, productVersionMacroName }: { sources: string, productVersionMacroName: string }
 ): Promise<string> {
-	const files = await readdir(gitRepo);
+	const files = await readdir(sources);
 
 	for (const file of files) {
-		const fullPath = join(gitRepo, file);
+		const fullPath = join(sources, file);
 		const fileStat = await stat(fullPath);
 
 		if (fileStat.isDirectory()) {
@@ -82,7 +85,10 @@ export async function findProductVersionMacroFile(
 				continue;
 			}
 			try {
-				return await findProductVersionMacroFile(fullPath, productVersionMacroName);
+				return await findProductVersionMacroFile({
+					sources: fullPath,
+					productVersionMacroName: productVersionMacroName
+				});
 			} catch (error) {
 				// Ignore. It means the file was not found in this directory.
 			}
@@ -98,7 +104,9 @@ export async function findProductVersionMacroFile(
 	throw new Error(`Could not find a file containing the ${productVersionMacroName} macro.`);
 }
 
-export async function findNearestGitRoot(startingPath: string): Promise<string> {
+export async function findNearestGitRoot(
+	{ startingPath }: { startingPath: string }
+): Promise<string> {
 	const git: SimpleGit = simpleGit(startingPath);
 
 	try {
@@ -111,11 +119,13 @@ export async function findNearestGitRoot(startingPath: string): Promise<string> 
 			throw new Error('No Git repository found in the parent directories');
 		}
 
-		return await findNearestGitRoot(parentPath);
+		return await findNearestGitRoot({ startingPath: parentPath });
 	}
 }
 
-export async function mostRecentRevisionInFolder(gitRepo: string, folderPath: string): Promise<string> {
+export async function mostRecentRevisionInFolder(
+	{ gitRepo, folderPath }: { gitRepo: string, folderPath: string }
+): Promise<string> {
 	const git: SimpleGit = simpleGit(gitRepo);
 
 	try {

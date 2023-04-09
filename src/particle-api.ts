@@ -6,15 +6,13 @@ import { getCode, getPlatformId } from './util';
 const ParticleApi = require('particle-api-js');
 const particle = new ParticleApi();
 
-interface ParticleCloudCompileParams {
-	sources: string;
-	platform: string;
-	auth: string;
-	targetVersion: string;
-}
-
 export async function particleCloudCompile(
-	{ sources, platform, auth, targetVersion }: ParticleCloudCompileParams
+	{ sources, platform, auth, targetVersion }: {
+		sources: string;
+		platform: string;
+		auth: string;
+		targetVersion: string;
+	}
 ): Promise<string> {
 	info(`Compiling code in '${sources}' for platform '${platform}' with target version '${targetVersion}'`);
 	if (!sources) {
@@ -58,13 +56,11 @@ export async function particleCloudCompile(
 	return binaryId;
 }
 
-interface ParticleDownloadBinaryParams {
-	binaryId: string;
-	auth: string;
-}
-
 export async function particleDownloadBinary(
-	{ binaryId, auth }: ParticleDownloadBinaryParams
+	{ binaryId, auth }: {
+		binaryId: string;
+		auth: string;
+	}
 ): Promise<string | undefined> {
 	info(`Downloading binary ${binaryId}`);
 	const resp = await particle.downloadFirmwareBinary({
@@ -78,7 +74,7 @@ export async function particleDownloadBinary(
 		const destName = 'firmware.bin';
 
 		const outputPath = `${destDir}/${destName}`;
-		if (!existsSync(destDir)){
+		if (!existsSync(destDir)) {
 			info(`Creating directory ${destDir}...`);
 			mkdirSync(destDir);
 		}

@@ -154,12 +154,12 @@ describe('incrementVersion', () => {
 			productVersionMacroName
 		});
 
-		expect(findProductVersionMacroFile).toHaveBeenCalledWith(sources, productVersionMacroName);
-		expect(currentFirmwareVersion).toHaveBeenCalledWith(
+		expect(findProductVersionMacroFile).toHaveBeenCalledWith({ sources, productVersionMacroName });
+		expect(currentFirmwareVersion).toHaveBeenCalledWith({
 			gitRepo,
 			versionFilePath,
 			productVersionMacroName
-		);
+		});
 		expect(readFile).toHaveBeenCalledWith(versionFilePath, 'utf-8');
 
 		const updatedFileContent = `${productVersionMacroName}(${nextVersion})`;
@@ -189,7 +189,7 @@ describe('isProductFirmware', () => {
 			productVersionMacroName
 		});
 
-		expect(findProductVersionMacroFile).toHaveBeenCalledWith(sources, productVersionMacroName);
+		expect(findProductVersionMacroFile).toHaveBeenCalledWith({ sources, productVersionMacroName });
 		expect(result).toBe(true);
 	});
 
@@ -205,7 +205,7 @@ describe('isProductFirmware', () => {
 			productVersionMacroName
 		});
 
-		expect(findProductVersionMacroFile).toHaveBeenCalledWith(sources, productVersionMacroName);
+		expect(findProductVersionMacroFile).toHaveBeenCalledWith({ sources, productVersionMacroName });
 		expect(result).toBe(false);
 	});
 
@@ -221,7 +221,7 @@ describe('isProductFirmware', () => {
 			productVersionMacroName
 		});
 
-		expect(findProductVersionMacroFile).toHaveBeenCalledWith(sources, productVersionMacroName);
+		expect(findProductVersionMacroFile).toHaveBeenCalledWith({ sources, productVersionMacroName });
 		expect(result).toBe(false);
 	});
 });

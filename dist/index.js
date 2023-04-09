@@ -33595,6 +33595,11 @@ function resolveInputs() {
         return { auth, platform, sources, autoVersionEnabled, versionMacroName, targetVersion };
     });
 }
+function setOutputs({ artifactPath, deviceOsVersion, firmwareVersion }) {
+    (0, core_1.setOutput)('artifact-path', artifactPath);
+    (0, core_1.setOutput)('device-os-version', deviceOsVersion);
+    (0, core_1.setOutput)('firmware-version', firmwareVersion);
+}
 function autoVersion({ sources, gitRepo, autoVersionEnabled, versionMacroName }) {
     return __awaiter(this, void 0, void 0, function* () {
         let autoVersionFile;
@@ -33608,8 +33613,15 @@ function autoVersion({ sources, gitRepo, autoVersionEnabled, versionMacroName })
                 throw new Error('Auto-versioning is enabled, but the firmware does not appear to be a product firmware. The version macro could not be found. Please disable auto-versioning or specify the correct macro name.');
             }
             (0, core_1.info)('Auto-versioning is enabled, checking if firmware version should be incremented');
-            autoVersionFile = yield (0, git_1.findProductVersionMacroFile)(sources, versionMacroName);
-            autoVersionNext = yield (0, git_1.currentFirmwareVersion)(gitRepo, autoVersionFile, versionMacroName);
+            autoVersionFile = yield (0, git_1.findProductVersionMacroFile)({
+                sources: sources,
+                productVersionMacroName: versionMacroName
+            });
+            autoVersionNext = yield (0, git_1.currentFirmwareVersion)({
+                gitRepo: gitRepo,
+                versionFilePath: autoVersionFile,
+                productVersionMacroName: versionMacroName
+            });
             const shouldVersion = yield (0, versioning_1.shouldIncrementVersion)({
                 gitRepo, sources, productVersionMacroName: versionMacroName
             });
@@ -33652,15 +33664,17 @@ function compileAction() {
     return __awaiter(this, void 0, void 0, function* () {
         try {
             const { auth, platform, sources, autoVersionEnabled, versionMacroName, targetVersion } = yield resolveInputs();
-            const gitRepo = yield (0, git_1.findNearestGitRoot)(sources);
+            const gitRepo = yield (0, git_1.findNearestGitRoot)({ startingPath: sources });
             const { autoVersionNext } = yield autoVersion({
                 sources, gitRepo, autoVersionEnabled, versionMacroName
             });
             const { outputPath } = yield compile({ auth, platform, sources, targetVersion });
             if (outputPath) {
-                (0, core_1.setOutput)('artifact-path', outputPath);
-                (0, core_1.setOutput)('device-os-version', targetVersion);
-                (0, core_1.setOutput)('firmware-version', autoVersionNext);
+                setOutputs({
+                    artifactPath: outputPath,
+                    deviceOsVersion: targetVersion,
+                    firmwareVersion: autoVersionNext
+                });
             }
             else {
                 (0, core_1.setFailed)(`Failed to compile code in '${sources}'`);
@@ -33783,7 +33797,7 @@ exports.mostRecentRevisionInFolder = exports.findNearestGitRoot = exports.findPr
 const promises_1 = __nccwpck_require__(3292);
 const path_1 = __nccwpck_require__(1017);
 const simple_git_1 = __importDefault(__nccwpck_require__(9103));
-function currentFirmwareVersion(gitRepo, versionFilePath, productVersionMacroName) {
+function currentFirmwareVersion({ gitRepo, versionFilePath, productVersionMacroName }) {
     return __awaiter(this, void 0, void 0, function* () {
         const git = (0, simple_git_1.default)(gitRepo);
         // Get the commit history with patch details for the version file
@@ -33793,7 +33807,7 @@ function currentFirmwareVersion(gitRepo, versionFilePath, productVersionMacroNam
             file: versionFilePath
         });
         let highestVersion = 0;
-        // if versionFilePath starts with gitRepo, remove it
+        // if versionFilePath starts with sources, remove it
         if (versionFilePath.startsWith(gitRepo)) {
             versionFilePath = versionFilePath.substring(gitRepo.length + 1);
         }
@@ -33815,7 +33829,7 @@ function currentFirmwareVersion(gitRepo, versionFilePath, productVersionMacroNam
     });
 }
 exports.currentFirmwareVersion = currentFirmwareVersion;
-function revisionOfLastVersionBump(gitRepo, versionFilePath, productVersionMacroName) {
+function revisionOfLastVersionBump({ gitRepo, versionFilePath, productVersionMacroName }) {
     return __awaiter(this, void 0, void 0, function* () {
         const git = (0, simple_git_1.default)(gitRepo);
         // Get the blame information for the version file
@@ -33833,18 +33847,21 @@ function revisionOfLastVersionBump(gitRepo, versionFilePath, productVersionMacro
     });
 }
 exports.revisionOfLastVersionBump = revisionOfLastVersionBump;
-function findProductVersionMacroFile(gitRepo, productVersionMacroName) {
+function findProductVersionMacroFile({ sources, productVersionMacroName }) {
     return __awaiter(this, void 0, void 0, function* () {
-        const files = yield (0, promises_1.readdir)(gitRepo);
+        const files = yield (0, promises_1.readdir)(sources);
         for (const file of files) {
-            const fullPath = (0, path_1.join)(gitRepo, file);
+            const fullPath = (0, path_1.join)(sources, file);
             const fileStat = yield (0, promises_1.stat)(fullPath);
             if (fileStat.isDirectory()) {
                 if (file.startsWith('.')) {
                     continue;
                 }
                 try {
-                    return yield findProductVersionMacroFile(fullPath, productVersionMacroName);
+                    return yield findProductVersionMacroFile({
+                        sources: fullPath,
+                        productVersionMacroName: productVersionMacroName
+                    });
                 }
                 catch (error) {
                     // Ignore. It means the file was not found in this directory.
@@ -33862,7 +33879,7 @@ function findProductVersionMacroFile(gitRepo, productVersionMacroName) {
     });
 }
 exports.findProductVersionMacroFile = findProductVersionMacroFile;
-function findNearestGitRoot(startingPath) {
+function findNearestGitRoot({ startingPath }) {
     return __awaiter(this, void 0, void 0, function* () {
         const git = (0, simple_git_1.default)(startingPath);
         try {
@@ -33874,12 +33891,12 @@ function findNearestGitRoot(startingPath) {
             if (parentPath === startingPath) {
                 throw new Error('No Git repository found in the parent directories');
             }
-            return yield findNearestGitRoot(parentPath);
+            return yield findNearestGitRoot({ startingPath: parentPath });
         }
     });
 }
 exports.findNearestGitRoot = findNearestGitRoot;
-function mostRecentRevisionInFolder(gitRepo, folderPath) {
+function mostRecentRevisionInFolder({ gitRepo, folderPath }) {
     return __awaiter(this, void 0, void 0, function* () {
         const git = (0, simple_git_1.default)(gitRepo);
         try {
@@ -34172,13 +34189,24 @@ const core_1 = __nccwpck_require__(2186);
 const git_1 = __nccwpck_require__(6350);
 function shouldIncrementVersion({ gitRepo, sources, productVersionMacroName }) {
     return __awaiter(this, void 0, void 0, function* () {
-        const versionFilePath = yield (0, git_1.findProductVersionMacroFile)(sources, productVersionMacroName);
+        const versionFilePath = yield (0, git_1.findProductVersionMacroFile)({
+            sources,
+            productVersionMacroName
+        });
         if (!versionFilePath) {
             throw new Error('Could not find a file containing the version macro.');
         }
-        const lastChangeRevision = yield (0, git_1.revisionOfLastVersionBump)(gitRepo, versionFilePath, productVersionMacroName);
-        const currentSourcesRevision = yield (0, git_1.mostRecentRevisionInFolder)(gitRepo, sources);
-        const currentProductVersion = yield (0, git_1.currentFirmwareVersion)(gitRepo, versionFilePath, productVersionMacroName);
+        const lastChangeRevision = yield (0, git_1.revisionOfLastVersionBump)({
+            gitRepo: gitRepo,
+            versionFilePath: versionFilePath,
+            productVersionMacroName: productVersionMacroName
+        });
+        const currentSourcesRevision = yield (0, git_1.mostRecentRevisionInFolder)({ gitRepo: gitRepo, folderPath: sources });
+        const currentProductVersion = yield (0, git_1.currentFirmwareVersion)({
+            gitRepo: gitRepo,
+            versionFilePath: versionFilePath,
+            productVersionMacroName: productVersionMacroName
+        });
         if (!lastChangeRevision) {
             throw new Error('Could not find the last version increment.');
         }
@@ -34200,9 +34228,12 @@ exports.shouldIncrementVersion = shouldIncrementVersion;
 function incrementVersion({ gitRepo, sources, productVersionMacroName }) {
     return __awaiter(this, void 0, void 0, function* () {
         // find the file containing the version macro
-        const versionFilePath = yield (0, git_1.findProductVersionMacroFile)(sources, productVersionMacroName);
+        const versionFilePath = yield (0, git_1.findProductVersionMacroFile)({
+            sources: sources,
+            productVersionMacroName: productVersionMacroName
+        });
         // get the current version
-        const current = yield (0, git_1.currentFirmwareVersion)(gitRepo, versionFilePath, productVersionMacroName);
+        const current = yield (0, git_1.currentFirmwareVersion)({ gitRepo: gitRepo, versionFilePath: versionFilePath, productVersionMacroName: productVersionMacroName });
         // increment the version
         const next = current + 1;
         // find the line that matches this regex
@@ -34226,7 +34257,10 @@ function isProductFirmware({ sources, productVersionMacroName }) {
     return __awaiter(this, void 0, void 0, function* () {
         let isProductFirmware = false;
         try {
-            isProductFirmware = !!(yield (0, git_1.findProductVersionMacroFile)(sources, productVersionMacroName));
+            isProductFirmware = !!(yield (0, git_1.findProductVersionMacroFile)({
+                sources: sources,
+                productVersionMacroName: productVersionMacroName
+            }));
         }
         catch (error) {
             // Ignore

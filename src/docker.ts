@@ -16,15 +16,13 @@ export async function dockerCheck(): Promise<boolean> {
 	return true;
 }
 
-interface DockerBuildpackCompileParams {
-	workingDir: string;
-	sources: string;
-	platform: string;
-	targetVersion: string;
-}
-
 export async function dockerBuildpackCompile(
-	{ workingDir, sources, platform, targetVersion }: DockerBuildpackCompileParams
+	{ workingDir, sources, platform, targetVersion }: {
+		workingDir: string;
+		sources: string;
+		platform: string;
+		targetVersion: string;
+	}
 ): Promise<string> {
 	// Note: the buildpack only detects *.c and *.cpp files
 	// https://github.com/particle-iot/device-os/blob/196d497dd4c16ab83db6ea610cf2433047226a6a/user/build.mk#L64-L65

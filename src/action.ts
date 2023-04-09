@@ -14,6 +14,12 @@ interface ActionInputs {
 	targetVersion: string;
 }
 
+interface ActionOutputs {
+	artifactPath: string;
+	deviceOsVersion: string;
+	firmwareVersion: number | undefined;
+}
+
 async function resolveInputs(): Promise<ActionInputs> {
 	const auth: string = getInput('particle-access-token');
 	const platform: string = getInput('particle-platform-name');
@@ -31,22 +37,26 @@ async function resolveInputs(): Promise<ActionInputs> {
 	return { auth, platform, sources, autoVersionEnabled, versionMacroName, targetVersion };
 }
 
-interface AutoVersionParams {
-	sources: string;
-	gitRepo: string;
-	autoVersionEnabled: boolean;
-	versionMacroName: string;
-}
-
-interface AutoVersionResult {
-	autoVersionFile: string | undefined;
-	autoVersionNext: number | undefined;
-	incremented: boolean;
+function setOutputs(
+	{ artifactPath, deviceOsVersion, firmwareVersion }: ActionOutputs
+): void {
+	setOutput('artifact-path', artifactPath);
+	setOutput('device-os-version', deviceOsVersion);
+	setOutput('firmware-version', firmwareVersion);
 }
 
 export async function autoVersion(
-	{ sources, gitRepo, autoVersionEnabled, versionMacroName }: AutoVersionParams
-): Promise<AutoVersionResult> {
+	{ sources, gitRepo, autoVersionEnabled, versionMacroName }: {
+		sources: string;
+		gitRepo: string;
+		autoVersionEnabled: boolean;
+		versionMacroName: string;
+	}
+): Promise<{
+	autoVersionFile: string | undefined;
+	autoVersionNext: number | undefined;
+	incremented: boolean;
+}> {
 	let autoVersionFile: string | undefined;
 	let autoVersionNext: number | undefined;
 	let incremented = false;
@@ -58,8 +68,15 @@ export async function autoVersion(
 			throw new Error('Auto-versioning is enabled, but the firmware does not appear to be a product firmware. The version macro could not be found. Please disable auto-versioning or specify the correct macro name.');
 		}
 		info('Auto-versioning is enabled, checking if firmware version should be incremented');
-		autoVersionFile = await findProductVersionMacroFile(sources, versionMacroName);
-		autoVersionNext = await currentFirmwareVersion(gitRepo, autoVersionFile, versionMacroName);
+		autoVersionFile = await findProductVersionMacroFile({
+			sources: sources,
+			productVersionMacroName: versionMacroName
+		});
+		autoVersionNext = await currentFirmwareVersion({
+			gitRepo: gitRepo,
+			versionFilePath: autoVersionFile,
+			productVersionMacroName: versionMacroName
+		});
 
 		const shouldVersion = await shouldIncrementVersion({
 			gitRepo, sources, productVersionMacroName: versionMacroName
@@ -78,20 +95,16 @@ export async function autoVersion(
 	return { autoVersionFile, autoVersionNext, incremented };
 }
 
-interface CompileParams {
-	auth: string;
-	platform: string;
-	sources: string;
-	targetVersion: string;
-}
-
-interface CompileResult {
-	outputPath: string | undefined;
-}
-
 export async function compile(
-	{ auth, platform, sources, targetVersion }: CompileParams
-): Promise<CompileResult> {
+	{ auth, platform, sources, targetVersion }: {
+		auth: string;
+		platform: string;
+		sources: string;
+		targetVersion: string;
+	}
+): Promise<{
+	outputPath: string | undefined;
+}> {
 	let outputPath: string | undefined;
 	if (!auth) {
 		info('No access token provided, running local compilation');
@@ -112,7 +125,7 @@ export async function compileAction(): Promise<void> {
 	try {
 		const { auth, platform, sources, autoVersionEnabled, versionMacroName, targetVersion } = await resolveInputs();
 
-		const gitRepo = await findNearestGitRoot(sources);
+		const gitRepo = await findNearestGitRoot({ startingPath: sources });
 		const { autoVersionNext } = await autoVersion({
 			sources, gitRepo, autoVersionEnabled, versionMacroName
 		});
@@ -122,9 +135,11 @@ export async function compileAction(): Promise<void> {
 		);
 
 		if (outputPath) {
-			setOutput('artifact-path', outputPath);
-			setOutput('device-os-version', targetVersion);
-			setOutput('firmware-version', autoVersionNext);
+			setOutputs({
+				artifactPath: outputPath,
+				deviceOsVersion: targetVersion,
+				firmwareVersion: autoVersionNext
+			});
 		} else {
 			setFailed(`Failed to compile code in '${sources}'`);
 		}

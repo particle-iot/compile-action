@@ -36,7 +36,11 @@ describe('revisionOfLastVersionBump', () => {
 
 		rawMock.mockResolvedValue(createBlameInfoMock(commitHash, productVersionMacroName));
 
-		const result = await revisionOfLastVersionBump(gitRepo, versionFilePath, productVersionMacroName);
+		const result = await revisionOfLastVersionBump({
+			gitRepo: gitRepo,
+			versionFilePath: versionFilePath,
+			productVersionMacroName: productVersionMacroName
+		});
 
 		expect(result).toEqual(commitHash);
 		expect(gitMock).toHaveBeenCalledWith(gitRepo);
@@ -50,7 +54,11 @@ describe('revisionOfLastVersionBump', () => {
 
 		rawMock.mockResolvedValue(`Different line content`);
 
-		await expect(revisionOfLastVersionBump(gitRepo, versionFilePath, productVersionMacroName)).rejects.toThrow(
+		await expect(revisionOfLastVersionBump({
+			gitRepo: gitRepo,
+			versionFilePath: versionFilePath,
+			productVersionMacroName: productVersionMacroName
+		})).rejects.toThrow(
 			`Could not find the ${productVersionMacroName} line in the blame information.`
 		);
 	});
@@ -88,7 +96,11 @@ describe('currentFirmwareVersion', () => {
 			.mockResolvedValueOnce(createCommitBodyMock(productVersionMacroName, 2))
 			.mockResolvedValueOnce(createCommitBodyMock(productVersionMacroName, 1));
 
-		const result = await currentFirmwareVersion(gitRepo, versionFilePath, productVersionMacroName);
+		const result = await currentFirmwareVersion({
+			gitRepo: gitRepo,
+			versionFilePath: versionFilePath,
+			productVersionMacroName: productVersionMacroName
+		});
 
 		expect(result).toBe(2);
 		expect(gitMock).toHaveBeenCalledWith(gitRepo);
@@ -111,7 +123,11 @@ describe('currentFirmwareVersion', () => {
 		logMock.mockResolvedValue(createLogMock(commitHashes));
 		showMock.mockResolvedValue(`Unrelated content`);
 
-		const result = await currentFirmwareVersion(gitRepo, versionFilePath, productVersionMacroName);
+		const result = await currentFirmwareVersion({
+			gitRepo: gitRepo,
+			versionFilePath: versionFilePath,
+			productVersionMacroName: productVersionMacroName
+		});
 
 		expect(result).toBe(0);
 	});
@@ -155,7 +171,10 @@ describe('findProductVersionMacroFile', () => {
 			return file === versionFilePath ? Promise.resolve(fileContent) : Promise.resolve(`Different content`);
 		});
 
-		const result = await findProductVersionMacroFile(gitRepo, productVersionMacroName);
+		const result = await findProductVersionMacroFile({
+			sources: gitRepo,
+			productVersionMacroName: productVersionMacroName
+		});
 		expect(readdirMock).toHaveBeenCalledTimes(2);
 		expect(statMock).toHaveBeenCalledTimes(7);
 		expect(readFileMock).toHaveBeenCalledTimes(5);
@@ -175,7 +194,9 @@ describe('findProductVersionMacroFile', () => {
 		statMock.mockResolvedValue({ isDirectory: () => false });
 		readFileMock.mockResolvedValue(`Different content`);
 
-		await expect(findProductVersionMacroFile(sources, productVersionMacroName)).rejects.toThrow(
+		await expect(findProductVersionMacroFile({
+			sources: sources, productVersionMacroName: productVersionMacroName
+		})).rejects.toThrow(
 			`Could not find a file containing the ${productVersionMacroName} macro.`
 		);
 	});
@@ -198,7 +219,7 @@ describe('findNearestGitRoot', () => {
 		// Set up the mock to return the Git root
 		revparseMock.mockResolvedValue(`${gitRoot}\n`);
 
-		const result = await findNearestGitRoot(startingPath);
+		const result = await findNearestGitRoot({ startingPath: startingPath });
 
 		expect(revparseMock).toHaveBeenCalledWith(['--show-toplevel']);
 		expect(result).toBe(gitRoot);
@@ -213,7 +234,7 @@ describe('findNearestGitRoot', () => {
 			.mockRejectedValueOnce(new Error('Not a Git repository'))
 			.mockResolvedValueOnce(`${gitRoot}\n`);
 
-		const result = await findNearestGitRoot(startingPath);
+		const result = await findNearestGitRoot({ startingPath: startingPath });
 
 		expect(revparseMock).toHaveBeenCalledTimes(2);
 		expect(result).toBe(gitRoot);
@@ -225,7 +246,7 @@ describe('findNearestGitRoot', () => {
 		// Set up the mock to throw an error
 		revparseMock.mockRejectedValue(new Error('Not a Git repository'));
 
-		await expect(findNearestGitRoot(startingPath)).rejects.toThrow(
+		await expect(findNearestGitRoot({ startingPath: startingPath })).rejects.toThrow(
 			'No Git repository found in the parent directories'
 		);
 	});
@@ -253,7 +274,7 @@ describe('mostRecentRevisionInFolder', () => {
 			}
 		});
 
-		const result = await mostRecentRevisionInFolder(gitRepo, folderPath);
+		const result = await mostRecentRevisionInFolder({ gitRepo: gitRepo, folderPath: folderPath });
 
 		expect(logMock).toHaveBeenCalledWith({ file: folderPath });
 		expect(result).toBe(latestHash.substring(0, 8));
@@ -266,7 +287,7 @@ describe('mostRecentRevisionInFolder', () => {
 		// Set up the mock to return an empty log object
 		logMock.mockResolvedValue({});
 
-		await expect(mostRecentRevisionInFolder(gitRepo, folderPath)).rejects.toThrow(
+		await expect(mostRecentRevisionInFolder({ gitRepo: gitRepo, folderPath: folderPath })).rejects.toThrow(
 			'Error getting the latest Git revision for folder'
 		);
 	});
@@ -278,7 +299,7 @@ describe('mostRecentRevisionInFolder', () => {
 		// Set up the mock to throw an error
 		logMock.mockRejectedValue(new Error('Error retrieving Git log'));
 
-		await expect(mostRecentRevisionInFolder(gitRepo, folderPath)).rejects.toThrow(
+		await expect(mostRecentRevisionInFolder({ gitRepo: gitRepo, folderPath: folderPath })).rejects.toThrow(
 			'Error getting the latest Git revision for folder'
 		);
 	});
