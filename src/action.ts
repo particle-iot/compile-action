@@ -3,7 +3,7 @@ import { dockerBuildpackCompile, dockerCheck } from './docker';
 import { particleCloudCompile, particleDownloadBinary } from './particle-api';
 import { resolveVersion, validatePlatformDeviceOsTarget, validatePlatformName } from './util';
 import { incrementVersion, isProductFirmware, shouldIncrementVersion } from './versioning';
-import { currentFirmwareVersion, findNearestGitRoot, findProductVersionMacroFile } from './git';
+import { currentFirmwareVersion, findNearestGitRoot, findProductVersionMacroFile, hasFullHistory } from './git';
 
 interface ActionInputs {
 	auth: string;
@@ -63,9 +63,13 @@ export async function autoVersion(
 	let autoVersionNext: number | undefined;
 	let incremented = false;
 	if (autoVersionEnabled) {
+		const validGitRepo = await hasFullHistory({ gitRepo });
 		const productFirmware = await isProductFirmware({
 			sources, productVersionMacroName: versionMacroName
 		});
+		if (!validGitRepo) {
+			throw new Error('Auto-versioning is enabled, but the git repository does not appear to have a full history. Try setting `fetch-depth: 0` on `actions/checkout` to fetch all history for all branches and tags.');
+		}
 		if (!productFirmware) {
 			throw new Error('Auto-versioning is enabled, but the firmware does not appear to be a product firmware. The version macro could not be found. Please disable auto-versioning or specify the correct macro name.');
 		}

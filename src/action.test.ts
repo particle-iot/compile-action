@@ -28,11 +28,13 @@ jest.mock('@actions/core', () => ({
 const findProductVersionMacroFileMock = jest.fn();
 const currentFirmwareVersionMock = jest.fn();
 const findNearestGitRootMock = jest.fn();
+const hasFullHistoryMock = jest.fn();
 jest.mock('./git', () => {
 	return {
 		findProductVersionMacroFile: findProductVersionMacroFileMock,
 		currentFirmwareVersion: currentFirmwareVersionMock,
-		findNearestGitRoot: findNearestGitRootMock
+		findNearestGitRoot: findNearestGitRootMock,
+		hasFullHistory: hasFullHistoryMock
 	};
 });
 
@@ -110,6 +112,7 @@ describe('autoVersion', () => {
 		};
 		const { autoVersion } = await import('./action');
 
+		hasFullHistoryMock.mockResolvedValue(true);
 		isProductFirmwareMock.mockResolvedValue(false);
 
 		await expect(autoVersion(params)).rejects.toThrow(
@@ -126,6 +129,7 @@ describe('autoVersion', () => {
 		};
 		const { autoVersion } = await import('./action');
 
+		hasFullHistoryMock.mockResolvedValue(true);
 		isProductFirmwareMock.mockResolvedValue(true);
 		findProductVersionMacroFileMock.mockResolvedValue('/path/to/repo/src/application.cpp');
 		currentFirmwareVersionMock.mockResolvedValue(1);
@@ -157,6 +161,7 @@ describe('autoVersion', () => {
 		};
 		const { autoVersion } = await import('./action');
 
+		hasFullHistoryMock.mockResolvedValue(true);
 		isProductFirmwareMock.mockResolvedValue(true);
 		findProductVersionMacroFileMock.mockResolvedValue('/path/to/repo/src/application.cpp');
 		currentFirmwareVersionMock.mockResolvedValue(1);
@@ -186,6 +191,7 @@ describe('autoVersion', () => {
 
 		const result = await autoVersion(params);
 
+		hasFullHistoryMock.mockResolvedValue(true);
 		expect(isProductFirmwareMock).not.toHaveBeenCalled();
 		expect(findProductVersionMacroFileMock).not.toHaveBeenCalled();
 		expect(currentFirmwareVersionMock).not.toHaveBeenCalled();

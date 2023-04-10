@@ -2,7 +2,7 @@ import { readdir, readFile, stat } from 'fs/promises';
 import { Dirent } from 'fs';
 import {
 	currentFirmwareVersion, findNearestGitRoot,
-	findProductVersionMacroFile, mostRecentRevisionInFolder,
+	findProductVersionMacroFile, hasFullHistory, mostRecentRevisionInFolder,
 	revisionOfLastVersionBump
 } from './git';
 
@@ -302,6 +302,28 @@ describe('mostRecentRevisionInFolder', () => {
 		await expect(mostRecentRevisionInFolder({ gitRepo: gitRepo, folderPath: folderPath })).rejects.toThrow(
 			'Error getting the latest Git revision for folder'
 		);
+	});
+
+});
+describe('hasFullHistory', () => {
+	const gitRepo = '.'; // Use the current directory as the git repository for testing
+
+	it('should return true if the local repository has full history', async () => {
+		gitMock.mockReturnValue({
+			raw: jest.fn().mockResolvedValue('false')
+		} as unknown as SimpleGit);
+
+		const result = await hasFullHistory({ gitRepo: gitRepo });
+		expect(result).toBe(true);
+	});
+
+	it('should return false if the local repository does not have full history', async () => {
+		gitMock.mockReturnValue({
+			raw: jest.fn().mockResolvedValue('true')
+		} as unknown as SimpleGit);
+
+		const result = await hasFullHistory({ gitRepo: gitRepo });
+		expect(result).toBe(false);
 	});
 
 });

@@ -138,3 +138,10 @@ export async function mostRecentRevisionInFolder(
 		throw new Error(`Error getting the latest Git revision for folder "${folderPath}": ${error}`);
 	}
 }
+
+export async function hasFullHistory({ gitRepo }: { gitRepo: string }): Promise<boolean> {
+	const git = simpleGit(gitRepo);
+	const isShallow = await git.raw(['rev-parse', '--is-shallow-repository']);
+
+	return isShallow.trim() === 'false';
+}

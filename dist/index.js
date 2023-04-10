@@ -33607,9 +33607,13 @@ function autoVersion({ sources, gitRepo, autoVersionEnabled, versionMacroName })
         let autoVersionNext;
         let incremented = false;
         if (autoVersionEnabled) {
+            const validGitRepo = yield (0, git_1.hasFullHistory)({ gitRepo });
             const productFirmware = yield (0, versioning_1.isProductFirmware)({
                 sources, productVersionMacroName: versionMacroName
             });
+            if (!validGitRepo) {
+                throw new Error('Auto-versioning is enabled, but the git repository does not appear to have a full history. Try setting `fetch-depth: 0` on `actions/checkout` to fetch all history for all branches and tags.');
+            }
             if (!productFirmware) {
                 throw new Error('Auto-versioning is enabled, but the firmware does not appear to be a product firmware. The version macro could not be found. Please disable auto-versioning or specify the correct macro name.');
             }
@@ -33795,7 +33799,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.mostRecentRevisionInFolder = exports.findNearestGitRoot = exports.findProductVersionMacroFile = exports.revisionOfLastVersionBump = exports.currentFirmwareVersion = void 0;
+exports.hasFullHistory = exports.mostRecentRevisionInFolder = exports.findNearestGitRoot = exports.findProductVersionMacroFile = exports.revisionOfLastVersionBump = exports.currentFirmwareVersion = void 0;
 const promises_1 = __nccwpck_require__(3292);
 const path_1 = __nccwpck_require__(1017);
 const simple_git_1 = __importDefault(__nccwpck_require__(9103));
@@ -33914,6 +33918,14 @@ function mostRecentRevisionInFolder({ gitRepo, folderPath }) {
     });
 }
 exports.mostRecentRevisionInFolder = mostRecentRevisionInFolder;
+function hasFullHistory({ gitRepo }) {
+    return __awaiter(this, void 0, void 0, function* () {
+        const git = (0, simple_git_1.default)(gitRepo);
+        const isShallow = yield git.raw(['rev-parse', '--is-shallow-repository']);
+        return isShallow.trim() === 'false';
+    });
+}
+exports.hasFullHistory = hasFullHistory;
 
 
 /***/ }),
