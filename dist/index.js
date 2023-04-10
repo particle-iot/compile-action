@@ -34034,7 +34034,7 @@ function particleDownloadBinary({ binaryId, auth }) {
                 (0, fs_1.mkdirSync)(destDir);
             }
             (0, fs_1.writeFileSync)(`${outputPath}`, resp, 'utf8');
-            (0, core_1.info)(`File written to ${outputPath} successfully.`);
+            (0, core_1.info)(`File downloaded successfully.`);
             return outputPath;
         }
     });

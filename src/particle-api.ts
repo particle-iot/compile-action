@@ -80,7 +80,7 @@ export async function particleDownloadBinary(
 		}
 		writeFileSync(`${outputPath}`, resp, 'utf8');
 
-		info(`File written to ${outputPath} successfully.`);
+		info(`File downloaded successfully.`);
 		return outputPath;
 	}
 }
