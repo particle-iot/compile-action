@@ -32,6 +32,8 @@ outputs:
     description: 'This output contains the actual Device OS version used for compilation. Example: 4.0.2'
   firmware-version:
     description: 'If auto-version is enabled, this output contains the product firmware version integer. Example: 2. The output value is undefined when sources are not a product firmware or auto-version is disabled.'
+  firmware-version-updated:
+    description: 'If auto-version is enabled, this output contains a boolean value indicating whether the product firmware version was updated. The output value is undefined when sources are not a product firmware or auto-version is disabled.'
 runs:
   using: 'node16'
   main: 'dist/index.js'

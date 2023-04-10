@@ -18,6 +18,7 @@ interface ActionOutputs {
 	artifactPath: string;
 	deviceOsVersion: string;
 	firmwareVersion: number | undefined;
+	firmwareVersionUpdated: boolean;
 }
 
 async function resolveInputs(): Promise<ActionInputs> {
@@ -38,11 +39,12 @@ async function resolveInputs(): Promise<ActionInputs> {
 }
 
 function setOutputs(
-	{ artifactPath, deviceOsVersion, firmwareVersion }: ActionOutputs
+	{ artifactPath, deviceOsVersion, firmwareVersion, firmwareVersionUpdated }: ActionOutputs
 ): void {
 	setOutput('artifact-path', artifactPath);
 	setOutput('device-os-version', deviceOsVersion);
 	setOutput('firmware-version', firmwareVersion);
+	setOutput('firmware-version-updated', firmwareVersionUpdated);
 }
 
 export async function autoVersion(
@@ -126,7 +128,7 @@ export async function compileAction(): Promise<void> {
 		const { auth, platform, sources, autoVersionEnabled, versionMacroName, targetVersion } = await resolveInputs();
 
 		const gitRepo = await findNearestGitRoot({ startingPath: sources });
-		const { autoVersionNext } = await autoVersion({
+		const { autoVersionNext, incremented } = await autoVersion({
 			sources, gitRepo, autoVersionEnabled, versionMacroName
 		});
 
@@ -138,7 +140,8 @@ export async function compileAction(): Promise<void> {
 			setOutputs({
 				artifactPath: outputPath,
 				deviceOsVersion: targetVersion,
-				firmwareVersion: autoVersionNext
+				firmwareVersion: autoVersionNext,
+				firmwareVersionUpdated: incremented
 			});
 		} else {
 			setFailed(`Failed to compile code in '${sources}'`);

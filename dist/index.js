@@ -33595,10 +33595,11 @@ function resolveInputs() {
         return { auth, platform, sources, autoVersionEnabled, versionMacroName, targetVersion };
     });
 }
-function setOutputs({ artifactPath, deviceOsVersion, firmwareVersion }) {
+function setOutputs({ artifactPath, deviceOsVersion, firmwareVersion, firmwareVersionUpdated }) {
     (0, core_1.setOutput)('artifact-path', artifactPath);
     (0, core_1.setOutput)('device-os-version', deviceOsVersion);
     (0, core_1.setOutput)('firmware-version', firmwareVersion);
+    (0, core_1.setOutput)('firmware-version-updated', firmwareVersionUpdated);
 }
 function autoVersion({ sources, gitRepo, autoVersionEnabled, versionMacroName }) {
     return __awaiter(this, void 0, void 0, function* () {
@@ -33665,7 +33666,7 @@ function compileAction() {
         try {
             const { auth, platform, sources, autoVersionEnabled, versionMacroName, targetVersion } = yield resolveInputs();
             const gitRepo = yield (0, git_1.findNearestGitRoot)({ startingPath: sources });
-            const { autoVersionNext } = yield autoVersion({
+            const { autoVersionNext, incremented } = yield autoVersion({
                 sources, gitRepo, autoVersionEnabled, versionMacroName
             });
             const { outputPath } = yield compile({ auth, platform, sources, targetVersion });
@@ -33673,7 +33674,8 @@ function compileAction() {
                 setOutputs({
                     artifactPath: outputPath,
                     deviceOsVersion: targetVersion,
-                    firmwareVersion: autoVersionNext
+                    firmwareVersion: autoVersionNext,
+                    firmwareVersionUpdated: incremented
                 });
             }
             else {
