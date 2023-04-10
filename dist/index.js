@@ -33692,8 +33692,13 @@ function compileAction() {
             });
             const { outputPath } = yield compile({ auth, platform, sources, targetVersion });
             if (outputPath) {
+                const artifactPath = (0, util_1.renameFile)({
+                    filePath: outputPath,
+                    platform,
+                    version: targetVersion
+                });
                 setOutputs({
-                    artifactPath: outputPath,
+                    artifactPath: artifactPath,
                     deviceOsVersion: targetVersion,
                     firmwareVersion: version,
                     firmwareVersionUpdated: incremented
@@ -34080,13 +34085,14 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports._resetFirmwareManifest = exports.resolveVersion = exports.fetchFirmwareManifest = exports.validatePlatformDeviceOsTarget = exports.validatePlatformName = exports.getPlatformId = exports.getCode = void 0;
+exports._resetFirmwareManifest = exports.renameFile = exports.resolveVersion = exports.fetchFirmwareManifest = exports.validatePlatformDeviceOsTarget = exports.validatePlatformName = exports.getPlatformId = exports.getCode = void 0;
 const cli_1 = __nccwpck_require__(6815);
 const fs_1 = __nccwpck_require__(7147);
 // @ts-ignore
 const device_constants_1 = __importDefault(__nccwpck_require__(9452));
 const httpm = __importStar(__nccwpck_require__(6255));
 const semver_1 = __nccwpck_require__(1383);
+const path_1 = __nccwpck_require__(1017);
 function getCode(path) {
     if (!(0, fs_1.existsSync)(path)) {
         throw new Error(`Source code ${path} does not exist`);
@@ -34188,6 +34194,14 @@ function resolveVersion(platform, version) {
     });
 }
 exports.resolveVersion = resolveVersion;
+function renameFile({ filePath, platform, version }) {
+    const dir = (0, path_1.dirname)(filePath);
+    const newFileName = `firmware-${platform}-${version}.bin`;
+    const newFilePath = (0, path_1.join)(dir, newFileName);
+    (0, fs_1.renameSync)(filePath, newFilePath);
+    return newFilePath;
+}
+exports.renameFile = renameFile;
 // For testing
 function _resetFirmwareManifest() {
     // @ts-ignore

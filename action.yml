@@ -27,7 +27,7 @@ inputs:
     default: 'PRODUCT_VERSION'
 outputs:
   artifact-path:
-    description: 'Path to the compiled binary file. Example: output/firmware.bin'
+    description: 'Path to the compiled binary file. Example: output/firmware-argon-2.3.1.bin'
   device-os-version:
     description: 'This output contains the actual Device OS version used for compilation. Example: 4.0.2'
   firmware-version:

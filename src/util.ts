@@ -1,9 +1,10 @@
 import { _handleMultiFileArgs, populateFileMapping } from './cli';
-import { existsSync } from 'fs';
+import { existsSync, renameSync } from 'fs';
 // @ts-ignore
 import deviceConstants from '@particle/device-constants';
 import * as httpm from '@actions/http-client';
 import { maxSatisfying, major } from 'semver';
+import { dirname, join } from 'path';
 
 export function getCode(path: string) {
 	if (!existsSync(path)) {
@@ -112,6 +113,20 @@ export async function resolveVersion(platform: string, version: string): Promise
 		throw new Error(`No Device OS version satisfies '${version}'`);
 	}
 	return maxVersion;
+}
+
+export function renameFile({ filePath, platform, version }: {
+	filePath: string,
+	platform: string,
+	version: string
+}): string {
+	const dir = dirname(filePath);
+	const newFileName = `firmware-${platform}-${version}.bin`;
+	const newFilePath = join(dir, newFileName);
+
+	renameSync(filePath, newFilePath);
+
+	return newFilePath;
 }
 
 // For testing

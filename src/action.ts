@@ -1,7 +1,7 @@
 import { getInput, info, setFailed, setOutput } from '@actions/core';
 import { dockerBuildpackCompile, dockerCheck } from './docker';
 import { particleCloudCompile, particleDownloadBinary } from './particle-api';
-import { resolveVersion, validatePlatformDeviceOsTarget, validatePlatformName } from './util';
+import { renameFile, resolveVersion, validatePlatformDeviceOsTarget, validatePlatformName } from './util';
 import { incrementVersion, isProductFirmware, shouldIncrementVersion } from './versioning';
 import { currentFirmwareVersion, findNearestGitRoot, findProductVersionMacroFile, hasFullHistory } from './git';
 
@@ -157,8 +157,14 @@ export async function compileAction(): Promise<void> {
 		);
 
 		if (outputPath) {
+			const artifactPath = renameFile({
+				filePath: outputPath,
+				platform,
+				version: targetVersion
+			});
+
 			setOutputs({
-				artifactPath: outputPath,
+				artifactPath: artifactPath,
 				deviceOsVersion: targetVersion,
 				firmwareVersion: version,
 				firmwareVersionUpdated: incremented
