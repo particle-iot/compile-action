@@ -1,4 +1,4 @@
-import { getInput, info, setFailed, setOutput } from '@actions/core';
+import { getInput, info, setFailed, setOutput, warning } from '@actions/core';
 import { dockerBuildpackCompile, dockerCheck } from './docker';
 import { particleCloudCompile, particleDownloadBinary } from './particle-api';
 import { resolveVersion, validatePlatformDeviceOsTarget, validatePlatformName } from './util';
@@ -55,12 +55,12 @@ export async function autoVersion(
 		versionMacroName: string;
 	}
 ): Promise<{
-	autoVersionFile: string | undefined;
-	autoVersionNext: number | undefined;
+	versionFile: string | undefined;
+	version: number | undefined;
 	incremented: boolean;
 }> {
-	let autoVersionFile: string | undefined;
-	let autoVersionNext: number | undefined;
+	let versionFile: string | undefined;
+	let version: number | undefined;
 	let incremented = false;
 	if (autoVersionEnabled) {
 		const validGitRepo = await hasFullHistory({ gitRepo });
@@ -74,13 +74,13 @@ export async function autoVersion(
 			throw new Error('Auto-versioning is enabled, but the firmware does not appear to be a product firmware. The version macro could not be found. Please disable auto-versioning or specify the correct macro name.');
 		}
 		info('Auto-versioning is enabled, checking if firmware version should be incremented');
-		autoVersionFile = await findProductVersionMacroFile({
+		versionFile = await findProductVersionMacroFile({
 			sources: sources,
 			productVersionMacroName: versionMacroName
 		});
-		autoVersionNext = await currentFirmwareVersion({
+		version = await currentFirmwareVersion({
 			gitRepo: gitRepo,
-			versionFilePath: autoVersionFile,
+			versionFilePath: versionFile,
 			productVersionMacroName: versionMacroName
 		});
 
@@ -93,12 +93,28 @@ export async function autoVersion(
 				sources,
 				productVersionMacroName: versionMacroName
 			});
-			autoVersionNext = out.version;
-			autoVersionFile = out.file;
+			version = out.version;
+			versionFile = out.file;
 			incremented = true;
 		}
+	} else {
+		info('Auto-versioning is disabled, only doing version check');
+		try {
+			versionFile = await findProductVersionMacroFile({
+				sources: sources,
+				productVersionMacroName: versionMacroName
+			});
+			version = await currentFirmwareVersion({
+				gitRepo: gitRepo,
+				versionFilePath: versionFile,
+				productVersionMacroName: versionMacroName
+			});
+		} catch (e) {
+			info('Could not find current product version macro, firmware-verion output will be undefined.');
+		}
 	}
-	return { autoVersionFile, autoVersionNext, incremented };
+
+	return { versionFile, version, incremented };
 }
 
 export async function compile(
@@ -132,7 +148,7 @@ export async function compileAction(): Promise<void> {
 		const { auth, platform, sources, autoVersionEnabled, versionMacroName, targetVersion } = await resolveInputs();
 
 		const gitRepo = await findNearestGitRoot({ startingPath: sources });
-		const { autoVersionNext, incremented } = await autoVersion({
+		const { version, incremented } = await autoVersion({
 			sources, gitRepo, autoVersionEnabled, versionMacroName
 		});
 
@@ -144,7 +160,7 @@ export async function compileAction(): Promise<void> {
 			setOutputs({
 				artifactPath: outputPath,
 				deviceOsVersion: targetVersion,
-				firmwareVersion: autoVersionNext,
+				firmwareVersion: version,
 				firmwareVersionUpdated: incremented
 			});
 		} else {

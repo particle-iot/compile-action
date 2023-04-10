@@ -46,8 +46,8 @@ A GitHub Action to compile Particle application firmware
 
 * `artifact-path`: Path to the compiled binary artifact. Typically, it will be `output/firmware.bin`
 * `device-os-version`: The Device OS version that was used for compilation. This may differ from the requested version if the requested version is a semver range or `latest` or `latest-lts`. Example: `2.3.1`
-* `firmware-version`: If auto-version is enabled, this output contains the product firmware version integer. Example: 2. The output value is undefined when sources are not a product firmware or auto-version is disabled.
-* `firmware-version-updated`: If auto-version is enabled, this output contains a boolean value indicating whether the product firmware version was updated. The output value is undefined when sources are not a product firmware or auto-version is disabled.
+* `firmware-version`: The product firmware version integer. This output is undefined when sources are not a product firmware.
+* `firmware-version-updated`: Boolean value indicating whether the product firmware version was updated. Can only be true with auto-version enabled.
 
 ### Example Pipeline
 

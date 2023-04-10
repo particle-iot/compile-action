@@ -33603,8 +33603,8 @@ function setOutputs({ artifactPath, deviceOsVersion, firmwareVersion, firmwareVe
 }
 function autoVersion({ sources, gitRepo, autoVersionEnabled, versionMacroName }) {
     return __awaiter(this, void 0, void 0, function* () {
-        let autoVersionFile;
-        let autoVersionNext;
+        let versionFile;
+        let version;
         let incremented = false;
         if (autoVersionEnabled) {
             const validGitRepo = yield (0, git_1.hasFullHistory)({ gitRepo });
@@ -33618,13 +33618,13 @@ function autoVersion({ sources, gitRepo, autoVersionEnabled, versionMacroName })
                 throw new Error('Auto-versioning is enabled, but the firmware does not appear to be a product firmware. The version macro could not be found. Please disable auto-versioning or specify the correct macro name.');
             }
             (0, core_1.info)('Auto-versioning is enabled, checking if firmware version should be incremented');
-            autoVersionFile = yield (0, git_1.findProductVersionMacroFile)({
+            versionFile = yield (0, git_1.findProductVersionMacroFile)({
                 sources: sources,
                 productVersionMacroName: versionMacroName
             });
-            autoVersionNext = yield (0, git_1.currentFirmwareVersion)({
+            version = yield (0, git_1.currentFirmwareVersion)({
                 gitRepo: gitRepo,
-                versionFilePath: autoVersionFile,
+                versionFilePath: versionFile,
                 productVersionMacroName: versionMacroName
             });
             const shouldVersion = yield (0, versioning_1.shouldIncrementVersion)({
@@ -33636,12 +33636,29 @@ function autoVersion({ sources, gitRepo, autoVersionEnabled, versionMacroName })
                     sources,
                     productVersionMacroName: versionMacroName
                 });
-                autoVersionNext = out.version;
-                autoVersionFile = out.file;
+                version = out.version;
+                versionFile = out.file;
                 incremented = true;
             }
         }
-        return { autoVersionFile, autoVersionNext, incremented };
+        else {
+            (0, core_1.info)('Auto-versioning is disabled, only doing version check');
+            try {
+                versionFile = yield (0, git_1.findProductVersionMacroFile)({
+                    sources: sources,
+                    productVersionMacroName: versionMacroName
+                });
+                version = yield (0, git_1.currentFirmwareVersion)({
+                    gitRepo: gitRepo,
+                    versionFilePath: versionFile,
+                    productVersionMacroName: versionMacroName
+                });
+            }
+            catch (e) {
+                (0, core_1.info)('Could not find current product version macro, firmware-verion output will be undefined.');
+            }
+        }
+        return { versionFile, version, incremented };
     });
 }
 exports.autoVersion = autoVersion;
@@ -33670,7 +33687,7 @@ function compileAction() {
         try {
             const { auth, platform, sources, autoVersionEnabled, versionMacroName, targetVersion } = yield resolveInputs();
             const gitRepo = yield (0, git_1.findNearestGitRoot)({ startingPath: sources });
-            const { autoVersionNext, incremented } = yield autoVersion({
+            const { version, incremented } = yield autoVersion({
                 sources, gitRepo, autoVersionEnabled, versionMacroName
             });
             const { outputPath } = yield compile({ auth, platform, sources, targetVersion });
@@ -33678,7 +33695,7 @@ function compileAction() {
                 setOutputs({
                     artifactPath: outputPath,
                     deviceOsVersion: targetVersion,
-                    firmwareVersion: autoVersionNext,
+                    firmwareVersion: version,
                     firmwareVersionUpdated: incremented
                 });
             }

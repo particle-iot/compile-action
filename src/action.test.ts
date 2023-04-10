@@ -146,8 +146,8 @@ describe('autoVersion', () => {
 		expect(currentFirmwareVersionMock).toHaveBeenCalled();
 		expect(shouldIncrementVersionMock).toHaveBeenCalled();
 		expect(result).toEqual({
-			autoVersionFile: '/path/to/repo/src/application.cpp',
-			autoVersionNext: 2,
+			versionFile: '/path/to/repo/src/application.cpp',
+			version: 2,
 			incremented: true
 		});
 	});
@@ -174,13 +174,13 @@ describe('autoVersion', () => {
 		expect(currentFirmwareVersionMock).toHaveBeenCalled();
 		expect(shouldIncrementVersionMock).toHaveBeenCalled();
 		expect(result).toEqual({
-			autoVersionFile: '/path/to/repo/src/application.cpp',
-			autoVersionNext: 1,
+			versionFile: '/path/to/repo/src/application.cpp',
+			version: 1,
 			incremented: false
 		});
 	});
 
-	test('should return an empty result if auto-versioning is disabled', async () => {
+	test('should check firmware version if auto-versioning is disabled', async () => {
 		const params = {
 			sources: '/path/to/sources',
 			gitRepo: '/path/to/repo',
@@ -189,16 +189,18 @@ describe('autoVersion', () => {
 		};
 		const { autoVersion } = await import('./action');
 
+		currentFirmwareVersionMock.mockResolvedValue(1);
+
 		const result = await autoVersion(params);
 
 		hasFullHistoryMock.mockResolvedValue(true);
 		expect(isProductFirmwareMock).not.toHaveBeenCalled();
-		expect(findProductVersionMacroFileMock).not.toHaveBeenCalled();
-		expect(currentFirmwareVersionMock).not.toHaveBeenCalled();
+		expect(findProductVersionMacroFileMock).toHaveBeenCalled();
+		expect(currentFirmwareVersionMock).toHaveBeenCalled();
 		expect(shouldIncrementVersionMock).not.toHaveBeenCalled();
 		expect(result).toEqual({
-			autoVersionFile: undefined,
-			autoVersionNext: undefined,
+			versionFile: undefined,
+			version: 1,
 			incremented: false
 		});
 	});
