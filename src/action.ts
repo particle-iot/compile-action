@@ -1,4 +1,4 @@
-import { getInput, info, setFailed, setOutput, warning } from '@actions/core';
+import { getInput, info, setFailed, setOutput } from '@actions/core';
 import { dockerBuildpackCompile, dockerCheck } from './docker';
 import { particleCloudCompile, particleDownloadBinary } from './particle-api';
 import { resolveVersion, validatePlatformDeviceOsTarget, validatePlatformName } from './util';
