@@ -24,7 +24,14 @@ If the git revision of the `sources-folder` is newer than the git revision that 
 
 The auto-versioning feature does not commit the updated version file to the repository. You will need to commit the updated version file to the repository.
 
-## Example Workflow
+## Example Workflows
+
+Three example workflows are provided below:
+ 1. Continuous versioning: create a new release every time the firmware code changes on the `main` branch
+ 1. Semi-automated versioning: create a new release when you manually trigger the workflow
+ 1. Manual versioning: increment the version number manually (does not use automatic versioning)
+
+### Continuous Versioning
 
 This example workflow runs on every push to the `main` branch in the specified paths. It:
 
@@ -144,3 +151,80 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
 ```
 
+### Semi-automated Versioning
+
+We can adapt the above workflow to only increment the version number when we manually trigger the workflow.
+
+This approach lets you accumulate changes in the repository and then trigger a release when you are ready.
+
+```yaml
+
+# This workflow runs when we manually trigger it.
+# Trigger it by going to the Actions tab in your repository and clicking the "Run workflow" button.
+# You will be prompted to enter the Particle platform name and Device OS version.
+on:
+  workflow_dispatch:
+    inputs:
+      platform:
+        description: 'Particle platform name'
+        required: true
+        default: 'boron'
+      device-os-version:
+        description: 'Device OS version'
+        required: true
+        default: 'latest-lts'
+
+...
+jobs:
+  compile:
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      
+      - name: Compile application
+        id: compile
+        uses: particle-iot/compile-action@v1
+        with:
+          particle-platform-name: ${{ github.event.inputs.platform }}
+          device-os-version: ${{ github.event.inputs.device-os-version }}
+          sources-folder: 'product-firmware-src'
+          auto-version: true
+       
+      # Same as above
+```
+
+### Manual Versioning
+
+This example does not use auto-versioning. 
+
+You need to manually update the version number and create a git tag. 
+
+```yaml
+
+# This workflow runs on git tags
+# It will only run when a tag is pushed to the repository that matches the pattern "v*"
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  compile:
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Compile application
+        id: compile
+        uses: particle-iot/compile-action@v1
+        with:
+          particle-platform-name: 'boron'
+          device-os-version: 'latest-lts'
+          sources-folder: 'product-firmware-src'
+          auto-version: false
+
+       # A combination of the tag and release automation steps from above if you want to create a GitHub release
