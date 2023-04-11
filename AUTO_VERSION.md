@@ -176,6 +176,7 @@ on:
 
 jobs:
   compile:
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
@@ -210,12 +211,11 @@ on:
       - 'v*'
 
 jobs:
-  compile:
+  compile-release:
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
 
       - name: Compile application
         id: compile
@@ -224,6 +224,17 @@ jobs:
           particle-platform-name: 'boron'
           device-os-version: 'latest-lts'
           sources-folder: 'product-firmware-src'
-          auto-version: false
 
-       # A combination of the tag and release automation steps from above if you want to create a GitHub release
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          path: ${{ steps.compile.outputs.artifact-path }}
+
+      - name: Create GitHub release
+        uses: ncipollo/release-action@v1
+        with:
+          artifacts: ${{ steps.compile.outputs.artifact-path }}
+          generateReleaseNotes: 'true'
+          name: "Firmware ${{ steps.compile.outputs.firmware-version }}"
+          token: ${{ secrets.GITHUB_TOKEN }}
+```
