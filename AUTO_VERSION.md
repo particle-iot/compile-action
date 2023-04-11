@@ -174,7 +174,6 @@ on:
         required: true
         default: 'latest-lts'
 
-...
 jobs:
   compile:
     steps:
