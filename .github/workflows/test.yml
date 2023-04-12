@@ -30,6 +30,29 @@ jobs:
           particle-access-token: ${{ secrets.PARTICLE_ACCESS_TOKEN }}
           particle-platform-name: 'argon'
           sources-folder: 'test/fixtures/single-file-firmware'
+  test-auto-version:
+    strategy:
+      matrix:
+        os: [ ubuntu-latest ]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - name: 'Verify product version is 100'
+        run: |
+          cat test/fixtures/product-firmware/application.cpp | grep -q 'PRODUCT_VERSION(100);'
+      - uses: ./
+        name: 'Bump product version and compile'
+        with:
+          particle-access-token: ${{ secrets.PARTICLE_ACCESS_TOKEN }}
+          particle-platform-name: 'boron'
+          sources-folder: 'test/fixtures/product-firmware'
+          device-os-version: 'latest-lts'
+          auto-version: 'true'
+      - name: 'Verify product version is 101'
+        run: |
+          cat test/fixtures/product-firmware/application.cpp | grep -q 'PRODUCT_VERSION(101);'
   test-local-compile:
     strategy:
       matrix:

@@ -17,11 +17,23 @@ inputs:
     required: false
     description: 'Path to directory with sources to compile. Example: src'
     default: 'src'
+  auto-version:
+    required: false
+    description: 'If true, the action will automatically increment the product firmware version. See AUTO_VERSION.md for more details.'
+    default: 'false'
+  auto-version-macro-name:
+    required: false
+    description: 'Name of the macro that contains the product firmware version.'
+    default: 'PRODUCT_VERSION'
 outputs:
   artifact-path:
-    description: 'Path to the compiled binary file. Example: output/firmware.bin'
+    description: 'Path to the compiled binary file. Example: output/firmware-argon-2.3.1.bin'
   device-os-version:
     description: 'This output contains the actual Device OS version used for compilation. Example: 4.0.2'
+  firmware-version:
+    description: 'The product firmware version integer. This output is undefined when sources are not a product firmware.'
+  firmware-version-updated:
+    description: 'Boolean value indicating whether the product firmware version was updated. Can only be true with auto-version enabled.'
 runs:
   using: 'node16'
   main: 'dist/index.js'

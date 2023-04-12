@@ -4,10 +4,11 @@ import {
 	getCode,
 	resolveVersion,
 	getPlatformId,
-	validatePlatformDeviceOsTarget, validatePlatformName
+	validatePlatformDeviceOsTarget, validatePlatformName, renameFile
 } from './util';
 import nock from 'nock';
-import { readFileSync } from 'fs';
+import { accessSync, mkdirSync, readFileSync, rmdirSync, unlinkSync, writeFileSync } from 'fs';
+import { join } from 'path';
 
 describe('getCode', () => {
 	it('should return file for application.cpp', () => {
@@ -240,5 +241,39 @@ describe('resolveVersion', () => {
 
 	it('should throw if the semver version is not valid', async () => {
 		await expect(resolveVersion('argon', '^100.0.0')).rejects.toThrow(`No Device OS version satisfies '^100.0.0'`);
+	});
+});
+
+describe('renameFile', () => {
+	const testDir = 'rename-file-output';
+
+	beforeAll(async () => {
+		mkdirSync(testDir, { recursive: true });
+	});
+
+	afterAll(async () => {
+		rmdirSync(testDir, { recursive: true });
+	});
+
+	test('renameFile renames the firmware binary file correctly', async () => {
+		const filePath = join(testDir, 'firmware.bin');
+		const platform = 'boron';
+		const version = '1.0.0';
+
+		writeFileSync(filePath, 'dummy content');
+
+		const newFilePath = renameFile({ filePath, platform, version });
+
+		// Check if the old file is removed
+		expect(() => accessSync(filePath)).toThrow();
+
+		// Check if the new file is created with the correct name
+		const newFileName = `firmware-${platform}-${version}.bin`;
+		const expectedNewFilePath = join(testDir, newFileName);
+		expect(newFilePath).toBe(expectedNewFilePath);
+		expect(() => accessSync(newFilePath)).not.toThrow();
+
+		// Cleanup
+		unlinkSync(newFilePath);
 	});
 });

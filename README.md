@@ -27,6 +27,15 @@ A GitHub Action to compile Particle application firmware
     # Required: false
     device-os-version: 'latest-lts'
       
+    # Auto versioning for product firmware
+    # If true, the action will automatically increment the product firmware version. See AUTO_VERSION.md for more details.
+    # Required: false
+    auto-version: 'false'
+
+    # Macro name for product firmware version
+    # Required: false
+    auto-version-macro-name: 'PRODUCT_VERSION'
+    
     # Particle access token
     # If provided, the action will use the Particle Cloud Compiler instead of compiling within the GitHub Action runner
     # Required: false
@@ -35,8 +44,10 @@ A GitHub Action to compile Particle application firmware
 
 ### Outputs
 
-* `artifact-path`: Path to the compiled binary artifact. Typically, it will be `output/firmware.bin`
+* `artifact-path`: Path to the compiled binary artifact. Example: `output/firmware-argon-2.3.1.bin`
 * `device-os-version`: The Device OS version that was used for compilation. This may differ from the requested version if the requested version is a semver range or `latest` or `latest-lts`. Example: `2.3.1`
+* `firmware-version`: The product firmware version integer. This output is undefined when sources are not a product firmware.
+* `firmware-version-updated`: Boolean value indicating whether the product firmware version was updated. Can only be true with auto-version enabled.
 
 ### Example Pipeline
 
