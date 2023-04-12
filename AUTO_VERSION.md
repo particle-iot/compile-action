@@ -32,6 +32,8 @@ Three example workflows are provided below:
  1. Semi-automated versioning: create a new release when you manually trigger the workflow
  1. Continuous versioning: create a new release every time the firmware code changes on the `main` branch
 
+`Release` refers to a GitHub release, not a firmware release or OTA update. The examples do not trigger OTA updates.
+
 ### Manual Versioning
 
 This example does not use auto-versioning.
@@ -73,26 +75,15 @@ jobs:
         with:
           artifacts: ${{ steps.compile.outputs.artifact-path }}
           generateReleaseNotes: 'true'
-          name: "Firmware ${{ steps.compile.outputs.firmware-version }}"
+          name: "Firmware v${{ steps.compile.outputs.firmware-version }}"
           token: ${{ secrets.GITHUB_TOKEN }}
 ```
 
 ### Semi-automated Versioning
 
-Manually triggering this workflow will:
-
-1. compile the firmware
-1. increment the version number if the firmware code has changed since the last version
-1. _if the version number was incremented, the workflow continues, otherwise it skips the remaining steps_
-1. commit the updated version file to the repository
-1. push the changes to the repository
-1. create a tag for the release
-1. upload the firmware binary as an artifact to the GitHub
+This example automatically increments the product firmware version when you manually trigger the workflow.
 
 This approach lets you accumulate changes in the repository and then trigger a release when you are ready.
-
-`Release` refers to a GitHub release, not a firmware release or OTA update. This example does not trigger OTA updates.
-
 
 ```yaml
 name: Compile and Release
@@ -146,7 +137,7 @@ jobs:
         with:
           artifacts: ${{ steps.compile.outputs.artifact-path }}
           generateReleaseNotes: 'true'
-          name: "Firmware ${{ steps.compile.outputs.firmware-version }}"
+          name: "Firmware v${{ steps.compile.outputs.firmware-version }}"
           tag: "v${{ steps.compile.outputs.firmware-version }}"
           commit: ${{ github.sha }}
           token: ${{ secrets.GITHUB_TOKEN }}
@@ -154,7 +145,7 @@ jobs:
 
 ### Continuous Versioning
 
-This example workflow runs on every push to the `main` branch in the specified paths.
+This workflow automatically increments the product firmware version on every push to the `main` branch in the specified paths.
 
 Every merged pull request or commit pushed to `main` will trigger a new release.
 
