@@ -3,10 +3,13 @@
 
 A GitHub Action to compile Particle application firmware
 
+> This project is currently under development with no stable v1 release yet. 
+  Documentation refers to the `main` branch, but please be aware that stability guarantees are not provided at this stage.
+
 ## Usage
 
 ```yaml
-- uses: particle-iot/compile-action@v1
+- uses: particle-iot/compile-action@main
   with:
     # The platform name to target the compilation
     # Allowed values: core, photon, p1, electron, argon, boron, xenon, esomx, bsom, b5som, tracker, trackerm, p2, muon
@@ -67,7 +70,7 @@ jobs:
 
       - name: Compile application
         id: compile
-        uses: particle-iot/compile-action@v1
+        uses: particle-iot/compile-action@main
         with:
           particle-platform-name: 'boron'
           sources-folder: 'src'
@@ -90,7 +93,7 @@ To compile in the cloud, set the `particle-access-token` input to a Particle acc
 ```yaml
       - name: Compile application
         id: compile
-        uses: particle-iot/compile-action@v1
+        uses: particle-iot/compile-action@main
         with:
           particle-access-token: ${{ secrets.PARTICLE_ACCESS_TOKEN }}
           particle-platform-name: 'boron'
