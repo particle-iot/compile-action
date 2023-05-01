@@ -5,6 +5,5 @@ module.exports = {
     transform: {
         '^.+\\.ts$': 'ts-jest'
     },
-    transformIgnorePatterns: ['src/cparser/*.js'],
     verbose: true
 };
