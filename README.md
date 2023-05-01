@@ -29,7 +29,7 @@ A GitHub Action to compile Particle application firmware
     #   ^<version>: a semver range, e.g. ^5.3.0
     # For production projects, you should pin to a specific Device OS version or semver range, e.g. ^4.0.0
     # Required: false
-    device-os-version: 'latest-lts'
+    device-os-version: 'default'
       
     # Auto versioning for product firmware
     # If true, the action will automatically increment the product firmware version. See AUTO_VERSION.md for more details.
