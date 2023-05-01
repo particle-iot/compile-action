@@ -34085,7 +34085,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports._resetFirmwareManifest = exports.renameFile = exports.resolveVersion = exports.fetchFirmwareManifest = exports.validatePlatformDeviceOsTarget = exports.validatePlatformName = exports.getPlatformId = exports.getCode = void 0;
+exports._resetBuildTargets = exports.renameFile = exports.isSupportedPlatform = exports.resolveVersion = exports.fetchBuildTargets = exports.validatePlatformDeviceOsTarget = exports.validatePlatformName = exports.getPlatformId = exports.getCode = void 0;
 const cli_1 = __nccwpck_require__(6815);
 const fs_1 = __nccwpck_require__(7147);
 // @ts-ignore
@@ -34124,76 +34124,81 @@ function validatePlatformName(platform) {
     return Number.isInteger(getPlatformId(platform));
 }
 exports.validatePlatformName = validatePlatformName;
-function validatePlatformDeviceOsTarget(platform, version) {
+function validatePlatformDeviceOsTarget(platform, requestedVersion) {
     return __awaiter(this, void 0, void 0, function* () {
-        const manifest = yield fetchFirmwareManifest();
-        const dvos = manifest.binaryDataDeviceOS[version];
-        if (!dvos) {
-            throw new Error(`Device OS version '${version}' does not exist`);
+        const targets = yield fetchBuildTargets();
+        const target = targets.find((t) => t.version === requestedVersion);
+        if (!target) {
+            throw new Error(`Device OS version '${requestedVersion}' does not exist`);
         }
-        if (!dvos[platform]) {
-            throw new Error(`Device OS version '${version}' does not support platform '${platform}'`);
+        if (!isSupportedPlatform(target, platform)) {
+            throw new Error(`Device OS version '${requestedVersion}' does not support platform '${platform}'`);
         }
         return true;
     });
 }
 exports.validatePlatformDeviceOsTarget = validatePlatformDeviceOsTarget;
-let firmwareManifest;
-function fetchFirmwareManifest() {
+let buildTargets;
+function fetchBuildTargets() {
     return __awaiter(this, void 0, void 0, function* () {
-        if (firmwareManifest) {
-            return firmwareManifest;
+        if (buildTargets) {
+            return buildTargets;
         }
         const client = new httpm.HttpClient('particle-compile-action');
-        const res = yield client.get('https://binaries.particle.io/firmware-versions-manifest.json');
+        const res = yield client.get('https://api.particle.io/v1/build_targets');
         if (res.message.statusCode !== 200) {
-            throw new Error(`Error fetching firmware manifest: ${res.message.statusCode}`);
+            throw new Error(`Error fetching build targets: ${res.message.statusCode}`);
         }
-        firmwareManifest = JSON.parse(yield res.readBody());
-        return firmwareManifest;
+        const body = JSON.parse(yield res.readBody());
+        buildTargets = body.targets;
+        return buildTargets;
     });
 }
-exports.fetchFirmwareManifest = fetchFirmwareManifest;
-function resolveVersion(platform, version) {
+exports.fetchBuildTargets = fetchBuildTargets;
+function resolveVersion(platform, requestedVersion) {
     return __awaiter(this, void 0, void 0, function* () {
-        if (!version) {
+        if (!requestedVersion) {
             throw new Error(`Device OS version is required`);
         }
-        const manifest = yield fetchFirmwareManifest();
-        const latest = manifest.defaultVersions[platform];
-        delete manifest.binaryDataDeviceOS.binaryUrlGithub;
-        delete manifest.binaryDataDeviceOS.binaryUrlApi;
-        const versions = Object.keys(manifest.binaryDataDeviceOS).sort();
-        if (version === 'latest') {
+        const targets = yield fetchBuildTargets();
+        const versions = targets
+            .filter((t) => isSupportedPlatform(t, platform))
+            .filter((t) => (0, semver_1.prerelease)(t.version) === null)
+            .map((t) => t.version)
+            .sort();
+        const latest = versions[versions.length - 1];
+        if (requestedVersion === 'latest') {
             // find latest version that supports this platform
-            const latestVersions = Object.keys(manifest.binaryDataDeviceOS).sort();
-            let latestVersion = latestVersions.pop();
-            while (latestVersion && !manifest.binaryDataDeviceOS[latestVersion][platform]) {
-                latestVersion = versions.pop();
+            const latestVersions = [...versions];
+            const latestVersion = latestVersions.pop();
+            if (!latestVersion) {
+                throw new Error(`No latest build target found for '${platform}'`);
             }
-            return String(latestVersion);
+            return latestVersion;
         }
-        if (version === 'latest-lts') {
+        if (requestedVersion === 'latest-lts') {
             // find latest lts version that supports this platform
-            const ltsVersions = versions.filter((v) => (0, semver_1.major)(v) % 2 === 0 && (0, semver_1.major)(v) >= 2).sort();
-            let ltsVersion = ltsVersions.pop();
-            while (ltsVersion && !manifest.binaryDataDeviceOS[ltsVersion][platform]) {
-                ltsVersion = ltsVersions.pop();
-            }
+            const ltsVersions = versions.filter((version) => (0, semver_1.major)(version) % 2 === 0 && (0, semver_1.major)(version) >= 2).sort();
+            const ltsVersion = ltsVersions.pop();
             if (!ltsVersion) {
-                throw new Error(`No latest-lts version found for '${platform}'. The latest supported Device OS version is '${latest}'`);
+                throw new Error(`No latest-lts build target found. The latest Device OS version for '${platform}' is '${latest}'`);
             }
             return ltsVersion;
         }
         // find the latest version that satisfies the version range
-        const maxVersion = (0, semver_1.maxSatisfying)(versions, version);
+        const maxVersion = (0, semver_1.maxSatisfying)(versions, requestedVersion);
         if (!maxVersion) {
-            throw new Error(`No Device OS version satisfies '${version}'`);
+            throw new Error(`No Device OS version satisfies '${requestedVersion}'. The latest Device OS version for '${platform}' is '${latest}'`);
         }
         return maxVersion;
     });
 }
 exports.resolveVersion = resolveVersion;
+function isSupportedPlatform(target, platform) {
+    const platformId = getPlatformId(platform);
+    return target.platforms.includes(platformId);
+}
+exports.isSupportedPlatform = isSupportedPlatform;
 function renameFile({ filePath, platform, version }) {
     const dir = (0, path_1.dirname)(filePath);
     const newFileName = `firmware-${platform}-${version}.bin`;
@@ -34203,11 +34208,11 @@ function renameFile({ filePath, platform, version }) {
 }
 exports.renameFile = renameFile;
 // For testing
-function _resetFirmwareManifest() {
+function _resetBuildTargets() {
     // @ts-ignore
-    firmwareManifest = undefined;
+    buildTargets = undefined;
 }
-exports._resetFirmwareManifest = _resetFirmwareManifest;
+exports._resetBuildTargets = _resetBuildTargets;
 
 
 /***/ }),
