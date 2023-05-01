@@ -108,7 +108,7 @@ describe('fetchBuildTargets', () => {
 
 		const response = JSON.parse(readFileSync(`test/fixtures/build-targets-json/response.json`).toString());
 
-		expect(await fetchBuildTargets()).toEqual(response.targets);
+		expect(await fetchBuildTargets()).toEqual(response);
 	});
 
 	it('should return the cached response if it has already been fetched', async () => {
@@ -176,6 +176,22 @@ describe('resolveVersion', () => {
 			.replyWithFile(200, `test/fixtures/build-targets-json/response.json`);
 	});
 
+	it('should return the default version for each platform', async () => {
+		expect(await resolveVersion('argon', 'default')).toEqual('4.0.2');
+		expect(await resolveVersion('boron', 'default')).toEqual('4.0.2');
+		expect(await resolveVersion('esomx', 'default')).toEqual('4.0.2');
+		expect(await resolveVersion('bsom', 'default')).toEqual('4.0.2');
+		expect(await resolveVersion('b5som', 'default')).toEqual('4.0.2');
+		expect(await resolveVersion('tracker', 'default')).toEqual('4.0.2');
+		expect(await resolveVersion('electron', 'default')).toEqual('2.3.1');
+		expect(await resolveVersion('photon', 'default')).toEqual('2.3.1');
+		expect(await resolveVersion('xenon', 'default')).toEqual('0.9.0');
+		expect(await resolveVersion('core', 'default')).toEqual('0.7.0');
+		expect(await resolveVersion('p1', 'default')).toEqual('2.3.1');
+		expect(await resolveVersion('trackerm', 'default')).toEqual('5.3.1');
+		expect(await resolveVersion('p2', 'default')).toEqual('5.3.1');
+	});
+
 	it('should return the latest version for each platform', async () => {
 		expect(await resolveVersion('argon', 'latest')).toEqual('5.3.1');
 		expect(await resolveVersion('boron', 'latest')).toEqual('5.3.1');
@@ -211,6 +227,8 @@ describe('resolveVersion', () => {
 		await expect(resolveVersion('p2', 'latest-lts')).rejects.toThrow(`No latest-lts build target found. The latest Device OS version for 'p2' is '5.3.1'`);
 	});
 
+
+
 	it('should return a fixed version', async () => {
 		expect(await resolveVersion('argon', '2.3.1')).toEqual('2.3.1');
 	});
@@ -238,6 +256,8 @@ describe('resolveVersion', () => {
 	it('should throw if the semver version is not valid', async () => {
 		await expect(resolveVersion('argon', '^100.0.0')).rejects.toThrow(`No Device OS version satisfies '^100.0.0'`);
 	});
+
+
 });
 
 describe('renameFile', () => {

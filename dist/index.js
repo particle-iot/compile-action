@@ -34232,7 +34232,7 @@ function validatePlatformName(platform) {
 exports.validatePlatformName = validatePlatformName;
 function validatePlatformDeviceOsTarget(platform, requestedVersion) {
     return __awaiter(this, void 0, void 0, function* () {
-        const targets = yield fetchBuildTargets();
+        const { targets } = yield fetchBuildTargets();
         const target = targets.find((t) => t.version === requestedVersion);
         if (!target) {
             throw new Error(`Device OS version '${requestedVersion}' does not exist`);
@@ -34256,7 +34256,7 @@ function fetchBuildTargets() {
             throw new Error(`Error fetching build targets: ${res.message.statusCode}`);
         }
         const body = JSON.parse(yield res.readBody());
-        buildTargets = body.targets;
+        buildTargets = body;
         return buildTargets;
     });
 }
@@ -34266,21 +34266,20 @@ function resolveVersion(platform, requestedVersion) {
         if (!requestedVersion) {
             throw new Error(`Device OS version is required`);
         }
-        const targets = yield fetchBuildTargets();
+        const { targets, default_versions: defaultVersions } = yield fetchBuildTargets();
         const versions = targets
             .filter((t) => isSupportedPlatform(t, platform))
             .filter((t) => (0, semver_1.prerelease)(t.version) === null)
             .map((t) => t.version)
             .sort();
         const latest = versions[versions.length - 1];
+        if (requestedVersion === 'default') {
+            const defaultVersion = defaultVersions[getPlatformId(platform)];
+            return defaultVersion;
+        }
         if (requestedVersion === 'latest') {
             // find latest version that supports this platform
-            const latestVersions = [...versions];
-            const latestVersion = latestVersions.pop();
-            if (!latestVersion) {
-                throw new Error(`No latest build target found for '${platform}'`);
-            }
-            return latestVersion;
+            return latest;
         }
         if (requestedVersion === 'latest-lts') {
             // find latest lts version that supports this platform

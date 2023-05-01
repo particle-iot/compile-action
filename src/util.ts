@@ -38,7 +38,8 @@ export function validatePlatformName(platform: string): boolean {
 }
 
 export async function validatePlatformDeviceOsTarget(platform: string, requestedVersion: string): Promise<boolean> {
-	const targets = await fetchBuildTargets();
+	const { targets } = await fetchBuildTargets();
+
 	const target = targets.find((t) => t.version === requestedVersion);
 	if (!target) {
 		throw new Error(`Device OS version '${requestedVersion}' does not exist`);
@@ -59,12 +60,12 @@ export interface BuildTargetV1 {
 export interface BuildTargetsResponseV1 {
 	targets: BuildTargetV1[];
 	platforms: { [key: string]: number }; // platform name -> platform id
-	defaultVersions: { [key: number]: string }; // platform id -> default version
+	default_versions: { [key: number]: string }; // platform id -> default version
 }
 
-let buildTargets: BuildTargetV1[];
+let buildTargets: BuildTargetsResponseV1;
 
-export async function fetchBuildTargets(): Promise<BuildTargetV1[]> {
+export async function fetchBuildTargets(): Promise<BuildTargetsResponseV1> {
 	if (buildTargets) {
 		return buildTargets;
 	}
@@ -76,7 +77,7 @@ export async function fetchBuildTargets(): Promise<BuildTargetV1[]> {
 		throw new Error(`Error fetching build targets: ${res.message.statusCode}`);
 	}
 	const body = JSON.parse(await res.readBody()) as BuildTargetsResponseV1;
-	buildTargets = body.targets;
+	buildTargets = body;
 	return buildTargets;
 }
 
@@ -85,7 +86,7 @@ export async function resolveVersion(platform: string, requestedVersion: string)
 		throw new Error(`Device OS version is required`);
 	}
 
-	const targets = await fetchBuildTargets();
+	const { targets, default_versions: defaultVersions } = await fetchBuildTargets();
 	const versions = targets
 		.filter((t: BuildTargetV1) => isSupportedPlatform(t, platform))
 		.filter((t: BuildTargetV1) => prerelease(t.version) === null)
@@ -93,14 +94,14 @@ export async function resolveVersion(platform: string, requestedVersion: string)
 		.sort();
 	const latest = versions[versions.length - 1];
 
+	if (requestedVersion === 'default') {
+		const defaultVersion = defaultVersions[getPlatformId(platform)];
+		return defaultVersion;
+	}
+
 	if (requestedVersion === 'latest') {
 		// find latest version that supports this platform
-		const latestVersions = [...versions];
-		const latestVersion = latestVersions.pop();
-		if (!latestVersion) {
-			throw new Error(`No latest build target found for '${platform}'`);
-		}
-		return latestVersion;
+		return latest;
 	}
 
 	if (requestedVersion === 'latest-lts') {
