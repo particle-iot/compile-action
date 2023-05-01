@@ -100,3 +100,4 @@ lib/**/*
 
 output
 *.bin
+test/fixtures/tinker/tinker.cpp

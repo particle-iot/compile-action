@@ -1,0 +1,10 @@
+{
+  "name": "cparser",
+  "version": "1.0.0",
+  "description": "The C Parser",
+  "author": "",
+  "license": "Apache 2.0",
+  "dependencies": {
+    "glob": "^7.1.1"
+  }
+}
