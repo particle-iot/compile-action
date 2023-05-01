@@ -41,7 +41,7 @@ jest.mock('./git', () => {
 const isProductFirmwareMock = jest.fn();
 const shouldIncrementVersionMock = jest.fn();
 const incrementVersionMock = jest.fn();
-jest.mock('./versioning', () => {
+jest.mock('./autoversion', () => {
 	return {
 		isProductFirmware: isProductFirmwareMock,
 		shouldIncrementVersion: shouldIncrementVersionMock,

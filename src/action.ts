@@ -2,7 +2,7 @@ import { getInput, info, setFailed, setOutput } from '@actions/core';
 import { dockerBuildpackCompile, dockerCheck } from './docker';
 import { particleCloudCompile, particleDownloadBinary } from './particle-api';
 import { renameFile, resolveVersion, validatePlatformDeviceOsTarget, validatePlatformName } from './util';
-import { incrementVersion, isProductFirmware, shouldIncrementVersion } from './versioning';
+import { incrementVersion, isProductFirmware, shouldIncrementVersion } from './autoversion';
 import { currentFirmwareVersion, findNearestGitRoot, findProductVersionMacroFile, hasFullHistory } from './git';
 
 interface ActionInputs {

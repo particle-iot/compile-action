@@ -33579,7 +33579,7 @@ const core_1 = __nccwpck_require__(2186);
 const docker_1 = __nccwpck_require__(6512);
 const particle_api_1 = __nccwpck_require__(6032);
 const util_1 = __nccwpck_require__(2629);
-const versioning_1 = __nccwpck_require__(5622);
+const autoversion_1 = __nccwpck_require__(8468);
 const git_1 = __nccwpck_require__(6350);
 function resolveInputs() {
     return __awaiter(this, void 0, void 0, function* () {
@@ -33608,7 +33608,7 @@ function autoVersion({ sources, gitRepo, autoVersionEnabled, versionMacroName })
         let incremented = false;
         if (autoVersionEnabled) {
             const validGitRepo = yield (0, git_1.hasFullHistory)({ gitRepo });
-            const productFirmware = yield (0, versioning_1.isProductFirmware)({
+            const productFirmware = yield (0, autoversion_1.isProductFirmware)({
                 sources, productVersionMacroName: versionMacroName
             });
             if (!validGitRepo) {
@@ -33627,11 +33627,11 @@ function autoVersion({ sources, gitRepo, autoVersionEnabled, versionMacroName })
                 versionFilePath: versionFile,
                 productVersionMacroName: versionMacroName
             });
-            const shouldVersion = yield (0, versioning_1.shouldIncrementVersion)({
+            const shouldVersion = yield (0, autoversion_1.shouldIncrementVersion)({
                 gitRepo, sources, productVersionMacroName: versionMacroName
             });
             if (shouldVersion) {
-                const out = yield (0, versioning_1.incrementVersion)({
+                const out = yield (0, autoversion_1.incrementVersion)({
                     gitRepo,
                     sources,
                     productVersionMacroName: versionMacroName
@@ -33716,6 +33716,112 @@ function compileAction() {
     });
 }
 exports.compileAction = compileAction;
+
+
+/***/ }),
+
+/***/ 8468:
+/***/ (function(__unused_webpack_module, exports, __nccwpck_require__) {
+
+"use strict";
+
+// Auto revision assumes the PRODUCT_VERSION macro is only incremented and not decremented.
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.isProductFirmware = exports.incrementVersion = exports.shouldIncrementVersion = void 0;
+const promises_1 = __nccwpck_require__(3292);
+const core_1 = __nccwpck_require__(2186);
+const git_1 = __nccwpck_require__(6350);
+function shouldIncrementVersion({ gitRepo, sources, productVersionMacroName }) {
+    return __awaiter(this, void 0, void 0, function* () {
+        const versionFilePath = yield (0, git_1.findProductVersionMacroFile)({
+            sources,
+            productVersionMacroName
+        });
+        if (!versionFilePath) {
+            throw new Error('Could not find a file containing the version macro.');
+        }
+        const lastChangeRevision = yield (0, git_1.revisionOfLastVersionBump)({
+            gitRepo: gitRepo,
+            versionFilePath: versionFilePath,
+            productVersionMacroName: productVersionMacroName
+        });
+        const currentSourcesRevision = yield (0, git_1.mostRecentRevisionInFolder)({ gitRepo: gitRepo, folderPath: sources });
+        const currentProductVersion = yield (0, git_1.currentFirmwareVersion)({
+            gitRepo: gitRepo,
+            versionFilePath: versionFilePath,
+            productVersionMacroName: productVersionMacroName
+        });
+        if (!lastChangeRevision) {
+            throw new Error('Could not find the last version increment.');
+        }
+        (0, core_1.info)(`Current firmware version: ${currentProductVersion} (${currentSourcesRevision})`);
+        (0, core_1.info)(`Firmware version last set at: ${lastChangeRevision}`);
+        if (lastChangeRevision === '00000000') {
+            (0, core_1.warning)('The file with the product version macro has uncommitted changes.');
+        }
+        const shouldIncrement = currentSourcesRevision !== lastChangeRevision;
+        if (!shouldIncrement) {
+            (0, core_1.info)('No version increment detected. Skipping version increment.');
+            return false;
+        }
+        (0, core_1.info)(`Incrementing firmware version to ${currentProductVersion + 1}.`);
+        return true;
+    });
+}
+exports.shouldIncrementVersion = shouldIncrementVersion;
+function incrementVersion({ gitRepo, sources, productVersionMacroName }) {
+    return __awaiter(this, void 0, void 0, function* () {
+        // find the file containing the version macro
+        const versionFilePath = yield (0, git_1.findProductVersionMacroFile)({
+            sources: sources,
+            productVersionMacroName: productVersionMacroName
+        });
+        // get the current version
+        const current = yield (0, git_1.currentFirmwareVersion)({ gitRepo: gitRepo, versionFilePath: versionFilePath, productVersionMacroName: productVersionMacroName });
+        // increment the version
+        const next = current + 1;
+        // find the line that matches this regex
+        const versionRegex = new RegExp(`^.*${productVersionMacroName}.*\\((\\d+)\\)`, 'gm');
+        // Read the file content
+        const fileContent = yield (0, promises_1.readFile)(versionFilePath, 'utf-8');
+        // Replace the version with the next version
+        const updatedFileContent = fileContent.replace(versionRegex, (match, p1) => {
+            (0, core_1.info)(`Replacing ${p1} with ${next} in ${versionFilePath}`);
+            return match.replace(p1, next.toString());
+        });
+        yield (0, promises_1.writeFile)(versionFilePath, updatedFileContent);
+        return {
+            file: versionFilePath,
+            version: next
+        };
+    });
+}
+exports.incrementVersion = incrementVersion;
+function isProductFirmware({ sources, productVersionMacroName }) {
+    return __awaiter(this, void 0, void 0, function* () {
+        let isProductFirmware = false;
+        try {
+            isProductFirmware = !!(yield (0, git_1.findProductVersionMacroFile)({
+                sources: sources,
+                productVersionMacroName: productVersionMacroName
+            }));
+        }
+        catch (error) {
+            // Ignore
+        }
+        return isProductFirmware;
+    });
+}
+exports.isProductFirmware = isProductFirmware;
 
 
 /***/ }),
@@ -34213,112 +34319,6 @@ function _resetBuildTargets() {
     buildTargets = undefined;
 }
 exports._resetBuildTargets = _resetBuildTargets;
-
-
-/***/ }),
-
-/***/ 5622:
-/***/ (function(__unused_webpack_module, exports, __nccwpck_require__) {
-
-"use strict";
-
-// Auto revision assumes the PRODUCT_VERSION macro is only incremented and not decremented.
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.isProductFirmware = exports.incrementVersion = exports.shouldIncrementVersion = void 0;
-const promises_1 = __nccwpck_require__(3292);
-const core_1 = __nccwpck_require__(2186);
-const git_1 = __nccwpck_require__(6350);
-function shouldIncrementVersion({ gitRepo, sources, productVersionMacroName }) {
-    return __awaiter(this, void 0, void 0, function* () {
-        const versionFilePath = yield (0, git_1.findProductVersionMacroFile)({
-            sources,
-            productVersionMacroName
-        });
-        if (!versionFilePath) {
-            throw new Error('Could not find a file containing the version macro.');
-        }
-        const lastChangeRevision = yield (0, git_1.revisionOfLastVersionBump)({
-            gitRepo: gitRepo,
-            versionFilePath: versionFilePath,
-            productVersionMacroName: productVersionMacroName
-        });
-        const currentSourcesRevision = yield (0, git_1.mostRecentRevisionInFolder)({ gitRepo: gitRepo, folderPath: sources });
-        const currentProductVersion = yield (0, git_1.currentFirmwareVersion)({
-            gitRepo: gitRepo,
-            versionFilePath: versionFilePath,
-            productVersionMacroName: productVersionMacroName
-        });
-        if (!lastChangeRevision) {
-            throw new Error('Could not find the last version increment.');
-        }
-        (0, core_1.info)(`Current firmware version: ${currentProductVersion} (${currentSourcesRevision})`);
-        (0, core_1.info)(`Firmware version last set at: ${lastChangeRevision}`);
-        if (lastChangeRevision === '00000000') {
-            (0, core_1.warning)('The file with the product version macro has uncommitted changes.');
-        }
-        const shouldIncrement = currentSourcesRevision !== lastChangeRevision;
-        if (!shouldIncrement) {
-            (0, core_1.info)('No version increment detected. Skipping version increment.');
-            return false;
-        }
-        (0, core_1.info)(`Incrementing firmware version to ${currentProductVersion + 1}.`);
-        return true;
-    });
-}
-exports.shouldIncrementVersion = shouldIncrementVersion;
-function incrementVersion({ gitRepo, sources, productVersionMacroName }) {
-    return __awaiter(this, void 0, void 0, function* () {
-        // find the file containing the version macro
-        const versionFilePath = yield (0, git_1.findProductVersionMacroFile)({
-            sources: sources,
-            productVersionMacroName: productVersionMacroName
-        });
-        // get the current version
-        const current = yield (0, git_1.currentFirmwareVersion)({ gitRepo: gitRepo, versionFilePath: versionFilePath, productVersionMacroName: productVersionMacroName });
-        // increment the version
-        const next = current + 1;
-        // find the line that matches this regex
-        const versionRegex = new RegExp(`^.*${productVersionMacroName}.*\\((\\d+)\\)`, 'gm');
-        // Read the file content
-        const fileContent = yield (0, promises_1.readFile)(versionFilePath, 'utf-8');
-        // Replace the version with the next version
-        const updatedFileContent = fileContent.replace(versionRegex, (match, p1) => {
-            (0, core_1.info)(`Replacing ${p1} with ${next} in ${versionFilePath}`);
-            return match.replace(p1, next.toString());
-        });
-        yield (0, promises_1.writeFile)(versionFilePath, updatedFileContent);
-        return {
-            file: versionFilePath,
-            version: next
-        };
-    });
-}
-exports.incrementVersion = incrementVersion;
-function isProductFirmware({ sources, productVersionMacroName }) {
-    return __awaiter(this, void 0, void 0, function* () {
-        let isProductFirmware = false;
-        try {
-            isProductFirmware = !!(yield (0, git_1.findProductVersionMacroFile)({
-                sources: sources,
-                productVersionMacroName: productVersionMacroName
-            }));
-        }
-        catch (error) {
-            // Ignore
-        }
-        return isProductFirmware;
-    });
-}
-exports.isProductFirmware = isProductFirmware;
 
 
 /***/ }),
