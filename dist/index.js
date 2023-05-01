@@ -34274,11 +34274,9 @@ function resolveVersion(platform, requestedVersion) {
             .sort();
         const latest = versions[versions.length - 1];
         if (requestedVersion === 'default') {
-            const defaultVersion = defaultVersions[getPlatformId(platform)];
-            return defaultVersion;
+            return defaultVersions[getPlatformId(platform)];
         }
         if (requestedVersion === 'latest') {
-            // find latest version that supports this platform
             return latest;
         }
         if (requestedVersion === 'latest-lts') {
