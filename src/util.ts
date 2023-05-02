@@ -3,7 +3,7 @@ import { existsSync, renameSync } from 'fs';
 // @ts-ignore
 import deviceConstants from '@particle/device-constants';
 import * as httpm from '@actions/http-client';
-import { maxSatisfying, major } from 'semver';
+import { maxSatisfying, major, prerelease } from 'semver';
 import { dirname, join } from 'path';
 
 export function getCode(path: string) {
@@ -37,82 +37,92 @@ export function validatePlatformName(platform: string): boolean {
 	return Number.isInteger(getPlatformId(platform));
 }
 
-export async function validatePlatformDeviceOsTarget(platform: string, version: string): Promise<boolean> {
-	const manifest = await fetchFirmwareManifest();
-	const dvos = manifest.binaryDataDeviceOS[version];
-	if (!dvos) {
-		throw new Error(`Device OS version '${version}' does not exist`);
+export async function validatePlatformDeviceOsTarget(platform: string, requestedVersion: string): Promise<boolean> {
+	const { targets } = await fetchBuildTargets();
+
+	const target = targets.find((t) => t.version === requestedVersion);
+	if (!target) {
+		throw new Error(`Device OS version '${requestedVersion}' does not exist`);
 	}
-	if (!dvos[platform]) {
-		throw new Error(`Device OS version '${version}' does not support platform '${platform}'`);
+	if (!isSupportedPlatform(target, platform)) {
+		throw new Error(`Device OS version '${requestedVersion}' does not support platform '${platform}'`);
 	}
 	return true;
 }
 
-// Incomplete type definition for firmware manifest
-export interface FirmwareManifestV1 {
-	defaultVersions: { [key: string]: string };
-	binaryDataDeviceOS: { [key: string]: { [key: string]: string } };
+export interface BuildTargetV1 {
+	firmware_vendor: string;
+	platforms: number[];
+	prereleases: number[];
+	version: string;
 }
 
-let firmwareManifest: FirmwareManifestV1;
+export interface BuildTargetsResponseV1 {
+	targets: BuildTargetV1[];
+	platforms: { [key: string]: number }; // platform name -> platform id
+	default_versions: { [key: number]: string }; // platform id -> default version
+}
 
-export async function fetchFirmwareManifest(): Promise<FirmwareManifestV1> {
-	if (firmwareManifest) {
-		return firmwareManifest;
+let buildTargets: BuildTargetsResponseV1;
+
+export async function fetchBuildTargets(): Promise<BuildTargetsResponseV1> {
+	if (buildTargets) {
+		return buildTargets;
 	}
 	const client = new httpm.HttpClient('particle-compile-action');
 	const res: httpm.HttpClientResponse = await client.get(
-		'https://binaries.particle.io/firmware-versions-manifest.json'
+		'https://api.particle.io/v1/build_targets'
 	);
 	if (res.message.statusCode !== 200) {
-		throw new Error(`Error fetching firmware manifest: ${res.message.statusCode}`);
+		throw new Error(`Error fetching build targets: ${res.message.statusCode}`);
 	}
-	firmwareManifest = JSON.parse(await res.readBody());
-	return firmwareManifest;
+	const body = JSON.parse(await res.readBody()) as BuildTargetsResponseV1;
+	buildTargets = body;
+	return buildTargets;
 }
 
-export async function resolveVersion(platform: string, version: string): Promise<string> {
-	if (!version) {
+export async function resolveVersion(platform: string, requestedVersion: string): Promise<string> {
+	if (!requestedVersion) {
 		throw new Error(`Device OS version is required`);
 	}
 
-	const manifest = await fetchFirmwareManifest();
-	const latest = manifest.defaultVersions[platform];
+	const { targets, default_versions: defaultVersions } = await fetchBuildTargets();
+	const versions = targets
+		.filter((t: BuildTargetV1) => isSupportedPlatform(t, platform))
+		.filter((t: BuildTargetV1) => prerelease(t.version) === null)
+		.map((t: BuildTargetV1) => t.version)
+		.sort();
+	const latest = versions[versions.length - 1];
 
-	delete manifest.binaryDataDeviceOS.binaryUrlGithub;
-	delete manifest.binaryDataDeviceOS.binaryUrlApi;
-	const versions = Object.keys(manifest.binaryDataDeviceOS).sort();
-
-	if (version === 'latest') {
-		// find latest version that supports this platform
-		const latestVersions = Object.keys(manifest.binaryDataDeviceOS).sort();
-		let latestVersion = latestVersions.pop();
-		while (latestVersion && !manifest.binaryDataDeviceOS[latestVersion][platform]) {
-			latestVersion = versions.pop();
-		}
-		return String(latestVersion);
+	if (requestedVersion === 'default') {
+		return defaultVersions[getPlatformId(platform)];
 	}
 
-	if (version === 'latest-lts') {
+	if (requestedVersion === 'latest') {
+		return latest;
+	}
+
+	if (requestedVersion === 'latest-lts') {
 		// find latest lts version that supports this platform
-		const ltsVersions = versions.filter((v) => major(v) % 2 === 0 && major(v) >= 2).sort();
-		let ltsVersion = ltsVersions.pop();
-		while (ltsVersion && !manifest.binaryDataDeviceOS[ltsVersion][platform]) {
-			ltsVersion = ltsVersions.pop();
-		}
+		const ltsVersions = versions.filter((version) => major(version) % 2 === 0 && major(version) >= 2).sort();
+		const ltsVersion = ltsVersions.pop();
 		if (!ltsVersion) {
-			throw new Error(`No latest-lts version found for '${platform}'. The latest supported Device OS version is '${latest}'`);
+			throw new Error(`No latest-lts build target found. The latest Device OS version for '${platform}' is '${latest}'`);
 		}
 		return ltsVersion;
 	}
 
 	// find the latest version that satisfies the version range
-	const maxVersion = maxSatisfying(versions, version);
+	const maxVersion = maxSatisfying(versions, requestedVersion);
 	if (!maxVersion) {
-		throw new Error(`No Device OS version satisfies '${version}'`);
+		throw new Error(`No Device OS version satisfies '${requestedVersion}'. The latest Device OS version for '${platform}' is '${latest}'`);
 	}
 	return maxVersion;
+}
+
+export function isSupportedPlatform(target: BuildTargetV1, platform: string): boolean {
+	const platformId = getPlatformId(platform);
+	return target.platforms.includes(platformId);
 }
 
 export function renameFile({ filePath, platform, version }: {
@@ -130,7 +140,7 @@ export function renameFile({ filePath, platform, version }: {
 }
 
 // For testing
-export function _resetFirmwareManifest() {
+export function _resetBuildTargets() {
 	// @ts-ignore
-	firmwareManifest = undefined;
+	buildTargets = undefined;
 }

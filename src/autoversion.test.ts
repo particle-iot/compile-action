@@ -26,7 +26,7 @@ jest.mock('@actions/core', () => ({
 
 import { findProductVersionMacroFile, currentFirmwareVersion } from './git';
 import { readFile, writeFile } from 'fs/promises';
-import { isProductFirmware, incrementVersion } from './versioning';
+import { isProductFirmware, incrementVersion } from './autoversion';
 
 describe('shouldIncrementVersion', () => {
 	beforeEach(() => {
@@ -44,7 +44,7 @@ describe('shouldIncrementVersion', () => {
 		currentFirmwareVersionMock.mockResolvedValue(1);
 		mostRecentRevisionInFolderMock.mockResolvedValue('123456');
 
-		const { shouldIncrementVersion } = await import('./versioning');
+		const { shouldIncrementVersion } = await import('./autoversion');
 		const result = await shouldIncrementVersion({
 			gitRepo,
 			sources,
@@ -64,7 +64,7 @@ describe('shouldIncrementVersion', () => {
 		currentFirmwareVersionMock.mockResolvedValue(1);
 		mostRecentRevisionInFolderMock.mockResolvedValue('abcdef');
 
-		const { shouldIncrementVersion } = await import('./versioning');
+		const { shouldIncrementVersion } = await import('./autoversion');
 		const result = await shouldIncrementVersion({
 			gitRepo,
 			sources,
@@ -80,7 +80,7 @@ describe('shouldIncrementVersion', () => {
 
 		findProductVersionMacroFileMock.mockResolvedValue(null);
 
-		const { shouldIncrementVersion } = await import('./versioning');
+		const { shouldIncrementVersion } = await import('./autoversion');
 		await expect(shouldIncrementVersion({
 			gitRepo,
 			sources,
@@ -99,7 +99,7 @@ describe('shouldIncrementVersion', () => {
 		findProductVersionMacroFileMock.mockResolvedValue(versionFilePath);
 		revisionOfLastVersionBumpMock.mockResolvedValue(null);
 
-		const { shouldIncrementVersion } = await import('./versioning');
+		const { shouldIncrementVersion } = await import('./autoversion');
 		await expect(shouldIncrementVersion({
 			gitRepo,
 			sources,
@@ -118,7 +118,7 @@ describe('shouldIncrementVersion', () => {
 		findProductVersionMacroFileMock.mockResolvedValue(versionFilePath);
 		revisionOfLastVersionBumpMock.mockResolvedValue('00000000');
 
-		const { shouldIncrementVersion } = await import('./versioning');
+		const { shouldIncrementVersion } = await import('./autoversion');
 		await shouldIncrementVersion({
 			gitRepo,
 			sources,

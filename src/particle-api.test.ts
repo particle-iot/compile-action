@@ -47,10 +47,10 @@ afterEach(() => {
 describe('particleCloudCompile', () => {
 	const originalDir = process.cwd();
 
-	beforeEach(() => {
-		nock('https://binaries.particle.io')
-			.get('/firmware-versions-manifest.json')
-			.replyWithFile(200, `test/fixtures/firmware-manifest-v1/manifest.json`);
+	beforeAll(() => {
+		nock('https://api.particle.io')
+			.get('/v1/build_targets')
+			.replyWithFile(200, `test/fixtures/build-targets-json/response.json`);
 	});
 
 	afterEach(() => {

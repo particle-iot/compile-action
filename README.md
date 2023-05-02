@@ -22,13 +22,14 @@ A GitHub Action to compile Particle application firmware
       
     # Target Device OS firmware version
     # Allowed values:
+    #   default:    the default Device OS version for the platform (LTS when available, otherwise latest)
     #   latest:     the most recent Device OS version for the platform
     #   latest-lts: the most recent LTS Device OS version for the platform
     #   <version>:  a specific Device OS version, e.g. 2.3.1
     #   ^<version>: a semver range, e.g. ^5.3.0
     # For production projects, you should pin to a specific Device OS version or semver range, e.g. ^4.0.0
     # Required: false
-    device-os-version: 'latest-lts'
+    device-os-version: 'default'
       
     # Auto versioning for product firmware
     # If true, the action will automatically increment the product firmware version. See AUTO_VERSION.md for more details.
