@@ -162,3 +162,14 @@ Here is an example that installs the Particle CLI and uses it to install librari
           fi
           particle library install --vendored -y 
 ```
+
+### Automatic versioning and ino files
+
+Automatic product firmware versioning does currently not work with `.ino` files. 
+
+The `firmware-version` output will not contain the correct version number when compiling `.ino` files.
+
+The workaround is to use `.cpp` files instead.
+
+Read the [preprocessor](https://docs.particle.io/reference/device-os/api/preprocessor/preprocessor/) docs
+to help transform your `.ino` files into `.cpp` ino your repository.
