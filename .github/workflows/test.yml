@@ -66,3 +66,15 @@ jobs:
         with:
           particle-platform-name: 'argon'
           sources-folder: 'test/fixtures/single-file-firmware'
+  test-ino-compile:
+    strategy:
+      matrix:
+        platform: [ 'core', 'p1', 'photon', 'electron', 'argon', 'boron' ]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: ./
+        name: 'Local compile with ino source'
+        with:
+          particle-platform-name: ${{ matrix.platform }}
+          sources-folder: 'test/fixtures/tinker'

@@ -48,6 +48,10 @@ jest.mock('./autoversion', () => {
 		incrementVersion: incrementVersionMock
 	};
 });
+const runCparserMock = jest.fn();
+jest.mock('./cparser/main', () => ({
+	runCparser: runCparserMock
+}));
 
 import { compileAction } from './action';
 
@@ -61,6 +65,7 @@ describe('compileAction', () => {
 		await compileAction();
 
 		expect(dockerCheckMock).toHaveBeenCalled();
+		expect(runCparserMock).toHaveBeenCalled();
 		expect(dockerBuildpackCompileMock).toHaveBeenCalled();
 	});
 
