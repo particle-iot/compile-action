@@ -127,3 +127,38 @@ $ curl "https://api.particle.io/v1/orgs/$ORG_SLUG/team?access_token=$TOKEN" -H "
   }
 }
 ```
+
+
+## Known Issues
+
+### Missing libraries or dependencies
+
+The Cloud Compiler [automatically downloads](https://docs.particle.io/firmware/best-practices/libraries/#cloud-vs-local-compiles)
+libraries defined in the `project.properties` file. 
+
+The `compile-action` does not currently download libraries when compiling inside the Action runner.
+
+There are a few ways to work around this:
+1. Check in your dependencies to your repository
+1. Use the Cloud Compiler by setting the `particle-access-token` input
+1. Use the [Particle CLI](https://docs.particle.io/tutorials/developer-tools/cli/) to install dependencies in CI
+
+Here is an example that installs the Particle CLI and uses it to install libraries defined in `project.properties`:
+
+```yaml
+
+      # Change working-directory to your sources folder
+      # Make sure to set a PARTICLE_ACCESS_TOKEN secret in your repository
+      - name: Install project dependencies
+        working-directory: src
+        run: |
+          npm install -g particle-cli
+          particle login --token "${{ secrets.PARTICLE_ACCESS_TOKEN }}"
+          # Make into an extended project if src doesn't exist
+          # Move all files except project.properties to src
+          if [ -f project.properties ] && [ ! -d src ]; then
+            mkdir src
+            find . ! -name project.properties ! -name src ! -name . -exec mv {} src \;
+          fi
+          particle library install --vendored -y 
+```
