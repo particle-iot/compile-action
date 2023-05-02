@@ -22,7 +22,7 @@ A GitHub Action to compile Particle application firmware
       
     # Target Device OS firmware version
     # Allowed values:
-    #   default:    the default Device OS version for the platform (LTS when available, otherwise latest)
+    #   default:    the default Device OS version for the platform (latest LTS when available, otherwise latest)
     #   latest:     the most recent Device OS version for the platform
     #   latest-lts: the most recent LTS Device OS version for the platform
     #   <version>:  a specific Device OS version, e.g. 2.3.1
