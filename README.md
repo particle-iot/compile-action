@@ -18,7 +18,7 @@ A GitHub Action to compile Particle application firmware
       
     # Path to directory with sources to compile
     # Required: false
-    sources-folder: 'src'
+    sources-folder: '.'
       
     # Target Device OS firmware version
     # Allowed values:
@@ -74,7 +74,7 @@ jobs:
         uses: particle-iot/compile-action@main
         with:
           particle-platform-name: 'boron'
-          sources-folder: 'src'
+          sources-folder: '.'
 
       - name: Upload artifact
         uses: actions/upload-artifact@v3
@@ -98,7 +98,7 @@ To compile in the cloud, set the `particle-access-token` input to a Particle acc
         with:
           particle-access-token: ${{ secrets.PARTICLE_ACCESS_TOKEN }}
           particle-platform-name: 'boron'
-          sources-folder: 'src'
+          sources-folder: '.'
 ```
 
 Compiling in the cloud can be 30 to 60 seconds faster than compiling locally. 
