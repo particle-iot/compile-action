@@ -63,7 +63,6 @@ jobs:
         with:
           particle-platform-name: 'boron'
           device-os-version: 'latest-lts'
-          sources-folder: 'product-firmware-src'
 
       - name: Upload artifacts
         uses: actions/upload-artifact@v3
@@ -108,7 +107,6 @@ jobs:
         with:
           particle-platform-name: 'boron'
           device-os-version: 'latest-lts'
-          sources-folder: 'product-firmware-src'
           auto-version: true
 
       - name: Upload artifacts
