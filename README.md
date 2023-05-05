@@ -102,12 +102,18 @@ To compile in the cloud, set the `particle-access-token` input to a Particle acc
 ```
 
 Compiling in the cloud can be 30 to 60 seconds faster than compiling locally. 
-
 Compiling locally has overhead related to downloading and extracting buildpack Docker images to the Action runner.
 
-Your access token should be tightly scoped to the minimum required permissions. 
+The access token should be an [API User](https://docs.particle.io/getting-started/cloud/cloud-api/#api-users) token.
+It needs at least one scope to be able to access the cloud compiler.
+There is no scope for cloud compilation specifically, but your access token should be tightly scoped to the minimum required permissions.
 
-Here's an example of how to create a new Particle access token for use with this action:
+If you plan to [flash firmware](https://github.com/particle-iot/flash-device-action) to test devices, it will need the `devices:update` scope.
+If you plan to [upload product firmware binaries](https://github.com/particle-iot/firmware-upload-action) to the cloud, it will need the `firmware:create` scope.
+
+The best way to create an API user with the [API User tool](https://docs.particle.io/getting-started/cloud/cloud-api/#api-users).
+
+Here's an example of how to manually create an API User for just the `compile-action`:
 
 ```bash
 # Create a new Particle access token with the `binary:compile` scope
