@@ -42,7 +42,7 @@ async function resolveInputs(): Promise<ActionInputs> {
 function setOutputs(
 	{ firmwareBinary, targetDir, deviceOsVersion, firmwareVersion, firmwareVersionUpdated }: ActionOutputs
 ): void {
-	setOutput('firmware-binary', firmwareBinary);
+	setOutput('firmware-path', firmwareBinary);
 	setOutput('target-directory', targetDir);
 	setOutput('device-os-version', deviceOsVersion);
 	setOutput('firmware-version', firmwareVersion);
