@@ -69,12 +69,12 @@ jobs:
       - name: Upload artifacts
         uses: actions/upload-artifact@v3
         with:
-          path: ${{ steps.compile.outputs.artifact-path }}
+          path: ${{ steps.compile.outputs.firmware-binary }}
 
       - name: Create GitHub release
         uses: ncipollo/release-action@v1
         with:
-          artifacts: ${{ steps.compile.outputs.artifact-path }}
+          artifacts: ${{ steps.compile.outputs.firmware-binary }}
           generateReleaseNotes: 'true'
           name: "Firmware v${{ steps.compile.outputs.firmware-version }}"
           token: ${{ secrets.GITHUB_TOKEN }}
@@ -114,7 +114,7 @@ jobs:
       - name: Upload artifacts
         uses: actions/upload-artifact@v3
         with:
-          path: ${{ steps.compile.outputs.artifact-path }}
+          path: ${{ steps.compile.outputs.firmware-binary }}
 
       - name: Commit updated version file
         if: steps.compile.outputs.firmware-version-updated == 'true'
@@ -135,7 +135,7 @@ jobs:
         if: steps.compile.outputs.firmware-version-updated == 'true'
         uses: ncipollo/release-action@v1
         with:
-          artifacts: ${{ steps.compile.outputs.artifact-path }}
+          artifacts: ${{ steps.compile.outputs.firmware-binary }}
           generateReleaseNotes: 'true'
           name: "Firmware v${{ steps.compile.outputs.firmware-version }}"
           tag: "v${{ steps.compile.outputs.firmware-version }}"

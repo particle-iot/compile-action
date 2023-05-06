@@ -48,7 +48,8 @@ A GitHub Action to compile Particle application firmware
 
 ### Outputs
 
-* `artifact-path`: Path to the compiled binary artifact. Example: `output/firmware-argon-2.3.1.bin`
+* `firmware-binary`: Path to the compiled binary artifact. Example: `firmware-argon-2.3.1.bin`
+* `target-`
 * `device-os-version`: The Device OS version that was used for compilation. This may differ from the requested version if the requested version is a semver range or `latest` or `latest-lts`. Example: `2.3.1`
 * `firmware-version`: The product firmware version integer. This output is undefined when sources are not a product firmware.
 * `firmware-version-updated`: Boolean value indicating whether the product firmware version was updated. Can only be true with auto-version enabled.
@@ -79,7 +80,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: firmware
-          path: ${{ steps.compile.outputs.artifact-path }}
+          path: ${{ steps.compile.outputs.firmware-binary }}
 ```
 
 Compilation occurs inside the GitHub Action runner using the Particle [Buildpack Docker images](https://github.com/particle-iot/firmware-buildpack-builder).

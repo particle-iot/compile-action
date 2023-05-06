@@ -1,7 +1,7 @@
 import { sep } from 'node:path';
 import { mkdtemp } from 'node:fs';
 import { tmpdir } from 'os';
-import { readFileSync, writeFileSync } from 'fs';
+import { readFileSync, unlinkSync, writeFileSync } from 'fs';
 import nock from 'nock';
 
 // Need to be before imports
@@ -287,15 +287,21 @@ describe('particleCloudCompile', () => {
 describe('particleCloudDownload', () => {
 
 	it('should return a file sources on a successful download', async () => {
-		const path = await particleDownloadBinary({ binaryId: '1234', auth: 'token' });
+		const path = await particleDownloadBinary({
+			binaryId: '1234', auth: 'token', targetVersion: '1.4.4', platform: 'core'
+
+		});
 		expect(mockDownloadFirmwareBinary).toHaveBeenCalledTimes(1);
 		expect(mockDownloadFirmwareBinary).toHaveBeenCalledWith({
 			'binaryId': '1234',
 			'auth': 'token',
 			'headers': { 'User-Agent': 'particle-compile-action' }
 		});
-		expect(path).toEqual('output/firmware.bin');
+		expect(path).toEqual('firmware-core-1.4.4.bin');
 		expect(readFileSync(path || '').toString()).toEqual('test');
+
+		// remove test file firmware-core-1.4.4.bin
+		unlinkSync('firmware-core-1.4.4.bin');
 	});
 });
 

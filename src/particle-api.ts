@@ -1,6 +1,6 @@
 // eslint-disable-next-line max-len
 import { error, info } from '@actions/core';
-import { existsSync, mkdirSync, writeFileSync } from 'fs';
+import { writeFileSync } from 'fs';
 import { getCode, getPlatformId } from './util';
 
 const ParticleApi = require('particle-api-js');
@@ -57,9 +57,11 @@ export async function particleCloudCompile(
 }
 
 export async function particleDownloadBinary(
-	{ binaryId, auth }: {
+	{ binaryId, auth, platform, targetVersion }: {
 		binaryId: string;
 		auth: string;
+		platform: string;
+		targetVersion: string;
 	}
 ): Promise<string | undefined> {
 	info(`Downloading binary ${binaryId}`);
@@ -70,16 +72,9 @@ export async function particleDownloadBinary(
 	});
 	if (resp instanceof Buffer) {
 		info(`Binary downloaded successfully.`);
-		const destDir = 'output';
-		const destName = 'firmware.bin';
-
-		const outputPath = `${destDir}/${destName}`;
-		if (!existsSync(destDir)) {
-			info(`Creating directory ${destDir}...`);
-			mkdirSync(destDir);
-		}
+		const destName = `firmware-${platform}-${targetVersion}.bin`;
+		const outputPath = `${destName}`;
 		writeFileSync(`${outputPath}`, resp, 'utf8');
-
 		info(`File downloaded successfully.`);
 		return outputPath;
 	}

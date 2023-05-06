@@ -1,5 +1,5 @@
 import { getInput, info, setFailed, setOutput } from '@actions/core';
-import { dockerBuildpackCompile, dockerCheck } from './docker';
+import { dockerBuildpackCompile, dockerCheck, downloadTargetDirectory } from './docker';
 import { particleCloudCompile, particleDownloadBinary } from './particle-api';
 import { renameFile, resolveVersion, validatePlatformDeviceOsTarget, validatePlatformName, preprocessSources } from './util';
 import { incrementVersion, isProductFirmware, shouldIncrementVersion } from './autoversion';
@@ -15,7 +15,8 @@ interface ActionInputs {
 }
 
 interface ActionOutputs {
-	artifactPath: string;
+	firmwareBinary: string;
+	targetDir: string;
 	deviceOsVersion: string;
 	firmwareVersion: number | undefined;
 	firmwareVersionUpdated: boolean;
@@ -39,9 +40,10 @@ async function resolveInputs(): Promise<ActionInputs> {
 }
 
 function setOutputs(
-	{ artifactPath, deviceOsVersion, firmwareVersion, firmwareVersionUpdated }: ActionOutputs
+	{ firmwareBinary, targetDir, deviceOsVersion, firmwareVersion, firmwareVersionUpdated }: ActionOutputs
 ): void {
-	setOutput('artifact-path', artifactPath);
+	setOutput('firmware-binary', firmwareBinary);
+	setOutput('target-directory', targetDir);
 	setOutput('device-os-version', deviceOsVersion);
 	setOutput('firmware-version', firmwareVersion);
 	setOutput('firmware-version-updated', firmwareVersionUpdated);
@@ -126,24 +128,31 @@ export async function compile(
 	}
 ): Promise<{
 	outputPath: string | undefined;
+	targetDir: string;
 }> {
 	let outputPath: string | undefined;
+	let targetDir = '';
 	if (!auth) {
 		info('No access token provided, running local compilation');
 		await dockerCheck();
 		// Preprocesses .ino files into .cpp files
 		// The cloud compiler does this automatically
 		preprocessSources(sources);
-		outputPath = await dockerBuildpackCompile({ sources, platform, targetVersion, workingDir: process.cwd() });
+		const containerName = `compile-${Date.now()}`;
+		outputPath = await dockerBuildpackCompile({
+			sources, platform, targetVersion, workingDir: process.cwd(), containerName
+		});
+		targetDir = 'target';
+		await downloadTargetDirectory({ containerName: containerName, destination: targetDir });
 	} else {
 		info('Access token provided, running cloud compilation');
 		const binaryId = await particleCloudCompile({ sources, platform, targetVersion, auth });
 		if (!binaryId) {
 			throw new Error('Failed to compile code in cloud');
 		}
-		outputPath = await particleDownloadBinary({ binaryId, auth });
+		outputPath = await particleDownloadBinary({ binaryId, auth, platform, targetVersion });
 	}
-	return { outputPath };
+	return { outputPath, targetDir };
 }
 
 export async function compileAction(): Promise<void> {
@@ -155,7 +164,7 @@ export async function compileAction(): Promise<void> {
 			sources, gitRepo, autoVersionEnabled, versionMacroName
 		});
 
-		const { outputPath } = await compile(
+		const { outputPath, targetDir } = await compile(
 			{ auth, platform, sources, targetVersion }
 		);
 
@@ -167,7 +176,8 @@ export async function compileAction(): Promise<void> {
 			});
 
 			setOutputs({
-				artifactPath: artifactPath,
+				firmwareBinary: artifactPath,
+				targetDir,
 				deviceOsVersion: targetVersion,
 				firmwareVersion: version,
 				firmwareVersionUpdated: incremented
