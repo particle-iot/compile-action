@@ -43,7 +43,7 @@ function setOutputs(
 	{ firmwareBinary, targetDir, deviceOsVersion, firmwareVersion, firmwareVersionUpdated }: ActionOutputs
 ): void {
 	setOutput('firmware-path', firmwareBinary);
-	setOutput('target-directory', targetDir);
+	setOutput('target-path', targetDir);
 	setOutput('device-os-version', deviceOsVersion);
 	setOutput('firmware-version', firmwareVersion);
 	setOutput('firmware-version-updated', firmwareVersionUpdated);

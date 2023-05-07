@@ -28,7 +28,7 @@ inputs:
 outputs:
   firmware-path:
     description: 'Path to the compiled firmware binary file.'
-  target-directory:
+  target-path:
     description: 'Path to the folder with compiled firmware files and their associated object files. The folder includes the firmware binary, ELF, HEX, and MAP files, along with object files. Not available when particle-access-token is set (cloud compile).'
   device-os-version:
     description: 'This output contains the actual Device OS version used for compilation.'

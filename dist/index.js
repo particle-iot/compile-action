@@ -33939,7 +33939,7 @@ function resolveInputs() {
 }
 function setOutputs({ firmwareBinary, targetDir, deviceOsVersion, firmwareVersion, firmwareVersionUpdated }) {
     (0, core_1.setOutput)('firmware-path', firmwareBinary);
-    (0, core_1.setOutput)('target-directory', targetDir);
+    (0, core_1.setOutput)('target-path', targetDir);
     (0, core_1.setOutput)('device-os-version', deviceOsVersion);
     (0, core_1.setOutput)('firmware-version', firmwareVersion);
     (0, core_1.setOutput)('firmware-version-updated', firmwareVersionUpdated);
