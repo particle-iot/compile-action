@@ -80,7 +80,9 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: firmware
-          path: ${{ steps.compile.outputs.firmware-path }}
+          path: |
+            ${{ steps.compile.outputs.firmware-path }}
+            ${{ steps.compile.outputs.target-path }}
 ```
 
 Compilation occurs inside the GitHub Action runner using the Particle [Buildpack Docker images](https://github.com/particle-iot/firmware-buildpack-builder).

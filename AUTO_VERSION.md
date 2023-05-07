@@ -68,7 +68,9 @@ jobs:
       - name: Upload artifacts
         uses: actions/upload-artifact@v3
         with:
-          path: ${{ steps.compile.outputs.firmware-path }}
+          path: |
+            ${{ steps.compile.outputs.firmware-path }}
+            ${{ steps.compile.outputs.target-path }}
 
       - name: Create archive of target directory
         run: |
@@ -116,7 +118,9 @@ jobs:
       - name: Upload artifacts
         uses: actions/upload-artifact@v3
         with:
-          path: ${{ steps.compile.outputs.firmware-path }}
+          path: |
+            ${{ steps.compile.outputs.firmware-path }}
+            ${{ steps.compile.outputs.target-path }}
 
       - name: Commit updated version file
         if: steps.compile.outputs.firmware-version-updated == 'true'
