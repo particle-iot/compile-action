@@ -64,7 +64,6 @@ jobs:
         uses: particle-iot/compile-action@main
         with:
           particle-platform-name: 'boron'
-          device-os-version: 'latest-lts'
 
       - name: Upload artifacts
         uses: actions/upload-artifact@v3
@@ -112,7 +111,6 @@ jobs:
         uses: particle-iot/compile-action@main
         with:
           particle-platform-name: 'boron'
-          device-os-version: 'latest-lts'
           auto-version: true
 
       - name: Upload artifacts
