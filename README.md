@@ -87,6 +87,14 @@ Compilation occurs inside the GitHub Action runner using the Particle [Buildpack
 
 See [`action.yml`](action.yml) for the full documentation for this action's inputs and outputs.
 
+### Automatic Product Firmware Versioning
+
+To improve the management of product firmware [version numbers](https://docs.particle.io/reference/device-os/api/macros/product_version/), `compile-action` offers an auto-versioning feature that automates the process and ensures consistency.
+
+This feature can be configured to work with your GitHub Actions workflow in various ways, including manual, semi-automated, or continuous versioning.
+
+For more details on how to enable and use this feature, please refer to the [AUTO_VERSION.md](./AUTO_VERSION.md) file.
+
 ### Cloud Compilation
 
 To compile in the cloud, set the `particle-access-token` input to a Particle access token. Example:
@@ -160,12 +168,6 @@ Here is an example that installs the Particle CLI and uses it to install librari
         run: |
           npm install -g particle-cli
           particle login --token "${{ secrets.PARTICLE_ACCESS_TOKEN }}"
-          # Make into an extended project if src doesn't exist
-          # Move all files except project.properties to src
-          if [ -f project.properties ] && [ ! -d src ]; then
-            mkdir src
-            find . ! -name project.properties ! -name src ! -name . -exec mv {} src \;
-          fi
           particle library install --vendored -y 
 ```
 
@@ -178,4 +180,7 @@ The `firmware-version` output will not contain the correct version number when c
 The workaround is to use `.cpp` files instead.
 
 Read the [preprocessor](https://docs.particle.io/reference/device-os/api/preprocessor/preprocessor/) docs
-to help transform your `.ino` files into `.cpp` ino your repository.
+to help transform your `.ino` files into `.cpp` ino your repository. 
+
+The CLI command `particle preprocess app.ino` can do a conversion from ino to cpp. Commit the cpp file and delete the ino file. 
+Since this is a one-time change, you can ignore and delete the "do not edit" warning in the cpp file.
