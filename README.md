@@ -87,6 +87,14 @@ Compilation occurs inside the GitHub Action runner using the Particle [Buildpack
 
 See [`action.yml`](action.yml) for the full documentation for this action's inputs and outputs.
 
+### Automatic Product Firmware Versioning
+
+To improve the management of product firmware [version numbers](https://docs.particle.io/reference/device-os/api/macros/product_version/), `compile-action` offers an auto-versioning feature that automates the process and ensures consistency.
+
+This feature can be configured to work with your GitHub Actions workflow in various ways, including manual, semi-automated, or continuous versioning.
+
+For more details on how to enable and use this feature, please refer to the [AUTO_VERSION.md](./AUTO_VERSION.md) file.
+
 ### Cloud Compilation
 
 To compile in the cloud, set the `particle-access-token` input to a Particle access token. Example:
