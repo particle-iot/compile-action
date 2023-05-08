@@ -1,10 +1,11 @@
 import { _handleMultiFileArgs, populateFileMapping } from './cli';
-import { existsSync, renameSync } from 'fs';
-// @ts-ignore
+import { existsSync, renameSync, readFileSync, writeFileSync, readdirSync, statSync } from 'fs';
 import deviceConstants from '@particle/device-constants';
 import * as httpm from '@actions/http-client';
 import { maxSatisfying, major, prerelease } from 'semver';
-import { dirname, join } from 'path';
+import { dirname, join, basename, extname } from 'path';
+import { info, debug } from '@actions/core';
+import preprocessor from 'wiring-preprocessor';
 
 export function getCode(path: string) {
 	if (!existsSync(path)) {
@@ -137,6 +138,36 @@ export function renameFile({ filePath, platform, version }: {
 	renameSync(filePath, newFilePath);
 
 	return newFilePath;
+}
+
+
+export function preprocessDirectory(dir: string): void {
+	const files = readdirSync(dir);
+
+	for (const file of files) {
+		const filePath = join(dir, file);
+		const fileStat = statSync(filePath);
+
+		if (fileStat.isDirectory()) {
+			preprocessDirectory(filePath);
+		} else {
+			const fileExtension = extname(file);
+
+			if (fileExtension !== '.ino') {
+				debug(`Skipping file during preprocessing: ${filePath}`);
+				continue;
+			}
+			const inoFile = readFileSync(filePath, 'utf8');
+			const cppContents = preprocessor.processFile(filePath, inoFile);
+			const outputFile = join(dir, basename(file, '.ino') + '.cpp');
+			writeFileSync(outputFile, cppContents);
+			info(`Successfully preprocessed: ${file} -> ${basename(outputFile)}`);
+		}
+	}
+}
+
+export function preprocessSources(sources: string): void {
+	preprocessDirectory(sources);
 }
 
 // For testing
