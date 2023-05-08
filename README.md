@@ -168,12 +168,6 @@ Here is an example that installs the Particle CLI and uses it to install librari
         run: |
           npm install -g particle-cli
           particle login --token "${{ secrets.PARTICLE_ACCESS_TOKEN }}"
-          # Make into an extended project if src doesn't exist
-          # Move all files except project.properties to src
-          if [ -f project.properties ] && [ ! -d src ]; then
-            mkdir src
-            find . ! -name project.properties ! -name src ! -name . -exec mv {} src \;
-          fi
           particle library install --vendored -y 
 ```
 
