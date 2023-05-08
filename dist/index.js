@@ -33275,6 +33275,348 @@ which.sync = whichSync
 
 /***/ }),
 
+/***/ 1275:
+/***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
+
+const regexParser = __nccwpck_require__(6108);
+const utilities = __nccwpck_require__(4038);
+const banner = [
+	'/******************************************************/',
+	'//       THIS IS A GENERATED FILE - DO NOT EDIT       //',
+	'/******************************************************/',
+	''
+];
+
+
+module.exports.processFile = (inputFile, content) => {
+	// Skip files with PARTICLE_NO_PREPROCESSOR
+	const noPreprocessorIdx = regexParser.getNoPreprocessor(content);
+
+	if (noPreprocessorIdx >= 0){
+		// Comment out the fake pragma to avoid GCC warning
+		content = utilities.stringInsert(
+			content,
+			noPreprocessorIdx,
+			'// '
+		);
+		return content;
+	}
+
+	// Check if application.h is already included
+	const appIncludeIdx = regexParser.getApplicationInclude(content);
+
+	// Add function prototypes after other includes
+	let prototypesIdx = regexParser.getFirstStatement(content);
+
+	// If prototype position would be before existing application.h move it to later
+	if (appIncludeIdx > prototypesIdx){
+		prototypesIdx = content.indexOf('\n', appIncludeIdx) + 1;
+	}
+
+	// Add a #line preprocessor instruction to sync the errors with the original code
+	const linesBeforeInjection = content.substring(0, prototypesIdx).split('\n').length;
+
+	// Add function declarations
+	const cleanText = regexParser.stripText(content);
+	const missingFuncs = regexParser.getMissingDeclarations(cleanText);
+
+	content = utilities.stringInsert(
+		content,
+		prototypesIdx,
+		[
+			...missingFuncs,
+			`#line ${linesBeforeInjection} "${inputFile}"`,
+			''
+		].join('\n')
+	);
+
+	// Add default line directive, add application.h if missing
+	const directives = [`#line 1 "${inputFile}"`];
+
+	if (appIncludeIdx === -1){
+		directives.unshift('#include "Particle.h"');
+	}
+
+	content = utilities.stringInsertLines(content, 0, directives.join('\n'));
+
+	// add banner
+	return utilities.stringInsertLines(content, 0, banner.join('\n'));
+};
+
+
+
+/***/ }),
+
+/***/ 6108:
+/***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
+
+/**
+ *
+ * This library is a basic attempt at identifying wiring-compatible
+ * source files, and providing the functions
+ * necessary to translate them into firmware compilable C code.
+ */
+
+const utilities = __nccwpck_require__(4038);
+
+// identify function declarations
+// c language requires functions to be declared before they are used,
+// but wiring language do not.
+
+// identify functions
+// once we've identified functions without declarations, we can add the
+// missing sections
+
+// identify header includes
+// we must add any missing header includes, but also keep any user
+// supplied headers.
+
+const Parser = {
+	functions: {
+		declarations(str) {
+			// Since these don't handle comments those need to be
+			// removed separately.
+			const declrRegex = new RegExp('[\\w\\[\\]\\*]+\\s+[&\\[\\]\\*\\w\\s]+\\([&,\\[\\]\\*\\w\\s]*\\)(?=\\s*\\;);', 'gm');
+			return Parser.matchAll(declrRegex, str);
+		},
+		definitions(str) {
+			const fnRegex = new RegExp('[\\w\\[\\]\\*]+\\s+[&\\[\\]\\*\\w\\s]+\\([&,\\[\\]\\*\\w\\s]*\\)(?=\\s*\\{)', 'gm');
+			return Parser.matchAll(fnRegex, str);
+		}
+	},
+
+	includes: {
+		findAll(str) {
+			const fnRegex = new RegExp('#include ((<[^>]+>)|("[^"]+"))', 'gm');
+			return Parser.matchAll(fnRegex, str);
+		}
+	},
+
+	types: {
+		declarations(str) {
+			const typeRegex = new RegExp(/\b(?!enum class)(class|struct|enum)\b\s+(\w+)/gm);
+			return Parser.matchAll(typeRegex, str);
+		},
+		typedefs(str) {
+			const typedefRegex = new RegExp(/\btypedef\s+(struct|enum)\b\s*{[^}]*}\s*(\w+)/gm);
+			return Parser.matchAll(typedefRegex, str);
+		}
+	},
+
+	matchAll(expr, str) {
+		let m;
+		const matches = [];
+
+		while ((m = expr.exec(str)) !== null) {
+			matches.push(m);
+		}
+		return matches;
+	},
+
+
+	/*
+	 * Strip out anything the function definition code doesn't deal with well.
+	 * Essentially anything that couldn't possibly contain a function def.
+	 */
+	stripText(contents) {
+		const cruft = new RegExp(
+			"('.')" +
+				'|("(?:[^"\\\\]|\\\\.)*")' +
+				'|(//.[^\n]*)' +
+				'|(/\\*[^*]*(?:\\*(?!/)[^*]*)*\\*/)' +
+				'|(^\\s*#.*?$)'
+			, 'mgi');
+
+		return contents.replace(cruft, '');
+	},
+
+	getNoPreprocessor(contents) {
+		const re = new RegExp(
+			'^[ \t]*#pragma (SPARK_NO_PREPROCESSOR|PARTICLE_NO_PREPROCESSOR)',
+			'm'
+		);
+		const noPreprocessorMatch = contents.match(re);
+
+		if (noPreprocessorMatch) {
+			return noPreprocessorMatch.index;
+		} else {
+			return -1;
+		}
+	},
+
+	getApplicationInclude(contents) {
+		const re = new RegExp(
+			'^[ \t]*#include [<"](application.h|Particle.h|Arduino.h)[>"]',
+			'm'
+		);
+		const applicationIncludeMatch = contents.match(re);
+
+		if (applicationIncludeMatch) {
+			return applicationIncludeMatch.index;
+		} else {
+			return -1;
+		}
+	},
+
+	getMissingDeclarations(contents) {
+		// All the ones that don't need extra declarations
+		let found = Parser.functions.declarations(contents);
+		found = Parser.flattenRegexResults(found);
+
+		// All the user defined types
+		const typesDeclarations = Parser.types.declarations(contents);
+		const typesTypedef = Parser.types.typedefs(contents);
+		const types = [].concat(
+			Parser.flattenRegexResults(typesDeclarations, 2),
+			Parser.flattenRegexResults(typesTypedef, 2)
+		);
+
+		// All the functions we have
+		let defined = Parser.functions.definitions(contents);
+		defined = Parser.flattenRegexResults(defined);
+		defined = Parser.removeSpecialCaseDefinitions(defined);
+		defined = Parser.removeDefinitionsWithCustomTypes(defined, types);
+		for (let i = 0; i < defined.length; i++) {
+			defined[i] = defined[i] + ';';
+		}
+
+		// All the ones we're missing
+		return utilities.setComplement(defined, found);
+	},
+
+	/*
+	 * remove things that look like definitions but are not
+	 */
+	removeSpecialCaseDefinitions: function removeSpecialCaseDefinitions(defined) {
+		const wellDefined = [];
+		const specialCases = [
+			new RegExp(/\belse\b\s+\bif\b/) /* else if(foo) */
+		];
+		nextDefinition:
+		for (let i = 0; i < defined.length; i++) {
+			// remove special cases
+			for (let j = 0; j < specialCases.length; j++) {
+				if (specialCases[j].test(defined[i])) {
+					continue nextDefinition;
+				}
+			}
+			wellDefined.push(defined[i]);
+		}
+		return wellDefined;
+	},
+
+	/*
+	 * remove definitions with custom classes, structs and enums as parameters
+	 */
+	removeDefinitionsWithCustomTypes: function removeDefinitionsWithCustomTypes(defined, types) {
+		const builtinDefined = [];
+		const customTypes = [];
+		for (let i = 0; i < types.length; i++) {
+			customTypes[i] = new RegExp('\\b' + types[i] + '\\b');
+		}
+		nextDefinition:
+		for (let i = 0; i < defined.length; i++) {
+			// remove custom types
+			for (let j = 0; j < customTypes.length; j++) {
+				if (customTypes[j].test(defined[i])) {
+					continue nextDefinition;
+				}
+			}
+			builtinDefined.push(defined[i]);
+		}
+		return builtinDefined;
+	},
+
+	// Return the line number of the first statement in the code
+	getFirstStatement: function getFirstStatement(contents) {
+
+		// Find the first thing that isn't these.
+		const nonStatement = [
+			// Whitespace
+			'\\s+',
+
+			// Comments
+			'|(/\\*[^*]*(?:\\*(?!/)[^*]*)*\\*/)|(//.*?$)',
+
+			// Include statements
+			'|(#include.+$)'
+		];
+
+		const pat = new RegExp(nonStatement.join(''), 'mgi');
+		let lastMatch = 0;
+
+		let match;
+		while ((match = pat.exec(contents)) !== null) {
+			if (match.index !== lastMatch) {
+				break;
+			}
+			lastMatch = match[0].length + match.index;
+		}
+
+		return lastMatch;
+	},
+
+	/*
+	 * just the strings please.
+	 * @param results
+	 * @param group The capture group to return or the entire match
+	 */
+	flattenRegexResults(results, group) {
+		group = group || 0;
+		if (results) {
+			for (let i = 0; i < results.length; i++) {
+				results[i] = results[i][group];
+			}
+		}
+		return results;
+	},
+};
+
+module.exports = Parser;
+
+
+/***/ }),
+
+/***/ 4038:
+/***/ ((module) => {
+
+module.exports = {
+	stringInsert(str, idx, val){
+		return str.substring(0, idx) + val + str.substring(idx);
+	},
+
+	stringInsertLines(str, idx, val){
+		const lines = str.split(/\r?\n/);
+		lines.splice(idx, 0, val);
+		return lines.join('\n');
+	},
+
+	/*
+	 * Give the set of items in required that aren't in found
+	 * @param required
+	 * @param found
+	 */
+	setComplement(required, found){
+		const hash = {};
+		for (let i = 0; i < found.length; i++){
+			hash[found[i]] = true;
+		}
+
+		const results = [];
+		for (let i = 0; i < required.length; i++){
+			const item = required[i];
+			if (hash[item]){
+				continue;
+			}
+			results.push(item);
+		}
+		return results;
+	},
+};
+
+
+/***/ }),
+
 /***/ 2940:
 /***/ ((module) => {
 
@@ -33559,552 +33901,6 @@ module.exports = {
 
 /***/ }),
 
-/***/ 5155:
-/***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
-
-/*
- *  Copyright 2015 Particle ( https://particle.io )
- *
- *  Licensed under the Apache License, Version 2.0 (the "License");
- *  you may not use this file except in compliance with the License.
- *  You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- *  Unless required by applicable law or agreed to in writing, software
- *  distributed under the License is distributed on an "AS IS" BASIS,
- *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *  See the License for the specific language governing permissions and
- *  limitations under the License.
- */
-
-var fs = __nccwpck_require__(7147);
-var path = __nccwpck_require__(1017);
-var glob = __nccwpck_require__(1957);
-var main = __nccwpck_require__(888);
-var utilities = __nccwpck_require__(6571);
-
-function runCparser(userFolder) {
-    var files = glob.sync('**/*.{ino,pde}', {
-        cwd: userFolder,
-        ignore: 'lib/*'
-    });
-
-    for (var i = 0; i < files.length; i++) {
-        var filename = files[i];
-        var fullFilename = path.join(userFolder, filename);
-
-        var outFilename = fullFilename;
-        var ext = utilities.getFilenameExt(filename).toLowerCase();
-        if (['.ino', '.pde'].indexOf(ext) >= 0) {
-            outFilename = utilities.getFilenameNoExt(outFilename) + '.cpp';
-        }
-
-        // TODO: need to pass the errors back to the user nicely
-        // TODO: need to reject the deferred nicely
-        main.processFile(fullFilename, outFilename);
-    }
-}
-
-module.exports = {
-    runCparser: runCparser
-}
-
-
-/***/ }),
-
-/***/ 888:
-/***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
-
-"use strict";
-/*
- *  Copyright 2015 Particle ( https://particle.io )
- *
- *  Licensed under the Apache License, Version 2.0 (the "License");
- *  you may not use this file except in compliance with the License.
- *  You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- *  Unless required by applicable law or agreed to in writing, software
- *  distributed under the License is distributed on an "AS IS" BASIS,
- *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *  See the License for the specific language governing permissions and
- *  limitations under the License.
- */
-
-/*eslint quotes:0*/
-
-var fs = __nccwpck_require__(7147);
-var regexParser = __nccwpck_require__(6695);
-var utilities = __nccwpck_require__(6571);
-
-var that;
-module.exports = that = {
-	processFile: function processFile(inputFile, outputFile) {
-		console.log('Processing ', inputFile);
-		try {
-			outputFile = outputFile || inputFile;
-
-			if (utilities.isDirectory(inputFile)) {
-				console.log('Skipping directory ' + inputFile);
-				return true;
-			}
-
-			var fileBuffer = fs.readFileSync(inputFile).toString();
-			var ext = utilities.getFilenameExt(inputFile).toLowerCase();
-
-			var unsafeError = this.checkForUnsafeContent(fileBuffer);
-			if (unsafeError) {
-				console.log('Found unsafe content ' + unsafeError);
-				return false;
-			}
-
-			// Skip files with PARTICLE_NO_PREPROCESSOR
-			var noPreprocessorIdx = regexParser.getNoPreprocessor(fileBuffer);
-			if (noPreprocessorIdx >= 0) {
-				// Comment out the fake pragma to avoid GCC warning
-				fileBuffer = utilities.stringInsert(
-					fileBuffer,
-					noPreprocessorIdx,
-					'// '
-				);
-			}
-
-			if (noPreprocessorIdx >= 0 ||
-				(['.ino', '.pde'].indexOf(ext) < 0)) {
-				console.log('Skipping ' + ext + ' file ');
-				fs.writeFileSync(outputFile, fileBuffer, {flag: 'w'});
-				return true;
-			}
-
-			// Check if application.h is already included
-			var appIncludeIdx = regexParser.getApplicationInclude(fileBuffer);
-
-			// Add function prototypes after other includes
-			var prototypesIdx = regexParser.getFirstStatement(fileBuffer);
-
-			// If prototype position would be before existing application.h move it to later
-			if (appIncludeIdx > prototypesIdx) {
-				prototypesIdx = fileBuffer.indexOf('\n', appIncludeIdx) + 1;
-			}
-
-			// Add a #line preprocessor instruction to sync the errors with the original code
-			var linesBeforeInjection = fileBuffer.substring(
-				0,
-				prototypesIdx
-			).split('\n').length;
-
-			// Add function declarations
-			var cleanText = regexParser.stripText(fileBuffer);
-			var missingFuncs = regexParser.getMissingDeclarations(cleanText);
-
-			var prototypesStr = missingFuncs.join('\n') + '\n'
-				+ '#line ' + linesBeforeInjection + ' "' + inputFile + '"\n';
-			fileBuffer = utilities.stringInsert(
-				fileBuffer,
-				prototypesIdx,
-				prototypesStr
-			);
-
-			// Add application.h to the top of the file unless it is already included
-			if (appIncludeIdx === -1) {
-				var includeStr = '#include "application.h"\n' +
-					'#line 1 "' + inputFile + '"\n';
-
-				fileBuffer = includeStr + fileBuffer;
-			}
-
-			fs.writeFileSync(outputFile, fileBuffer, {flag: 'w'});
-			return true;
-		} catch (ex) {
-			console.error('preProcessFile error ' + ex);
-		}
-
-		return false;
-	},
-
-	checkForUnsafeContent: function checkForUnsafeContent(fileBuffer) {
-		var issues = null;
-		if (!fileBuffer) {
-			return issues;
-		}
-
-		// RELATIVE INCLUDES ONLY!  NO ABSOLUTE INCLUDES!!!
-		// NO POPPING UP MORE THAN 2 parent directories!
-		var unsafeChunks = [
-			'#include "/',
-			'#include </',
-			'#include "../../../',
-			'#include <../../../'
-		];
-
-		for (var i = 0; i < unsafeChunks.length; i++) {
-			var chunk = unsafeChunks[i];
-
-			if (fileBuffer.indexOf(chunk) >= 0) {
-				issues = 'Found: ' + chunk;
-				break;
-			}
-		}
-
-		return issues;
-	},
-
-	foo: null
-};
-
-module.exports = that;
-
-
-/***/ }),
-
-/***/ 6695:
-/***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
-
-"use strict";
-/*
- *  Copyright 2015 Particle ( https://particle.io )
- *
- *  Licensed under the Apache License, Version 2.0 (the "License");
- *  you may not use this file except in compliance with the License.
- *  You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- *  Unless required by applicable law or agreed to in writing, software
- *  distributed under the License is distributed on an "AS IS" BASIS,
- *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *  See the License for the specific language governing permissions and
- *  limitations under the License.
- */
-
-/*eslint quotes:0*/
-/*eslint max-len:0*/
-
-/**
- *
- * This library is a basic attempt at identifying wiring-compatible
- * source files, and providing the functions
- * necessary to translate them into firmware compilable C code.
- */
-
-var utilities = __nccwpck_require__(6571);
-
-// identify function declarations
-// c language requires functions to be declared before they are used,
-// but wiring language do not.
-
-// identify functions
-// once we've identified functions without declarations, we can add the
-// missing sections
-
-// identify header includes
-// we must add any missing header includes, but also keep any user
-// supplied headers.
-
-var that;
-module.exports = that = {
-	matchAll: function matchAll(expr, str) {
-		var m, matches = [];
-
-		while ((m = expr.exec(str)) !== null) {
-			matches.push(m);
-		}
-		return matches;
-	},
-
-	functions: {
-		declarations: function declarations(str) {
-			// Since these don't handle comments those need to be
-			// removed separately.
-			var declrRegex = new RegExp("[\\w\\[\\]\\*]+\\s+[&\\[\\]\\*\\w\\s]+\\([&,\\[\\]\\*\\w\\s]*\\)(?=\\s*\\;);", 'gm');
-			return that.matchAll(declrRegex, str);
-		},
-		definitions: function definitions(str) {
-			var fnRegex = new RegExp("[\\w\\[\\]\\*]+\\s+[&\\[\\]\\*\\w\\s]+\\([&,\\[\\]\\*\\w\\s]*\\)(?=\\s*\\{)", 'gm');
-			return that.matchAll(fnRegex, str);
-		}
-	},
-
-	includes: {
-		findAll: function findAll(str) {
-			var fnRegex = new RegExp("#include ((<[^>]+>)|(\"[^\"]+\"))", 'gm');
-			return that.matchAll(fnRegex, str);
-		}
-	},
-
-	types: {
-		declarations: function declarations(str) {
-			var typeRegex = new RegExp(/\b(class|struct|enum)\b\s+(\w+)/gm);
-			return that.matchAll(typeRegex, str);
-		},
-		typedefs: function typedefs(str) {
-			var typedefRegex = new RegExp(/\btypedef\s+(struct|enum)\b\s*{[^}]*}\s*(\w+)/gm);
-			return that.matchAll(typedefRegex, str);
-		}
-	},
-
-	/**
-	 * Strip out anything the function definition code doesn't deal with well.
-	 * Essentially anything that couldn't possibly contain a function def.
-	 */
-	stripText: function stripText(contents) {
-		var cruft = new RegExp(
-				"('.')" +
-				"|(\"(?:[^\"\\\\]|\\\\.)*\")" +
-				"|(//.[^\n]*)" +
-				"|(/\\*[^*]*(?:\\*(?!/)[^*]*)*\\*/)" +
-				"|(^\\s*#.*?$)"
-			, 'mgi');
-
-		return contents.replace(cruft, '');
-	},
-
-	getNoPreprocessor: function getMagicPragma(contents) {
-		var re = new RegExp(
-			'^[ \t]*#pragma (SPARK_NO_PREPROCESSOR|PARTICLE_NO_PREPROCESSOR)',
-			'm'
-		);
-		var noPreprocessorMatch = contents.match(re);
-
-		if (noPreprocessorMatch) {
-			return noPreprocessorMatch.index;
-		} else {
-			return -1;
-		}
-	},
-
-	getApplicationInclude: function getApplicationInclude(contents) {
-		var re = new RegExp(
-			'^[ \t]*#include [<"](application.h|Particle.h|Arduino.h)[>"]',
-			'm'
-		);
-		var applicationIncludeMatch = contents.match(re);
-
-		if (applicationIncludeMatch) {
-			return applicationIncludeMatch.index;
-		} else {
-			return -1;
-		}
-	},
-
-	getMissingDeclarations: function getMissingDeclarations(contents) {
-		// All the ones that don't need extra declarations
-		var found = that.functions.declarations(contents);
-		found = that.flattenRegexResults(found);
-
-		// All the user defined types
-		var typesDeclarations = that.types.declarations(contents);
-		var typesTypedef = that.types.typedefs(contents);
-		var types = [].concat(
-			that.flattenRegexResults(typesDeclarations, 2),
-			that.flattenRegexResults(typesTypedef, 2)
-		);
-
-		// All the functions we have
-		var defined = that.functions.definitions(contents);
-		defined = that.flattenRegexResults(defined);
-		defined = that.removeSpecialCaseDefinitions(defined);
-		defined = that.removeDefinitionsWithCustomTypes(defined, types);
-		for (var i = 0; i < defined.length; i++) {
-			defined[i] = defined[i] + ';';
-		}
-
-		// All the ones we're missing
-		return utilities.setComplement(defined, found);
-	},
-
-	/**
-	 * just the strings please.
-	 * @param results
-	 * @param group The capture group to return or the entire match
-	 */
-	flattenRegexResults: function flattenRegexResults(results, group) {
-		group = group || 0;
-		if (results) {
-			for (var i = 0; i < results.length; i++) {
-				results[i] = results[i][group];
-			}
-		}
-		return results;
-	},
-
-	/**
-	 * remove things that look like definitions but are not
-	 */
-	removeSpecialCaseDefinitions: function removeSpecialCaseDefinitions(defined) {
-		var wellDefined = [];
-		var specialCases = [
-			new RegExp(/\belse\b\s+\bif\b/) /* else if(foo) */
-		];
-		next_definition:
-		for (var i = 0; i < defined.length; i++) {
-			// remove special cases
-			for (var j = 0; j < specialCases.length; j++) {
-				if (specialCases[j].test(defined[i])) {
-					continue next_definition;
-				}
-			}
-			wellDefined.push(defined[i]);
-		}
-		return wellDefined;
-	},
-
-	/**
-	 * remove definitions with custom classes, structs and enums as parameters
-	 */
-	removeDefinitionsWithCustomTypes: function removeDefinitionsWithCustomTypes(defined, types) {
-		var i;
-		var builtinDefined = [];
-		var customTypes = [];
-		for (i = 0; i < types.length; i++) {
-			customTypes[i] = new RegExp("\\b" + types[i] + "\\b");
-		}
-		next_definition:
-		for (i = 0; i < defined.length; i++) {
-			// remove custom types
-			for (var j = 0; j < customTypes.length; j++) {
-				if (customTypes[j].test(defined[i])) {
-					continue next_definition;
-				}
-			}
-			builtinDefined.push(defined[i]);
-		}
-		return builtinDefined;
-	},
-
-	// Return the line number of the first statement in the code
-	getFirstStatement: function getFirstStatement(contents) {
-
-		// Find the first thing that isn't these.
-		var nonStatement = [
-			// Whitespace
-			"\\s+",
-
-			// Comments
-			"|(/\\*[^*]*(?:\\*(?!/)[^*]*)*\\*/)|(//.*?$)",
-
-			// Include statements
-			"|(#include.+$)"
-		];
-
-		var pat = new RegExp(nonStatement.join(''), 'mgi');
-		var lastMatch = 0;
-
-		var match;
-		while ((match = pat.exec(contents)) !== null) {
-			if (match.index !== lastMatch) {
-				break;
-			}
-			lastMatch = match[0].length + match.index;
-		}
-
-		return lastMatch;
-	},
-
-	foo: null
-};
-
-
-/***/ }),
-
-/***/ 6571:
-/***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
-
-"use strict";
-/*
- *  Copyright 2015 Particle ( https://particle.io )
- *
- *  Licensed under the Apache License, Version 2.0 (the "License");
- *  you may not use this file except in compliance with the License.
- *  You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- *  Unless required by applicable law or agreed to in writing, software
- *  distributed under the License is distributed on an "AS IS" BASIS,
- *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *  See the License for the specific language governing permissions and
- *  limitations under the License.
- */
-
-
-var fs = __nccwpck_require__(7147);
-
-module.exports = {
-	getFilenameExt: function getFilenameExt(filename) {
-		if (!filename || (filename.length === 0)) {
-			return filename;
-		}
-
-		var idx = filename.lastIndexOf('.');
-		if (idx >= 0) {
-			return filename.substr(idx);
-		} else {
-			return filename;
-		}
-	},
-
-	getFilenameNoExt: function getFilenameNoExt(filename) {
-		if (!filename || (filename.length === 0)) {
-			return filename;
-		}
-
-		var idx = filename.lastIndexOf('.');
-		if (idx >= 0) {
-			return filename.substr(0, idx);
-		} else {
-			return filename;
-		}
-	},
-
-	/**
-	 * apparently this isn't already baked in?
-	 * @param str
-	 * @param idx
-	 * @param val
-	 */
-	stringInsert: function stringInsert(str, idx, val) {
-		return str.substring(0, idx) + val + str.substring(idx);
-	},
-
-	/**
-	 * Give the set of items in required that aren't in found
-	 * @param required
-	 * @param found
-	 */
-	setComplement: function setComplement(required, found) {
-		var hash = {};
-		for (var i = 0; i < found.length; i++) {
-			hash[found[i]] = true;
-		}
-
-		var results = [];
-		for (var i = 0; i < required.length; i++) {
-			var item = required[i];
-			if (hash[item]) {
-				continue;
-			}
-			results.push(item);
-		}
-		return results;
-	},
-
-	isDirectory: function isDirectory(filePath) {
-		try {
-			var stat = fs.statSync(filePath);
-			return stat.isDirectory();
-		} catch (ex) {}
-		return false;
-	},
-
-	_: null
-};
-
-
-/***/ }),
-
 /***/ 7672:
 /***/ (function(__unused_webpack_module, exports, __nccwpck_require__) {
 
@@ -34127,7 +33923,6 @@ const particle_api_1 = __nccwpck_require__(6032);
 const util_1 = __nccwpck_require__(2629);
 const autoversion_1 = __nccwpck_require__(8468);
 const git_1 = __nccwpck_require__(6350);
-const main_1 = __nccwpck_require__(5155);
 function resolveInputs() {
     return __awaiter(this, void 0, void 0, function* () {
         const auth = (0, core_1.getInput)('particle-access-token');
@@ -34217,7 +34012,7 @@ function compile({ auth, platform, sources, targetVersion }) {
             yield (0, docker_1.dockerCheck)();
             // Preprocesses .ino files into .cpp files
             // The cloud compiler does this automatically
-            (0, main_1.runCparser)(sources);
+            (0, util_1.preprocessSources)(sources);
             outputPath = yield (0, docker_1.dockerBuildpackCompile)({ sources, platform, targetVersion, workingDir: process.cwd() });
         }
         else {
@@ -34741,14 +34536,15 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports._resetBuildTargets = exports.renameFile = exports.isSupportedPlatform = exports.resolveVersion = exports.fetchBuildTargets = exports.validatePlatformDeviceOsTarget = exports.validatePlatformName = exports.getPlatformId = exports.getCode = void 0;
+exports._resetBuildTargets = exports.preprocessSources = exports.preprocessDirectory = exports.renameFile = exports.isSupportedPlatform = exports.resolveVersion = exports.fetchBuildTargets = exports.validatePlatformDeviceOsTarget = exports.validatePlatformName = exports.getPlatformId = exports.getCode = void 0;
 const cli_1 = __nccwpck_require__(6815);
 const fs_1 = __nccwpck_require__(7147);
-// @ts-ignore
 const device_constants_1 = __importDefault(__nccwpck_require__(9452));
 const httpm = __importStar(__nccwpck_require__(6255));
 const semver_1 = __nccwpck_require__(1383);
 const path_1 = __nccwpck_require__(1017);
+const core_1 = __nccwpck_require__(2186);
+const wiring_preprocessor_1 = __importDefault(__nccwpck_require__(1275));
 function getCode(path) {
     if (!(0, fs_1.existsSync)(path)) {
         throw new Error(`Source code ${path} does not exist`);
@@ -34860,6 +34656,33 @@ function renameFile({ filePath, platform, version }) {
     return newFilePath;
 }
 exports.renameFile = renameFile;
+function preprocessDirectory(dir) {
+    const files = (0, fs_1.readdirSync)(dir);
+    for (const file of files) {
+        const filePath = (0, path_1.join)(dir, file);
+        const fileStat = (0, fs_1.statSync)(filePath);
+        if (fileStat.isDirectory()) {
+            preprocessDirectory(filePath);
+        }
+        else {
+            const fileExtension = (0, path_1.extname)(file);
+            if (fileExtension !== '.ino') {
+                (0, core_1.debug)(`Skipping file during preprocessing: ${filePath}`);
+                continue;
+            }
+            const inoFile = (0, fs_1.readFileSync)(filePath, 'utf8');
+            const cppContents = wiring_preprocessor_1.default.processFile(filePath, inoFile);
+            const outputFile = (0, path_1.join)(dir, (0, path_1.basename)(file, '.ino') + '.cpp');
+            (0, fs_1.writeFileSync)(outputFile, cppContents);
+            (0, core_1.info)(`Successfully preprocessed: ${file} -> ${(0, path_1.basename)(outputFile)}`);
+        }
+    }
+}
+exports.preprocessDirectory = preprocessDirectory;
+function preprocessSources(sources) {
+    preprocessDirectory(sources);
+}
+exports.preprocessSources = preprocessSources;
 // For testing
 function _resetBuildTargets() {
     // @ts-ignore

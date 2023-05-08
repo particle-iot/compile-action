@@ -4,11 +4,13 @@ import {
 	getCode,
 	resolveVersion,
 	getPlatformId,
-	validatePlatformDeviceOsTarget, validatePlatformName, renameFile
+	validatePlatformDeviceOsTarget, validatePlatformName, renameFile, preprocessSources
 } from './util';
 import nock from 'nock';
-import { accessSync, mkdirSync, readFileSync, rmdirSync, unlinkSync, writeFileSync } from 'fs';
+import { accessSync, existsSync, mkdirSync, readFileSync, rmdirSync, unlinkSync, writeFileSync } from 'fs';
 import { join } from 'path';
+import preprocessor from 'wiring-preprocessor';
+import tmp from 'tmp';
 
 describe('getCode', () => {
 	it('should return file for application.cpp', () => {
@@ -228,7 +230,6 @@ describe('resolveVersion', () => {
 	});
 
 
-
 	it('should return a fixed version', async () => {
 		expect(await resolveVersion('argon', '2.3.1')).toEqual('2.3.1');
 	});
@@ -291,5 +292,55 @@ describe('renameFile', () => {
 
 		// Cleanup
 		unlinkSync(newFilePath);
+	});
+});
+
+
+describe('preprocessSources', () => {
+	let testDir: tmp.DirResult;
+
+	beforeEach(() => {
+		testDir = tmp.dirSync({ unsafeCleanup: true });
+	});
+
+	afterEach(() => {
+		testDir.removeCallback();
+	});
+
+	it('should preprocess .ino files and create corresponding .cpp files, including nested directories', async () => {
+		const files = [
+			'file1.ino',
+			'file2.ino',
+			'file3.cpp',
+			'readme.md',
+			'project.properties',
+			'nested/file4.ino',
+			'nested/file5.txt'
+		];
+		const preprocessedCode = 'preprocessed code';
+
+		files.forEach(file => {
+			const filePath = join(testDir.name, file);
+			mkdirSync(join(testDir.name, 'nested'), { recursive: true });
+			writeFileSync(filePath, file.endsWith('.ino') ? 'ino code' : 'other content');
+		});
+
+		const preprocessorProcessFileSpy = jest.spyOn(preprocessor, 'processFile').mockReturnValue(preprocessedCode);
+
+		await preprocessSources(testDir.name);
+
+		files
+			.filter(file => file.endsWith('.ino'))
+			.forEach(file => {
+				const cppFilePath = join(testDir.name, file.replace('.ino', '.cpp'));
+
+				expect(existsSync(cppFilePath)).toBe(true);
+
+				const outputContent = readFileSync(cppFilePath, 'utf8');
+
+				expect(outputContent).toBe(preprocessedCode);
+				const originalFilePath = join(testDir.name, file);
+				expect(preprocessorProcessFileSpy).toHaveBeenCalledWith(originalFilePath, 'ino code');
+			});
 	});
 });

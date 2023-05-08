@@ -1,7 +1,7 @@
 import { getInput, info, setFailed, setOutput } from '@actions/core';
 import { dockerBuildpackCompile, dockerCheck } from './docker';
 import { particleCloudCompile, particleDownloadBinary } from './particle-api';
-import { renameFile, resolveVersion, validatePlatformDeviceOsTarget, validatePlatformName } from './util';
+import { renameFile, resolveVersion, validatePlatformDeviceOsTarget, validatePlatformName, preprocessSources } from './util';
 import { incrementVersion, isProductFirmware, shouldIncrementVersion } from './autoversion';
 import { currentFirmwareVersion, findNearestGitRoot, findProductVersionMacroFile, hasFullHistory } from './git';
 
@@ -133,6 +133,7 @@ export async function compile(
 		await dockerCheck();
 		// Preprocesses .ino files into .cpp files
 		// The cloud compiler does this automatically
+		preprocessSources(sources);
 		outputPath = await dockerBuildpackCompile({ sources, platform, targetVersion, workingDir: process.cwd() });
 	} else {
 		info('Access token provided, running cloud compilation');
