@@ -16,6 +16,8 @@ You may also want to update your GitHub Actions workflow to commit the updated v
 This will ensure that the version number is updated in the repository.
 See the example workflow below for more details.
 
+Auto-versioning should only run against your `main` branch.
+
 ## How It Works
 
 The auto-versioning feature works by finding the product version macro and the latest version number in code in your `sources-folder`.
@@ -163,3 +165,13 @@ jobs:
   compile-release:
     # Same as the semi-automated example above
 ```
+
+
+## Limitations
+
+1. Limited Branch Awareness: The auto-versioning feature is designed to run against only the `main` branch. 
+   It is not fully aware of branching and merging in git. It may not behave as expected with non-linear histories resulting from complex branching and merging
+
+1. Manual Version Changes: If you manually increment the version macro while automatic versioning is enabled, the automatic versioning system may increment the version again.
+   It is recommended that you disable automatic versioning if you are going to manually increment the version macro.
+

@@ -12,3 +12,5 @@ env "INPUT_SOURCES-FOLDER=test/fixtures/single-file-firmware" env "INPUT_PARTICL
 # To Cloud Compile instead of local compile add the following env var to the `npm start` cmd above
 env "INPUT_PARTICLE-ACCESS-TOKEN=1234"
 ```
+
+The default values from `action.yml` are not set when running the action locally. You must set the defaults manually in the `npm start` command. 

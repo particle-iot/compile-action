@@ -74,12 +74,11 @@ jobs:
         uses: particle-iot/compile-action@main
         with:
           particle-platform-name: 'boron'
-          sources-folder: '.'
 
       - name: Upload artifact
         uses: actions/upload-artifact@v3
         with:
-          name: tracker-firmware
+          name: firmware
           path: ${{ steps.compile.outputs.artifact-path }}
 ```
 
@@ -106,7 +105,6 @@ To compile in the cloud, set the `particle-access-token` input to a Particle acc
         with:
           particle-access-token: ${{ secrets.PARTICLE_ACCESS_TOKEN }}
           particle-platform-name: 'boron'
-          sources-folder: '.'
 ```
 
 Compiling in the cloud can be 30 to 60 seconds faster than compiling locally. 
@@ -161,10 +159,8 @@ Here is an example that installs the Particle CLI and uses it to install librari
 
 ```yaml
 
-      # Change working-directory to your sources folder
       # Make sure to set a PARTICLE_ACCESS_TOKEN secret in your repository
       - name: Install project dependencies
-        working-directory: src
         run: |
           npm install -g particle-cli
           particle login --token "${{ secrets.PARTICLE_ACCESS_TOKEN }}"
