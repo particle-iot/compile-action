@@ -99,5 +99,7 @@ __tests__/runner/*
 lib/**/*
 
 output
+target
+destination
 *.bin
 test/fixtures/tinker/tinker.cpp

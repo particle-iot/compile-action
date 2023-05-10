@@ -64,17 +64,22 @@ jobs:
         uses: particle-iot/compile-action@main
         with:
           particle-platform-name: 'boron'
-          device-os-version: 'latest-lts'
 
       - name: Upload artifacts
         uses: actions/upload-artifact@v3
         with:
-          path: ${{ steps.compile.outputs.artifact-path }}
+          path: |
+            ${{ steps.compile.outputs.firmware-path }}
+            ${{ steps.compile.outputs.target-path }}
+
+      - name: Create archive of target directory
+        run: |
+          tar -czf debug-objects.tar.gz ${{ steps.compile.outputs.target-path }}
 
       - name: Create GitHub release
         uses: ncipollo/release-action@v1
         with:
-          artifacts: ${{ steps.compile.outputs.artifact-path }}
+          artifacts: ${{ steps.compile.outputs.firmware-path }},debug-objects.tar.gz
           generateReleaseNotes: 'true'
           name: "Firmware v${{ steps.compile.outputs.firmware-version }}"
           token: ${{ secrets.GITHUB_TOKEN }}
@@ -108,13 +113,14 @@ jobs:
         uses: particle-iot/compile-action@main
         with:
           particle-platform-name: 'boron'
-          device-os-version: 'latest-lts'
           auto-version: true
 
       - name: Upload artifacts
         uses: actions/upload-artifact@v3
         with:
-          path: ${{ steps.compile.outputs.artifact-path }}
+          path: |
+            ${{ steps.compile.outputs.firmware-path }}
+            ${{ steps.compile.outputs.target-path }}
 
       - name: Commit updated version file
         if: steps.compile.outputs.firmware-version-updated == 'true'
@@ -131,11 +137,16 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           branch: ${{ github.ref }}
 
+      - name: Create archive of target directory
+        if: steps.compile.outputs.firmware-version-updated == 'true'
+        run: |
+          tar -czf debug-objects.tar.gz ${{ steps.compile.outputs.target-path }}
+
       - name: Create GitHub release
         if: steps.compile.outputs.firmware-version-updated == 'true'
         uses: ncipollo/release-action@v1
         with:
-          artifacts: ${{ steps.compile.outputs.artifact-path }}
+          artifacts: ${{ steps.compile.outputs.firmware-path }},debug-objects.tar.gz
           generateReleaseNotes: 'true'
           name: "Firmware v${{ steps.compile.outputs.firmware-version }}"
           tag: "v${{ steps.compile.outputs.firmware-version }}"

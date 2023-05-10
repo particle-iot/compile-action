@@ -17,11 +17,12 @@ export async function dockerCheck(): Promise<boolean> {
 }
 
 export async function dockerBuildpackCompile(
-	{ workingDir, sources, platform, targetVersion }: {
+	{ workingDir, sources, platform, targetVersion, containerName }: {
 		workingDir: string;
 		sources: string;
 		platform: string;
 		targetVersion: string;
+		containerName: string;
 	}
 ): Promise<string> {
 	// Note: the buildpack only detects *.c and *.cpp files
@@ -50,7 +51,7 @@ export async function dockerBuildpackCompile(
 	const platformId = getPlatformId(platform);
 	const args = [
 		'run',
-		'--rm',
+		`--name=${containerName}`,
 		'-v',
 		`${inputDir}:/input`,
 		'-v',
@@ -62,5 +63,21 @@ export async function dockerBuildpackCompile(
 	const dockerRun = await execa('docker', args);
 	info(dockerRun.stdout);
 
-	return outputPath;
+	// move output/firmware.bin to firmware-<platform>-<version>.bin
+	const destPath = `firmware-${platform}-${targetVersion}.bin`;
+	await execa('mv', [outputPath, destPath]);
+
+	return destPath;
+}
+
+export async function downloadTargetDirectory(
+	{ containerName, destination }: { containerName: string, destination: string }
+): Promise<void> {
+	// Download the /workspace/target folder from the container
+	const args = [
+		'cp',
+		`${containerName}:/workspace/target`,
+		destination
+	];
+	await execa('docker', args);
 }

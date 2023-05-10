@@ -1,4 +1,4 @@
-import { dockerBuildpackCompile, dockerCheck } from './docker';
+import { dockerBuildpackCompile, dockerCheck, downloadTargetDirectory } from './docker';
 import fs from 'fs';
 import { normalize } from 'path';
 import nock from 'nock';
@@ -68,7 +68,8 @@ describe('dockerBuildpackCompile', () => {
 			workingDir: 'workingDir',
 			sources: 'sources',
 			platform: 'invalid',
-			targetVersion: 'latest'
+			targetVersion: 'latest',
+			containerName: 'containerName'
 		})).rejects.toThrow();
 	});
 
@@ -77,9 +78,10 @@ describe('dockerBuildpackCompile', () => {
 			workingDir: 'workingDir',
 			sources: 'sources',
 			platform: 'argon',
-			targetVersion: '4.0.2'
+			targetVersion: '4.0.2',
+			containerName: 'containerName'
 		});
-		expect(execa).toHaveBeenCalledTimes(2);
+		expect(execa).toHaveBeenCalledTimes(3);
 		expect(execa.mock.calls[0]).toEqual([
 			'docker',
 			[
@@ -91,7 +93,7 @@ describe('dockerBuildpackCompile', () => {
 			'docker',
 			[
 				'run',
-				'--rm',
+				'--name=containerName',
 				'-v',
 				'workingDir/sources:/input',
 				'-v',
@@ -100,7 +102,14 @@ describe('dockerBuildpackCompile', () => {
 				'PLATFORM_ID=12',
 				'particle/buildpack-particle-firmware:4.0.2-argon'
 			]]);
-		expect(path).toBe('output/firmware.bin');
+		expect(execa.mock.calls[2]).toEqual([
+			'mv',
+			[
+				'output/firmware.bin',
+				'firmware-argon-4.0.2.bin'
+			]
+		]);
+		expect(path).toBe('firmware-argon-4.0.2.bin');
 	});
 
 	it('should mount source code from a relative path', async () => {
@@ -108,14 +117,15 @@ describe('dockerBuildpackCompile', () => {
 			workingDir: 'workingDir',
 			sources: 'src',
 			platform: 'argon',
-			targetVersion: '4.0.2'
+			targetVersion: '4.0.2',
+			containerName: 'containerName'
 		});
-		expect(execa).toHaveBeenCalledTimes(2);
+		expect(execa).toHaveBeenCalledTimes(3);
 		expect(execa.mock.calls[1]).toEqual([
 			'docker',
 			[
 				'run',
-				'--rm',
+				'--name=containerName',
 				'-v',
 				'workingDir/src:/input',
 				'-v',
@@ -124,7 +134,14 @@ describe('dockerBuildpackCompile', () => {
 				'PLATFORM_ID=12',
 				'particle/buildpack-particle-firmware:4.0.2-argon'
 			]]);
-		expect(path).toBe('output/firmware.bin');
+		expect(execa.mock.calls[2]).toEqual([
+			'mv',
+			[
+				'output/firmware.bin',
+				'firmware-argon-4.0.2.bin'
+			]
+		]);
+		expect(path).toBe('firmware-argon-4.0.2.bin');
 	});
 
 	it('should mount source code from a relative path with a parent directory', async () => {
@@ -134,14 +151,15 @@ describe('dockerBuildpackCompile', () => {
 			workingDir,
 			sources,
 			platform: 'argon',
-			targetVersion: '4.0.2'
+			targetVersion: '4.0.2',
+			containerName: 'containerName'
 		});
-		expect(execa).toHaveBeenCalledTimes(2);
+		expect(execa).toHaveBeenCalledTimes(3);
 		expect(execa.mock.calls[1]).toEqual([
 			'docker',
 			[
 				'run',
-				'--rm',
+				'--name=containerName',
 				'-v',
 				`${normalize(`${workingDir}/${sources}`)}:/input`,
 				'-v',
@@ -150,7 +168,14 @@ describe('dockerBuildpackCompile', () => {
 				'PLATFORM_ID=12',
 				'particle/buildpack-particle-firmware:4.0.2-argon'
 			]]);
-		expect(path).toBe('output/firmware.bin');
+		expect(execa.mock.calls[2]).toEqual([
+			'mv',
+			[
+				'output/firmware.bin',
+				'firmware-argon-4.0.2.bin'
+			]
+		]);
+		expect(path).toBe('firmware-argon-4.0.2.bin');
 	});
 
 	it('should mount source code from an absolute path', async () => {
@@ -158,14 +183,15 @@ describe('dockerBuildpackCompile', () => {
 			workingDir: 'workingDir',
 			sources: '/absolute/path/to/src',
 			platform: 'argon',
-			targetVersion: '4.0.2'
+			targetVersion: '4.0.2',
+			containerName: 'containerName'
 		});
-		expect(execa).toHaveBeenCalledTimes(2);
+		expect(execa).toHaveBeenCalledTimes(3);
 		expect(execa.mock.calls[1]).toEqual([
 			'docker',
 			[
 				'run',
-				'--rm',
+				'--name=containerName',
 				'-v',
 				'/absolute/path/to/src:/input',
 				'-v',
@@ -174,7 +200,31 @@ describe('dockerBuildpackCompile', () => {
 				'PLATFORM_ID=12',
 				'particle/buildpack-particle-firmware:4.0.2-argon'
 			]]);
-		expect(path).toBe('output/firmware.bin');
+		expect(execa.mock.calls[2]).toEqual([
+			'mv',
+			[
+				'output/firmware.bin',
+				'firmware-argon-4.0.2.bin'
+			]
+		]);
+		expect(path).toBe('firmware-argon-4.0.2.bin');
 	});
 
+});
+
+describe('downloadTargetDirectory', () => {
+	it('should download the target directory', async () => {
+		await downloadTargetDirectory({
+			containerName: 'containerName',
+			destination: 'destination'
+		});
+		expect(execa).toHaveBeenCalledTimes(1);
+		expect(execa.mock.calls[0]).toEqual([
+			'docker',
+			[
+				'cp',
+				'containerName:/workspace/target',
+				'destination'
+			]]);
+	});
 });

@@ -26,10 +26,12 @@ inputs:
     description: 'Name of the macro that contains the product firmware version.'
     default: 'PRODUCT_VERSION'
 outputs:
-  artifact-path:
-    description: 'Path to the compiled binary file. Example: output/firmware-argon-2.3.1.bin'
+  firmware-path:
+    description: 'Path to the compiled firmware binary file.'
+  target-path:
+    description: 'Path to the folder with compiled firmware files and their associated object files. The folder includes the firmware binary, ELF, HEX, and MAP files, along with object files. Not available when particle-access-token is set (cloud compile).'
   device-os-version:
-    description: 'This output contains the actual Device OS version used for compilation. Example: 4.0.2'
+    description: 'This output contains the actual Device OS version used for compilation.'
   firmware-version:
     description: 'The product firmware version integer. This output is undefined when sources are not a product firmware.'
   firmware-version-updated:

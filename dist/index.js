@@ -33937,8 +33937,9 @@ function resolveInputs() {
         return { auth, platform, sources, autoVersionEnabled, versionMacroName, targetVersion };
     });
 }
-function setOutputs({ artifactPath, deviceOsVersion, firmwareVersion, firmwareVersionUpdated }) {
-    (0, core_1.setOutput)('artifact-path', artifactPath);
+function setOutputs({ firmwareBinary, targetDir, deviceOsVersion, firmwareVersion, firmwareVersionUpdated }) {
+    (0, core_1.setOutput)('firmware-path', firmwareBinary);
+    (0, core_1.setOutput)('target-path', targetDir);
     (0, core_1.setOutput)('device-os-version', deviceOsVersion);
     (0, core_1.setOutput)('firmware-version', firmwareVersion);
     (0, core_1.setOutput)('firmware-version-updated', firmwareVersionUpdated);
@@ -34007,13 +34008,19 @@ exports.autoVersion = autoVersion;
 function compile({ auth, platform, sources, targetVersion }) {
     return __awaiter(this, void 0, void 0, function* () {
         let outputPath;
+        let targetDir = '';
         if (!auth) {
             (0, core_1.info)('No access token provided, running local compilation');
             yield (0, docker_1.dockerCheck)();
             // Preprocesses .ino files into .cpp files
             // The cloud compiler does this automatically
             (0, util_1.preprocessSources)(sources);
-            outputPath = yield (0, docker_1.dockerBuildpackCompile)({ sources, platform, targetVersion, workingDir: process.cwd() });
+            const containerName = `compile-${Date.now()}`;
+            outputPath = yield (0, docker_1.dockerBuildpackCompile)({
+                sources, platform, targetVersion, workingDir: process.cwd(), containerName
+            });
+            targetDir = 'target';
+            yield (0, docker_1.downloadTargetDirectory)({ containerName: containerName, destination: targetDir });
         }
         else {
             (0, core_1.info)('Access token provided, running cloud compilation');
@@ -34021,9 +34028,9 @@ function compile({ auth, platform, sources, targetVersion }) {
             if (!binaryId) {
                 throw new Error('Failed to compile code in cloud');
             }
-            outputPath = yield (0, particle_api_1.particleDownloadBinary)({ binaryId, auth });
+            outputPath = yield (0, particle_api_1.particleDownloadBinary)({ binaryId, auth, platform, targetVersion });
         }
-        return { outputPath };
+        return { outputPath, targetDir };
     });
 }
 exports.compile = compile;
@@ -34035,7 +34042,7 @@ function compileAction() {
             const { version, incremented } = yield autoVersion({
                 sources, gitRepo, autoVersionEnabled, versionMacroName
             });
-            const { outputPath } = yield compile({ auth, platform, sources, targetVersion });
+            const { outputPath, targetDir } = yield compile({ auth, platform, sources, targetVersion });
             if (outputPath) {
                 const artifactPath = (0, util_1.renameFile)({
                     filePath: outputPath,
@@ -34043,7 +34050,8 @@ function compileAction() {
                     version: targetVersion
                 });
                 setOutputs({
-                    artifactPath: artifactPath,
+                    firmwareBinary: artifactPath,
+                    targetDir,
                     deviceOsVersion: targetVersion,
                     firmwareVersion: version,
                     firmwareVersionUpdated: incremented
@@ -34189,7 +34197,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.dockerBuildpackCompile = exports.dockerCheck = void 0;
+exports.downloadTargetDirectory = exports.dockerBuildpackCompile = exports.dockerCheck = void 0;
 const core_1 = __nccwpck_require__(2186);
 const fs_1 = __nccwpck_require__(7147);
 const execa_1 = __importDefault(__nccwpck_require__(5447));
@@ -34210,7 +34218,7 @@ function dockerCheck() {
     });
 }
 exports.dockerCheck = dockerCheck;
-function dockerBuildpackCompile({ workingDir, sources, platform, targetVersion }) {
+function dockerBuildpackCompile({ workingDir, sources, platform, targetVersion, containerName }) {
     return __awaiter(this, void 0, void 0, function* () {
         // Note: the buildpack only detects *.c and *.cpp files
         // https://github.com/particle-iot/device-os/blob/196d497dd4c16ab83db6ea610cf2433047226a6a/user/build.mk#L64-L65
@@ -34235,7 +34243,7 @@ function dockerBuildpackCompile({ workingDir, sources, platform, targetVersion }
         const platformId = (0, util_1.getPlatformId)(platform);
         const args = [
             'run',
-            '--rm',
+            `--name=${containerName}`,
             '-v',
             `${inputDir}:/input`,
             '-v',
@@ -34246,10 +34254,25 @@ function dockerBuildpackCompile({ workingDir, sources, platform, targetVersion }
         ];
         const dockerRun = yield (0, execa_1.default)('docker', args);
         (0, core_1.info)(dockerRun.stdout);
-        return outputPath;
+        // move output/firmware.bin to firmware-<platform>-<version>.bin
+        const destPath = `firmware-${platform}-${targetVersion}.bin`;
+        yield (0, execa_1.default)('mv', [outputPath, destPath]);
+        return destPath;
     });
 }
 exports.dockerBuildpackCompile = dockerBuildpackCompile;
+function downloadTargetDirectory({ containerName, destination }) {
+    return __awaiter(this, void 0, void 0, function* () {
+        // Download the /workspace/target folder from the container
+        const args = [
+            'cp',
+            `${containerName}:/workspace/target`,
+            destination
+        ];
+        yield (0, execa_1.default)('docker', args);
+    });
+}
+exports.downloadTargetDirectory = downloadTargetDirectory;
 
 
 /***/ }),
@@ -34467,7 +34490,7 @@ function particleCloudCompile({ sources, platform, auth, targetVersion }) {
     });
 }
 exports.particleCloudCompile = particleCloudCompile;
-function particleDownloadBinary({ binaryId, auth }) {
+function particleDownloadBinary({ binaryId, auth, platform, targetVersion }) {
     return __awaiter(this, void 0, void 0, function* () {
         (0, core_1.info)(`Downloading binary ${binaryId}`);
         const resp = yield particle.downloadFirmwareBinary({
@@ -34477,13 +34500,8 @@ function particleDownloadBinary({ binaryId, auth }) {
         });
         if (resp instanceof Buffer) {
             (0, core_1.info)(`Binary downloaded successfully.`);
-            const destDir = 'output';
-            const destName = 'firmware.bin';
-            const outputPath = `${destDir}/${destName}`;
-            if (!(0, fs_1.existsSync)(destDir)) {
-                (0, core_1.info)(`Creating directory ${destDir}...`);
-                (0, fs_1.mkdirSync)(destDir);
-            }
+            const destName = `firmware-${platform}-${targetVersion}.bin`;
+            const outputPath = `${destName}`;
             (0, fs_1.writeFileSync)(`${outputPath}`, resp, 'utf8');
             (0, core_1.info)(`File downloaded successfully.`);
             return outputPath;
