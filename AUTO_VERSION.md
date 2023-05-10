@@ -61,7 +61,7 @@ jobs:
 
       - name: Compile application
         id: compile
-        uses: particle-iot/compile-action@main
+        uses: particle-iot/compile-action@v1
         with:
           particle-platform-name: 'boron'
 
@@ -110,7 +110,7 @@ jobs:
       
       - name: Compile application
         id: compile
-        uses: particle-iot/compile-action@main
+        uses: particle-iot/compile-action@v1
         with:
           particle-platform-name: 'boron'
           auto-version: true
