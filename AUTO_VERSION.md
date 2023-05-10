@@ -123,11 +123,13 @@ jobs:
             ${{ steps.compile.outputs.target-path }}
 
       - name: Commit updated version file
+        id: commit
         if: steps.compile.outputs.firmware-version-updated == 'true'
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email 'github-actions[bot]@users.noreply.github.com'
           git commit -m "Update firmware version" -a
+          echo "updated-version-sha=$(git rev-parse HEAD)" >> $GITHUB_OUTPUT
 
       # When a GitHub Action pushes commits or tags, it does not trigger a new GitHub Action job
       - name: Push changes
@@ -150,7 +152,7 @@ jobs:
           generateReleaseNotes: 'true'
           name: "Firmware v${{ steps.compile.outputs.firmware-version }}"
           tag: "v${{ steps.compile.outputs.firmware-version }}"
-          commit: ${{ github.sha }}
+          commit: ${{ steps.commit.outputs.updated-version-sha }}
           token: ${{ secrets.GITHUB_TOKEN }}
 ```
 
