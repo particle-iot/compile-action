@@ -3,13 +3,14 @@
 
 A GitHub Action to compile Particle application firmware
 
-> This project is currently under development with no stable v1 release yet. 
-  Documentation refers to the `main` branch, but please be aware that stability guarantees are not provided at this stage.
+Other Actions for firmware development: Compile | [Flash Device](https://github.com/particle-iot/flash-device-action) | [Firmware Upload](https://github.com/particle-iot/firmware-upload-action)
+
+> This action is currently in public beta. Please [report](https://community.particle.io/) any issues you encounter.
 
 ## Usage
 
 ```yaml
-- uses: particle-iot/compile-action@main
+- uses: particle-iot/compile-action@v1
   with:
     # The platform name to target the compilation
     # Allowed values: core, photon, p1, electron, argon, boron, xenon, esomx, bsom, b5som, tracker, trackerm, p2, muon
@@ -46,6 +47,8 @@ A GitHub Action to compile Particle application firmware
     particle-access-token: ''
 ```
 
+Also see official [Particle documentation](https://docs.particle.io/firmware/best-practices/github-actions/) for more details.
+
 ### Outputs
 
 * `firmware-path`: Path to the compiled binary artifact. Example: `firmware-argon-2.3.1.bin`
@@ -59,7 +62,7 @@ A GitHub Action to compile Particle application firmware
 This is a simple example of a GitHub Actions pipeline that compiles a firmware project and uploads the compiled binary as an artifact.
 
 ```yaml
-name: CI
+name: Compile
 
 on: [push]
 
@@ -72,7 +75,7 @@ jobs:
 
       - name: Compile application
         id: compile
-        uses: particle-iot/compile-action@main
+        uses: particle-iot/compile-action@v1
         with:
           particle-platform-name: 'boron'
 
@@ -104,7 +107,7 @@ To compile in the cloud, set the `particle-access-token` input to a Particle acc
 ```yaml
       - name: Compile application
         id: compile
-        uses: particle-iot/compile-action@main
+        uses: particle-iot/compile-action@v1
         with:
           particle-access-token: ${{ secrets.PARTICLE_ACCESS_TOKEN }}
           particle-platform-name: 'boron'
