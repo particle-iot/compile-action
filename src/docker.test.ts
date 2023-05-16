@@ -87,7 +87,8 @@ describe('dockerBuildpackCompile', () => {
 			[
 				'pull',
 				'particle/buildpack-particle-firmware:4.0.2-argon'
-			]
+			],
+			{ 'stdio': 'inherit' }
 		]);
 		expect(execa.mock.calls[1]).toEqual([
 			'docker',
@@ -101,7 +102,8 @@ describe('dockerBuildpackCompile', () => {
 				'-e',
 				'PLATFORM_ID=12',
 				'particle/buildpack-particle-firmware:4.0.2-argon'
-			]]);
+			],
+			{ 'stdio': 'inherit' }]);
 		expect(execa.mock.calls[2]).toEqual([
 			'mv',
 			[
@@ -133,7 +135,9 @@ describe('dockerBuildpackCompile', () => {
 				'-e',
 				'PLATFORM_ID=12',
 				'particle/buildpack-particle-firmware:4.0.2-argon'
-			]]);
+			],
+			{ 'stdio': 'inherit' }
+		]);
 		expect(execa.mock.calls[2]).toEqual([
 			'mv',
 			[
@@ -167,7 +171,9 @@ describe('dockerBuildpackCompile', () => {
 				'-e',
 				'PLATFORM_ID=12',
 				'particle/buildpack-particle-firmware:4.0.2-argon'
-			]]);
+			],
+			{ 'stdio': 'inherit' }
+		]);
 		expect(execa.mock.calls[2]).toEqual([
 			'mv',
 			[
@@ -199,7 +205,9 @@ describe('dockerBuildpackCompile', () => {
 				'-e',
 				'PLATFORM_ID=12',
 				'particle/buildpack-particle-firmware:4.0.2-argon'
-			]]);
+			],
+			{ 'stdio': 'inherit' }
+		]);
 		expect(execa.mock.calls[2]).toEqual([
 			'mv',
 			[

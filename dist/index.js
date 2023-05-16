@@ -34226,7 +34226,7 @@ function dockerBuildpackCompile({ workingDir, sources, platform, targetVersion, 
         const dockerPull = yield (0, execa_1.default)('docker', [
             'pull',
             `particle/buildpack-particle-firmware:${targetVersion}-${platform}`
-        ]);
+        ], { stdio: 'inherit' });
         (0, core_1.info)(dockerPull.stdout);
         const destDir = 'output';
         const destName = 'firmware.bin';
@@ -34252,7 +34252,7 @@ function dockerBuildpackCompile({ workingDir, sources, platform, targetVersion, 
             `PLATFORM_ID=${platformId}`,
             `particle/buildpack-particle-firmware:${targetVersion}-${platform}`
         ];
-        const dockerRun = yield (0, execa_1.default)('docker', args);
+        const dockerRun = yield (0, execa_1.default)('docker', args, { stdio: 'inherit' });
         (0, core_1.info)(dockerRun.stdout);
         // move output/firmware.bin to firmware-<platform>-<version>.bin
         const destPath = `firmware-${platform}-${targetVersion}.bin`;

@@ -32,7 +32,7 @@ export async function dockerBuildpackCompile(
 	const dockerPull = await execa('docker', [
 		'pull',
 		`particle/buildpack-particle-firmware:${targetVersion}-${platform}`
-	]);
+	], { stdio: 'inherit' });
 	info(dockerPull.stdout);
 
 	const destDir = 'output';
@@ -60,7 +60,7 @@ export async function dockerBuildpackCompile(
 		`PLATFORM_ID=${platformId}`,
 		`particle/buildpack-particle-firmware:${targetVersion}-${platform}`
 	];
-	const dockerRun = await execa('docker', args);
+	const dockerRun = await execa('docker', args, { stdio: 'inherit' });
 	info(dockerRun.stdout);
 
 	// move output/firmware.bin to firmware-<platform>-<version>.bin
