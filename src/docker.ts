@@ -29,11 +29,10 @@ export async function dockerBuildpackCompile(
 	// https://github.com/particle-iot/device-os/blob/196d497dd4c16ab83db6ea610cf2433047226a6a/user/build.mk#L64-L65
 
 	info(`Fetching docker buildpack. This can take a minute...`);
-	const dockerPull = await execa('docker', [
+	await execa('docker', [
 		'pull',
 		`particle/buildpack-particle-firmware:${targetVersion}-${platform}`
 	], { stdio: 'inherit' });
-	info(dockerPull.stdout);
 
 	const destDir = 'output';
 	const destName = 'firmware.bin';
@@ -60,8 +59,7 @@ export async function dockerBuildpackCompile(
 		`PLATFORM_ID=${platformId}`,
 		`particle/buildpack-particle-firmware:${targetVersion}-${platform}`
 	];
-	const dockerRun = await execa('docker', args, { stdio: 'inherit' });
-	info(dockerRun.stdout);
+	await execa('docker', args, { stdio: 'inherit' });
 
 	// move output/firmware.bin to firmware-<platform>-<version>.bin
 	const destPath = `firmware-${platform}-${targetVersion}.bin`;
