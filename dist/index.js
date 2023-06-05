@@ -34223,11 +34223,10 @@ function dockerBuildpackCompile({ workingDir, sources, platform, targetVersion, 
         // Note: the buildpack only detects *.c and *.cpp files
         // https://github.com/particle-iot/device-os/blob/196d497dd4c16ab83db6ea610cf2433047226a6a/user/build.mk#L64-L65
         (0, core_1.info)(`Fetching docker buildpack. This can take a minute...`);
-        const dockerPull = yield (0, execa_1.default)('docker', [
+        yield (0, execa_1.default)('docker', [
             'pull',
             `particle/buildpack-particle-firmware:${targetVersion}-${platform}`
         ], { stdio: 'inherit' });
-        (0, core_1.info)(dockerPull.stdout);
         const destDir = 'output';
         const destName = 'firmware.bin';
         const outputPath = `${destDir}/${destName}`;
@@ -34252,8 +34251,7 @@ function dockerBuildpackCompile({ workingDir, sources, platform, targetVersion, 
             `PLATFORM_ID=${platformId}`,
             `particle/buildpack-particle-firmware:${targetVersion}-${platform}`
         ];
-        const dockerRun = yield (0, execa_1.default)('docker', args, { stdio: 'inherit' });
-        (0, core_1.info)(dockerRun.stdout);
+        yield (0, execa_1.default)('docker', args, { stdio: 'inherit' });
         // move output/firmware.bin to firmware-<platform>-<version>.bin
         const destPath = `firmware-${platform}-${targetVersion}.bin`;
         yield (0, execa_1.default)('mv', [outputPath, destPath]);
