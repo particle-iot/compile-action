@@ -78,6 +78,20 @@ describe('getCode', () => {
 			'src/tracker_sleep.h': `${path}/src/tracker_sleep.h`
 		});
 	});
+
+	it('should honor particle.ignore and particle.include files', async () => {
+		const path = 'test/fixtures/particle-ignore-file';
+		const files = getCode(path);
+		expect(files).toBeDefined();
+		expect(files).toEqual({
+			'lib/spi/src/spi.c': `${path}/lib/spi/src/spi.c`,
+			'lib/spi/src/spi.cmd': `${path}/lib/spi/src/spi.cmd`,
+			'lib/spi/src/spi.def': `${path}/lib/spi/src/spi.def`,
+			'lib/spi/src/spi.h': `${path}/lib/spi/src/spi.h`,
+			'src/app.cpp': `${path}/src/app.cpp`,
+			'src/app.def': `${path}/src/app.def`,
+		});
+	});
 });
 
 describe('getPlatformId', () => {
@@ -294,7 +308,6 @@ describe('renameFile', () => {
 		unlinkSync(newFilePath);
 	});
 });
-
 
 describe('preprocessSources', () => {
 	let testDir: tmp.DirResult;
