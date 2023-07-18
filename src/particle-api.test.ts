@@ -44,6 +44,11 @@ afterEach(() => {
 	cleanDir();
 });
 
+const headers = {
+	'User-Agent': 'particle-compile-action',
+	'x-particle-tool': 'particle-compile-action'
+};
+
 describe('particleCloudCompile', () => {
 	const originalDir = process.cwd();
 
@@ -165,7 +170,7 @@ describe('particleCloudCompile', () => {
 			},
 			'platformId': 0,
 			'targetVersion': '1.4.4',
-			'headers': { 'User-Agent': 'particle-compile-action' }
+			headers
 		});
 	});
 
@@ -185,7 +190,7 @@ describe('particleCloudCompile', () => {
 			},
 			'platformId': 12,
 			'targetVersion': '4.0.2',
-			'headers': { 'User-Agent': 'particle-compile-action' }
+			headers
 		});
 	});
 
@@ -204,7 +209,7 @@ describe('particleCloudCompile', () => {
 			},
 			'platformId': 10,
 			'targetVersion': '2.3.1',
-			'headers': { 'User-Agent': 'particle-compile-action' }
+			headers
 		});
 	});
 
@@ -279,7 +284,7 @@ describe('particleCloudCompile', () => {
 			},
 			'platformId': 10,
 			'targetVersion': '2.3.1',
-			'headers': { 'User-Agent': 'particle-compile-action' }
+			headers
 		});
 	});
 });
@@ -295,7 +300,7 @@ describe('particleCloudDownload', () => {
 		expect(mockDownloadFirmwareBinary).toHaveBeenCalledWith({
 			'binaryId': '1234',
 			'auth': 'token',
-			'headers': { 'User-Agent': 'particle-compile-action' }
+			headers
 		});
 		expect(path).toEqual('firmware-core-1.4.4.bin');
 		expect(readFileSync(path || '').toString()).toEqual('test');
