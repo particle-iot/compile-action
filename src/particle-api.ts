@@ -6,6 +6,11 @@ import { getCode, getPlatformId } from './util';
 const ParticleApi = require('particle-api-js');
 const particle = new ParticleApi();
 
+const headers = {
+	'User-Agent': 'particle-compile-action',
+	'x-particle-tool': 'particle-compile-action'
+};
+
 export async function particleCloudCompile(
 	{ sources, platform, auth, targetVersion }: {
 		sources: string;
@@ -35,7 +40,7 @@ export async function particleCloudCompile(
 			platformId,
 			targetVersion,
 			auth,
-			headers: { 'User-Agent': 'particle-compile-action' }
+			headers
 		});
 		const body = resp.body;
 		if (!body || !body.binary_id) {
@@ -68,7 +73,7 @@ export async function particleDownloadBinary(
 	const resp = await particle.downloadFirmwareBinary({
 		binaryId,
 		auth,
-		headers: { 'User-Agent': 'particle-compile-action' }
+		headers
 	});
 	if (resp instanceof Buffer) {
 		info(`Binary downloaded successfully.`);

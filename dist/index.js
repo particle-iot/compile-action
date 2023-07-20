@@ -34446,6 +34446,10 @@ const fs_1 = __nccwpck_require__(7147);
 const util_1 = __nccwpck_require__(2629);
 const ParticleApi = __nccwpck_require__(2918);
 const particle = new ParticleApi();
+const headers = {
+    'User-Agent': 'particle-compile-action',
+    'x-particle-tool': 'particle-compile-action'
+};
 function particleCloudCompile({ sources, platform, auth, targetVersion }) {
     return __awaiter(this, void 0, void 0, function* () {
         (0, core_1.info)(`Compiling code in '${sources}' for platform '${platform}' with target version '${targetVersion}'`);
@@ -34465,7 +34469,7 @@ function particleCloudCompile({ sources, platform, auth, targetVersion }) {
                 platformId,
                 targetVersion,
                 auth,
-                headers: { 'User-Agent': 'particle-compile-action' }
+                headers
             });
             const body = resp.body;
             if (!body || !body.binary_id) {
@@ -34494,7 +34498,7 @@ function particleDownloadBinary({ binaryId, auth, platform, targetVersion }) {
         const resp = yield particle.downloadFirmwareBinary({
             binaryId,
             auth,
-            headers: { 'User-Agent': 'particle-compile-action' }
+            headers
         });
         if (resp instanceof Buffer) {
             (0, core_1.info)(`Binary downloaded successfully.`);
