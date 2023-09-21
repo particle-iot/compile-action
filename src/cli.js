@@ -162,13 +162,26 @@ function _handleMultiFileArgs(filenames, { followSymlinks } = {}) {
  */
 function _processDirIncludes(fileMapping, dirname, { followSymlinks } = {}) {
 	dirname = path.resolve(dirname);
+	const files = new Set();
 
-	const includesFile = path.join(dirname, 'particle.include');
-	const ignoreFile = path.join(dirname, 'particle.ignore');
-	let hasIncludeFile = false;
+	_getDefaultIncludes(files, dirname, { followSymlinks });
+	_getDefaultIgnores(files, dirname, { followSymlinks });
+	_getCustomIncludes(files, dirname, { followSymlinks });
+	_getCustomIgnores(files, dirname, { followSymlinks });
 
+	// Add files to fileMapping
+	const sortedFiles = Array.from(files.values()).sort();
+	sortedFiles.forEach((file) => {
+		// source relative to the base directory of the fileMapping (current directory)
+		const source = path.relative(fileMapping.basePath, file);
+		const target = path.relative(dirname, file);
+		fileMapping.map[target] = source;
+	});
+}
+
+function _getDefaultIncludes(files, dirname, { followSymlinks }) {
 	// Recursively find source files
-	let includes = [
+	const includes = [
 		'**/*.h',
 		'**/*.hpp',
 		'**/*.hh',
@@ -176,45 +189,50 @@ function _processDirIncludes(fileMapping, dirname, { followSymlinks } = {}) {
 		'**/*.ino',
 		'**/*.cpp',
 		'**/*.c',
+		'**/build.mk',
 		'project.properties'
 	];
 
-	if (existsSync(includesFile)) {
-		//grab and process all the files in the include file.
+	const result = globList(dirname, includes, { followSymlinks });
+	result.forEach((file) => files.add(file));
+}
 
-		includes = trimBlankLinesAndComments(
-			readAndTrimLines(includesFile)
-		);
-		hasIncludeFile = true;
+function _getCustomIncludes(files, dirname, { followSymlinks }) {
+	const includeFiles = globList(dirname, ['**/particle.include'], { followSymlinks });
 
-	}
-
-	let files = globList(dirname, includes, { followSymlinks });
-
-	if (existsSync(ignoreFile)) {
-		const ignores = trimBlankLinesAndComments(
-			readAndTrimLines(ignoreFile)
-		);
-
-		const ignoredFiles = globList(dirname, ignores, { followSymlinks });
-		files = compliment(files, ignoredFiles);
-	}
-
-	// Add files to fileMapping
-	files.forEach((file) => {
-		// source relative to the base directory of the fileMapping (current directory)
-		const source = path.relative(fileMapping.basePath, file);
-
-		// If using an include file, only base names are supported since people are using those to
-		// link across relative folders
-		let target;
-		if (hasIncludeFile) {
-			target = path.basename(file);
-		} else {
-			target = path.relative(dirname, file);
+	for (const includeFile of includeFiles) {
+		const includeDir = path.dirname(includeFile);
+		const globsToInclude = trimBlankLinesAndComments(readAndTrimLines(includeFile));
+		if (!globsToInclude || !globsToInclude.length) {
+			continue;
 		}
-		fileMapping.map[target] = source;
-	});
+		const includePaths = globList(includeDir, globsToInclude, { followSymlinks });
+		includePaths.forEach((file) => files.add(file));
+	}
+}
+
+function _getDefaultIgnores(files, dirname, { followSymlinks }) {
+	// Recursively find default ignore files
+	const ignores = [
+		'lib/*/examples/**/*.*'
+	];
+
+	const result = globList(dirname, ignores, { followSymlinks });
+	result.forEach((file) => files.delete(file));
+}
+
+function _getCustomIgnores(files, dirname, { followSymlinks }) {
+	const ignoreFiles = globList(dirname, ['**/particle.ignore'], { followSymlinks });
+
+	for (const ignoreFile of ignoreFiles) {
+		const ignoreDir = path.dirname(ignoreFile);
+		const globsToIgnore = trimBlankLinesAndComments(readAndTrimLines(ignoreFile));
+		if (!globsToIgnore || !globsToIgnore.length) {
+			continue;
+		}
+		const ignoredPaths = globList(ignoreDir, globsToIgnore.map(g => g), { followSymlinks });
+		ignoredPaths.forEach((file) => files.delete(file));
+	}
 }
 
 function populateFileMapping(fileMapping) {
@@ -233,5 +251,9 @@ function populateFileMapping(fileMapping) {
 module.exports = {
 	_handleMultiFileArgs,
 	_processDirIncludes,
+	_getDefaultIncludes,
+	_getCustomIncludes,
+	_getDefaultIgnores,
+	_getCustomIgnores,
 	populateFileMapping
 };
