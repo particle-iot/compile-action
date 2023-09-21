@@ -182,7 +182,7 @@ The `firmware-version` output will not contain the correct version number when c
 The workaround is to use `.cpp` files instead.
 
 Read the [preprocessor](https://docs.particle.io/reference/device-os/api/preprocessor/preprocessor/) docs
-to help transform your `.ino` files into `.cpp` ino your repository. 
+to help transform your `.ino` files into `.cpp` in your repository. 
 
 The CLI command `particle preprocess app.ino` can do a conversion from ino to cpp. Commit the cpp file and delete the ino file. 
 Since this is a one-time change, you can ignore and delete the "do not edit" warning in the cpp file.
