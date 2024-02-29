@@ -4,6 +4,9 @@
 
 The auto-versioning feature is designed to manage product firmware version numbers in an automated and consistent manner.
 
+It is primarily intended for use in Action workflows that release firmware and upload it to Particle products.
+Here is an [example firmware project](https://github.com/particle-iot/firmware-cicd-examples/tree/main/product-firmware) that has a two GitHub Actions workflows: build and upload.
+
 ## Usage
 
 Auto-versioning is disabled by default. To enable auto-versioning:
@@ -188,3 +191,8 @@ jobs:
 1. Manual Version Changes: If you manually increment the version macro while automatic versioning is enabled, the automatic versioning system may increment the version again.
    It is recommended that you disable automatic versioning if you are going to manually increment the version macro.
 
+
+## Debugging
+
+To debug the auto-versioning feature, you can [re-run a job with debug logging](https://github.blog/changelog/2022-05-24-github-actions-re-run-jobs-with-debug-logging/) enabled.
+This will allow you to see the step-by-step process of how the version number is determined and incremented. 
