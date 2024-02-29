@@ -17,7 +17,8 @@ Other Actions for firmware development: Compile | [Flash Device](https://github.
     # Required: true
     particle-platform-name: ''
       
-    # Path to directory with sources to compile
+    # This is your Particle project directory
+    # It contains your source code, libraries, and the project.properties file
     # Required: false
     sources-folder: '.'
       
