@@ -34104,7 +34104,6 @@ exports.compileAction = compileAction;
 
 "use strict";
 
-// Auto revision assumes the PRODUCT_VERSION macro is only incremented and not decremented.
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -34114,13 +34113,68 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.isProductFirmware = exports.incrementVersion = exports.shouldIncrementVersion = void 0;
 const promises_1 = __nccwpck_require__(3292);
 const core_1 = __nccwpck_require__(2186);
+const simple_git_1 = __importDefault(__nccwpck_require__(9103));
 const git_1 = __nccwpck_require__(6350);
+const git = (0, simple_git_1.default)();
+// Detailed Git repo state logging functions, for debugging git state in the Action runner
+function logGitStatus(gitRepo) {
+    return __awaiter(this, void 0, void 0, function* () {
+        try {
+            const status = yield git.cwd(gitRepo).status();
+            (0, core_1.debug)(`Git Status: ${JSON.stringify(status)}`);
+        }
+        catch (e) {
+            (0, core_1.error)(`Error getting Git status: ${e}`);
+        }
+    });
+}
+function logGitBranches(gitRepo) {
+    return __awaiter(this, void 0, void 0, function* () {
+        try {
+            const branches = yield git.cwd(gitRepo).branchLocal();
+            (0, core_1.debug)(`Local branches: ${JSON.stringify(branches)}`);
+        }
+        catch (e) {
+            (0, core_1.error)(`Error listing branches: ${e}`);
+        }
+    });
+}
+function logGitCommitHistory(gitRepo, filePath) {
+    return __awaiter(this, void 0, void 0, function* () {
+        try {
+            const log = yield git.cwd(gitRepo).log({ file: filePath });
+            (0, core_1.debug)(`Git log for ${filePath}: ${JSON.stringify(log)}`);
+        }
+        catch (e) {
+            (0, core_1.error)(`Error getting Git log for file ${filePath}: ${e}`);
+        }
+    });
+}
+function getChangedFilesBetweenCommits(gitRepo, commit1, commit2) {
+    return __awaiter(this, void 0, void 0, function* () {
+        try {
+            const diffSummary = yield git.cwd(gitRepo).diffSummary([commit1, commit2]);
+            return diffSummary.files.map(file => file.file);
+        }
+        catch (e) {
+            (0, core_1.error)(`Error getting changed files between commits ${commit1} and ${commit2}: ${e}`);
+            return [];
+        }
+    });
+}
 function shouldIncrementVersion({ gitRepo, sources, productVersionMacroName }) {
     return __awaiter(this, void 0, void 0, function* () {
+        (0, core_1.debug)(`Starting shouldIncrementVersion for productVersionMacroName: ${productVersionMacroName} in repo: ${gitRepo}`);
+        // Additional debugging around Git repo state at the start
+        yield logGitStatus(gitRepo);
+        yield logGitBranches(gitRepo);
         const versionFilePath = yield (0, git_1.findProductVersionMacroFile)({
             sources,
             productVersionMacroName
@@ -34128,17 +34182,27 @@ function shouldIncrementVersion({ gitRepo, sources, productVersionMacroName }) {
         if (!versionFilePath) {
             throw new Error('Could not find a file containing the version macro.');
         }
+        (0, core_1.debug)(`Version file path found: ${versionFilePath}`);
+        yield logGitCommitHistory(gitRepo, versionFilePath);
         const lastChangeRevision = yield (0, git_1.revisionOfLastVersionBump)({
             gitRepo: gitRepo,
             versionFilePath: versionFilePath,
             productVersionMacroName: productVersionMacroName
         });
+        (0, core_1.debug)(`Last change revision: ${lastChangeRevision}`);
         const currentSourcesRevision = yield (0, git_1.mostRecentRevisionInFolder)({ gitRepo: gitRepo, folderPath: sources });
+        (0, core_1.debug)(`Current sources revision: ${currentSourcesRevision}`);
+        // Additional debugging around changed files
+        if (lastChangeRevision !== currentSourcesRevision) {
+            const changedFiles = yield getChangedFilesBetweenCommits(gitRepo, lastChangeRevision, currentSourcesRevision);
+            (0, core_1.debug)(`Files changed between ${lastChangeRevision} and ${currentSourcesRevision}: ${JSON.stringify(changedFiles)}`);
+        }
         const currentProductVersion = yield (0, git_1.currentFirmwareVersion)({
             gitRepo: gitRepo,
             versionFilePath: versionFilePath,
             productVersionMacroName: productVersionMacroName
         });
+        (0, core_1.debug)(`Current product version: ${currentProductVersion}`);
         if (!lastChangeRevision) {
             throw new Error('Could not find the last version increment.');
         }
@@ -34148,6 +34212,7 @@ function shouldIncrementVersion({ gitRepo, sources, productVersionMacroName }) {
             (0, core_1.warning)('The file with the product version macro has uncommitted changes.');
         }
         const shouldIncrement = currentSourcesRevision !== lastChangeRevision;
+        (0, core_1.debug)(`Should increment version: ${shouldIncrement}`);
         if (!shouldIncrement) {
             (0, core_1.info)('No version increment detected. Skipping version increment.');
             return false;
@@ -34159,25 +34224,33 @@ function shouldIncrementVersion({ gitRepo, sources, productVersionMacroName }) {
 exports.shouldIncrementVersion = shouldIncrementVersion;
 function incrementVersion({ gitRepo, sources, productVersionMacroName }) {
     return __awaiter(this, void 0, void 0, function* () {
-        // find the file containing the version macro
+        (0, core_1.debug)(`Starting incrementVersion for productVersionMacroName: ${productVersionMacroName} in repo: ${gitRepo}`);
         const versionFilePath = yield (0, git_1.findProductVersionMacroFile)({
-            sources: sources,
+            sources,
+            productVersionMacroName
+        });
+        (0, core_1.debug)(`Version file path for incrementing: ${versionFilePath}`);
+        const current = yield (0, git_1.currentFirmwareVersion)({
+            gitRepo: gitRepo,
+            versionFilePath: versionFilePath,
             productVersionMacroName: productVersionMacroName
         });
-        // get the current version
-        const current = yield (0, git_1.currentFirmwareVersion)({ gitRepo: gitRepo, versionFilePath: versionFilePath, productVersionMacroName: productVersionMacroName });
-        // increment the version
+        (0, core_1.debug)(`Current version before increment: ${current}`);
         const next = current + 1;
-        // find the line that matches this regex
         const versionRegex = new RegExp(`^.*${productVersionMacroName}.*\\((\\d+)\\)`, 'gm');
-        // Read the file content
         const fileContent = yield (0, promises_1.readFile)(versionFilePath, 'utf-8');
-        // Replace the version with the next version
+        (0, core_1.debug)(`Read version file content from: ${versionFilePath}`);
         const updatedFileContent = fileContent.replace(versionRegex, (match, p1) => {
             (0, core_1.info)(`Replacing ${p1} with ${next} in ${versionFilePath}`);
+            (0, core_1.debug)(`Match found for version increment: ${match}`);
             return match.replace(p1, next.toString());
         });
         yield (0, promises_1.writeFile)(versionFilePath, updatedFileContent);
+        (0, core_1.debug)(`Version file updated: ${versionFilePath}`);
+        // Additional debugging around Git repo state at the end
+        // A successful version increment should leave a modified file in the repo
+        // Users should commit and push the updated version file to git after `compile-action` finishes
+        yield logGitStatus(gitRepo);
         return {
             file: versionFilePath,
             version: next
@@ -34187,14 +34260,17 @@ function incrementVersion({ gitRepo, sources, productVersionMacroName }) {
 exports.incrementVersion = incrementVersion;
 function isProductFirmware({ sources, productVersionMacroName }) {
     return __awaiter(this, void 0, void 0, function* () {
+        (0, core_1.debug)(`Checking if product firmware for productVersionMacroName: ${productVersionMacroName}`);
         let isProductFirmware = false;
         try {
             isProductFirmware = !!(yield (0, git_1.findProductVersionMacroFile)({
                 sources: sources,
                 productVersionMacroName: productVersionMacroName
             }));
+            (0, core_1.debug)(`Product firmware status: ${isProductFirmware}`);
         }
-        catch (error) {
+        catch (err) {
+            (0, core_1.debug)(`Error in isProductFirmware: ${err}`);
             // Ignore
         }
         return isProductFirmware;
