@@ -34182,7 +34182,6 @@ function shouldIncrementVersion({ gitRepo, sources, productVersionMacroName }) {
         if (!versionFilePath) {
             throw new Error('Could not find a file containing the version macro.');
         }
-        (0, core_1.debug)(`Version file path found: ${versionFilePath}`);
         yield logGitCommitHistory(gitRepo, versionFilePath);
         const lastChangeRevision = yield (0, git_1.revisionOfLastVersionBump)({
             gitRepo: gitRepo,
@@ -34399,6 +34398,7 @@ exports.hasFullHistory = exports.mostRecentRevisionInFolder = exports.findNeares
 const promises_1 = __nccwpck_require__(3292);
 const path_1 = __nccwpck_require__(1017);
 const simple_git_1 = __importDefault(__nccwpck_require__(9103));
+const core_1 = __nccwpck_require__(2186);
 function currentFirmwareVersion({ gitRepo, versionFilePath, productVersionMacroName }) {
     return __awaiter(this, void 0, void 0, function* () {
         const git = (0, simple_git_1.default)(gitRepo);
@@ -34415,14 +34415,23 @@ function currentFirmwareVersion({ gitRepo, versionFilePath, productVersionMacroN
         }
         for (const log of logs.all) {
             const currentCommit = log.hash;
-            const commitBody = yield git.show([`${currentCommit}:${versionFilePath}`]);
+            (0, core_1.debug)(`Looking for the file ${versionFilePath} in commit ${currentCommit}`);
             // Use regex to extract the PRODUCT_VERSION from the patch
             const versionRegex = new RegExp(`^.*${productVersionMacroName}.*\\((\\d+)\\)`, 'gm');
+            let commitBody = '';
+            try {
+                commitBody = yield git.show([`${currentCommit}:${versionFilePath}`]);
+            }
+            catch (error) {
+                (0, core_1.debug)(`Error getting the file ${versionFilePath} from commit ${currentCommit}: ${error}. This can occur if the file was deleted in the commit. Skipping commit`);
+            }
             const match = versionRegex.exec(commitBody);
             if (match) {
+                (0, core_1.debug)(`Found the ${productVersionMacroName} macro at commit ${currentCommit} with version ${match[1]}`);
                 const currentVersion = parseInt(match[1], 10);
                 // Check if the current version is higher than the previous version and higher than the highest version found
                 if (currentVersion > highestVersion) {
+                    (0, core_1.debug)(`Found a new highest version: ${currentVersion} at commit ${currentCommit}`);
                     highestVersion = currentVersion;
                 }
             }
@@ -34477,6 +34486,7 @@ function findProductVersionMacroFile({ sources, productVersionMacroName }) {
                 const fileContent = yield (0, promises_1.readFile)(fullPath, 'utf-8');
                 const versionRegex = new RegExp(`^.*${productVersionMacroName}.*\\((\\d+)\\)`, 'gm');
                 if (fileContent && versionRegex.test(fileContent)) {
+                    (0, core_1.debug)(`Found the ${productVersionMacroName} macro in the file ${fullPath}`);
                     return fullPath;
                 }
             }
