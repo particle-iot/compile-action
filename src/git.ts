@@ -60,12 +60,16 @@ export async function revisionOfLastVersionBump(
 	const blameInfo = await git.raw(['blame', versionFilePath]);
 
 	// Use regex to find the line containing the PRODUCT_VERSION macro
-	const versionRegex = new RegExp(`^([a-f0-9]+).+${productVersionMacroName}.*\\(\\d+\\)`, 'm');
+	const versionRegex = new RegExp(`^(\\^?[a-f0-9]+).+${productVersionMacroName}.*\\(\\d+\\)`, 'm');
 	const match = versionRegex.exec(blameInfo);
-
 	if (match) {
 		const commitHash = match[1];
-		return commitHash;
+
+		// If the commit hash starts with '^', it represents an initial commit
+		// In this case, we remove the '^' before returning the hash
+		// Otherwise, we return the hash as is
+		// In both cases, we only return the first 7 characters of the hash
+		return commitHash.startsWith('^') ? commitHash.substring(1, 8) : commitHash.substring(0, 7);
 	} else {
 		throw new Error(`Could not find the ${productVersionMacroName} line in the blame information.`);
 	}
@@ -133,7 +137,7 @@ export async function mostRecentRevisionInFolder(
 		if (!log.latest) {
 			throw new Error('No latest revision found');
 		}
-		return log.latest.hash.substring(0, 8);
+		return log.latest.hash.substring(0, 7);
 	} catch (error) {
 		throw new Error(`Error getting the latest Git revision for folder "${folderPath}": ${error}`);
 	}

@@ -42,7 +42,8 @@ describe('revisionOfLastVersionBump', () => {
 			productVersionMacroName: productVersionMacroName
 		});
 
-		expect(result).toEqual(commitHash);
+		expect(result).toHaveLength(7);
+		expect(result).toEqual(commitHash.substring(0, 7));
 		expect(gitMock).toHaveBeenCalledWith(gitRepo);
 		expect(rawMock).toHaveBeenCalledWith(['blame', versionFilePath]);
 	});
@@ -61,6 +62,41 @@ describe('revisionOfLastVersionBump', () => {
 		})).rejects.toThrow(
 			`Could not find the ${productVersionMacroName} line in the blame information.`
 		);
+	});
+
+	test('should handle the first commit of a file', async () => {
+		const gitRepo = '/path/to/repo';
+		const versionFilePath = '/path/to/version/file/application.cpp';
+		const productVersionMacroName = 'PRODUCT_VERSION';
+
+		// Git blame will return a commit hash starting with ^ for the first commit of a file
+		rawMock.mockResolvedValue(createBlameInfoMock('^1234abc', productVersionMacroName));
+
+		const result = await revisionOfLastVersionBump({
+			gitRepo,
+			versionFilePath,
+			productVersionMacroName
+		});
+
+		expect(result).toHaveLength(7);
+		expect(result).toEqual('1234abc');
+	});
+
+	test('should return the first 7 characters of the commit hash', async () => {
+		const commitHash = 'a1b2c3d4e5f6';
+		const gitRepo = '/path/to/repo';
+		const versionFilePath = '/path/to/version/file/application.cpp';
+		const productVersionMacroName = 'PRODUCT_VERSION';
+
+		rawMock.mockResolvedValue(createBlameInfoMock(commitHash, productVersionMacroName));
+
+		const result = await revisionOfLastVersionBump({
+			gitRepo,
+			versionFilePath,
+			productVersionMacroName
+		});
+
+		expect(result).toEqual(commitHash.substring(0, 7));
 	});
 });
 
@@ -277,7 +313,8 @@ describe('mostRecentRevisionInFolder', () => {
 		const result = await mostRecentRevisionInFolder({ gitRepo: gitRepo, folderPath: folderPath });
 
 		expect(logMock).toHaveBeenCalledWith({ file: folderPath });
-		expect(result).toBe(latestHash.substring(0, 8));
+		expect(result).toHaveLength(7);
+		expect(result).toBe(latestHash.substring(0, 7));
 	});
 
 	test('should throw an error if no latest revision is found', async () => {
@@ -302,6 +339,20 @@ describe('mostRecentRevisionInFolder', () => {
 		await expect(mostRecentRevisionInFolder({ gitRepo: gitRepo, folderPath: folderPath })).rejects.toThrow(
 			'Error getting the latest Git revision for folder'
 		);
+	});
+
+	test('should return the first 7 characters of the commit hash', async () => {
+		const gitRepo = '/path/to/repo';
+		const folderPath = '/path/to/repo/some/folder';
+		const latestHash = '123456789abcdef';
+		// Set up the mock to return the latest Git revision
+		logMock.mockResolvedValue({
+			latest: {
+				hash: latestHash
+			}
+		});
+		const result = await mostRecentRevisionInFolder({ gitRepo: gitRepo, folderPath: folderPath });
+		expect(result).toBe(latestHash.substring(0, 7));
 	});
 
 });
