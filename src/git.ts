@@ -27,10 +27,15 @@ export async function currentFirmwareVersion(
 
 	for (const log of logs.all) {
 		const currentCommit = log.hash;
-		const commitBody = await git.show([`${currentCommit}:${versionFilePath}`]);
 
 		// Use regex to extract the PRODUCT_VERSION from the patch
 		const versionRegex = new RegExp(`^.*${productVersionMacroName}.*\\((\\d+)\\)`, 'gm');
+		let commitBody = '';
+		try {
+			commitBody = await git.show([`${currentCommit}:${versionFilePath}`]);
+		} catch (error) {
+			debug(`Error getting the file ${versionFilePath} from commit ${currentCommit}: ${error}. This can occur if the file was deleted in the commit. Skipping commit`);
+		}
 
 		const match = versionRegex.exec(commitBody);
 
