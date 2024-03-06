@@ -69,7 +69,6 @@ export async function shouldIncrementVersion(
 		throw new Error('Could not find a file containing the version macro.');
 	}
 
-	debug(`Version file path found: ${versionFilePath}`);
 	await logGitCommitHistory(gitRepo, versionFilePath);
 
 	const lastChangeRevision = await revisionOfLastVersionBump({
