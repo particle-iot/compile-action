@@ -167,6 +167,26 @@ describe('currentFirmwareVersion', () => {
 
 		expect(result).toBe(0);
 	});
+
+	test('should handle when the version file was deleted in a previous commit', async () => {
+		const commitHashes = ['a1b2c3d4e5f6', 'b2c3d4e5f6a1'];
+		const gitRepo = '/path/to/repo';
+		const versionFilePath = '/path/to/repo/project-folder/application.cpp';
+		const productVersionMacroName = 'PRODUCT_VERSION';
+
+		logMock.mockResolvedValue(createLogMock(commitHashes));
+		showMock
+			.mockRejectedValueOnce(new Error(`path '${versionFilePath}' exists on disk, but not in '${commitHashes[0]}'`))
+			.mockResolvedValueOnce(createCommitBodyMock(productVersionMacroName, 1));
+
+		const result = await currentFirmwareVersion({
+			gitRepo: gitRepo,
+			versionFilePath: versionFilePath,
+			productVersionMacroName: productVersionMacroName
+		});
+
+		expect(result).toBe(1);
+	});
 });
 
 describe('findProductVersionMacroFile', () => {

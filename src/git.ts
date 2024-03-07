@@ -1,6 +1,7 @@
 import { readdir, readFile, stat } from 'fs/promises';
 import { dirname, join } from 'path';
 import simpleGit, { SimpleGit } from 'simple-git';
+import { debug } from '@actions/core';
 
 export async function currentFirmwareVersion(
 	{ gitRepo, versionFilePath, productVersionMacroName }: {
@@ -27,18 +28,27 @@ export async function currentFirmwareVersion(
 
 	for (const log of logs.all) {
 		const currentCommit = log.hash;
-		const commitBody = await git.show([`${currentCommit}:${versionFilePath}`]);
+		debug(`Looking for the file ${versionFilePath} in commit ${currentCommit}`);
 
 		// Use regex to extract the PRODUCT_VERSION from the patch
 		const versionRegex = new RegExp(`^.*${productVersionMacroName}.*\\((\\d+)\\)`, 'gm');
+		let commitBody = '';
+		try {
+			commitBody = await git.show([`${currentCommit}:${versionFilePath}`]);
+		} catch (error) {
+			debug(`Error getting the file ${versionFilePath} from commit ${currentCommit}: ${error}. This can occur if the file was deleted in the commit. Skipping commit`);
+		}
 
 		const match = versionRegex.exec(commitBody);
 
 		if (match) {
+			debug(`Found the ${productVersionMacroName} macro at commit ${currentCommit} with version ${match[1]}`);
+
 			const currentVersion = parseInt(match[1], 10);
 
 			// Check if the current version is higher than the previous version and higher than the highest version found
 			if (currentVersion > highestVersion) {
+				debug(`Found a new highest version: ${currentVersion} at commit ${currentCommit}`);
 				highestVersion = currentVersion;
 			}
 		}
@@ -100,6 +110,7 @@ export async function findProductVersionMacroFile(
 			const fileContent = await readFile(fullPath, 'utf-8');
 			const versionRegex = new RegExp(`^.*${productVersionMacroName}.*\\((\\d+)\\)`, 'gm');
 			if (fileContent && versionRegex.test(fileContent)) {
+				debug(`Found the ${productVersionMacroName} macro in the file ${fullPath}`);
 				return fullPath;
 			}
 		}

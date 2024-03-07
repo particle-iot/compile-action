@@ -19,9 +19,13 @@ jest.mock('fs/promises', () => ({
 
 const warningMock = jest.fn();
 const infoMock = jest.fn();
+const debugMock = jest.fn();
+const errorMock = jest.fn();
 jest.mock('@actions/core', () => ({
 	warning: warningMock,
-	info: infoMock
+	info: infoMock,
+	debug: debugMock,
+	error: errorMock
 }));
 
 import { findProductVersionMacroFile, currentFirmwareVersion } from './git';
