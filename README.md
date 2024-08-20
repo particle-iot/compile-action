@@ -5,8 +5,6 @@ A GitHub Action to compile Particle application firmware
 
 Other Actions for firmware development: Compile | [Flash Device](https://github.com/particle-iot/flash-device-action) | [Firmware Upload](https://github.com/particle-iot/firmware-upload-action)
 
-> This action is currently in public beta. Please [report](https://community.particle.io/) any issues you encounter.
-
 ## Usage
 
 ```yaml
