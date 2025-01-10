@@ -31,7 +31,7 @@
     "glob": "^11.0.1",
     "particle-api-js": "^11.1.2",
     "semver": "^7.6.3",
-    "simple-git": "^3.19.1",
+    "simple-git": "^3.27.0",
     "wiring-preprocessor": "^2.3.0"
   },
   "devDependencies": {
