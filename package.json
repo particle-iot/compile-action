@@ -29,7 +29,7 @@
     "@particle/device-constants": "^3.7.0",
     "execa": "^5.0.0",
     "glob": "^7.2.3",
-    "particle-api-js": "^10.0.0",
+    "particle-api-js": "^11.1.2",
     "semver": "^7.5.4",
     "simple-git": "^3.19.1",
     "wiring-preprocessor": "^2.3.0"

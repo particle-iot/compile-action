@@ -2379,332 +2379,6 @@ function descending(a, b)
 
 /***/ }),
 
-/***/ 9476:
-/***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
-
-module.exports = { "default": __nccwpck_require__(557), __esModule: true };
-
-/***/ }),
-
-/***/ 9021:
-/***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
-
-module.exports = { "default": __nccwpck_require__(8427), __esModule: true };
-
-/***/ }),
-
-/***/ 2555:
-/***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
-
-module.exports = { "default": __nccwpck_require__(4830), __esModule: true };
-
-/***/ }),
-
-/***/ 4435:
-/***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
-
-module.exports = { "default": __nccwpck_require__(4183), __esModule: true };
-
-/***/ }),
-
-/***/ 176:
-/***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
-
-module.exports = { "default": __nccwpck_require__(6963), __esModule: true };
-
-/***/ }),
-
-/***/ 3744:
-/***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
-
-module.exports = { "default": __nccwpck_require__(4619), __esModule: true };
-
-/***/ }),
-
-/***/ 4904:
-/***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
-
-module.exports = { "default": __nccwpck_require__(1939), __esModule: true };
-
-/***/ }),
-
-/***/ 338:
-/***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
-
-module.exports = { "default": __nccwpck_require__(4239), __esModule: true };
-
-/***/ }),
-
-/***/ 854:
-/***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
-
-module.exports = { "default": __nccwpck_require__(3084), __esModule: true };
-
-/***/ }),
-
-/***/ 1432:
-/***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
-
-module.exports = { "default": __nccwpck_require__(7046), __esModule: true };
-
-/***/ }),
-
-/***/ 2169:
-/***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
-
-module.exports = { "default": __nccwpck_require__(332), __esModule: true };
-
-/***/ }),
-
-/***/ 2699:
-/***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
-
-module.exports = { "default": __nccwpck_require__(6356), __esModule: true };
-
-/***/ }),
-
-/***/ 1725:
-/***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
-
-module.exports = { "default": __nccwpck_require__(3126), __esModule: true };
-
-/***/ }),
-
-/***/ 4301:
-/***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
-
-module.exports = { "default": __nccwpck_require__(9785), __esModule: true };
-
-/***/ }),
-
-/***/ 3802:
-/***/ ((__unused_webpack_module, exports) => {
-
-"use strict";
-
-
-exports.__esModule = true;
-
-exports["default"] = function (instance, Constructor) {
-  if (!(instance instanceof Constructor)) {
-    throw new TypeError("Cannot call a class as a function");
-  }
-};
-
-/***/ }),
-
-/***/ 6683:
-/***/ ((__unused_webpack_module, exports, __nccwpck_require__) => {
-
-"use strict";
-
-
-exports.__esModule = true;
-
-var _defineProperty = __nccwpck_require__(4904);
-
-var _defineProperty2 = _interopRequireDefault(_defineProperty);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-exports["default"] = function () {
-  function defineProperties(target, props) {
-    for (var i = 0; i < props.length; i++) {
-      var descriptor = props[i];
-      descriptor.enumerable = descriptor.enumerable || false;
-      descriptor.configurable = true;
-      if ("value" in descriptor) descriptor.writable = true;
-      (0, _defineProperty2.default)(target, descriptor.key, descriptor);
-    }
-  }
-
-  return function (Constructor, protoProps, staticProps) {
-    if (protoProps) defineProperties(Constructor.prototype, protoProps);
-    if (staticProps) defineProperties(Constructor, staticProps);
-    return Constructor;
-  };
-}();
-
-/***/ }),
-
-/***/ 7876:
-/***/ ((__unused_webpack_module, exports, __nccwpck_require__) => {
-
-"use strict";
-
-
-exports.__esModule = true;
-
-var _setPrototypeOf = __nccwpck_require__(2169);
-
-var _setPrototypeOf2 = _interopRequireDefault(_setPrototypeOf);
-
-var _create = __nccwpck_require__(3744);
-
-var _create2 = _interopRequireDefault(_create);
-
-var _typeof2 = __nccwpck_require__(3660);
-
-var _typeof3 = _interopRequireDefault(_typeof2);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-exports["default"] = function (subClass, superClass) {
-  if (typeof superClass !== "function" && superClass !== null) {
-    throw new TypeError("Super expression must either be null or a function, not " + (typeof superClass === "undefined" ? "undefined" : (0, _typeof3.default)(superClass)));
-  }
-
-  subClass.prototype = (0, _create2.default)(superClass && superClass.prototype, {
-    constructor: {
-      value: subClass,
-      enumerable: false,
-      writable: true,
-      configurable: true
-    }
-  });
-  if (superClass) _setPrototypeOf2.default ? (0, _setPrototypeOf2.default)(subClass, superClass) : subClass.__proto__ = superClass;
-};
-
-/***/ }),
-
-/***/ 5601:
-/***/ ((__unused_webpack_module, exports, __nccwpck_require__) => {
-
-"use strict";
-
-
-exports.__esModule = true;
-
-var _typeof2 = __nccwpck_require__(3660);
-
-var _typeof3 = _interopRequireDefault(_typeof2);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-exports["default"] = function (self, call) {
-  if (!self) {
-    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
-  }
-
-  return call && ((typeof call === "undefined" ? "undefined" : (0, _typeof3.default)(call)) === "object" || typeof call === "function") ? call : self;
-};
-
-/***/ }),
-
-/***/ 4540:
-/***/ ((__unused_webpack_module, exports, __nccwpck_require__) => {
-
-"use strict";
-
-
-exports.__esModule = true;
-
-var _isIterable2 = __nccwpck_require__(2555);
-
-var _isIterable3 = _interopRequireDefault(_isIterable2);
-
-var _getIterator2 = __nccwpck_require__(9021);
-
-var _getIterator3 = _interopRequireDefault(_getIterator2);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-exports["default"] = function () {
-  function sliceIterator(arr, i) {
-    var _arr = [];
-    var _n = true;
-    var _d = false;
-    var _e = undefined;
-
-    try {
-      for (var _i = (0, _getIterator3.default)(arr), _s; !(_n = (_s = _i.next()).done); _n = true) {
-        _arr.push(_s.value);
-
-        if (i && _arr.length === i) break;
-      }
-    } catch (err) {
-      _d = true;
-      _e = err;
-    } finally {
-      try {
-        if (!_n && _i["return"]) _i["return"]();
-      } finally {
-        if (_d) throw _e;
-      }
-    }
-
-    return _arr;
-  }
-
-  return function (arr, i) {
-    if (Array.isArray(arr)) {
-      return arr;
-    } else if ((0, _isIterable3.default)(Object(arr))) {
-      return sliceIterator(arr, i);
-    } else {
-      throw new TypeError("Invalid attempt to destructure non-iterable instance");
-    }
-  };
-}();
-
-/***/ }),
-
-/***/ 4475:
-/***/ ((__unused_webpack_module, exports, __nccwpck_require__) => {
-
-"use strict";
-
-
-exports.__esModule = true;
-
-var _from = __nccwpck_require__(9476);
-
-var _from2 = _interopRequireDefault(_from);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-exports["default"] = function (arr) {
-  if (Array.isArray(arr)) {
-    for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) {
-      arr2[i] = arr[i];
-    }
-
-    return arr2;
-  } else {
-    return (0, _from2.default)(arr);
-  }
-};
-
-/***/ }),
-
-/***/ 3660:
-/***/ ((__unused_webpack_module, exports, __nccwpck_require__) => {
-
-"use strict";
-
-
-exports.__esModule = true;
-
-var _iterator = __nccwpck_require__(4301);
-
-var _iterator2 = _interopRequireDefault(_iterator);
-
-var _symbol = __nccwpck_require__(1725);
-
-var _symbol2 = _interopRequireDefault(_symbol);
-
-var _typeof = typeof _symbol2.default === "function" && typeof _iterator2.default === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof _symbol2.default === "function" && obj.constructor === _symbol2.default && obj !== _symbol2.default.prototype ? "symbol" : typeof obj; };
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-exports["default"] = typeof _symbol2.default === "function" && _typeof(_iterator2.default) === "symbol" ? function (obj) {
-  return typeof obj === "undefined" ? "undefined" : _typeof(obj);
-} : function (obj) {
-  return obj && typeof _symbol2.default === "function" && obj.constructor === _symbol2.default && obj !== _symbol2.default.prototype ? "symbol" : typeof obj === "undefined" ? "undefined" : _typeof(obj);
-};
-
-/***/ }),
-
 /***/ 9417:
 /***/ ((module) => {
 
@@ -3292,2630 +2966,6 @@ module.exports = function (xs, fn) {
 var isArray = Array.isArray || function (xs) {
     return Object.prototype.toString.call(xs) === '[object Array]';
 };
-
-
-/***/ }),
-
-/***/ 557:
-/***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
-
-__nccwpck_require__(607);
-__nccwpck_require__(267);
-module.exports = __nccwpck_require__(1796).Array.from;
-
-
-/***/ }),
-
-/***/ 8427:
-/***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
-
-__nccwpck_require__(4869);
-__nccwpck_require__(607);
-module.exports = __nccwpck_require__(2806);
-
-
-/***/ }),
-
-/***/ 4830:
-/***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
-
-__nccwpck_require__(4869);
-__nccwpck_require__(607);
-module.exports = __nccwpck_require__(442);
-
-
-/***/ }),
-
-/***/ 4183:
-/***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
-
-var core = __nccwpck_require__(1796);
-var $JSON = core.JSON || (core.JSON = { stringify: JSON.stringify });
-module.exports = function stringify(it) { // eslint-disable-line no-unused-vars
-  return $JSON.stringify.apply($JSON, arguments);
-};
-
-
-/***/ }),
-
-/***/ 6963:
-/***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
-
-__nccwpck_require__(7717);
-module.exports = __nccwpck_require__(1796).Object.assign;
-
-
-/***/ }),
-
-/***/ 4619:
-/***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
-
-__nccwpck_require__(1154);
-var $Object = (__nccwpck_require__(1796).Object);
-module.exports = function create(P, D) {
-  return $Object.create(P, D);
-};
-
-
-/***/ }),
-
-/***/ 1939:
-/***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
-
-__nccwpck_require__(9334);
-var $Object = (__nccwpck_require__(1796).Object);
-module.exports = function defineProperty(it, key, desc) {
-  return $Object.defineProperty(it, key, desc);
-};
-
-
-/***/ }),
-
-/***/ 4239:
-/***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
-
-__nccwpck_require__(5714);
-module.exports = __nccwpck_require__(1796).Object.entries;
-
-
-/***/ }),
-
-/***/ 3084:
-/***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
-
-__nccwpck_require__(9353);
-module.exports = __nccwpck_require__(1796).Object.getPrototypeOf;
-
-
-/***/ }),
-
-/***/ 7046:
-/***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
-
-__nccwpck_require__(9217);
-module.exports = __nccwpck_require__(1796).Object.keys;
-
-
-/***/ }),
-
-/***/ 332:
-/***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
-
-__nccwpck_require__(1998);
-module.exports = __nccwpck_require__(1796).Object.setPrototypeOf;
-
-
-/***/ }),
-
-/***/ 6356:
-/***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
-
-__nccwpck_require__(6821);
-__nccwpck_require__(607);
-__nccwpck_require__(4869);
-__nccwpck_require__(4268);
-__nccwpck_require__(7833);
-__nccwpck_require__(4722);
-module.exports = __nccwpck_require__(1796).Promise;
-
-
-/***/ }),
-
-/***/ 3126:
-/***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
-
-__nccwpck_require__(1911);
-__nccwpck_require__(6821);
-__nccwpck_require__(3137);
-__nccwpck_require__(148);
-module.exports = __nccwpck_require__(1796).Symbol;
-
-
-/***/ }),
-
-/***/ 9785:
-/***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
-
-__nccwpck_require__(607);
-__nccwpck_require__(4869);
-module.exports = (__nccwpck_require__(3344).f)('iterator');
-
-
-/***/ }),
-
-/***/ 4136:
-/***/ ((module) => {
-
-module.exports = function (it) {
-  if (typeof it != 'function') throw TypeError(it + ' is not a function!');
-  return it;
-};
-
-
-/***/ }),
-
-/***/ 9198:
-/***/ ((module) => {
-
-module.exports = function () { /* empty */ };
-
-
-/***/ }),
-
-/***/ 4260:
-/***/ ((module) => {
-
-module.exports = function (it, Constructor, name, forbiddenField) {
-  if (!(it instanceof Constructor) || (forbiddenField !== undefined && forbiddenField in it)) {
-    throw TypeError(name + ': incorrect invocation!');
-  } return it;
-};
-
-
-/***/ }),
-
-/***/ 2831:
-/***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
-
-var isObject = __nccwpck_require__(2712);
-module.exports = function (it) {
-  if (!isObject(it)) throw TypeError(it + ' is not an object!');
-  return it;
-};
-
-
-/***/ }),
-
-/***/ 932:
-/***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
-
-// false -> Array#indexOf
-// true  -> Array#includes
-var toIObject = __nccwpck_require__(9689);
-var toLength = __nccwpck_require__(8594);
-var toAbsoluteIndex = __nccwpck_require__(9806);
-module.exports = function (IS_INCLUDES) {
-  return function ($this, el, fromIndex) {
-    var O = toIObject($this);
-    var length = toLength(O.length);
-    var index = toAbsoluteIndex(fromIndex, length);
-    var value;
-    // Array#includes uses SameValueZero equality algorithm
-    // eslint-disable-next-line no-self-compare
-    if (IS_INCLUDES && el != el) while (length > index) {
-      value = O[index++];
-      // eslint-disable-next-line no-self-compare
-      if (value != value) return true;
-    // Array#indexOf ignores holes, Array#includes - not
-    } else for (;length > index; index++) if (IS_INCLUDES || index in O) {
-      if (O[index] === el) return IS_INCLUDES || index || 0;
-    } return !IS_INCLUDES && -1;
-  };
-};
-
-
-/***/ }),
-
-/***/ 2798:
-/***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
-
-// getting tag from 19.1.3.6 Object.prototype.toString()
-var cof = __nccwpck_require__(6419);
-var TAG = __nccwpck_require__(4614)('toStringTag');
-// ES3 wrong here
-var ARG = cof(function () { return arguments; }()) == 'Arguments';
-
-// fallback for IE11 Script Access Denied error
-var tryGet = function (it, key) {
-  try {
-    return it[key];
-  } catch (e) { /* empty */ }
-};
-
-module.exports = function (it) {
-  var O, T, B;
-  return it === undefined ? 'Undefined' : it === null ? 'Null'
-    // @@toStringTag case
-    : typeof (T = tryGet(O = Object(it), TAG)) == 'string' ? T
-    // builtinTag case
-    : ARG ? cof(O)
-    // ES3 arguments fallback
-    : (B = cof(O)) == 'Object' && typeof O.callee == 'function' ? 'Arguments' : B;
-};
-
-
-/***/ }),
-
-/***/ 6419:
-/***/ ((module) => {
-
-var toString = {}.toString;
-
-module.exports = function (it) {
-  return toString.call(it).slice(8, -1);
-};
-
-
-/***/ }),
-
-/***/ 1796:
-/***/ ((module) => {
-
-var core = module.exports = { version: '2.6.12' };
-if (typeof __e == 'number') __e = core; // eslint-disable-line no-undef
-
-
-/***/ }),
-
-/***/ 3364:
-/***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
-
-"use strict";
-
-var $defineProperty = __nccwpck_require__(7757);
-var createDesc = __nccwpck_require__(4969);
-
-module.exports = function (object, index, value) {
-  if (index in object) $defineProperty.f(object, index, createDesc(0, value));
-  else object[index] = value;
-};
-
-
-/***/ }),
-
-/***/ 3693:
-/***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
-
-// optional / simple context binding
-var aFunction = __nccwpck_require__(4136);
-module.exports = function (fn, that, length) {
-  aFunction(fn);
-  if (that === undefined) return fn;
-  switch (length) {
-    case 1: return function (a) {
-      return fn.call(that, a);
-    };
-    case 2: return function (a, b) {
-      return fn.call(that, a, b);
-    };
-    case 3: return function (a, b, c) {
-      return fn.call(that, a, b, c);
-    };
-  }
-  return function (/* ...args */) {
-    return fn.apply(that, arguments);
-  };
-};
-
-
-/***/ }),
-
-/***/ 3233:
-/***/ ((module) => {
-
-// 7.2.1 RequireObjectCoercible(argument)
-module.exports = function (it) {
-  if (it == undefined) throw TypeError("Can't call method on  " + it);
-  return it;
-};
-
-
-/***/ }),
-
-/***/ 7045:
-/***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
-
-// Thank's IE8 for his funny defineProperty
-module.exports = !__nccwpck_require__(1000)(function () {
-  return Object.defineProperty({}, 'a', { get: function () { return 7; } }).a != 7;
-});
-
-
-/***/ }),
-
-/***/ 2132:
-/***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
-
-var isObject = __nccwpck_require__(2712);
-var document = (__nccwpck_require__(8874).document);
-// typeof document.createElement is 'object' in old IE
-var is = isObject(document) && isObject(document.createElement);
-module.exports = function (it) {
-  return is ? document.createElement(it) : {};
-};
-
-
-/***/ }),
-
-/***/ 5729:
-/***/ ((module) => {
-
-// IE 8- don't enum bug keys
-module.exports = (
-  'constructor,hasOwnProperty,isPrototypeOf,propertyIsEnumerable,toLocaleString,toString,valueOf'
-).split(',');
-
-
-/***/ }),
-
-/***/ 9783:
-/***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
-
-// all enumerable object keys, includes symbols
-var getKeys = __nccwpck_require__(8639);
-var gOPS = __nccwpck_require__(7669);
-var pIE = __nccwpck_require__(5202);
-module.exports = function (it) {
-  var result = getKeys(it);
-  var getSymbols = gOPS.f;
-  if (getSymbols) {
-    var symbols = getSymbols(it);
-    var isEnum = pIE.f;
-    var i = 0;
-    var key;
-    while (symbols.length > i) if (isEnum.call(it, key = symbols[i++])) result.push(key);
-  } return result;
-};
-
-
-/***/ }),
-
-/***/ 8868:
-/***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
-
-var global = __nccwpck_require__(8874);
-var core = __nccwpck_require__(1796);
-var ctx = __nccwpck_require__(3693);
-var hide = __nccwpck_require__(5096);
-var has = __nccwpck_require__(1621);
-var PROTOTYPE = 'prototype';
-
-var $export = function (type, name, source) {
-  var IS_FORCED = type & $export.F;
-  var IS_GLOBAL = type & $export.G;
-  var IS_STATIC = type & $export.S;
-  var IS_PROTO = type & $export.P;
-  var IS_BIND = type & $export.B;
-  var IS_WRAP = type & $export.W;
-  var exports = IS_GLOBAL ? core : core[name] || (core[name] = {});
-  var expProto = exports[PROTOTYPE];
-  var target = IS_GLOBAL ? global : IS_STATIC ? global[name] : (global[name] || {})[PROTOTYPE];
-  var key, own, out;
-  if (IS_GLOBAL) source = name;
-  for (key in source) {
-    // contains in native
-    own = !IS_FORCED && target && target[key] !== undefined;
-    if (own && has(exports, key)) continue;
-    // export native or passed
-    out = own ? target[key] : source[key];
-    // prevent global pollution for namespaces
-    exports[key] = IS_GLOBAL && typeof target[key] != 'function' ? source[key]
-    // bind timers to global for call from export context
-    : IS_BIND && own ? ctx(out, global)
-    // wrap global constructors for prevent change them in library
-    : IS_WRAP && target[key] == out ? (function (C) {
-      var F = function (a, b, c) {
-        if (this instanceof C) {
-          switch (arguments.length) {
-            case 0: return new C();
-            case 1: return new C(a);
-            case 2: return new C(a, b);
-          } return new C(a, b, c);
-        } return C.apply(this, arguments);
-      };
-      F[PROTOTYPE] = C[PROTOTYPE];
-      return F;
-    // make static versions for prototype methods
-    })(out) : IS_PROTO && typeof out == 'function' ? ctx(Function.call, out) : out;
-    // export proto methods to core.%CONSTRUCTOR%.methods.%NAME%
-    if (IS_PROTO) {
-      (exports.virtual || (exports.virtual = {}))[key] = out;
-      // export proto methods to core.%CONSTRUCTOR%.prototype.%NAME%
-      if (type & $export.R && expProto && !expProto[key]) hide(expProto, key, out);
-    }
-  }
-};
-// type bitmap
-$export.F = 1;   // forced
-$export.G = 2;   // global
-$export.S = 4;   // static
-$export.P = 8;   // proto
-$export.B = 16;  // bind
-$export.W = 32;  // wrap
-$export.U = 64;  // safe
-$export.R = 128; // real proto method for `library`
-module.exports = $export;
-
-
-/***/ }),
-
-/***/ 1000:
-/***/ ((module) => {
-
-module.exports = function (exec) {
-  try {
-    return !!exec();
-  } catch (e) {
-    return true;
-  }
-};
-
-
-/***/ }),
-
-/***/ 8331:
-/***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
-
-var ctx = __nccwpck_require__(3693);
-var call = __nccwpck_require__(2357);
-var isArrayIter = __nccwpck_require__(6410);
-var anObject = __nccwpck_require__(2831);
-var toLength = __nccwpck_require__(8594);
-var getIterFn = __nccwpck_require__(2267);
-var BREAK = {};
-var RETURN = {};
-var exports = module.exports = function (iterable, entries, fn, that, ITERATOR) {
-  var iterFn = ITERATOR ? function () { return iterable; } : getIterFn(iterable);
-  var f = ctx(fn, that, entries ? 2 : 1);
-  var index = 0;
-  var length, step, iterator, result;
-  if (typeof iterFn != 'function') throw TypeError(iterable + ' is not iterable!');
-  // fast case for arrays with default iterator
-  if (isArrayIter(iterFn)) for (length = toLength(iterable.length); length > index; index++) {
-    result = entries ? f(anObject(step = iterable[index])[0], step[1]) : f(iterable[index]);
-    if (result === BREAK || result === RETURN) return result;
-  } else for (iterator = iterFn.call(iterable); !(step = iterator.next()).done;) {
-    result = call(iterator, f, step.value, entries);
-    if (result === BREAK || result === RETURN) return result;
-  }
-};
-exports.BREAK = BREAK;
-exports.RETURN = RETURN;
-
-
-/***/ }),
-
-/***/ 8874:
-/***/ ((module) => {
-
-// https://github.com/zloirock/core-js/issues/86#issuecomment-115759028
-var global = module.exports = typeof window != 'undefined' && window.Math == Math
-  ? window : typeof self != 'undefined' && self.Math == Math ? self
-  // eslint-disable-next-line no-new-func
-  : Function('return this')();
-if (typeof __g == 'number') __g = global; // eslint-disable-line no-undef
-
-
-/***/ }),
-
-/***/ 1621:
-/***/ ((module) => {
-
-var hasOwnProperty = {}.hasOwnProperty;
-module.exports = function (it, key) {
-  return hasOwnProperty.call(it, key);
-};
-
-
-/***/ }),
-
-/***/ 5096:
-/***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
-
-var dP = __nccwpck_require__(7757);
-var createDesc = __nccwpck_require__(4969);
-module.exports = __nccwpck_require__(7045) ? function (object, key, value) {
-  return dP.f(object, key, createDesc(1, value));
-} : function (object, key, value) {
-  object[key] = value;
-  return object;
-};
-
-
-/***/ }),
-
-/***/ 9585:
-/***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
-
-var document = (__nccwpck_require__(8874).document);
-module.exports = document && document.documentElement;
-
-
-/***/ }),
-
-/***/ 3151:
-/***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
-
-module.exports = !__nccwpck_require__(7045) && !__nccwpck_require__(1000)(function () {
-  return Object.defineProperty(__nccwpck_require__(2132)('div'), 'a', { get: function () { return 7; } }).a != 7;
-});
-
-
-/***/ }),
-
-/***/ 5700:
-/***/ ((module) => {
-
-// fast apply, http://jsperf.lnkit.com/fast-apply/5
-module.exports = function (fn, args, that) {
-  var un = that === undefined;
-  switch (args.length) {
-    case 0: return un ? fn()
-                      : fn.call(that);
-    case 1: return un ? fn(args[0])
-                      : fn.call(that, args[0]);
-    case 2: return un ? fn(args[0], args[1])
-                      : fn.call(that, args[0], args[1]);
-    case 3: return un ? fn(args[0], args[1], args[2])
-                      : fn.call(that, args[0], args[1], args[2]);
-    case 4: return un ? fn(args[0], args[1], args[2], args[3])
-                      : fn.call(that, args[0], args[1], args[2], args[3]);
-  } return fn.apply(that, args);
-};
-
-
-/***/ }),
-
-/***/ 1225:
-/***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
-
-// fallback for non-array-like ES3 and non-enumerable old V8 strings
-var cof = __nccwpck_require__(6419);
-// eslint-disable-next-line no-prototype-builtins
-module.exports = Object('z').propertyIsEnumerable(0) ? Object : function (it) {
-  return cof(it) == 'String' ? it.split('') : Object(it);
-};
-
-
-/***/ }),
-
-/***/ 6410:
-/***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
-
-// check on default Array iterator
-var Iterators = __nccwpck_require__(7195);
-var ITERATOR = __nccwpck_require__(4614)('iterator');
-var ArrayProto = Array.prototype;
-
-module.exports = function (it) {
-  return it !== undefined && (Iterators.Array === it || ArrayProto[ITERATOR] === it);
-};
-
-
-/***/ }),
-
-/***/ 8410:
-/***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
-
-// 7.2.2 IsArray(argument)
-var cof = __nccwpck_require__(6419);
-module.exports = Array.isArray || function isArray(arg) {
-  return cof(arg) == 'Array';
-};
-
-
-/***/ }),
-
-/***/ 2712:
-/***/ ((module) => {
-
-module.exports = function (it) {
-  return typeof it === 'object' ? it !== null : typeof it === 'function';
-};
-
-
-/***/ }),
-
-/***/ 2357:
-/***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
-
-// call something on iterator step with safe closing on error
-var anObject = __nccwpck_require__(2831);
-module.exports = function (iterator, fn, value, entries) {
-  try {
-    return entries ? fn(anObject(value)[0], value[1]) : fn(value);
-  // 7.4.6 IteratorClose(iterator, completion)
-  } catch (e) {
-    var ret = iterator['return'];
-    if (ret !== undefined) anObject(ret.call(iterator));
-    throw e;
-  }
-};
-
-
-/***/ }),
-
-/***/ 6490:
-/***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
-
-"use strict";
-
-var create = __nccwpck_require__(36);
-var descriptor = __nccwpck_require__(4969);
-var setToStringTag = __nccwpck_require__(1362);
-var IteratorPrototype = {};
-
-// 25.1.2.1.1 %IteratorPrototype%[@@iterator]()
-__nccwpck_require__(5096)(IteratorPrototype, __nccwpck_require__(4614)('iterator'), function () { return this; });
-
-module.exports = function (Constructor, NAME, next) {
-  Constructor.prototype = create(IteratorPrototype, { next: descriptor(1, next) });
-  setToStringTag(Constructor, NAME + ' Iterator');
-};
-
-
-/***/ }),
-
-/***/ 2343:
-/***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
-
-"use strict";
-
-var LIBRARY = __nccwpck_require__(8882);
-var $export = __nccwpck_require__(8868);
-var redefine = __nccwpck_require__(3839);
-var hide = __nccwpck_require__(5096);
-var Iterators = __nccwpck_require__(7195);
-var $iterCreate = __nccwpck_require__(6490);
-var setToStringTag = __nccwpck_require__(1362);
-var getPrototypeOf = __nccwpck_require__(3174);
-var ITERATOR = __nccwpck_require__(4614)('iterator');
-var BUGGY = !([].keys && 'next' in [].keys()); // Safari has buggy iterators w/o `next`
-var FF_ITERATOR = '@@iterator';
-var KEYS = 'keys';
-var VALUES = 'values';
-
-var returnThis = function () { return this; };
-
-module.exports = function (Base, NAME, Constructor, next, DEFAULT, IS_SET, FORCED) {
-  $iterCreate(Constructor, NAME, next);
-  var getMethod = function (kind) {
-    if (!BUGGY && kind in proto) return proto[kind];
-    switch (kind) {
-      case KEYS: return function keys() { return new Constructor(this, kind); };
-      case VALUES: return function values() { return new Constructor(this, kind); };
-    } return function entries() { return new Constructor(this, kind); };
-  };
-  var TAG = NAME + ' Iterator';
-  var DEF_VALUES = DEFAULT == VALUES;
-  var VALUES_BUG = false;
-  var proto = Base.prototype;
-  var $native = proto[ITERATOR] || proto[FF_ITERATOR] || DEFAULT && proto[DEFAULT];
-  var $default = $native || getMethod(DEFAULT);
-  var $entries = DEFAULT ? !DEF_VALUES ? $default : getMethod('entries') : undefined;
-  var $anyNative = NAME == 'Array' ? proto.entries || $native : $native;
-  var methods, key, IteratorPrototype;
-  // Fix native
-  if ($anyNative) {
-    IteratorPrototype = getPrototypeOf($anyNative.call(new Base()));
-    if (IteratorPrototype !== Object.prototype && IteratorPrototype.next) {
-      // Set @@toStringTag to native iterators
-      setToStringTag(IteratorPrototype, TAG, true);
-      // fix for some old engines
-      if (!LIBRARY && typeof IteratorPrototype[ITERATOR] != 'function') hide(IteratorPrototype, ITERATOR, returnThis);
-    }
-  }
-  // fix Array#{values, @@iterator}.name in V8 / FF
-  if (DEF_VALUES && $native && $native.name !== VALUES) {
-    VALUES_BUG = true;
-    $default = function values() { return $native.call(this); };
-  }
-  // Define iterator
-  if ((!LIBRARY || FORCED) && (BUGGY || VALUES_BUG || !proto[ITERATOR])) {
-    hide(proto, ITERATOR, $default);
-  }
-  // Plug for library
-  Iterators[NAME] = $default;
-  Iterators[TAG] = returnThis;
-  if (DEFAULT) {
-    methods = {
-      values: DEF_VALUES ? $default : getMethod(VALUES),
-      keys: IS_SET ? $default : getMethod(KEYS),
-      entries: $entries
-    };
-    if (FORCED) for (key in methods) {
-      if (!(key in proto)) redefine(proto, key, methods[key]);
-    } else $export($export.P + $export.F * (BUGGY || VALUES_BUG), NAME, methods);
-  }
-  return methods;
-};
-
-
-/***/ }),
-
-/***/ 6495:
-/***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
-
-var ITERATOR = __nccwpck_require__(4614)('iterator');
-var SAFE_CLOSING = false;
-
-try {
-  var riter = [7][ITERATOR]();
-  riter['return'] = function () { SAFE_CLOSING = true; };
-  // eslint-disable-next-line no-throw-literal
-  Array.from(riter, function () { throw 2; });
-} catch (e) { /* empty */ }
-
-module.exports = function (exec, skipClosing) {
-  if (!skipClosing && !SAFE_CLOSING) return false;
-  var safe = false;
-  try {
-    var arr = [7];
-    var iter = arr[ITERATOR]();
-    iter.next = function () { return { done: safe = true }; };
-    arr[ITERATOR] = function () { return iter; };
-    exec(arr);
-  } catch (e) { /* empty */ }
-  return safe;
-};
-
-
-/***/ }),
-
-/***/ 8922:
-/***/ ((module) => {
-
-module.exports = function (done, value) {
-  return { value: value, done: !!done };
-};
-
-
-/***/ }),
-
-/***/ 7195:
-/***/ ((module) => {
-
-module.exports = {};
-
-
-/***/ }),
-
-/***/ 8882:
-/***/ ((module) => {
-
-module.exports = true;
-
-
-/***/ }),
-
-/***/ 8018:
-/***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
-
-var META = __nccwpck_require__(9762)('meta');
-var isObject = __nccwpck_require__(2712);
-var has = __nccwpck_require__(1621);
-var setDesc = (__nccwpck_require__(7757).f);
-var id = 0;
-var isExtensible = Object.isExtensible || function () {
-  return true;
-};
-var FREEZE = !__nccwpck_require__(1000)(function () {
-  return isExtensible(Object.preventExtensions({}));
-});
-var setMeta = function (it) {
-  setDesc(it, META, { value: {
-    i: 'O' + ++id, // object ID
-    w: {}          // weak collections IDs
-  } });
-};
-var fastKey = function (it, create) {
-  // return primitive with prefix
-  if (!isObject(it)) return typeof it == 'symbol' ? it : (typeof it == 'string' ? 'S' : 'P') + it;
-  if (!has(it, META)) {
-    // can't set metadata to uncaught frozen object
-    if (!isExtensible(it)) return 'F';
-    // not necessary to add metadata
-    if (!create) return 'E';
-    // add missing metadata
-    setMeta(it);
-  // return object ID
-  } return it[META].i;
-};
-var getWeak = function (it, create) {
-  if (!has(it, META)) {
-    // can't set metadata to uncaught frozen object
-    if (!isExtensible(it)) return true;
-    // not necessary to add metadata
-    if (!create) return false;
-    // add missing metadata
-    setMeta(it);
-  // return hash weak collections IDs
-  } return it[META].w;
-};
-// add metadata on freeze-family methods calling
-var onFreeze = function (it) {
-  if (FREEZE && meta.NEED && isExtensible(it) && !has(it, META)) setMeta(it);
-  return it;
-};
-var meta = module.exports = {
-  KEY: META,
-  NEED: false,
-  fastKey: fastKey,
-  getWeak: getWeak,
-  onFreeze: onFreeze
-};
-
-
-/***/ }),
-
-/***/ 2958:
-/***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
-
-var global = __nccwpck_require__(8874);
-var macrotask = (__nccwpck_require__(3701).set);
-var Observer = global.MutationObserver || global.WebKitMutationObserver;
-var process = global.process;
-var Promise = global.Promise;
-var isNode = __nccwpck_require__(6419)(process) == 'process';
-
-module.exports = function () {
-  var head, last, notify;
-
-  var flush = function () {
-    var parent, fn;
-    if (isNode && (parent = process.domain)) parent.exit();
-    while (head) {
-      fn = head.fn;
-      head = head.next;
-      try {
-        fn();
-      } catch (e) {
-        if (head) notify();
-        else last = undefined;
-        throw e;
-      }
-    } last = undefined;
-    if (parent) parent.enter();
-  };
-
-  // Node.js
-  if (isNode) {
-    notify = function () {
-      process.nextTick(flush);
-    };
-  // browsers with MutationObserver, except iOS Safari - https://github.com/zloirock/core-js/issues/339
-  } else if (Observer && !(global.navigator && global.navigator.standalone)) {
-    var toggle = true;
-    var node = document.createTextNode('');
-    new Observer(flush).observe(node, { characterData: true }); // eslint-disable-line no-new
-    notify = function () {
-      node.data = toggle = !toggle;
-    };
-  // environments with maybe non-completely correct, but existent Promise
-  } else if (Promise && Promise.resolve) {
-    // Promise.resolve without an argument throws an error in LG WebOS 2
-    var promise = Promise.resolve(undefined);
-    notify = function () {
-      promise.then(flush);
-    };
-  // for other environments - macrotask based on:
-  // - setImmediate
-  // - MessageChannel
-  // - window.postMessag
-  // - onreadystatechange
-  // - setTimeout
-  } else {
-    notify = function () {
-      // strange IE + webpack dev server bug - use .call(global)
-      macrotask.call(global, flush);
-    };
-  }
-
-  return function (fn) {
-    var task = { fn: fn, next: undefined };
-    if (last) last.next = task;
-    if (!head) {
-      head = task;
-      notify();
-    } last = task;
-  };
-};
-
-
-/***/ }),
-
-/***/ 2234:
-/***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
-
-"use strict";
-
-// 25.4.1.5 NewPromiseCapability(C)
-var aFunction = __nccwpck_require__(4136);
-
-function PromiseCapability(C) {
-  var resolve, reject;
-  this.promise = new C(function ($$resolve, $$reject) {
-    if (resolve !== undefined || reject !== undefined) throw TypeError('Bad Promise constructor');
-    resolve = $$resolve;
-    reject = $$reject;
-  });
-  this.resolve = aFunction(resolve);
-  this.reject = aFunction(reject);
-}
-
-module.exports.f = function (C) {
-  return new PromiseCapability(C);
-};
-
-
-/***/ }),
-
-/***/ 9537:
-/***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
-
-"use strict";
-
-// 19.1.2.1 Object.assign(target, source, ...)
-var DESCRIPTORS = __nccwpck_require__(7045);
-var getKeys = __nccwpck_require__(8639);
-var gOPS = __nccwpck_require__(7669);
-var pIE = __nccwpck_require__(5202);
-var toObject = __nccwpck_require__(1206);
-var IObject = __nccwpck_require__(1225);
-var $assign = Object.assign;
-
-// should work with symbols and should have deterministic property order (V8 bug)
-module.exports = !$assign || __nccwpck_require__(1000)(function () {
-  var A = {};
-  var B = {};
-  // eslint-disable-next-line no-undef
-  var S = Symbol();
-  var K = 'abcdefghijklmnopqrst';
-  A[S] = 7;
-  K.split('').forEach(function (k) { B[k] = k; });
-  return $assign({}, A)[S] != 7 || Object.keys($assign({}, B)).join('') != K;
-}) ? function assign(target, source) { // eslint-disable-line no-unused-vars
-  var T = toObject(target);
-  var aLen = arguments.length;
-  var index = 1;
-  var getSymbols = gOPS.f;
-  var isEnum = pIE.f;
-  while (aLen > index) {
-    var S = IObject(arguments[index++]);
-    var keys = getSymbols ? getKeys(S).concat(getSymbols(S)) : getKeys(S);
-    var length = keys.length;
-    var j = 0;
-    var key;
-    while (length > j) {
-      key = keys[j++];
-      if (!DESCRIPTORS || isEnum.call(S, key)) T[key] = S[key];
-    }
-  } return T;
-} : $assign;
-
-
-/***/ }),
-
-/***/ 36:
-/***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
-
-// 19.1.2.2 / 15.2.3.5 Object.create(O [, Properties])
-var anObject = __nccwpck_require__(2831);
-var dPs = __nccwpck_require__(3326);
-var enumBugKeys = __nccwpck_require__(5729);
-var IE_PROTO = __nccwpck_require__(3287)('IE_PROTO');
-var Empty = function () { /* empty */ };
-var PROTOTYPE = 'prototype';
-
-// Create object with fake `null` prototype: use iframe Object with cleared prototype
-var createDict = function () {
-  // Thrash, waste and sodomy: IE GC bug
-  var iframe = __nccwpck_require__(2132)('iframe');
-  var i = enumBugKeys.length;
-  var lt = '<';
-  var gt = '>';
-  var iframeDocument;
-  iframe.style.display = 'none';
-  (__nccwpck_require__(9585).appendChild)(iframe);
-  iframe.src = 'javascript:'; // eslint-disable-line no-script-url
-  // createDict = iframe.contentWindow.Object;
-  // html.removeChild(iframe);
-  iframeDocument = iframe.contentWindow.document;
-  iframeDocument.open();
-  iframeDocument.write(lt + 'script' + gt + 'document.F=Object' + lt + '/script' + gt);
-  iframeDocument.close();
-  createDict = iframeDocument.F;
-  while (i--) delete createDict[PROTOTYPE][enumBugKeys[i]];
-  return createDict();
-};
-
-module.exports = Object.create || function create(O, Properties) {
-  var result;
-  if (O !== null) {
-    Empty[PROTOTYPE] = anObject(O);
-    result = new Empty();
-    Empty[PROTOTYPE] = null;
-    // add "__proto__" for Object.getPrototypeOf polyfill
-    result[IE_PROTO] = O;
-  } else result = createDict();
-  return Properties === undefined ? result : dPs(result, Properties);
-};
-
-
-/***/ }),
-
-/***/ 7757:
-/***/ ((__unused_webpack_module, exports, __nccwpck_require__) => {
-
-var anObject = __nccwpck_require__(2831);
-var IE8_DOM_DEFINE = __nccwpck_require__(3151);
-var toPrimitive = __nccwpck_require__(6545);
-var dP = Object.defineProperty;
-
-exports.f = __nccwpck_require__(7045) ? Object.defineProperty : function defineProperty(O, P, Attributes) {
-  anObject(O);
-  P = toPrimitive(P, true);
-  anObject(Attributes);
-  if (IE8_DOM_DEFINE) try {
-    return dP(O, P, Attributes);
-  } catch (e) { /* empty */ }
-  if ('get' in Attributes || 'set' in Attributes) throw TypeError('Accessors not supported!');
-  if ('value' in Attributes) O[P] = Attributes.value;
-  return O;
-};
-
-
-/***/ }),
-
-/***/ 3326:
-/***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
-
-var dP = __nccwpck_require__(7757);
-var anObject = __nccwpck_require__(2831);
-var getKeys = __nccwpck_require__(8639);
-
-module.exports = __nccwpck_require__(7045) ? Object.defineProperties : function defineProperties(O, Properties) {
-  anObject(O);
-  var keys = getKeys(Properties);
-  var length = keys.length;
-  var i = 0;
-  var P;
-  while (length > i) dP.f(O, P = keys[i++], Properties[P]);
-  return O;
-};
-
-
-/***/ }),
-
-/***/ 1646:
-/***/ ((__unused_webpack_module, exports, __nccwpck_require__) => {
-
-var pIE = __nccwpck_require__(5202);
-var createDesc = __nccwpck_require__(4969);
-var toIObject = __nccwpck_require__(9689);
-var toPrimitive = __nccwpck_require__(6545);
-var has = __nccwpck_require__(1621);
-var IE8_DOM_DEFINE = __nccwpck_require__(3151);
-var gOPD = Object.getOwnPropertyDescriptor;
-
-exports.f = __nccwpck_require__(7045) ? gOPD : function getOwnPropertyDescriptor(O, P) {
-  O = toIObject(O);
-  P = toPrimitive(P, true);
-  if (IE8_DOM_DEFINE) try {
-    return gOPD(O, P);
-  } catch (e) { /* empty */ }
-  if (has(O, P)) return createDesc(!pIE.f.call(O, P), O[P]);
-};
-
-
-/***/ }),
-
-/***/ 7062:
-/***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
-
-// fallback for IE11 buggy Object.getOwnPropertyNames with iframe and window
-var toIObject = __nccwpck_require__(9689);
-var gOPN = (__nccwpck_require__(9153).f);
-var toString = {}.toString;
-
-var windowNames = typeof window == 'object' && window && Object.getOwnPropertyNames
-  ? Object.getOwnPropertyNames(window) : [];
-
-var getWindowNames = function (it) {
-  try {
-    return gOPN(it);
-  } catch (e) {
-    return windowNames.slice();
-  }
-};
-
-module.exports.f = function getOwnPropertyNames(it) {
-  return windowNames && toString.call(it) == '[object Window]' ? getWindowNames(it) : gOPN(toIObject(it));
-};
-
-
-/***/ }),
-
-/***/ 9153:
-/***/ ((__unused_webpack_module, exports, __nccwpck_require__) => {
-
-// 19.1.2.7 / 15.2.3.4 Object.getOwnPropertyNames(O)
-var $keys = __nccwpck_require__(126);
-var hiddenKeys = (__nccwpck_require__(5729).concat)('length', 'prototype');
-
-exports.f = Object.getOwnPropertyNames || function getOwnPropertyNames(O) {
-  return $keys(O, hiddenKeys);
-};
-
-
-/***/ }),
-
-/***/ 7669:
-/***/ ((__unused_webpack_module, exports) => {
-
-exports.f = Object.getOwnPropertySymbols;
-
-
-/***/ }),
-
-/***/ 3174:
-/***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
-
-// 19.1.2.9 / 15.2.3.2 Object.getPrototypeOf(O)
-var has = __nccwpck_require__(1621);
-var toObject = __nccwpck_require__(1206);
-var IE_PROTO = __nccwpck_require__(3287)('IE_PROTO');
-var ObjectProto = Object.prototype;
-
-module.exports = Object.getPrototypeOf || function (O) {
-  O = toObject(O);
-  if (has(O, IE_PROTO)) return O[IE_PROTO];
-  if (typeof O.constructor == 'function' && O instanceof O.constructor) {
-    return O.constructor.prototype;
-  } return O instanceof Object ? ObjectProto : null;
-};
-
-
-/***/ }),
-
-/***/ 126:
-/***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
-
-var has = __nccwpck_require__(1621);
-var toIObject = __nccwpck_require__(9689);
-var arrayIndexOf = __nccwpck_require__(932)(false);
-var IE_PROTO = __nccwpck_require__(3287)('IE_PROTO');
-
-module.exports = function (object, names) {
-  var O = toIObject(object);
-  var i = 0;
-  var result = [];
-  var key;
-  for (key in O) if (key != IE_PROTO) has(O, key) && result.push(key);
-  // Don't enum bug & hidden keys
-  while (names.length > i) if (has(O, key = names[i++])) {
-    ~arrayIndexOf(result, key) || result.push(key);
-  }
-  return result;
-};
-
-
-/***/ }),
-
-/***/ 8639:
-/***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
-
-// 19.1.2.14 / 15.2.3.14 Object.keys(O)
-var $keys = __nccwpck_require__(126);
-var enumBugKeys = __nccwpck_require__(5729);
-
-module.exports = Object.keys || function keys(O) {
-  return $keys(O, enumBugKeys);
-};
-
-
-/***/ }),
-
-/***/ 5202:
-/***/ ((__unused_webpack_module, exports) => {
-
-exports.f = {}.propertyIsEnumerable;
-
-
-/***/ }),
-
-/***/ 8826:
-/***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
-
-// most Object methods by ES6 should accept primitives
-var $export = __nccwpck_require__(8868);
-var core = __nccwpck_require__(1796);
-var fails = __nccwpck_require__(1000);
-module.exports = function (KEY, exec) {
-  var fn = (core.Object || {})[KEY] || Object[KEY];
-  var exp = {};
-  exp[KEY] = exec(fn);
-  $export($export.S + $export.F * fails(function () { fn(1); }), 'Object', exp);
-};
-
-
-/***/ }),
-
-/***/ 2584:
-/***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
-
-var DESCRIPTORS = __nccwpck_require__(7045);
-var getKeys = __nccwpck_require__(8639);
-var toIObject = __nccwpck_require__(9689);
-var isEnum = (__nccwpck_require__(5202).f);
-module.exports = function (isEntries) {
-  return function (it) {
-    var O = toIObject(it);
-    var keys = getKeys(O);
-    var length = keys.length;
-    var i = 0;
-    var result = [];
-    var key;
-    while (length > i) {
-      key = keys[i++];
-      if (!DESCRIPTORS || isEnum.call(O, key)) {
-        result.push(isEntries ? [key, O[key]] : O[key]);
-      }
-    }
-    return result;
-  };
-};
-
-
-/***/ }),
-
-/***/ 6464:
-/***/ ((module) => {
-
-module.exports = function (exec) {
-  try {
-    return { e: false, v: exec() };
-  } catch (e) {
-    return { e: true, v: e };
-  }
-};
-
-
-/***/ }),
-
-/***/ 1924:
-/***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
-
-var anObject = __nccwpck_require__(2831);
-var isObject = __nccwpck_require__(2712);
-var newPromiseCapability = __nccwpck_require__(2234);
-
-module.exports = function (C, x) {
-  anObject(C);
-  if (isObject(x) && x.constructor === C) return x;
-  var promiseCapability = newPromiseCapability.f(C);
-  var resolve = promiseCapability.resolve;
-  resolve(x);
-  return promiseCapability.promise;
-};
-
-
-/***/ }),
-
-/***/ 4969:
-/***/ ((module) => {
-
-module.exports = function (bitmap, value) {
-  return {
-    enumerable: !(bitmap & 1),
-    configurable: !(bitmap & 2),
-    writable: !(bitmap & 4),
-    value: value
-  };
-};
-
-
-/***/ }),
-
-/***/ 8705:
-/***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
-
-var hide = __nccwpck_require__(5096);
-module.exports = function (target, src, safe) {
-  for (var key in src) {
-    if (safe && target[key]) target[key] = src[key];
-    else hide(target, key, src[key]);
-  } return target;
-};
-
-
-/***/ }),
-
-/***/ 3839:
-/***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
-
-module.exports = __nccwpck_require__(5096);
-
-
-/***/ }),
-
-/***/ 7061:
-/***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
-
-// Works with __proto__ only. Old v8 can't work with null proto objects.
-/* eslint-disable no-proto */
-var isObject = __nccwpck_require__(2712);
-var anObject = __nccwpck_require__(2831);
-var check = function (O, proto) {
-  anObject(O);
-  if (!isObject(proto) && proto !== null) throw TypeError(proto + ": can't set as prototype!");
-};
-module.exports = {
-  set: Object.setPrototypeOf || ('__proto__' in {} ? // eslint-disable-line
-    function (test, buggy, set) {
-      try {
-        set = __nccwpck_require__(3693)(Function.call, (__nccwpck_require__(1646).f)(Object.prototype, '__proto__').set, 2);
-        set(test, []);
-        buggy = !(test instanceof Array);
-      } catch (e) { buggy = true; }
-      return function setPrototypeOf(O, proto) {
-        check(O, proto);
-        if (buggy) O.__proto__ = proto;
-        else set(O, proto);
-        return O;
-      };
-    }({}, false) : undefined),
-  check: check
-};
-
-
-/***/ }),
-
-/***/ 2637:
-/***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
-
-"use strict";
-
-var global = __nccwpck_require__(8874);
-var core = __nccwpck_require__(1796);
-var dP = __nccwpck_require__(7757);
-var DESCRIPTORS = __nccwpck_require__(7045);
-var SPECIES = __nccwpck_require__(4614)('species');
-
-module.exports = function (KEY) {
-  var C = typeof core[KEY] == 'function' ? core[KEY] : global[KEY];
-  if (DESCRIPTORS && C && !C[SPECIES]) dP.f(C, SPECIES, {
-    configurable: true,
-    get: function () { return this; }
-  });
-};
-
-
-/***/ }),
-
-/***/ 1362:
-/***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
-
-var def = (__nccwpck_require__(7757).f);
-var has = __nccwpck_require__(1621);
-var TAG = __nccwpck_require__(4614)('toStringTag');
-
-module.exports = function (it, tag, stat) {
-  if (it && !has(it = stat ? it : it.prototype, TAG)) def(it, TAG, { configurable: true, value: tag });
-};
-
-
-/***/ }),
-
-/***/ 3287:
-/***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
-
-var shared = __nccwpck_require__(8305)('keys');
-var uid = __nccwpck_require__(9762);
-module.exports = function (key) {
-  return shared[key] || (shared[key] = uid(key));
-};
-
-
-/***/ }),
-
-/***/ 8305:
-/***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
-
-var core = __nccwpck_require__(1796);
-var global = __nccwpck_require__(8874);
-var SHARED = '__core-js_shared__';
-var store = global[SHARED] || (global[SHARED] = {});
-
-(module.exports = function (key, value) {
-  return store[key] || (store[key] = value !== undefined ? value : {});
-})('versions', []).push({
-  version: core.version,
-  mode: __nccwpck_require__(8882) ? 'pure' : 'global',
-  copyright: '© 2020 Denis Pushkarev (zloirock.ru)'
-});
-
-
-/***/ }),
-
-/***/ 471:
-/***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
-
-// 7.3.20 SpeciesConstructor(O, defaultConstructor)
-var anObject = __nccwpck_require__(2831);
-var aFunction = __nccwpck_require__(4136);
-var SPECIES = __nccwpck_require__(4614)('species');
-module.exports = function (O, D) {
-  var C = anObject(O).constructor;
-  var S;
-  return C === undefined || (S = anObject(C)[SPECIES]) == undefined ? D : aFunction(S);
-};
-
-
-/***/ }),
-
-/***/ 5390:
-/***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
-
-var toInteger = __nccwpck_require__(9647);
-var defined = __nccwpck_require__(3233);
-// true  -> String#at
-// false -> String#codePointAt
-module.exports = function (TO_STRING) {
-  return function (that, pos) {
-    var s = String(defined(that));
-    var i = toInteger(pos);
-    var l = s.length;
-    var a, b;
-    if (i < 0 || i >= l) return TO_STRING ? '' : undefined;
-    a = s.charCodeAt(i);
-    return a < 0xd800 || a > 0xdbff || i + 1 === l || (b = s.charCodeAt(i + 1)) < 0xdc00 || b > 0xdfff
-      ? TO_STRING ? s.charAt(i) : a
-      : TO_STRING ? s.slice(i, i + 2) : (a - 0xd800 << 10) + (b - 0xdc00) + 0x10000;
-  };
-};
-
-
-/***/ }),
-
-/***/ 3701:
-/***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
-
-var ctx = __nccwpck_require__(3693);
-var invoke = __nccwpck_require__(5700);
-var html = __nccwpck_require__(9585);
-var cel = __nccwpck_require__(2132);
-var global = __nccwpck_require__(8874);
-var process = global.process;
-var setTask = global.setImmediate;
-var clearTask = global.clearImmediate;
-var MessageChannel = global.MessageChannel;
-var Dispatch = global.Dispatch;
-var counter = 0;
-var queue = {};
-var ONREADYSTATECHANGE = 'onreadystatechange';
-var defer, channel, port;
-var run = function () {
-  var id = +this;
-  // eslint-disable-next-line no-prototype-builtins
-  if (queue.hasOwnProperty(id)) {
-    var fn = queue[id];
-    delete queue[id];
-    fn();
-  }
-};
-var listener = function (event) {
-  run.call(event.data);
-};
-// Node.js 0.9+ & IE10+ has setImmediate, otherwise:
-if (!setTask || !clearTask) {
-  setTask = function setImmediate(fn) {
-    var args = [];
-    var i = 1;
-    while (arguments.length > i) args.push(arguments[i++]);
-    queue[++counter] = function () {
-      // eslint-disable-next-line no-new-func
-      invoke(typeof fn == 'function' ? fn : Function(fn), args);
-    };
-    defer(counter);
-    return counter;
-  };
-  clearTask = function clearImmediate(id) {
-    delete queue[id];
-  };
-  // Node.js 0.8-
-  if (__nccwpck_require__(6419)(process) == 'process') {
-    defer = function (id) {
-      process.nextTick(ctx(run, id, 1));
-    };
-  // Sphere (JS game engine) Dispatch API
-  } else if (Dispatch && Dispatch.now) {
-    defer = function (id) {
-      Dispatch.now(ctx(run, id, 1));
-    };
-  // Browsers with MessageChannel, includes WebWorkers
-  } else if (MessageChannel) {
-    channel = new MessageChannel();
-    port = channel.port2;
-    channel.port1.onmessage = listener;
-    defer = ctx(port.postMessage, port, 1);
-  // Browsers with postMessage, skip WebWorkers
-  // IE8 has postMessage, but it's sync & typeof its postMessage is 'object'
-  } else if (global.addEventListener && typeof postMessage == 'function' && !global.importScripts) {
-    defer = function (id) {
-      global.postMessage(id + '', '*');
-    };
-    global.addEventListener('message', listener, false);
-  // IE8-
-  } else if (ONREADYSTATECHANGE in cel('script')) {
-    defer = function (id) {
-      html.appendChild(cel('script'))[ONREADYSTATECHANGE] = function () {
-        html.removeChild(this);
-        run.call(id);
-      };
-    };
-  // Rest old browsers
-  } else {
-    defer = function (id) {
-      setTimeout(ctx(run, id, 1), 0);
-    };
-  }
-}
-module.exports = {
-  set: setTask,
-  clear: clearTask
-};
-
-
-/***/ }),
-
-/***/ 9806:
-/***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
-
-var toInteger = __nccwpck_require__(9647);
-var max = Math.max;
-var min = Math.min;
-module.exports = function (index, length) {
-  index = toInteger(index);
-  return index < 0 ? max(index + length, 0) : min(index, length);
-};
-
-
-/***/ }),
-
-/***/ 9647:
-/***/ ((module) => {
-
-// 7.1.4 ToInteger
-var ceil = Math.ceil;
-var floor = Math.floor;
-module.exports = function (it) {
-  return isNaN(it = +it) ? 0 : (it > 0 ? floor : ceil)(it);
-};
-
-
-/***/ }),
-
-/***/ 9689:
-/***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
-
-// to indexed object, toObject with fallback for non-array-like ES3 strings
-var IObject = __nccwpck_require__(1225);
-var defined = __nccwpck_require__(3233);
-module.exports = function (it) {
-  return IObject(defined(it));
-};
-
-
-/***/ }),
-
-/***/ 8594:
-/***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
-
-// 7.1.15 ToLength
-var toInteger = __nccwpck_require__(9647);
-var min = Math.min;
-module.exports = function (it) {
-  return it > 0 ? min(toInteger(it), 0x1fffffffffffff) : 0; // pow(2, 53) - 1 == 9007199254740991
-};
-
-
-/***/ }),
-
-/***/ 1206:
-/***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
-
-// 7.1.13 ToObject(argument)
-var defined = __nccwpck_require__(3233);
-module.exports = function (it) {
-  return Object(defined(it));
-};
-
-
-/***/ }),
-
-/***/ 6545:
-/***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
-
-// 7.1.1 ToPrimitive(input [, PreferredType])
-var isObject = __nccwpck_require__(2712);
-// instead of the ES6 spec version, we didn't implement @@toPrimitive case
-// and the second argument - flag - preferred type is a string
-module.exports = function (it, S) {
-  if (!isObject(it)) return it;
-  var fn, val;
-  if (S && typeof (fn = it.toString) == 'function' && !isObject(val = fn.call(it))) return val;
-  if (typeof (fn = it.valueOf) == 'function' && !isObject(val = fn.call(it))) return val;
-  if (!S && typeof (fn = it.toString) == 'function' && !isObject(val = fn.call(it))) return val;
-  throw TypeError("Can't convert object to primitive value");
-};
-
-
-/***/ }),
-
-/***/ 9762:
-/***/ ((module) => {
-
-var id = 0;
-var px = Math.random();
-module.exports = function (key) {
-  return 'Symbol('.concat(key === undefined ? '' : key, ')_', (++id + px).toString(36));
-};
-
-
-/***/ }),
-
-/***/ 8232:
-/***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
-
-var global = __nccwpck_require__(8874);
-var navigator = global.navigator;
-
-module.exports = navigator && navigator.userAgent || '';
-
-
-/***/ }),
-
-/***/ 2352:
-/***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
-
-var global = __nccwpck_require__(8874);
-var core = __nccwpck_require__(1796);
-var LIBRARY = __nccwpck_require__(8882);
-var wksExt = __nccwpck_require__(3344);
-var defineProperty = (__nccwpck_require__(7757).f);
-module.exports = function (name) {
-  var $Symbol = core.Symbol || (core.Symbol = LIBRARY ? {} : global.Symbol || {});
-  if (name.charAt(0) != '_' && !(name in $Symbol)) defineProperty($Symbol, name, { value: wksExt.f(name) });
-};
-
-
-/***/ }),
-
-/***/ 3344:
-/***/ ((__unused_webpack_module, exports, __nccwpck_require__) => {
-
-exports.f = __nccwpck_require__(4614);
-
-
-/***/ }),
-
-/***/ 4614:
-/***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
-
-var store = __nccwpck_require__(8305)('wks');
-var uid = __nccwpck_require__(9762);
-var Symbol = (__nccwpck_require__(8874).Symbol);
-var USE_SYMBOL = typeof Symbol == 'function';
-
-var $exports = module.exports = function (name) {
-  return store[name] || (store[name] =
-    USE_SYMBOL && Symbol[name] || (USE_SYMBOL ? Symbol : uid)('Symbol.' + name));
-};
-
-$exports.store = store;
-
-
-/***/ }),
-
-/***/ 2267:
-/***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
-
-var classof = __nccwpck_require__(2798);
-var ITERATOR = __nccwpck_require__(4614)('iterator');
-var Iterators = __nccwpck_require__(7195);
-module.exports = (__nccwpck_require__(1796).getIteratorMethod) = function (it) {
-  if (it != undefined) return it[ITERATOR]
-    || it['@@iterator']
-    || Iterators[classof(it)];
-};
-
-
-/***/ }),
-
-/***/ 2806:
-/***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
-
-var anObject = __nccwpck_require__(2831);
-var get = __nccwpck_require__(2267);
-module.exports = (__nccwpck_require__(1796).getIterator) = function (it) {
-  var iterFn = get(it);
-  if (typeof iterFn != 'function') throw TypeError(it + ' is not iterable!');
-  return anObject(iterFn.call(it));
-};
-
-
-/***/ }),
-
-/***/ 442:
-/***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
-
-var classof = __nccwpck_require__(2798);
-var ITERATOR = __nccwpck_require__(4614)('iterator');
-var Iterators = __nccwpck_require__(7195);
-module.exports = (__nccwpck_require__(1796).isIterable) = function (it) {
-  var O = Object(it);
-  return O[ITERATOR] !== undefined
-    || '@@iterator' in O
-    // eslint-disable-next-line no-prototype-builtins
-    || Iterators.hasOwnProperty(classof(O));
-};
-
-
-/***/ }),
-
-/***/ 267:
-/***/ ((__unused_webpack_module, __unused_webpack_exports, __nccwpck_require__) => {
-
-"use strict";
-
-var ctx = __nccwpck_require__(3693);
-var $export = __nccwpck_require__(8868);
-var toObject = __nccwpck_require__(1206);
-var call = __nccwpck_require__(2357);
-var isArrayIter = __nccwpck_require__(6410);
-var toLength = __nccwpck_require__(8594);
-var createProperty = __nccwpck_require__(3364);
-var getIterFn = __nccwpck_require__(2267);
-
-$export($export.S + $export.F * !__nccwpck_require__(6495)(function (iter) { Array.from(iter); }), 'Array', {
-  // 22.1.2.1 Array.from(arrayLike, mapfn = undefined, thisArg = undefined)
-  from: function from(arrayLike /* , mapfn = undefined, thisArg = undefined */) {
-    var O = toObject(arrayLike);
-    var C = typeof this == 'function' ? this : Array;
-    var aLen = arguments.length;
-    var mapfn = aLen > 1 ? arguments[1] : undefined;
-    var mapping = mapfn !== undefined;
-    var index = 0;
-    var iterFn = getIterFn(O);
-    var length, result, step, iterator;
-    if (mapping) mapfn = ctx(mapfn, aLen > 2 ? arguments[2] : undefined, 2);
-    // if object isn't iterable or it's array with default iterator - use simple case
-    if (iterFn != undefined && !(C == Array && isArrayIter(iterFn))) {
-      for (iterator = iterFn.call(O), result = new C(); !(step = iterator.next()).done; index++) {
-        createProperty(result, index, mapping ? call(iterator, mapfn, [step.value, index], true) : step.value);
-      }
-    } else {
-      length = toLength(O.length);
-      for (result = new C(length); length > index; index++) {
-        createProperty(result, index, mapping ? mapfn(O[index], index) : O[index]);
-      }
-    }
-    result.length = index;
-    return result;
-  }
-});
-
-
-/***/ }),
-
-/***/ 8165:
-/***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
-
-"use strict";
-
-var addToUnscopables = __nccwpck_require__(9198);
-var step = __nccwpck_require__(8922);
-var Iterators = __nccwpck_require__(7195);
-var toIObject = __nccwpck_require__(9689);
-
-// 22.1.3.4 Array.prototype.entries()
-// 22.1.3.13 Array.prototype.keys()
-// 22.1.3.29 Array.prototype.values()
-// 22.1.3.30 Array.prototype[@@iterator]()
-module.exports = __nccwpck_require__(2343)(Array, 'Array', function (iterated, kind) {
-  this._t = toIObject(iterated); // target
-  this._i = 0;                   // next index
-  this._k = kind;                // kind
-// 22.1.5.2.1 %ArrayIteratorPrototype%.next()
-}, function () {
-  var O = this._t;
-  var kind = this._k;
-  var index = this._i++;
-  if (!O || index >= O.length) {
-    this._t = undefined;
-    return step(1);
-  }
-  if (kind == 'keys') return step(0, index);
-  if (kind == 'values') return step(0, O[index]);
-  return step(0, [index, O[index]]);
-}, 'values');
-
-// argumentsList[@@iterator] is %ArrayProto_values% (9.4.4.6, 9.4.4.7)
-Iterators.Arguments = Iterators.Array;
-
-addToUnscopables('keys');
-addToUnscopables('values');
-addToUnscopables('entries');
-
-
-/***/ }),
-
-/***/ 7717:
-/***/ ((__unused_webpack_module, __unused_webpack_exports, __nccwpck_require__) => {
-
-// 19.1.3.1 Object.assign(target, source)
-var $export = __nccwpck_require__(8868);
-
-$export($export.S + $export.F, 'Object', { assign: __nccwpck_require__(9537) });
-
-
-/***/ }),
-
-/***/ 1154:
-/***/ ((__unused_webpack_module, __unused_webpack_exports, __nccwpck_require__) => {
-
-var $export = __nccwpck_require__(8868);
-// 19.1.2.2 / 15.2.3.5 Object.create(O [, Properties])
-$export($export.S, 'Object', { create: __nccwpck_require__(36) });
-
-
-/***/ }),
-
-/***/ 9334:
-/***/ ((__unused_webpack_module, __unused_webpack_exports, __nccwpck_require__) => {
-
-var $export = __nccwpck_require__(8868);
-// 19.1.2.4 / 15.2.3.6 Object.defineProperty(O, P, Attributes)
-$export($export.S + $export.F * !__nccwpck_require__(7045), 'Object', { defineProperty: (__nccwpck_require__(7757).f) });
-
-
-/***/ }),
-
-/***/ 9353:
-/***/ ((__unused_webpack_module, __unused_webpack_exports, __nccwpck_require__) => {
-
-// 19.1.2.9 Object.getPrototypeOf(O)
-var toObject = __nccwpck_require__(1206);
-var $getPrototypeOf = __nccwpck_require__(3174);
-
-__nccwpck_require__(8826)('getPrototypeOf', function () {
-  return function getPrototypeOf(it) {
-    return $getPrototypeOf(toObject(it));
-  };
-});
-
-
-/***/ }),
-
-/***/ 9217:
-/***/ ((__unused_webpack_module, __unused_webpack_exports, __nccwpck_require__) => {
-
-// 19.1.2.14 Object.keys(O)
-var toObject = __nccwpck_require__(1206);
-var $keys = __nccwpck_require__(8639);
-
-__nccwpck_require__(8826)('keys', function () {
-  return function keys(it) {
-    return $keys(toObject(it));
-  };
-});
-
-
-/***/ }),
-
-/***/ 1998:
-/***/ ((__unused_webpack_module, __unused_webpack_exports, __nccwpck_require__) => {
-
-// 19.1.3.19 Object.setPrototypeOf(O, proto)
-var $export = __nccwpck_require__(8868);
-$export($export.S, 'Object', { setPrototypeOf: (__nccwpck_require__(7061).set) });
-
-
-/***/ }),
-
-/***/ 6821:
-/***/ (() => {
-
-
-
-/***/ }),
-
-/***/ 4268:
-/***/ ((__unused_webpack_module, __unused_webpack_exports, __nccwpck_require__) => {
-
-"use strict";
-
-var LIBRARY = __nccwpck_require__(8882);
-var global = __nccwpck_require__(8874);
-var ctx = __nccwpck_require__(3693);
-var classof = __nccwpck_require__(2798);
-var $export = __nccwpck_require__(8868);
-var isObject = __nccwpck_require__(2712);
-var aFunction = __nccwpck_require__(4136);
-var anInstance = __nccwpck_require__(4260);
-var forOf = __nccwpck_require__(8331);
-var speciesConstructor = __nccwpck_require__(471);
-var task = (__nccwpck_require__(3701).set);
-var microtask = __nccwpck_require__(2958)();
-var newPromiseCapabilityModule = __nccwpck_require__(2234);
-var perform = __nccwpck_require__(6464);
-var userAgent = __nccwpck_require__(8232);
-var promiseResolve = __nccwpck_require__(1924);
-var PROMISE = 'Promise';
-var TypeError = global.TypeError;
-var process = global.process;
-var versions = process && process.versions;
-var v8 = versions && versions.v8 || '';
-var $Promise = global[PROMISE];
-var isNode = classof(process) == 'process';
-var empty = function () { /* empty */ };
-var Internal, newGenericPromiseCapability, OwnPromiseCapability, Wrapper;
-var newPromiseCapability = newGenericPromiseCapability = newPromiseCapabilityModule.f;
-
-var USE_NATIVE = !!function () {
-  try {
-    // correct subclassing with @@species support
-    var promise = $Promise.resolve(1);
-    var FakePromise = (promise.constructor = {})[__nccwpck_require__(4614)('species')] = function (exec) {
-      exec(empty, empty);
-    };
-    // unhandled rejections tracking support, NodeJS Promise without it fails @@species test
-    return (isNode || typeof PromiseRejectionEvent == 'function')
-      && promise.then(empty) instanceof FakePromise
-      // v8 6.6 (Node 10 and Chrome 66) have a bug with resolving custom thenables
-      // https://bugs.chromium.org/p/chromium/issues/detail?id=830565
-      // we can't detect it synchronously, so just check versions
-      && v8.indexOf('6.6') !== 0
-      && userAgent.indexOf('Chrome/66') === -1;
-  } catch (e) { /* empty */ }
-}();
-
-// helpers
-var isThenable = function (it) {
-  var then;
-  return isObject(it) && typeof (then = it.then) == 'function' ? then : false;
-};
-var notify = function (promise, isReject) {
-  if (promise._n) return;
-  promise._n = true;
-  var chain = promise._c;
-  microtask(function () {
-    var value = promise._v;
-    var ok = promise._s == 1;
-    var i = 0;
-    var run = function (reaction) {
-      var handler = ok ? reaction.ok : reaction.fail;
-      var resolve = reaction.resolve;
-      var reject = reaction.reject;
-      var domain = reaction.domain;
-      var result, then, exited;
-      try {
-        if (handler) {
-          if (!ok) {
-            if (promise._h == 2) onHandleUnhandled(promise);
-            promise._h = 1;
-          }
-          if (handler === true) result = value;
-          else {
-            if (domain) domain.enter();
-            result = handler(value); // may throw
-            if (domain) {
-              domain.exit();
-              exited = true;
-            }
-          }
-          if (result === reaction.promise) {
-            reject(TypeError('Promise-chain cycle'));
-          } else if (then = isThenable(result)) {
-            then.call(result, resolve, reject);
-          } else resolve(result);
-        } else reject(value);
-      } catch (e) {
-        if (domain && !exited) domain.exit();
-        reject(e);
-      }
-    };
-    while (chain.length > i) run(chain[i++]); // variable length - can't use forEach
-    promise._c = [];
-    promise._n = false;
-    if (isReject && !promise._h) onUnhandled(promise);
-  });
-};
-var onUnhandled = function (promise) {
-  task.call(global, function () {
-    var value = promise._v;
-    var unhandled = isUnhandled(promise);
-    var result, handler, console;
-    if (unhandled) {
-      result = perform(function () {
-        if (isNode) {
-          process.emit('unhandledRejection', value, promise);
-        } else if (handler = global.onunhandledrejection) {
-          handler({ promise: promise, reason: value });
-        } else if ((console = global.console) && console.error) {
-          console.error('Unhandled promise rejection', value);
-        }
-      });
-      // Browsers should not trigger `rejectionHandled` event if it was handled here, NodeJS - should
-      promise._h = isNode || isUnhandled(promise) ? 2 : 1;
-    } promise._a = undefined;
-    if (unhandled && result.e) throw result.v;
-  });
-};
-var isUnhandled = function (promise) {
-  return promise._h !== 1 && (promise._a || promise._c).length === 0;
-};
-var onHandleUnhandled = function (promise) {
-  task.call(global, function () {
-    var handler;
-    if (isNode) {
-      process.emit('rejectionHandled', promise);
-    } else if (handler = global.onrejectionhandled) {
-      handler({ promise: promise, reason: promise._v });
-    }
-  });
-};
-var $reject = function (value) {
-  var promise = this;
-  if (promise._d) return;
-  promise._d = true;
-  promise = promise._w || promise; // unwrap
-  promise._v = value;
-  promise._s = 2;
-  if (!promise._a) promise._a = promise._c.slice();
-  notify(promise, true);
-};
-var $resolve = function (value) {
-  var promise = this;
-  var then;
-  if (promise._d) return;
-  promise._d = true;
-  promise = promise._w || promise; // unwrap
-  try {
-    if (promise === value) throw TypeError("Promise can't be resolved itself");
-    if (then = isThenable(value)) {
-      microtask(function () {
-        var wrapper = { _w: promise, _d: false }; // wrap
-        try {
-          then.call(value, ctx($resolve, wrapper, 1), ctx($reject, wrapper, 1));
-        } catch (e) {
-          $reject.call(wrapper, e);
-        }
-      });
-    } else {
-      promise._v = value;
-      promise._s = 1;
-      notify(promise, false);
-    }
-  } catch (e) {
-    $reject.call({ _w: promise, _d: false }, e); // wrap
-  }
-};
-
-// constructor polyfill
-if (!USE_NATIVE) {
-  // 25.4.3.1 Promise(executor)
-  $Promise = function Promise(executor) {
-    anInstance(this, $Promise, PROMISE, '_h');
-    aFunction(executor);
-    Internal.call(this);
-    try {
-      executor(ctx($resolve, this, 1), ctx($reject, this, 1));
-    } catch (err) {
-      $reject.call(this, err);
-    }
-  };
-  // eslint-disable-next-line no-unused-vars
-  Internal = function Promise(executor) {
-    this._c = [];             // <- awaiting reactions
-    this._a = undefined;      // <- checked in isUnhandled reactions
-    this._s = 0;              // <- state
-    this._d = false;          // <- done
-    this._v = undefined;      // <- value
-    this._h = 0;              // <- rejection state, 0 - default, 1 - handled, 2 - unhandled
-    this._n = false;          // <- notify
-  };
-  Internal.prototype = __nccwpck_require__(8705)($Promise.prototype, {
-    // 25.4.5.3 Promise.prototype.then(onFulfilled, onRejected)
-    then: function then(onFulfilled, onRejected) {
-      var reaction = newPromiseCapability(speciesConstructor(this, $Promise));
-      reaction.ok = typeof onFulfilled == 'function' ? onFulfilled : true;
-      reaction.fail = typeof onRejected == 'function' && onRejected;
-      reaction.domain = isNode ? process.domain : undefined;
-      this._c.push(reaction);
-      if (this._a) this._a.push(reaction);
-      if (this._s) notify(this, false);
-      return reaction.promise;
-    },
-    // 25.4.5.1 Promise.prototype.catch(onRejected)
-    'catch': function (onRejected) {
-      return this.then(undefined, onRejected);
-    }
-  });
-  OwnPromiseCapability = function () {
-    var promise = new Internal();
-    this.promise = promise;
-    this.resolve = ctx($resolve, promise, 1);
-    this.reject = ctx($reject, promise, 1);
-  };
-  newPromiseCapabilityModule.f = newPromiseCapability = function (C) {
-    return C === $Promise || C === Wrapper
-      ? new OwnPromiseCapability(C)
-      : newGenericPromiseCapability(C);
-  };
-}
-
-$export($export.G + $export.W + $export.F * !USE_NATIVE, { Promise: $Promise });
-__nccwpck_require__(1362)($Promise, PROMISE);
-__nccwpck_require__(2637)(PROMISE);
-Wrapper = __nccwpck_require__(1796)[PROMISE];
-
-// statics
-$export($export.S + $export.F * !USE_NATIVE, PROMISE, {
-  // 25.4.4.5 Promise.reject(r)
-  reject: function reject(r) {
-    var capability = newPromiseCapability(this);
-    var $$reject = capability.reject;
-    $$reject(r);
-    return capability.promise;
-  }
-});
-$export($export.S + $export.F * (LIBRARY || !USE_NATIVE), PROMISE, {
-  // 25.4.4.6 Promise.resolve(x)
-  resolve: function resolve(x) {
-    return promiseResolve(LIBRARY && this === Wrapper ? $Promise : this, x);
-  }
-});
-$export($export.S + $export.F * !(USE_NATIVE && __nccwpck_require__(6495)(function (iter) {
-  $Promise.all(iter)['catch'](empty);
-})), PROMISE, {
-  // 25.4.4.1 Promise.all(iterable)
-  all: function all(iterable) {
-    var C = this;
-    var capability = newPromiseCapability(C);
-    var resolve = capability.resolve;
-    var reject = capability.reject;
-    var result = perform(function () {
-      var values = [];
-      var index = 0;
-      var remaining = 1;
-      forOf(iterable, false, function (promise) {
-        var $index = index++;
-        var alreadyCalled = false;
-        values.push(undefined);
-        remaining++;
-        C.resolve(promise).then(function (value) {
-          if (alreadyCalled) return;
-          alreadyCalled = true;
-          values[$index] = value;
-          --remaining || resolve(values);
-        }, reject);
-      });
-      --remaining || resolve(values);
-    });
-    if (result.e) reject(result.v);
-    return capability.promise;
-  },
-  // 25.4.4.4 Promise.race(iterable)
-  race: function race(iterable) {
-    var C = this;
-    var capability = newPromiseCapability(C);
-    var reject = capability.reject;
-    var result = perform(function () {
-      forOf(iterable, false, function (promise) {
-        C.resolve(promise).then(capability.resolve, reject);
-      });
-    });
-    if (result.e) reject(result.v);
-    return capability.promise;
-  }
-});
-
-
-/***/ }),
-
-/***/ 607:
-/***/ ((__unused_webpack_module, __unused_webpack_exports, __nccwpck_require__) => {
-
-"use strict";
-
-var $at = __nccwpck_require__(5390)(true);
-
-// 21.1.3.27 String.prototype[@@iterator]()
-__nccwpck_require__(2343)(String, 'String', function (iterated) {
-  this._t = String(iterated); // target
-  this._i = 0;                // next index
-// 21.1.5.2.1 %StringIteratorPrototype%.next()
-}, function () {
-  var O = this._t;
-  var index = this._i;
-  var point;
-  if (index >= O.length) return { value: undefined, done: true };
-  point = $at(O, index);
-  this._i += point.length;
-  return { value: point, done: false };
-});
-
-
-/***/ }),
-
-/***/ 1911:
-/***/ ((__unused_webpack_module, __unused_webpack_exports, __nccwpck_require__) => {
-
-"use strict";
-
-// ECMAScript 6 symbols shim
-var global = __nccwpck_require__(8874);
-var has = __nccwpck_require__(1621);
-var DESCRIPTORS = __nccwpck_require__(7045);
-var $export = __nccwpck_require__(8868);
-var redefine = __nccwpck_require__(3839);
-var META = (__nccwpck_require__(8018).KEY);
-var $fails = __nccwpck_require__(1000);
-var shared = __nccwpck_require__(8305);
-var setToStringTag = __nccwpck_require__(1362);
-var uid = __nccwpck_require__(9762);
-var wks = __nccwpck_require__(4614);
-var wksExt = __nccwpck_require__(3344);
-var wksDefine = __nccwpck_require__(2352);
-var enumKeys = __nccwpck_require__(9783);
-var isArray = __nccwpck_require__(8410);
-var anObject = __nccwpck_require__(2831);
-var isObject = __nccwpck_require__(2712);
-var toObject = __nccwpck_require__(1206);
-var toIObject = __nccwpck_require__(9689);
-var toPrimitive = __nccwpck_require__(6545);
-var createDesc = __nccwpck_require__(4969);
-var _create = __nccwpck_require__(36);
-var gOPNExt = __nccwpck_require__(7062);
-var $GOPD = __nccwpck_require__(1646);
-var $GOPS = __nccwpck_require__(7669);
-var $DP = __nccwpck_require__(7757);
-var $keys = __nccwpck_require__(8639);
-var gOPD = $GOPD.f;
-var dP = $DP.f;
-var gOPN = gOPNExt.f;
-var $Symbol = global.Symbol;
-var $JSON = global.JSON;
-var _stringify = $JSON && $JSON.stringify;
-var PROTOTYPE = 'prototype';
-var HIDDEN = wks('_hidden');
-var TO_PRIMITIVE = wks('toPrimitive');
-var isEnum = {}.propertyIsEnumerable;
-var SymbolRegistry = shared('symbol-registry');
-var AllSymbols = shared('symbols');
-var OPSymbols = shared('op-symbols');
-var ObjectProto = Object[PROTOTYPE];
-var USE_NATIVE = typeof $Symbol == 'function' && !!$GOPS.f;
-var QObject = global.QObject;
-// Don't use setters in Qt Script, https://github.com/zloirock/core-js/issues/173
-var setter = !QObject || !QObject[PROTOTYPE] || !QObject[PROTOTYPE].findChild;
-
-// fallback for old Android, https://code.google.com/p/v8/issues/detail?id=687
-var setSymbolDesc = DESCRIPTORS && $fails(function () {
-  return _create(dP({}, 'a', {
-    get: function () { return dP(this, 'a', { value: 7 }).a; }
-  })).a != 7;
-}) ? function (it, key, D) {
-  var protoDesc = gOPD(ObjectProto, key);
-  if (protoDesc) delete ObjectProto[key];
-  dP(it, key, D);
-  if (protoDesc && it !== ObjectProto) dP(ObjectProto, key, protoDesc);
-} : dP;
-
-var wrap = function (tag) {
-  var sym = AllSymbols[tag] = _create($Symbol[PROTOTYPE]);
-  sym._k = tag;
-  return sym;
-};
-
-var isSymbol = USE_NATIVE && typeof $Symbol.iterator == 'symbol' ? function (it) {
-  return typeof it == 'symbol';
-} : function (it) {
-  return it instanceof $Symbol;
-};
-
-var $defineProperty = function defineProperty(it, key, D) {
-  if (it === ObjectProto) $defineProperty(OPSymbols, key, D);
-  anObject(it);
-  key = toPrimitive(key, true);
-  anObject(D);
-  if (has(AllSymbols, key)) {
-    if (!D.enumerable) {
-      if (!has(it, HIDDEN)) dP(it, HIDDEN, createDesc(1, {}));
-      it[HIDDEN][key] = true;
-    } else {
-      if (has(it, HIDDEN) && it[HIDDEN][key]) it[HIDDEN][key] = false;
-      D = _create(D, { enumerable: createDesc(0, false) });
-    } return setSymbolDesc(it, key, D);
-  } return dP(it, key, D);
-};
-var $defineProperties = function defineProperties(it, P) {
-  anObject(it);
-  var keys = enumKeys(P = toIObject(P));
-  var i = 0;
-  var l = keys.length;
-  var key;
-  while (l > i) $defineProperty(it, key = keys[i++], P[key]);
-  return it;
-};
-var $create = function create(it, P) {
-  return P === undefined ? _create(it) : $defineProperties(_create(it), P);
-};
-var $propertyIsEnumerable = function propertyIsEnumerable(key) {
-  var E = isEnum.call(this, key = toPrimitive(key, true));
-  if (this === ObjectProto && has(AllSymbols, key) && !has(OPSymbols, key)) return false;
-  return E || !has(this, key) || !has(AllSymbols, key) || has(this, HIDDEN) && this[HIDDEN][key] ? E : true;
-};
-var $getOwnPropertyDescriptor = function getOwnPropertyDescriptor(it, key) {
-  it = toIObject(it);
-  key = toPrimitive(key, true);
-  if (it === ObjectProto && has(AllSymbols, key) && !has(OPSymbols, key)) return;
-  var D = gOPD(it, key);
-  if (D && has(AllSymbols, key) && !(has(it, HIDDEN) && it[HIDDEN][key])) D.enumerable = true;
-  return D;
-};
-var $getOwnPropertyNames = function getOwnPropertyNames(it) {
-  var names = gOPN(toIObject(it));
-  var result = [];
-  var i = 0;
-  var key;
-  while (names.length > i) {
-    if (!has(AllSymbols, key = names[i++]) && key != HIDDEN && key != META) result.push(key);
-  } return result;
-};
-var $getOwnPropertySymbols = function getOwnPropertySymbols(it) {
-  var IS_OP = it === ObjectProto;
-  var names = gOPN(IS_OP ? OPSymbols : toIObject(it));
-  var result = [];
-  var i = 0;
-  var key;
-  while (names.length > i) {
-    if (has(AllSymbols, key = names[i++]) && (IS_OP ? has(ObjectProto, key) : true)) result.push(AllSymbols[key]);
-  } return result;
-};
-
-// 19.4.1.1 Symbol([description])
-if (!USE_NATIVE) {
-  $Symbol = function Symbol() {
-    if (this instanceof $Symbol) throw TypeError('Symbol is not a constructor!');
-    var tag = uid(arguments.length > 0 ? arguments[0] : undefined);
-    var $set = function (value) {
-      if (this === ObjectProto) $set.call(OPSymbols, value);
-      if (has(this, HIDDEN) && has(this[HIDDEN], tag)) this[HIDDEN][tag] = false;
-      setSymbolDesc(this, tag, createDesc(1, value));
-    };
-    if (DESCRIPTORS && setter) setSymbolDesc(ObjectProto, tag, { configurable: true, set: $set });
-    return wrap(tag);
-  };
-  redefine($Symbol[PROTOTYPE], 'toString', function toString() {
-    return this._k;
-  });
-
-  $GOPD.f = $getOwnPropertyDescriptor;
-  $DP.f = $defineProperty;
-  (__nccwpck_require__(9153).f) = gOPNExt.f = $getOwnPropertyNames;
-  (__nccwpck_require__(5202).f) = $propertyIsEnumerable;
-  $GOPS.f = $getOwnPropertySymbols;
-
-  if (DESCRIPTORS && !__nccwpck_require__(8882)) {
-    redefine(ObjectProto, 'propertyIsEnumerable', $propertyIsEnumerable, true);
-  }
-
-  wksExt.f = function (name) {
-    return wrap(wks(name));
-  };
-}
-
-$export($export.G + $export.W + $export.F * !USE_NATIVE, { Symbol: $Symbol });
-
-for (var es6Symbols = (
-  // 19.4.2.2, 19.4.2.3, 19.4.2.4, 19.4.2.6, 19.4.2.8, 19.4.2.9, 19.4.2.10, 19.4.2.11, 19.4.2.12, 19.4.2.13, 19.4.2.14
-  'hasInstance,isConcatSpreadable,iterator,match,replace,search,species,split,toPrimitive,toStringTag,unscopables'
-).split(','), j = 0; es6Symbols.length > j;)wks(es6Symbols[j++]);
-
-for (var wellKnownSymbols = $keys(wks.store), k = 0; wellKnownSymbols.length > k;) wksDefine(wellKnownSymbols[k++]);
-
-$export($export.S + $export.F * !USE_NATIVE, 'Symbol', {
-  // 19.4.2.1 Symbol.for(key)
-  'for': function (key) {
-    return has(SymbolRegistry, key += '')
-      ? SymbolRegistry[key]
-      : SymbolRegistry[key] = $Symbol(key);
-  },
-  // 19.4.2.5 Symbol.keyFor(sym)
-  keyFor: function keyFor(sym) {
-    if (!isSymbol(sym)) throw TypeError(sym + ' is not a symbol!');
-    for (var key in SymbolRegistry) if (SymbolRegistry[key] === sym) return key;
-  },
-  useSetter: function () { setter = true; },
-  useSimple: function () { setter = false; }
-});
-
-$export($export.S + $export.F * !USE_NATIVE, 'Object', {
-  // 19.1.2.2 Object.create(O [, Properties])
-  create: $create,
-  // 19.1.2.4 Object.defineProperty(O, P, Attributes)
-  defineProperty: $defineProperty,
-  // 19.1.2.3 Object.defineProperties(O, Properties)
-  defineProperties: $defineProperties,
-  // 19.1.2.6 Object.getOwnPropertyDescriptor(O, P)
-  getOwnPropertyDescriptor: $getOwnPropertyDescriptor,
-  // 19.1.2.7 Object.getOwnPropertyNames(O)
-  getOwnPropertyNames: $getOwnPropertyNames,
-  // 19.1.2.8 Object.getOwnPropertySymbols(O)
-  getOwnPropertySymbols: $getOwnPropertySymbols
-});
-
-// Chrome 38 and 39 `Object.getOwnPropertySymbols` fails on primitives
-// https://bugs.chromium.org/p/v8/issues/detail?id=3443
-var FAILS_ON_PRIMITIVES = $fails(function () { $GOPS.f(1); });
-
-$export($export.S + $export.F * FAILS_ON_PRIMITIVES, 'Object', {
-  getOwnPropertySymbols: function getOwnPropertySymbols(it) {
-    return $GOPS.f(toObject(it));
-  }
-});
-
-// 24.3.2 JSON.stringify(value [, replacer [, space]])
-$JSON && $export($export.S + $export.F * (!USE_NATIVE || $fails(function () {
-  var S = $Symbol();
-  // MS Edge converts symbol values to JSON as {}
-  // WebKit converts symbol values to JSON as null
-  // V8 throws on boxed symbols
-  return _stringify([S]) != '[null]' || _stringify({ a: S }) != '{}' || _stringify(Object(S)) != '{}';
-})), 'JSON', {
-  stringify: function stringify(it) {
-    var args = [it];
-    var i = 1;
-    var replacer, $replacer;
-    while (arguments.length > i) args.push(arguments[i++]);
-    $replacer = replacer = args[1];
-    if (!isObject(replacer) && it === undefined || isSymbol(it)) return; // IE8 returns string on undefined
-    if (!isArray(replacer)) replacer = function (key, value) {
-      if (typeof $replacer == 'function') value = $replacer.call(this, key, value);
-      if (!isSymbol(value)) return value;
-    };
-    args[1] = replacer;
-    return _stringify.apply($JSON, args);
-  }
-});
-
-// 19.4.3.4 Symbol.prototype[@@toPrimitive](hint)
-$Symbol[PROTOTYPE][TO_PRIMITIVE] || __nccwpck_require__(5096)($Symbol[PROTOTYPE], TO_PRIMITIVE, $Symbol[PROTOTYPE].valueOf);
-// 19.4.3.5 Symbol.prototype[@@toStringTag]
-setToStringTag($Symbol, 'Symbol');
-// 20.2.1.9 Math[@@toStringTag]
-setToStringTag(Math, 'Math', true);
-// 24.3.3 JSON[@@toStringTag]
-setToStringTag(global.JSON, 'JSON', true);
-
-
-/***/ }),
-
-/***/ 5714:
-/***/ ((__unused_webpack_module, __unused_webpack_exports, __nccwpck_require__) => {
-
-// https://github.com/tc39/proposal-object-values-entries
-var $export = __nccwpck_require__(8868);
-var $entries = __nccwpck_require__(2584)(true);
-
-$export($export.S, 'Object', {
-  entries: function entries(it) {
-    return $entries(it);
-  }
-});
-
-
-/***/ }),
-
-/***/ 7833:
-/***/ ((__unused_webpack_module, __unused_webpack_exports, __nccwpck_require__) => {
-
-"use strict";
-// https://github.com/tc39/proposal-promise-finally
-
-var $export = __nccwpck_require__(8868);
-var core = __nccwpck_require__(1796);
-var global = __nccwpck_require__(8874);
-var speciesConstructor = __nccwpck_require__(471);
-var promiseResolve = __nccwpck_require__(1924);
-
-$export($export.P + $export.R, 'Promise', { 'finally': function (onFinally) {
-  var C = speciesConstructor(this, core.Promise || global.Promise);
-  var isFunction = typeof onFinally == 'function';
-  return this.then(
-    isFunction ? function (x) {
-      return promiseResolve(C, onFinally()).then(function () { return x; });
-    } : onFinally,
-    isFunction ? function (e) {
-      return promiseResolve(C, onFinally()).then(function () { throw e; });
-    } : onFinally
-  );
-} });
-
-
-/***/ }),
-
-/***/ 4722:
-/***/ ((__unused_webpack_module, __unused_webpack_exports, __nccwpck_require__) => {
-
-"use strict";
-
-// https://github.com/tc39/proposal-promise-try
-var $export = __nccwpck_require__(8868);
-var newPromiseCapability = __nccwpck_require__(2234);
-var perform = __nccwpck_require__(6464);
-
-$export($export.S, 'Promise', { 'try': function (callbackfn) {
-  var promiseCapability = newPromiseCapability.f(this);
-  var result = perform(callbackfn);
-  (result.e ? promiseCapability.reject : promiseCapability.resolve)(result.v);
-  return promiseCapability.promise;
-} });
-
-
-/***/ }),
-
-/***/ 3137:
-/***/ ((__unused_webpack_module, __unused_webpack_exports, __nccwpck_require__) => {
-
-__nccwpck_require__(2352)('asyncIterator');
-
-
-/***/ }),
-
-/***/ 148:
-/***/ ((__unused_webpack_module, __unused_webpack_exports, __nccwpck_require__) => {
-
-__nccwpck_require__(2352)('observable');
-
-
-/***/ }),
-
-/***/ 4869:
-/***/ ((__unused_webpack_module, __unused_webpack_exports, __nccwpck_require__) => {
-
-__nccwpck_require__(8165);
-var global = __nccwpck_require__(8874);
-var hide = __nccwpck_require__(5096);
-var Iterators = __nccwpck_require__(7195);
-var TO_STRING_TAG = __nccwpck_require__(4614)('toStringTag');
-
-var DOMIterables = ('CSSRuleList,CSSStyleDeclaration,CSSValueList,ClientRectList,DOMRectList,DOMStringList,' +
-  'DOMTokenList,DataTransferItemList,FileList,HTMLAllCollection,HTMLCollection,HTMLFormElement,HTMLSelectElement,' +
-  'MediaList,MimeTypeArray,NamedNodeMap,NodeList,PaintRequestList,Plugin,PluginArray,SVGLengthList,SVGNumberList,' +
-  'SVGPathSegList,SVGPointList,SVGStringList,SVGTransformList,SourceBufferList,StyleSheetList,TextTrackCueList,' +
-  'TextTrackList,TouchList').split(',');
-
-for (var i = 0; i < DOMIterables.length; i++) {
-  var NAME = DOMIterables[i];
-  var Collection = global[NAME];
-  var proto = Collection && Collection.prototype;
-  if (proto && !proto[TO_STRING_TAG]) hide(proto, TO_STRING_TAG, NAME);
-  Iterators[NAME] = Iterators.Array;
-}
 
 
 /***/ }),
@@ -10481,7 +7531,7 @@ GlobSync.prototype._makeAbs = function (f) {
 
 /***/ }),
 
-/***/ 104:
+/***/ 1621:
 /***/ ((module) => {
 
 "use strict";
@@ -17376,5222 +14426,6 @@ module.exports = __nccwpck_require__(7147);
 
 /***/ }),
 
-/***/ 4581:
-/***/ ((module, exports, __nccwpck_require__) => {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", ({
-	value: true
-}));
-
-var _keys = __nccwpck_require__(1432);
-
-var _keys2 = _interopRequireDefault(_keys);
-
-var _slicedToArray2 = __nccwpck_require__(4540);
-
-var _slicedToArray3 = _interopRequireDefault(_slicedToArray2);
-
-var _entries = __nccwpck_require__(338);
-
-var _entries2 = _interopRequireDefault(_entries);
-
-var _getIterator2 = __nccwpck_require__(9021);
-
-var _getIterator3 = _interopRequireDefault(_getIterator2);
-
-var _stringify = __nccwpck_require__(4435);
-
-var _stringify2 = _interopRequireDefault(_stringify);
-
-var _assign = __nccwpck_require__(176);
-
-var _assign2 = _interopRequireDefault(_assign);
-
-var _toConsumableArray2 = __nccwpck_require__(4475);
-
-var _toConsumableArray3 = _interopRequireDefault(_toConsumableArray2);
-
-var _classCallCheck2 = __nccwpck_require__(3802);
-
-var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
-
-var _createClass2 = __nccwpck_require__(6683);
-
-var _createClass3 = _interopRequireDefault(_createClass2);
-
-var _nodeFetch = __nccwpck_require__(467);
-
-var _nodeFetch2 = _interopRequireDefault(_nodeFetch);
-
-var _formData = __nccwpck_require__(3959);
-
-var _formData2 = _interopRequireDefault(_formData);
-
-var _qs = __nccwpck_require__(2760);
-
-var _qs2 = _interopRequireDefault(_qs);
-
-var _fs = __nccwpck_require__(6685);
-
-var _fs2 = _interopRequireDefault(_fs);
-
-var _package = __nccwpck_require__(8116);
-
-var _package2 = _interopRequireDefault(_package);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-/**
- * The object returned for a basic request
- * @typedef {object} JSONResponse
- * @property {number} statusCode	The HTTP response status
- * @property {object} body		The endpoint's response parsed as a JSON
- */
-
-/**
- * The possible response from an API request
- * @typedef {JSONResponse|Buffer|arrayBuffer} RequestResponse	The type is based on
- * the request config and whether is on browser or node
- */
-
-/**
- * The error object generated in case of a failed request
- * @typedef {object} RequestError
- * @property {number} statusCode	The HTTP response status
- * @property {string} errorDescription	Details on what caused the failed request
- * @property {string} shortErrorDescription	Summarized version of the fail reason
- * @property {object} body		The response object from the request
- * @property {object} error		The error object from the request
- */
-
-var Agent = function () {
-	function Agent(baseUrl) {
-		(0, _classCallCheck3.default)(this, Agent);
-
-		this.setBaseUrl(baseUrl);
-	}
-
-	(0, _createClass3.default)(Agent, [{
-		key: 'setBaseUrl',
-		value: function setBaseUrl(baseUrl) {
-			this.baseUrl = baseUrl;
-		}
-
-		/**
-   * Make a GET request
-   * @param {string} uri		The URI to request
-   * @param {string} [auth]	Authorization token to use
-   * @param {object} [headers]	Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
-   * @param {object} [query] Key/Value pairs of query params
-   * @param {object} [context]	The invocation context, describing the tool and project
-   * @returns {Promise<RequestResponse, RequestError>} A promise that resolves with either the requested data or an error object
-   */
-
-	}, {
-		key: 'get',
-		value: function get(_ref) {
-			var uri = _ref.uri,
-			    auth = _ref.auth,
-			    headers = _ref.headers,
-			    query = _ref.query,
-			    context = _ref.context;
-
-			return this.request({ uri: uri, method: 'get', auth: auth, headers: headers, query: query, context: context });
-		}
-
-		/**
-   * Make a HEAD request
-   * @param {string} uri		The URI to request
-   * @param {string} [auth]	Authorization token to use
-   * @param {object} [headers]	Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
-   * @param {object} [query] Key/Value pairs of query params
-   * @param {object} [context]	The invocation context, describing the tool and project
-   * @returns {Promise<RequestResponse, RequestError>} A promise that resolves with either the requested data or an error object
-   */
-
-	}, {
-		key: 'head',
-		value: function head(_ref2) {
-			var uri = _ref2.uri,
-			    auth = _ref2.auth,
-			    headers = _ref2.headers,
-			    query = _ref2.query,
-			    context = _ref2.context;
-
-			return this.request({ uri: uri, method: 'head', auth: auth, headers: headers, query: query, context: context });
-		}
-
-		/**
-   * Make a POST request
-   * @param {string} uri		The URI to request
-   * @param {string} [auth]	Authorization token to use
-   * @param {object} [headers]	Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
-   * @param {object} [data] Payload to send in the request body in JSON format
-   * @param {object} [context]	The invocation context, describing the tool and project
-   * @returns {Promise<RequestResponse, RequestError>} A promise that resolves with either the requested data or an error object
-   */
-
-	}, {
-		key: 'post',
-		value: function post(_ref3) {
-			var uri = _ref3.uri,
-			    headers = _ref3.headers,
-			    data = _ref3.data,
-			    auth = _ref3.auth,
-			    context = _ref3.context;
-
-			return this.request({ uri: uri, method: 'post', auth: auth, headers: headers, data: data, context: context });
-		}
-
-		/**
-   * Make a PUT request
-   * @param {string} uri		The URI to request
-   * @param {string} [auth]	Authorization token to use
-   * @param {object} [headers]	Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
-   * @param {object} [data] Payload to send in the request body in JSON format
-   * @param {object} [context]	The invocation context, describing the tool and project
-   * @returns {Promise<RequestResponse, RequestError>} A promise that resolves with either the requested data or an error object
-   */
-
-	}, {
-		key: 'put',
-		value: function put(_ref4) {
-			var uri = _ref4.uri,
-			    auth = _ref4.auth,
-			    headers = _ref4.headers,
-			    data = _ref4.data,
-			    context = _ref4.context;
-
-			return this.request({ uri: uri, method: 'put', auth: auth, headers: headers, data: data, context: context });
-		}
-
-		/**
-   * Make a DELETE request
-   * @param {string} uri		The URI to request
-   * @param {string} [auth]	Authorization token to use
-   * @param {object} [headers]	Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
-   * @param {object} [data] Payload to send in the request body in JSON format
-   * @param {object} [context]	The invocation context, describing the tool and project
-   * @returns {Promise<RequestResponse, RequestError>} A promise that resolves with either the requested data or an error object
-   */
-
-	}, {
-		key: 'delete',
-		value: function _delete(_ref5) {
-			var uri = _ref5.uri,
-			    auth = _ref5.auth,
-			    headers = _ref5.headers,
-			    data = _ref5.data,
-			    context = _ref5.context;
-
-			return this.request({ uri: uri, method: 'delete', auth: auth, headers: headers, data: data, context: context });
-		}
-
-		/**
-   *
-   * @param {Object} config		An obj with all the possible request configurations
-   * @param {String} config.uri		The URI to request
-   * @param {String} config.method        The method used to request the URI, should be in uppercase.
-   * @param {Object} config.headers       Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
-   * @param {Object} config.data          Arbitrary data to send as the body.
-   * @param {Object} config.auth          Authorization
-   * @param {String} config.query         Query parameters
-   * @param {Object} config.form          Form fields
-   * @param {Object} config.files         array of file names and file content
-   * @param {Object} config.context       the invocation context, describing the tool and project.
-   * @param {boolean} config.isBuffer	Indicate if the response should be treated as Buffer instead of JSON
-   * @returns {Promise<RequestResponse, RequestError>} A promise that resolves with either the requested data or an error object
-   */
-
-	}, {
-		key: 'request',
-		value: function request(_ref6) {
-			var uri = _ref6.uri,
-			    method = _ref6.method,
-			    _ref6$headers = _ref6.headers,
-			    headers = _ref6$headers === undefined ? undefined : _ref6$headers,
-			    _ref6$data = _ref6.data,
-			    data = _ref6$data === undefined ? undefined : _ref6$data,
-			    auth = _ref6.auth,
-			    _ref6$query = _ref6.query,
-			    query = _ref6$query === undefined ? undefined : _ref6$query,
-			    _ref6$form = _ref6.form,
-			    form = _ref6$form === undefined ? undefined : _ref6$form,
-			    _ref6$files = _ref6.files,
-			    files = _ref6$files === undefined ? undefined : _ref6$files,
-			    _ref6$context = _ref6.context,
-			    context = _ref6$context === undefined ? undefined : _ref6$context,
-			    _ref6$isBuffer = _ref6.isBuffer,
-			    isBuffer = _ref6$isBuffer === undefined ? false : _ref6$isBuffer;
-
-			var requestFiles = this._sanitizeFiles(files);
-			var requestParams = this._buildRequest({ uri: uri, method: method, headers: headers, data: data, auth: auth, query: query, form: form, context: context, files: requestFiles });
-			return this._promiseResponse(requestParams, isBuffer);
-		}
-
-		/**
-   * Promises to send the request and retreive the response.
-   * @param {[string, object]} requestParams	First argument is the URI to request, the second one are the options.
-   * @param {boolean} isBuffer Indicate if the response body should be returned as a Buffer (Node) / ArrayBuffer (browser) instead of JSON
-   * @param {Fetch} [makerequest] The fetch function to use. Override for testing.
-   * @returns {Promise<RequestResponse, RequestError>} A promise that resolves with either the requested data or an error object
-   * @private
-   */
-
-	}, {
-		key: '_promiseResponse',
-		value: function _promiseResponse(requestParams, isBuffer) {
-			var _this = this;
-
-			var makerequest = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : _nodeFetch2.default;
-
-			var status = void 0;
-			return makerequest.apply(undefined, (0, _toConsumableArray3.default)(requestParams)).then(function (resp) {
-				status = resp.status;
-				if (!resp.ok) {
-					return resp.text().then(function (err) {
-						var objError = JSON.parse(err);
-						// particle-commnds/src/cmd/api expects response.text. to be a string
-						var response = (0, _assign2.default)(resp, { text: err });
-						throw (0, _assign2.default)(objError, { response: response });
-					});
-				}
-				if (status === 204) {
-					// Can't do resp.json() since there is no body to parse
-					return '';
-				}
-				if (isBuffer) {
-					return resp.blob();
-				}
-				return resp.json();
-			}).then(function (body) {
-				if (isBuffer) {
-					return body.arrayBuffer().then(function (arrayBuffer) {
-						if (!_this.isForBrowser()) {
-							return Buffer.from(arrayBuffer);
-						}
-						return arrayBuffer;
-					});
-				}
-				return {
-					body: body,
-					statusCode: status
-				};
-			}).catch(function (error) {
-				var errorType = status ? 'HTTP error ' + status : 'Network error';
-				var errorDescription = errorType + ' from ' + requestParams[0];
-				var shortErrorDescription = void 0;
-				if (error.error_description) {
-					// Fetch responded with ok false
-					errorDescription = errorDescription + ' - ' + error.error_description;
-					shortErrorDescription = error.error_description;
-				}
-				var reason = new Error(errorDescription);
-				(0, _assign2.default)(reason, {
-					statusCode: status,
-					errorDescription: errorDescription,
-					shortErrorDescription: shortErrorDescription,
-					error: error,
-					body: error
-				});
-				throw reason;
-			});
-		}
-	}, {
-		key: '_buildRequest',
-		value: function _buildRequest(_ref7) {
-			var uri = _ref7.uri,
-			    method = _ref7.method,
-			    headers = _ref7.headers,
-			    data = _ref7.data,
-			    auth = _ref7.auth,
-			    query = _ref7.query,
-			    form = _ref7.form,
-			    files = _ref7.files,
-			    context = _ref7.context;
-
-			var actualUri = uri;
-			if (this.baseUrl && uri[0] === '/') {
-				actualUri = '' + this.baseUrl + uri;
-			}
-			if (query) {
-				var queryParams = _qs2.default.stringify(query);
-				var hasParams = actualUri.includes('?');
-				actualUri = '' + actualUri + (hasParams ? '&' : '?') + queryParams;
-			}
-
-			var userAgentHeader = { 'User-Agent': _package2.default.name + '/' + _package2.default.version + ' (' + _package2.default.repository.url + ')' };
-			var body = void 0;
-			var contentTypeHeader = void 0;
-			if (files) {
-				contentTypeHeader = {}; // Needed to allow fetch create its own
-				body = this._getFromData(files, form);
-			} else if (form) {
-				contentTypeHeader = { 'Content-Type': 'application/x-www-form-urlencoded' };
-				body = _qs2.default.stringify(form);
-			} else if (data) {
-				contentTypeHeader = { 'Content-Type': 'application/json' };
-				body = (0, _stringify2.default)(data);
-			}
-			var finalHeaders = (0, _assign2.default)({}, userAgentHeader, contentTypeHeader, this._getAuthorizationHeader(auth), this._getContextHeaders(context), headers);
-
-			return [actualUri, { method: method, body: body, headers: finalHeaders }];
-		}
-	}, {
-		key: 'isForBrowser',
-		value: function isForBrowser() {
-			return typeof window !== 'undefined';
-		}
-	}, {
-		key: '_getFromData',
-		value: function _getFromData(files, form) {
-			var formData = new _formData2.default();
-			var _iteratorNormalCompletion = true;
-			var _didIteratorError = false;
-			var _iteratorError = undefined;
-
-			try {
-				for (var _iterator = (0, _getIterator3.default)((0, _entries2.default)(files)), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
-					var _step$value = (0, _slicedToArray3.default)(_step.value, 2),
-					    name = _step$value[0],
-					    file = _step$value[1];
-
-					var path = file.path;
-					var fileData = file.data;
-					if (!this.isForBrowser()) {
-						var nodeFormData = this._getNodeFormData(file);
-						path = nodeFormData.path;
-						fileData = nodeFormData.file;
-					}
-					formData.append(name, fileData, path);
-				}
-			} catch (err) {
-				_didIteratorError = true;
-				_iteratorError = err;
-			} finally {
-				try {
-					if (!_iteratorNormalCompletion && _iterator.return) {
-						_iterator.return();
-					}
-				} finally {
-					if (_didIteratorError) {
-						throw _iteratorError;
-					}
-				}
-			}
-
-			if (form) {
-				var _iteratorNormalCompletion2 = true;
-				var _didIteratorError2 = false;
-				var _iteratorError2 = undefined;
-
-				try {
-					for (var _iterator2 = (0, _getIterator3.default)((0, _entries2.default)(form)), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
-						var _step2$value = (0, _slicedToArray3.default)(_step2.value, 2),
-						    name = _step2$value[0],
-						    value = _step2$value[1];
-
-						formData.append(name, value);
-					}
-				} catch (err) {
-					_didIteratorError2 = true;
-					_iteratorError2 = err;
-				} finally {
-					try {
-						if (!_iteratorNormalCompletion2 && _iterator2.return) {
-							_iterator2.return();
-						}
-					} finally {
-						if (_didIteratorError2) {
-							throw _iteratorError2;
-						}
-					}
-				}
-			}
-			return formData;
-		}
-	}, {
-		key: '_getNodeFormData',
-		value: function _getNodeFormData(file) {
-			var fileData = file.data;
-			if (typeof file.data === 'string') {
-				fileData = _fs2.default.createReadStream(file.data);
-			}
-			return {
-				file: fileData,
-				path: { filepath: file.path // Different API for nodejs
-				} };
-		}
-	}, {
-		key: '_getContextHeaders',
-		value: function _getContextHeaders() {
-			var context = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-
-			return (0, _assign2.default)({}, this._getToolContext(context.tool), this._getProjectContext(context.project));
-		}
-	}, {
-		key: '_getToolContext',
-		value: function _getToolContext() {
-			var tool = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-
-			var value = '';
-			if (tool.name) {
-				value += this._toolIdent(tool);
-				if (tool.components) {
-					var _iteratorNormalCompletion3 = true;
-					var _didIteratorError3 = false;
-					var _iteratorError3 = undefined;
-
-					try {
-						for (var _iterator3 = (0, _getIterator3.default)(tool.components), _step3; !(_iteratorNormalCompletion3 = (_step3 = _iterator3.next()).done); _iteratorNormalCompletion3 = true) {
-							var component = _step3.value;
-
-							value += ', ' + this._toolIdent(component);
-						}
-					} catch (err) {
-						_didIteratorError3 = true;
-						_iteratorError3 = err;
-					} finally {
-						try {
-							if (!_iteratorNormalCompletion3 && _iterator3.return) {
-								_iterator3.return();
-							}
-						} finally {
-							if (_didIteratorError3) {
-								throw _iteratorError3;
-							}
-						}
-					}
-				}
-			}
-			if (value) {
-				return { 'X-Particle-Tool': value };
-			}
-			return {};
-		}
-	}, {
-		key: '_toolIdent',
-		value: function _toolIdent(tool) {
-			return this._nameAtVersion(tool.name, tool.version);
-		}
-	}, {
-		key: '_nameAtVersion',
-		value: function _nameAtVersion(name, version) {
-			var value = '';
-			if (name) {
-				value += name;
-				if (version) {
-					value += '@' + version;
-				}
-			}
-			return value;
-		}
-	}, {
-		key: '_getProjectContext',
-		value: function _getProjectContext() {
-			var project = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-
-			var value = this._buildSemicolonSeparatedProperties(project, 'name');
-			if (value) {
-				return { 'X-Particle-Project': value };
-			}
-			return {};
-		}
-
-		/**
-   * Creates a string like primaryPropertyValue; name=value; name1=value
-   * from the properties of an object.
-   * @param {object} obj               The object to create the string from
-   * @param {string} primaryProperty   The name of the primary property which is the default value and must be defined.
-   * @private
-   * @return {string} The formatted string representing the object properties and the default property.
-   */
-
-	}, {
-		key: '_buildSemicolonSeparatedProperties',
-		value: function _buildSemicolonSeparatedProperties(obj, primaryProperty) {
-			var value = '';
-			if (obj[primaryProperty]) {
-				value += obj[primaryProperty];
-				for (var prop in obj) {
-					if (prop !== primaryProperty && obj.hasOwnProperty(prop)) {
-						value += '; ' + prop + '=' + obj[prop];
-					}
-				}
-			}
-			return value;
-		}
-
-		/**
-   * Adds an authorization header.
-   * @param {string}  auth    The authorization bearer token.
-   * @returns {object} The original request.
-   */
-
-	}, {
-		key: '_getAuthorizationHeader',
-		value: function _getAuthorizationHeader(auth) {
-			if (!auth) {
-				return {};
-			}
-			if (typeof auth === 'string') {
-				return { Authorization: 'Bearer ' + auth };
-			}
-			var encoded = void 0;
-			if (this.isForBrowser()) {
-				encoded = btoa(auth.username + ':' + auth.password);
-			} else {
-				encoded = Buffer.from(auth.username + ':' + auth.password).toString('base64');
-			}
-			return { Authorization: 'Basic ' + encoded };
-		}
-
-		/**
-   *
-   * @param {Object} files converts the file names to file, file1, file2.
-   * @returns {object} the renamed files.
-   */
-
-	}, {
-		key: '_sanitizeFiles',
-		value: function _sanitizeFiles(files) {
-			var requestFiles = void 0;
-			if (files) {
-				requestFiles = {};
-				(0, _keys2.default)(files).forEach(function (k, i) {
-					var name = i ? 'file' + (i + 1) : 'file';
-					requestFiles[name] = {
-						data: files[k],
-						path: k
-					};
-				});
-			}
-			return requestFiles;
-		}
-	}]);
-	return Agent;
-}(); /*
-      ******************************************************************************
-      Copyright (c) 2016 Particle Industries, Inc.  All rights reserved.
-     
-      This program is free software; you can redistribute it and/or
-      modify it under the terms of the GNU Lesser General Public
-      License as published by the Free Software Foundation, either
-      version 3 of the License, or (at your option) any later version.
-     
-      This program is distributed in the hope that it will be useful,
-      but WITHOUT ANY WARRANTY; without even the implied warranty of
-      MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-      Lesser General Public License for more details.
-     
-      You should have received a copy of the GNU Lesser General Public
-      License along with this program; if not, see <http://www.gnu.org/licenses/>.
-      ******************************************************************************
-      */
-
-exports["default"] = Agent;
-module.exports = exports['default'];
-//# sourceMappingURL=Agent.js.map
-
-/***/ }),
-
-/***/ 542:
-/***/ ((module, exports, __nccwpck_require__) => {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", ({
-	value: true
-}));
-
-var _getIterator2 = __nccwpck_require__(9021);
-
-var _getIterator3 = _interopRequireDefault(_getIterator2);
-
-var _assign = __nccwpck_require__(176);
-
-var _assign2 = _interopRequireDefault(_assign);
-
-var _classCallCheck2 = __nccwpck_require__(3802);
-
-var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
-
-var _createClass2 = __nccwpck_require__(6683);
-
-var _createClass3 = _interopRequireDefault(_createClass2);
-
-var _Particle = __nccwpck_require__(2918);
-
-var _Particle2 = _interopRequireDefault(_Particle);
-
-var _Library = __nccwpck_require__(3699);
-
-var _Library2 = _interopRequireDefault(_Library);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var Client = function () {
-	function Client(_ref) {
-		var auth = _ref.auth,
-		    _ref$api = _ref.api,
-		    api = _ref$api === undefined ? new _Particle2.default() : _ref$api;
-		(0, _classCallCheck3.default)(this, Client);
-
-		(0, _assign2.default)(this, { auth: auth, api: api });
-	}
-
-	(0, _createClass3.default)(Client, [{
-		key: 'ready',
-		value: function ready() {
-			return Boolean(this.auth);
-		}
-
-		/**
-   * Get firmware library objects
-   * @param  {Object} query The query parameters for libraries. See Particle.listLibraries
-   * @returns {Promise} A promise
-   */
-
-	}, {
-		key: 'libraries',
-		value: function libraries() {
-			var _this = this;
-
-			var query = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-
-			return this.api.listLibraries((0, _assign2.default)({}, query, { auth: this.auth })).then(function (payload) {
-				var libraries = payload.body.data || [];
-				return libraries.map(function (l) {
-					return new _Library2.default(_this, l);
-				});
-			});
-		}
-
-		/**
-   * Get one firmware library object
-   * @param  {String} name Name of the library to fetch
-   * @param  {Object} query The query parameters for libraries. See Particle.getLibrary
-   * @returns {Promise} A promise
-   */
-
-	}, {
-		key: 'library',
-		value: function library(name) {
-			var _this2 = this;
-
-			var query = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
-
-			return this.api.getLibrary((0, _assign2.default)({}, query, { name: name, auth: this.auth })).then(function (payload) {
-				var library = payload.body.data || {};
-				return new _Library2.default(_this2, library);
-			});
-		}
-
-		/**
-   * Get list of library versions
-   * @param  {String} name Name of the library to fetch
-   * @param  {Object} query The query parameters for versions. See Particle.getLibraryVersions
-   * @returns {Promise} A promise
-   */
-
-	}, {
-		key: 'libraryVersions',
-		value: function libraryVersions(name) {
-			var _this3 = this;
-
-			var query = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
-
-			return this.api.getLibraryVersions((0, _assign2.default)({}, query, { name: name, auth: this.auth })).then(function (payload) {
-				var libraries = payload.body.data || [];
-				return libraries.map(function (l) {
-					return new _Library2.default(_this3, l);
-				});
-			});
-		}
-
-		/**
-   * Contribute a new library version
-   * @param  {Buffer} archive The compressed archive with the library source
-   * @returns {Promise} A promise
-   */
-
-	}, {
-		key: 'contributeLibrary',
-		value: function contributeLibrary(archive) {
-			var _this4 = this;
-
-			return this.api.contributeLibrary({ archive: archive, auth: this.auth }).then(function (payload) {
-				var library = payload.body.data || {};
-				return new _Library2.default(_this4, library);
-			}, function (error) {
-				_this4._throwError(error);
-			});
-		}
-
-		/**
-   * Make the the most recent private library version public
-   * @param  {string} name The name of the library to publish
-   * @return {Promise} To publish the library
-   */
-
-	}, {
-		key: 'publishLibrary',
-		value: function publishLibrary(name) {
-			var _this5 = this;
-
-			return this.api.publishLibrary({ name: name, auth: this.auth }).then(function (payload) {
-				var library = payload.body.data || {};
-				return new _Library2.default(_this5, library);
-			}, function (error) {
-				_this5._throwError(error);
-			});
-		}
-
-		/**
-   * Delete an entire published library
-   * @param  {String} $0.name Name of the library to delete
-   * @param  {String} $0.force Key to force deleting a public library
-   * @returns {Promise} A promise
-   */
-
-	}, {
-		key: 'deleteLibrary',
-		value: function deleteLibrary(_ref2) {
-			var _this6 = this;
-
-			var name = _ref2.name,
-			    force = _ref2.force;
-
-			return this.api.deleteLibrary({ name: name, force: force, auth: this.auth }).then(function () {
-				return true;
-			}, function (error) {
-				return _this6._throwError(error);
-			});
-		}
-	}, {
-		key: '_throwError',
-		value: function _throwError(error) {
-			if (error.body && error.body.errors) {
-				var errorMessages = error.body.errors.map(function (e) {
-					return e.message;
-				}).join('\n');
-				throw new Error(errorMessages);
-			}
-			throw error;
-		}
-	}, {
-		key: 'downloadFile',
-		value: function downloadFile(uri) {
-			return this.api.downloadFile({ uri: uri });
-		}
-
-		/**
-   * @param {Object} files Object containing files to be compiled
-   * @param {Number} platformId Platform id number of the device you are compiling for
-   * @param {String} targetVersion System firmware version to compile against
-   * @returns {Promise} A promise
-   * @deprecated Will be removed in 6.5
-   */
-
-	}, {
-		key: 'compileCode',
-		value: function compileCode(files, platformId, targetVersion) {
-			return this.api.compileCode({ files: files, platformId: platformId, targetVersion: targetVersion, auth: this.auth });
-		}
-
-		/**
-   * @param {String} $0.deviceId Device ID or Name
-   * @param {Boolean} $0.signal   Signal on or off
-   * @returns {Promise} A promise
-   * @deprecated Will be removed in 6.5
-   */
-
-	}, {
-		key: 'signalDevice',
-		value: function signalDevice(_ref3) {
-			var signal = _ref3.signal,
-			    deviceId = _ref3.deviceId;
-
-			return this.api.signalDevice({ signal: signal, deviceId: deviceId, auth: this.auth });
-		}
-
-		/**
-   * @returns {Promise} A promise
-   * @deprecated Will be removed in 6.5
-   */
-
-	}, {
-		key: 'listDevices',
-		value: function listDevices() {
-			return this.api.listDevices({ auth: this.auth });
-		}
-
-		/**
-   * @returns {Promise} A promise
-   * @deprecated Will be removed in 6.5
-   */
-
-	}, {
-		key: 'listBuildTargets',
-		value: function listBuildTargets() {
-			return this.api.listBuildTargets({ onlyFeatured: true, auth: this.auth }).then(function (payload) {
-				var targets = [];
-				var _iteratorNormalCompletion = true;
-				var _didIteratorError = false;
-				var _iteratorError = undefined;
-
-				try {
-					for (var _iterator = (0, _getIterator3.default)(payload.body.targets), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
-						var target = _step.value;
-						var _iteratorNormalCompletion2 = true;
-						var _didIteratorError2 = false;
-						var _iteratorError2 = undefined;
-
-						try {
-							for (var _iterator2 = (0, _getIterator3.default)(target.platforms), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
-								var platform = _step2.value;
-
-								targets.push({
-									version: target.version,
-									platform: platform,
-									prerelease: target.prereleases.indexOf(platform) > -1,
-									firmware_vendor: target.firmware_vendor
-								});
-							}
-						} catch (err) {
-							_didIteratorError2 = true;
-							_iteratorError2 = err;
-						} finally {
-							try {
-								if (!_iteratorNormalCompletion2 && _iterator2.return) {
-									_iterator2.return();
-								}
-							} finally {
-								if (_didIteratorError2) {
-									throw _iteratorError2;
-								}
-							}
-						}
-					}
-				} catch (err) {
-					_didIteratorError = true;
-					_iteratorError = err;
-				} finally {
-					try {
-						if (!_iteratorNormalCompletion && _iterator.return) {
-							_iterator.return();
-						}
-					} finally {
-						if (_didIteratorError) {
-							throw _iteratorError;
-						}
-					}
-				}
-
-				return targets;
-			}, function () {});
-		}
-	}, {
-		key: 'trackingIdentity',
-		value: function trackingIdentity() {
-			var _ref4 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
-			    _ref4$full = _ref4.full,
-			    full = _ref4$full === undefined ? false : _ref4$full,
-			    context = _ref4.context;
-
-			return this.api.trackingIdentity({ full: full, context: context, auth: this.auth }).then(function (payload) {
-				return payload.body;
-			});
-		}
-	}]);
-	return Client;
-}();
-
-exports["default"] = Client;
-module.exports = exports['default'];
-//# sourceMappingURL=Client.js.map
-
-/***/ }),
-
-/***/ 4369:
-/***/ ((module, exports) => {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", ({
-	value: true
-}));
-exports["default"] = {
-	baseUrl: 'https://api.particle.io',
-	clientSecret: 'particle-api',
-	clientId: 'particle-api',
-	tokenDuration: 7776000, // 90 days
-	auth: undefined
-};
-module.exports = exports['default'];
-//# sourceMappingURL=Defaults.js.map
-
-/***/ }),
-
-/***/ 2328:
-/***/ ((module, exports, __nccwpck_require__) => {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", ({
-	value: true
-}));
-
-var _promise = __nccwpck_require__(2699);
-
-var _promise2 = _interopRequireDefault(_promise);
-
-var _getPrototypeOf = __nccwpck_require__(854);
-
-var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
-
-var _classCallCheck2 = __nccwpck_require__(3802);
-
-var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
-
-var _createClass2 = __nccwpck_require__(6683);
-
-var _createClass3 = _interopRequireDefault(_createClass2);
-
-var _possibleConstructorReturn2 = __nccwpck_require__(5601);
-
-var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
-
-var _inherits2 = __nccwpck_require__(7876);
-
-var _inherits3 = _interopRequireDefault(_inherits2);
-
-var _http = __nccwpck_require__(3685);
-
-var _http2 = _interopRequireDefault(_http);
-
-var _https = __nccwpck_require__(5687);
-
-var _https2 = _interopRequireDefault(_https);
-
-var _url = __nccwpck_require__(7310);
-
-var _url2 = _interopRequireDefault(_url);
-
-var _events = __nccwpck_require__(2361);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-/* eslint max-depth: 0 */
-var EventStream = function (_EventEmitter) {
-	(0, _inherits3.default)(EventStream, _EventEmitter);
-
-	function EventStream(uri, token) {
-		(0, _classCallCheck3.default)(this, EventStream);
-
-		var _this = (0, _possibleConstructorReturn3.default)(this, (EventStream.__proto__ || (0, _getPrototypeOf2.default)(EventStream)).call(this));
-
-		_this.uri = uri;
-		_this.token = token;
-		_this.reconnectInterval = 2000;
-		_this.timeout = 13000; // keep alive can be sent up to 12 seconds after last event
-		_this.data = '';
-		_this.buf = '';
-
-		_this.parse = _this.parse.bind(_this);
-		_this.end = _this.end.bind(_this);
-		_this.idleTimeoutExpired = _this.idleTimeoutExpired.bind(_this);
-		return _this;
-	}
-
-	(0, _createClass3.default)(EventStream, [{
-		key: 'connect',
-		value: function connect() {
-			var _this2 = this;
-
-			return new _promise2.default(function (resolve, reject) {
-				var _url$parse = _url2.default.parse(_this2.uri),
-				    hostname = _url$parse.hostname,
-				    protocol = _url$parse.protocol,
-				    port = _url$parse.port,
-				    path = _url$parse.path;
-
-				_this2.origin = protocol + '//' + hostname + (port ? ':' + port : '');
-
-				var isSecure = protocol === 'https:';
-				var requestor = isSecure ? _https2.default : _http2.default;
-				var req = requestor.request({
-					hostname: hostname,
-					protocol: protocol,
-					path: path + '?access_token=' + _this2.token,
-					method: 'get',
-					port: parseInt(port, 10) || (isSecure ? 443 : 80),
-					mode: 'prefer-streaming'
-				});
-
-				_this2.req = req;
-
-				var connected = false;
-				var connectionTimeout = setTimeout(function () {
-					if (_this2.req) {
-						_this2.req.abort();
-					}
-					reject({ error: new Error('Timeout'), errorDescription: 'Timeout connecting to ' + _this2.uri });
-				}, _this2.timeout);
-
-				req.on('error', function (e) {
-					clearTimeout(connectionTimeout);
-
-					if (connected) {
-						_this2.end();
-					} else {
-						reject({ error: e, errorDescription: 'Network error from ' + _this2.uri });
-					}
-				});
-
-				req.on('response', function (res) {
-					clearTimeout(connectionTimeout);
-
-					var statusCode = res.statusCode;
-					if (statusCode !== 200) {
-						var body = '';
-						res.on('data', function (chunk) {
-							return body += chunk;
-						});
-						res.on('end', function () {
-							try {
-								body = JSON.parse(body);
-							} catch (e) {
-								// don't bother doing anything special if the JSON.parse fails
-								// since we are already about to reject the promise anyway
-							} finally {
-								var errorDescription = 'HTTP error ' + statusCode + ' from ' + _this2.uri;
-								if (body && body.error_description) {
-									errorDescription += ' - ' + body.error_description;
-								}
-								reject({ statusCode: statusCode, errorDescription: errorDescription, body: body });
-								_this2.req = undefined;
-							}
-						});
-						return;
-					}
-
-					_this2.data = '';
-					_this2.buf = '';
-
-					connected = true;
-					res.on('data', _this2.parse);
-					res.once('end', _this2.end);
-					_this2.startIdleTimeout();
-					resolve(_this2);
-				});
-				req.end();
-			});
-		}
-	}, {
-		key: 'abort',
-		value: function abort() {
-			if (this.req) {
-				this.req.abort();
-				this.req = undefined;
-			}
-			this.removeAllListeners();
-		}
-
-		/* Private methods */
-
-	}, {
-		key: 'emitSafe',
-		value: function emitSafe(event, param) {
-			try {
-				this.emit(event, param);
-			} catch (error) {
-				if (event !== 'error') {
-					this.emitSafe('error', error);
-				}
-			}
-		}
-	}, {
-		key: 'end',
-		value: function end() {
-			this.stopIdleTimeout();
-
-			if (!this.req) {
-				// request was ended intentionally by abort
-				// do not auto reconnect.
-				return;
-			}
-
-			this.req = undefined;
-			this.emitSafe('disconnect');
-			this.reconnect();
-		}
-	}, {
-		key: 'reconnect',
-		value: function reconnect() {
-			var _this3 = this;
-
-			setTimeout(function () {
-				if (_this3.isOffline()) {
-					_this3.reconnect();
-					return;
-				}
-
-				_this3.emitSafe('reconnect');
-				_this3.connect().then(function () {
-					_this3.emitSafe('reconnect-success');
-				}).catch(function (err) {
-					_this3.emitSafe('reconnect-error', err);
-					_this3.reconnect();
-				});
-			}, this.reconnectInterval);
-		}
-	}, {
-		key: 'isOffline',
-		value: function isOffline() {
-			if (typeof navigator === 'undefined' || navigator.hasOwnProperty('onLine')) {
-				return false;
-			}
-			return !navigator.onLine;
-		}
-	}, {
-		key: 'startIdleTimeout',
-		value: function startIdleTimeout() {
-			this.stopIdleTimeout();
-			this.idleTimeout = setTimeout(this.idleTimeoutExpired, this.timeout);
-		}
-	}, {
-		key: 'stopIdleTimeout',
-		value: function stopIdleTimeout() {
-			if (this.idleTimeout) {
-				clearTimeout(this.idleTimeout);
-				this.idleTimeout = null;
-			}
-		}
-	}, {
-		key: 'idleTimeoutExpired',
-		value: function idleTimeoutExpired() {
-			if (this.req) {
-				this.req.abort();
-				this.end();
-			}
-		}
-	}, {
-		key: 'parse',
-		value: function parse(chunk) {
-			this.startIdleTimeout();
-
-			this.buf += chunk;
-			var pos = 0;
-			var length = this.buf.length;
-			var discardTrailingNewline = false;
-
-			while (pos < length) {
-				if (discardTrailingNewline) {
-					if (this.buf[pos] === '\n') {
-						++pos;
-					}
-					discardTrailingNewline = false;
-				}
-
-				var lineLength = -1;
-				var fieldLength = -1;
-
-				for (var i = pos; lineLength < 0 && i < length; ++i) {
-					var c = this.buf[i];
-					if (c === ':') {
-						if (fieldLength < 0) {
-							fieldLength = i - pos;
-						}
-					} else if (c === '\r') {
-						discardTrailingNewline = true;
-						lineLength = i - pos;
-					} else if (c === '\n') {
-						lineLength = i - pos;
-					}
-				}
-
-				if (lineLength < 0) {
-					break;
-				}
-
-				this.parseEventStreamLine(pos, fieldLength, lineLength);
-
-				pos += lineLength + 1;
-			}
-
-			if (pos === length) {
-				this.buf = '';
-			} else if (pos > 0) {
-				this.buf = this.buf.slice(pos);
-			}
-		}
-	}, {
-		key: 'parseEventStreamLine',
-		value: function parseEventStreamLine(pos, fieldLength, lineLength) {
-			if (lineLength === 0) {
-				try {
-					if (this.data.length > 0 && this.event) {
-						var event = JSON.parse(this.data);
-						event.name = this.eventName || '';
-						this.emitSafe('event', event);
-					}
-				} catch (e) {
-					// do nothing if JSON.parse fails
-				} finally {
-					this.data = '';
-					this.eventName = undefined;
-					this.event = false;
-				}
-			} else if (fieldLength > 0) {
-				var field = this.buf.slice(pos, pos + fieldLength);
-				var step = 0;
-
-				if (this.buf[pos + fieldLength + 1] !== ' ') {
-					step = fieldLength + 1;
-				} else {
-					step = fieldLength + 2;
-				}
-				pos += step;
-				var valueLength = lineLength - step;
-				var value = this.buf.slice(pos, pos + valueLength);
-
-				if (field === 'data') {
-					this.data += value + '\n';
-				} else if (field === 'event') {
-					this.eventName = value;
-					this.event = true;
-				}
-			}
-		}
-	}]);
-	return EventStream;
-}(_events.EventEmitter);
-
-exports["default"] = EventStream;
-module.exports = exports['default'];
-//# sourceMappingURL=EventStream.js.map
-
-/***/ }),
-
-/***/ 3699:
-/***/ ((module, exports, __nccwpck_require__) => {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", ({
-	value: true
-}));
-
-var _promise = __nccwpck_require__(2699);
-
-var _promise2 = _interopRequireDefault(_promise);
-
-var _assign = __nccwpck_require__(176);
-
-var _assign2 = _interopRequireDefault(_assign);
-
-var _classCallCheck2 = __nccwpck_require__(3802);
-
-var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
-
-var _createClass2 = __nccwpck_require__(6683);
-
-var _createClass3 = _interopRequireDefault(_createClass2);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-/* Library
- * Represents a version of a library contributed in the cloud.
- */
-
-var Library = function () {
-	function Library(client, data) {
-		(0, _classCallCheck3.default)(this, Library);
-
-		// Make client non-enumerable so it doesn't show up in Object.keys, JSON.stringify, etc
-		Object.defineProperty(this, 'client', { value: client });
-		this._assignAttributes(data);
-		this.downloadUrl = data.links && data.links.download;
-	}
-
-	(0, _createClass3.default)(Library, [{
-		key: '_assignAttributes',
-		value: function _assignAttributes(data) {
-			(0, _assign2.default)(this, data.attributes);
-		}
-
-		/**
-   * Download the compressed file containing the source code for this library version.
-   * @return {Promise} Resolves to the .tar.gz compressed source code
-   */
-
-	}, {
-		key: 'download',
-		value: function download() {
-			if (!this.downloadUrl) {
-				return _promise2.default.reject(new Error('No download URL for this library'));
-			}
-			return this.client.downloadFile(this.downloadUrl);
-		}
-
-		/* TODO: add a versions() method to fetch an array of library objects */
-
-	}]);
-	return Library;
-}();
-
-exports["default"] = Library;
-module.exports = exports['default'];
-//# sourceMappingURL=Library.js.map
-
-/***/ }),
-
-/***/ 2918:
-/***/ ((module, exports, __nccwpck_require__) => {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", ({
-	value: true
-}));
-
-var _assign = __nccwpck_require__(176);
-
-var _assign2 = _interopRequireDefault(_assign);
-
-var _classCallCheck2 = __nccwpck_require__(3802);
-
-var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
-
-var _createClass2 = __nccwpck_require__(6683);
-
-var _createClass3 = _interopRequireDefault(_createClass2);
-
-var _Defaults = __nccwpck_require__(4369);
-
-var _Defaults2 = _interopRequireDefault(_Defaults);
-
-var _EventStream = __nccwpck_require__(2328);
-
-var _EventStream2 = _interopRequireDefault(_EventStream);
-
-var _Agent = __nccwpck_require__(4581);
-
-var _Agent2 = _interopRequireDefault(_Agent);
-
-var _Client = __nccwpck_require__(542);
-
-var _Client2 = _interopRequireDefault(_Client);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-/**
- * Particle Cloud API wrapper.
- *
- * See <https://docs.particle.io/reference/javascript/> for examples
- * of using the `Particle` class.
- *
- * Most Particle methods take a single unnamed argument object documented as
- * `options` with key/value pairs for each option.
- */
-var Particle = function () {
-	/**
-  * Contructor for the Cloud API wrapper.
-  *
-  * Create a new Particle object and call methods below on it.
-  *
-  * @param  {Object} options Options for this API call Options to be used for all requests (see [Defaults](../src/Defaults.js))
-  */
-	function Particle() {
-		var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-		(0, _classCallCheck3.default)(this, Particle);
-
-		if (options.auth) {
-			this.setDefaultAuth(options.auth);
-		}
-
-		// todo - this seems a bit dangerous - would be better to put all options/context in a contained object
-		(0, _assign2.default)(this, _Defaults2.default, options);
-		this.context = {};
-		this.agent = new _Agent2.default(this.baseUrl);
-	}
-
-	(0, _createClass3.default)(Particle, [{
-		key: '_isValidContext',
-		value: function _isValidContext(name, context) {
-			return (name === 'tool' || name === 'project') && context !== undefined;
-		}
-	}, {
-		key: 'setContext',
-		value: function setContext(name, context) {
-			if (context !== undefined) {
-				if (this._isValidContext(name, context)) {
-					this.context[name] = context;
-				} else {
-					throw Error('unknown context name or undefined context: ' + name);
-				}
-			}
-		}
-
-		/**
-   * Builds the final context from the context parameter and the context items in the api.
-   * @param  {Object} context       The invocation context, this takes precedence over the local context.
-   * @returns {Object} The context to use.
-   * @private
-   */
-
-	}, {
-		key: '_buildContext',
-		value: function _buildContext(context) {
-			return (0, _assign2.default)(this.context, context);
-		}
-
-		/**
-   * Login to Particle Cloud using an existing Particle acccount.
-   * @param  {Object} options                Options for this API call
-   * @param  {String} options.username       Username for the Particle account
-   * @param  {String} options.password       Password for the Particle account
-   * @param  {Number} options.tokenDuration  How long the access token should last in seconds
-   * @param  {Object} [options.headers]      Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
-   * @param  {Number} [options.context]      Request context
-   * @returns {Promise} A promise
-   */
-
-	}, {
-		key: 'login',
-		value: function login(_ref) {
-			var username = _ref.username,
-			    password = _ref.password,
-			    _ref$tokenDuration = _ref.tokenDuration,
-			    tokenDuration = _ref$tokenDuration === undefined ? this.tokenDuration : _ref$tokenDuration,
-			    headers = _ref.headers,
-			    context = _ref.context;
-
-			return this.request({
-				uri: '/oauth/token',
-				method: 'post',
-				headers: headers,
-				form: {
-					username: username,
-					password: password,
-					grant_type: 'password',
-					client_id: this.clientId,
-					client_secret: this.clientSecret,
-					expires_in: tokenDuration
-				},
-				context: context
-			});
-		}
-
-		/**
-   * If login failed with an 'mfa_required' error, this must be called with a valid OTP code to login
-   * @param  {Object} options            Options for this API call
-   * @param  {String} options.mfaToken   Given as 'mfa_token' in the error body of `.login()`.
-   * @param  {String} options.otp        Current one-time-password generated from the authentication application
-   * @param  {Object} [options.headers]  Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
-   * @param  {Number} [options.context]  Request context
-   * @returns {Promise} A promise
-   */
-
-	}, {
-		key: 'sendOtp',
-		value: function sendOtp(_ref2) {
-			var mfaToken = _ref2.mfaToken,
-			    otp = _ref2.otp,
-			    headers = _ref2.headers,
-			    context = _ref2.context;
-
-			return this.request({
-				uri: '/oauth/token',
-				method: 'post',
-				headers: headers,
-				form: {
-					grant_type: 'urn:custom:mfa-otp',
-					mfa_token: mfaToken,
-					otp: otp,
-					client_id: this.clientId,
-					client_secret: this.clientSecret
-				},
-				context: context
-			});
-		}
-
-		/**
-   * Enable MFA on the currently logged in user
-   * @param {Object} options             Options for this API call
-   * @param {Object} options.auth        Access token
-   * @param  {Object} [options.headers]  Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
-   * @param {Object} [options.context]   Request context
-   * @returns {Promise} A promise
-   */
-
-	}, {
-		key: 'enableMfa',
-		value: function enableMfa(_ref3) {
-			var auth = _ref3.auth,
-			    headers = _ref3.headers,
-			    context = _ref3.context;
-
-			return this.get({ uri: '/v1/user/mfa-enable', auth: auth, headers: headers, context: context });
-		}
-
-		/**
-   * Confirm MFA for the user. This must be called with current TOTP code, determined from the results of enableMfa(). You will be prompted to enter an OTP code every time you login after enrollment is confirmed.
-   * @param {Object} options            Options for this API call
-   * @param {Object} options.auth       Access token
-   * @param {Object} options.mfaToken   Token given from previous step to
-   * @param {Object} options.otp        Current one-time-password generated from the authentication app
-   * @param {Boolean} options.invalidateTokens Should all tokens be invalidated
-   * @param {Object} [options.headers]  Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
-   * @param {Object} [options.context]  Request context
-   * @returns {Promise} A promise
-   */
-
-	}, {
-		key: 'confirmMfa',
-		value: function confirmMfa(_ref4) {
-			var mfaToken = _ref4.mfaToken,
-			    otp = _ref4.otp,
-			    _ref4$invalidateToken = _ref4.invalidateTokens,
-			    invalidateTokens = _ref4$invalidateToken === undefined ? false : _ref4$invalidateToken,
-			    auth = _ref4.auth,
-			    headers = _ref4.headers,
-			    context = _ref4.context;
-
-			var data = { mfa_token: mfaToken, otp: otp };
-
-			if (invalidateTokens) {
-				data.invalidate_tokens = true;
-			}
-
-			return this.post({
-				uri: '/v1/user/mfa-enable',
-				auth: auth,
-				headers: headers,
-				data: data,
-				context: context
-			});
-		}
-
-		/**
-   * Disable MFA for the user.
-   * @param {Object} options                  Options for this API call
-   * @param {Object} options.auth             Access token
-   * @param {Object} options.currentPassword  User's current password
-   * @param {Object} [options.headers]        Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
-   * @param {Object} [options.context]        Request context
-   * @returns {Promise} A promise
-   */
-
-	}, {
-		key: 'disableMfa',
-		value: function disableMfa(_ref5) {
-			var currentPassword = _ref5.currentPassword,
-			    auth = _ref5.auth,
-			    headers = _ref5.headers,
-			    context = _ref5.context;
-
-			return this.put({
-				uri: '/v1/user/mfa-disable',
-				auth: auth,
-				headers: headers,
-				data: { current_password: currentPassword },
-				context: context
-			});
-		}
-
-		/**
-   * Create Customer for Product.
-   * @param {Object} options            Options for this API call
-   * @param {String} options.email      Username for the Particle account
-   * @param {String} options.password   Password for the Particle account
-   * @param {String} options.product    Create the customer in this product ID or slug
-   * @param {Object} [options.headers]  Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
-   * @param {Object} [options.context]  Request context
-   * @returns {Promise} A promise
-   */
-
-	}, {
-		key: 'createCustomer',
-		value: function createCustomer(_ref6) {
-			var email = _ref6.email,
-			    password = _ref6.password,
-			    product = _ref6.product,
-			    headers = _ref6.headers,
-			    context = _ref6.context;
-
-			return this.request({
-				uri: '/v1/products/' + product + '/customers',
-				method: 'post',
-				headers: headers,
-				form: {
-					email: email,
-					password: password,
-					grant_type: 'client_credentials',
-					client_id: this.clientId,
-					client_secret: this.clientSecret
-				},
-				context: context
-			});
-		}
-
-		/**
-   * Login to Particle Cloud using an OAuth client.
-   * @param {Object} options            Options for this API call
-   * @param {Object} [options.headers]  Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
-   * @param {Object} [options.context]  Request context
-   * @returns {Promise} A promise
-   */
-
-	}, {
-		key: 'loginAsClientOwner',
-		value: function loginAsClientOwner(_ref7) {
-			var headers = _ref7.headers,
-			    context = _ref7.context;
-
-			return this.request({
-				uri: '/oauth/token',
-				method: 'post',
-				headers: headers,
-				form: {
-					grant_type: 'client_credentials',
-					client_id: this.clientId,
-					client_secret: this.clientSecret
-				},
-				context: context
-			});
-		}
-
-		/**
-   * Create a user account for the Particle Cloud
-   * @param {Object} options              Options for this API call
-   * @param {String} options.username     Email of the new user
-   * @param {String} options.password     Password
-   * @param {String} options.accountInfo  Object that contains account information fields such as user real name, company name, business account flag etc
-   * @param {Object} [options.headers]    Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
-   * @param {Object} [options.context]    Request context
-   * @returns {Promise} A promise
-   */
-
-	}, {
-		key: 'createUser',
-		value: function createUser(_ref8) {
-			var username = _ref8.username,
-			    password = _ref8.password,
-			    accountInfo = _ref8.accountInfo,
-			    headers = _ref8.headers,
-			    context = _ref8.context;
-
-			return this.post({
-				uri: '/v1/users',
-				headers: headers,
-				data: {
-					username: username,
-					password: password,
-					account_info: accountInfo
-				},
-				context: context
-			});
-		}
-
-		/**
-   * Verify new user account via verification email
-   * @param {Object} options            Options for this API call
-   * @param {String} options.token      The string token sent in the verification email
-   * @param {Object} [options.headers]  Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
-   * @param {Object} [options.context]  Request context
-   * @returns {Promise} A promise
-   */
-
-	}, {
-		key: 'verifyUser',
-		value: function verifyUser(_ref9) {
-			var token = _ref9.token,
-			    headers = _ref9.headers,
-			    context = _ref9.context;
-
-			return this.post({
-				uri: '/v1/user/verify',
-				headers: headers,
-				data: { token: token },
-				context: context
-			});
-		}
-
-		/**
-   * Send reset password email for a Particle Cloud user account
-   * @param {Object} options            Options for this API call
-   * @param {String} options.username   Email of the user
-   * @param {Object} [options.headers]  Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
-   * @param {Object} [options.context]  Request context
-   * @returns {Promise} A promise
-   */
-
-	}, {
-		key: 'resetPassword',
-		value: function resetPassword(_ref10) {
-			var username = _ref10.username,
-			    headers = _ref10.headers,
-			    context = _ref10.context;
-
-			return this.post({
-				uri: '/v1/user/password-reset',
-				headers: headers,
-				data: { username: username },
-				context: context
-			});
-		}
-
-		/**
-   * Revoke an access token
-   * @param {Object} options            Options for this API call
-   * @param {String} options.username   Username of the Particle cloud account that the token belongs to.
-   * @param {String} options.password   Password for the account
-   * @param {String} options.token      Access token you wish to revoke
-   * @param {Object} [options.headers]  Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
-   * @param {Object} [options.context]  Request context
-   * @returns {Promise} A promise
-   */
-
-	}, {
-		key: 'deleteAccessToken',
-		value: function deleteAccessToken(_ref11) {
-			var username = _ref11.username,
-			    password = _ref11.password,
-			    token = _ref11.token,
-			    headers = _ref11.headers,
-			    context = _ref11.context;
-
-			return this.delete({
-				uri: '/v1/access_tokens/' + token,
-				auth: { username: username, password: password },
-				headers: headers,
-				data: { access_token: token },
-				context: context
-			});
-		}
-
-		/**
-   * Revoke the current session access token
-   * @param {Object} options            Options for this API call
-   * @param {String} options.auth       Access Token
-   * @param {Object} [options.headers]  Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
-   * @param {Object} [options.context]  Request context
-   * @returns {Promise} A promise
-   */
-
-	}, {
-		key: 'deleteCurrentAccessToken',
-		value: function deleteCurrentAccessToken(_ref12) {
-			var auth = _ref12.auth,
-			    headers = _ref12.headers,
-			    context = _ref12.context;
-
-			return this.delete({
-				uri: '/v1/access_tokens/current',
-				auth: auth,
-				headers: headers,
-				context: context
-			});
-		}
-
-		/**
-   * Revoke all active access tokens
-   * @param {Object} options            Options for this API call
-   * @param {String} options.auth       Access Token
-   * @param {Object} [options.headers]  Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
-   * @param {Object} [options.context]  Request context
-   * @returns {Promise} A promise
-   */
-
-	}, {
-		key: 'deleteActiveAccessTokens',
-		value: function deleteActiveAccessTokens(_ref13) {
-			var auth = _ref13.auth,
-			    headers = _ref13.headers,
-			    context = _ref13.context;
-
-			return this.delete({
-				uri: '/v1/access_tokens',
-				auth: auth,
-				headers: headers,
-				context: context
-			});
-		}
-
-		/**
-   * Delete the current user
-   * @param {Object} options            Options for this API call
-   * @param {String} options.auth       Access Token
-   * @param {String} options.password   Password
-   * @param {Object} [options.headers]  Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
-   * @param {Object} [options.context]  Request context
-   * @returns {Promise} A promise
-   */
-
-	}, {
-		key: 'deleteUser',
-		value: function deleteUser(_ref14) {
-			var auth = _ref14.auth,
-			    password = _ref14.password,
-			    headers = _ref14.headers,
-			    context = _ref14.context;
-
-			return this.delete({
-				uri: '/v1/user',
-				data: { password: password },
-				auth: auth,
-				headers: headers,
-				context: context
-			});
-		}
-
-		/**
-   * List all valid access tokens for a Particle Cloud account
-   * @param {Object} options            Options for this API call
-   * @param {String} options.username   Username
-   * @param {String} options.password   Password
-   * @param {String} options.otp        Current one-time-password generated from the authentication application
-   * @param {Object} [options.headers]  Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
-   * @param {Object} [options.context]  Request context
-   * @returns {Promise} A promise
-   */
-
-	}, {
-		key: 'listAccessTokens',
-		value: function listAccessTokens(_ref15) {
-			var username = _ref15.username,
-			    password = _ref15.password,
-			    otp = _ref15.otp,
-			    headers = _ref15.headers,
-			    context = _ref15.context;
-
-			return this.get({
-				uri: '/v1/access_tokens',
-				auth: { username: username, password: password },
-				query: otp ? { otp: otp } : undefined,
-				headers: headers,
-				context: context
-			});
-		}
-
-		/**
-   * Retrieves the information that is used to identify the current login for tracking.
-   * @param {Object} options            Options for this API call
-   * @param {String} options.auth       The access token
-   * @param {Boolean} options.full      When true, retrieve all information for registering a user with the tracking API. When false,
-   *                                    retrieve only the unique tracking ID for the current login.
-   * @param {Object} [options.headers]  Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
-   * @param {Object} [options.context]  Request context
-   * @returns {Promise<Object>} Resolve the tracking identify of the current login
-   */
-
-	}, {
-		key: 'trackingIdentity',
-		value: function trackingIdentity() {
-			var _ref16 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
-			    _ref16$full = _ref16.full,
-			    full = _ref16$full === undefined ? false : _ref16$full,
-			    auth = _ref16.auth,
-			    headers = _ref16.headers,
-			    context = _ref16.context;
-
-			return this.get({
-				uri: '/v1/user/identify',
-				auth: auth,
-				headers: headers,
-				query: full ? undefined : { tracking: 1 },
-				context: context
-			});
-		}
-
-		/**
-   * List devices claimed to the account or product
-   * @param {Object} options                   Options for this API call
-   * @param {String} [options.deviceId]        (Product only) Filter results to devices with this ID (partial matching)
-   * @param {String} [options.deviceName]      (Product only) Filter results to devices with this name (partial matching)
-   * @param {Array.<string>} [options.groups]  (Product only) A list of full group names to filter results to devices belonging to these groups only.
-   * @param {String} [options.sortAttr]        (Product only) The attribute by which to sort results. See API docs for options.
-   * @param {String} [options.sortDir]         (Product only) The direction of sorting. See API docs for options.
-   * @param {Number} [options.page]            (Product only) Current page of results
-   * @param {Number} [options.perPage]         (Product only) Records per page
-   * @param {String} [options.product]         List devices in this product ID or slug
-   * @param {String} options.auth              Access Token
-   * @param {Object} [options.headers]         Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
-   * @param {Object} [options.context]         Request context
-   * @returns {Promise} A promise
-   */
-
-	}, {
-		key: 'listDevices',
-		value: function listDevices(_ref17) {
-			var deviceId = _ref17.deviceId,
-			    deviceName = _ref17.deviceName,
-			    groups = _ref17.groups,
-			    sortAttr = _ref17.sortAttr,
-			    sortDir = _ref17.sortDir,
-			    page = _ref17.page,
-			    perPage = _ref17.perPage,
-			    product = _ref17.product,
-			    auth = _ref17.auth,
-			    headers = _ref17.headers,
-			    context = _ref17.context;
-
-			var uri = void 0,
-			    query = void 0;
-
-			if (product) {
-				uri = '/v1/products/' + product + '/devices';
-				groups = Array.isArray(groups) ? groups.join(',') : undefined;
-				query = { deviceId: deviceId, deviceName: deviceName, groups: groups, sortAttr: sortAttr, sortDir: sortDir, page: page, per_page: perPage };
-			} else {
-				uri = '/v1/devices';
-			}
-
-			return this.get({ uri: uri, auth: auth, headers: headers, query: query, context: context });
-		}
-
-		/**
-   * Get detailed informationa about a device
-   * @param {Object} options            Options for this API call
-   * @param {String} options.deviceId   Device ID or Name
-   * @param {String} [options.product]  Device in this product ID or slug
-   * @param {String} options.auth       Access token
-   * @param {Object} [options.headers]  Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
-   * @param {Object} [options.context]  Request context
-   * @returns {Promise} A promise
-   */
-
-	}, {
-		key: 'getDevice',
-		value: function getDevice(_ref18) {
-			var deviceId = _ref18.deviceId,
-			    product = _ref18.product,
-			    auth = _ref18.auth,
-			    headers = _ref18.headers,
-			    context = _ref18.context;
-
-			var uri = this.deviceUri({ deviceId: deviceId, product: product });
-			return this.get({ uri: uri, auth: auth, headers: headers, context: context });
-		}
-
-		/**
-   * Claim a device to the account. The device must be online and unclaimed.
-   * @param {Object} options            Options for this API call
-   * @param {String} options.deviceId   Device ID
-   * @param {String} options.auth       Access Token
-   * @param {Object} [options.headers]  Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
-   * @param {Object} [options.context]  Request context
-   * @returns {Promise} A promise
-   */
-
-	}, {
-		key: 'claimDevice',
-		value: function claimDevice(_ref19) {
-			var deviceId = _ref19.deviceId,
-			    requestTransfer = _ref19.requestTransfer,
-			    auth = _ref19.auth,
-			    headers = _ref19.headers,
-			    context = _ref19.context;
-
-			return this.post({
-				uri: '/v1/devices',
-				auth: auth,
-				headers: headers,
-				data: {
-					id: deviceId,
-					request_transfer: !!requestTransfer
-				},
-				context: context
-			});
-		}
-
-		/**
-   * Add a device to a product or move device out of quarantine.
-   * @param {Object} options            Options for this API call
-   * @param {String} options.deviceId   Device ID
-   * @param {Object} options.file       A file that contains a single-column list of device IDs, device serial numbers, device IMEIs, or devie ICCIDs.
-   *                                    Node: Either a path or Buffer. Browser: a File or Blob.
-   * @param {String} options.product    Add to this product ID or slug
-   * @param {String} options.auth       Access Token
-   * @param {Object} [options.headers]  Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
-   * @param {Object} [options.context]  Request context
-   * @returns {Promise} A promise
-   */
-
-	}, {
-		key: 'addDeviceToProduct',
-		value: function addDeviceToProduct(_ref20) {
-			var deviceId = _ref20.deviceId,
-			    product = _ref20.product,
-			    file = _ref20.file,
-			    auth = _ref20.auth,
-			    headers = _ref20.headers,
-			    context = _ref20.context;
-
-			var files = void 0,
-			    data = void 0;
-
-			if (file) {
-				files = { file: file };
-			} else if (deviceId) {
-				data = { id: deviceId };
-			}
-
-			return this.request({
-				uri: '/v1/products/' + product + '/devices',
-				method: 'post',
-				headers: headers,
-				data: data,
-				files: files,
-				auth: auth,
-				context: context
-			});
-		}
-
-		/**
-   * Unclaim / Remove a device from your account or product, or deny quarantine
-   * @param {Object} options            Options for this API call
-   * @param {String} options.deviceId   Device ID or Name
-   * @param {Boolean} [options.deny]    (Product only) Deny this quarantined device, instead of removing an already approved device
-   * @param {String} options.product    Remove from this product ID or slug
-   * @param {String} options.auth       Access Token
-   * @param {Object} [options.headers]  Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
-   * @param {Object} [options.context]  Request context
-   * @returns {Promise} A promise
-   */
-
-	}, {
-		key: 'removeDevice',
-		value: function removeDevice(_ref21) {
-			var deviceId = _ref21.deviceId,
-			    deny = _ref21.deny,
-			    product = _ref21.product,
-			    auth = _ref21.auth,
-			    headers = _ref21.headers,
-			    context = _ref21.context;
-
-			var uri = this.deviceUri({ deviceId: deviceId, product: product });
-			var data = product ? { deny: deny } : undefined;
-			return this.delete({ uri: uri, data: data, auth: auth, headers: headers, context: context });
-		}
-
-		/**
-   * Unclaim a product device its the owner, but keep it in the product
-   * @param {Object} options            Options for this API call
-   * @param {String} options.deviceId   Device ID or Name
-   * @param {String} options.product    Remove from this product ID or slug
-   * @param {String} options.auth       Access Token
-   * @param {Object} [options.headers]  Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
-   * @param {Object} [options.context]  Request context
-   * @returns {Promise} A promise
-   */
-
-	}, {
-		key: 'removeDeviceOwner',
-		value: function removeDeviceOwner(_ref22) {
-			var deviceId = _ref22.deviceId,
-			    product = _ref22.product,
-			    auth = _ref22.auth,
-			    headers = _ref22.headers,
-			    context = _ref22.context;
-
-			var uri = '/v1/products/' + product + '/devices/' + deviceId + '/owner';
-			return this.delete({ uri: uri, auth: auth, headers: headers, context: context });
-		}
-
-		/**
-   * Rename a device
-   * @param {Object} options            Options for this API call
-   * @param {String} options.deviceId   Device ID or Name
-   * @param {String} options.name       Desired Name
-   * @param {String} [options.product]  Rename device in this product ID or slug
-   * @param {String} options.auth       Access Token
-   * @param {Object} [options.headers]  Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
-   * @param {Object} [options.context]  Request context
-   * @returns {Promise} A promise
-   */
-
-	}, {
-		key: 'renameDevice',
-		value: function renameDevice(_ref23) {
-			var deviceId = _ref23.deviceId,
-			    name = _ref23.name,
-			    product = _ref23.product,
-			    auth = _ref23.auth,
-			    headers = _ref23.headers,
-			    context = _ref23.context;
-
-			return this.updateDevice({ deviceId: deviceId, name: name, product: product, auth: auth, headers: headers, context: context });
-		}
-
-		/**
-   * Instruct the device to turn on/off the LED in a rainbow pattern
-   * @param {Object} options            Options for this API call
-   * @param {String} options.deviceId   Device ID or Name
-   * @param {Boolean} options.signal    Signal on or off
-   * @param {String} [options.product]  Device in this product ID or slug
-   * @param {String} options.auth       Access Token
-   * @param {Object} [options.headers]  Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
-   * @param {Object} [options.context]  Request context
-   * @returns {Promise} A promise
-   */
-
-	}, {
-		key: 'signalDevice',
-		value: function signalDevice(_ref24) {
-			var deviceId = _ref24.deviceId,
-			    signal = _ref24.signal,
-			    product = _ref24.product,
-			    auth = _ref24.auth,
-			    headers = _ref24.headers,
-			    context = _ref24.context;
-
-			return this.updateDevice({ deviceId: deviceId, signal: signal, product: product, auth: auth, headers: headers, context: context });
-		}
-
-		/**
-   * Store some notes about device
-   * @param {Object} options            Options for this API call
-   * @param {String} options.deviceId   Device ID or Name
-   * @param {String} options.notes      Your notes about this device
-   * @param {String} [options.product]  Device in this product ID or slug
-   * @param {String} options.auth       Access Token
-   * @param {Object} [options.headers]  Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
-   * @param {Object} [options.context]  Request context
-   * @returns {Promise} A promise
-   */
-
-	}, {
-		key: 'setDeviceNotes',
-		value: function setDeviceNotes(_ref25) {
-			var deviceId = _ref25.deviceId,
-			    notes = _ref25.notes,
-			    product = _ref25.product,
-			    auth = _ref25.auth,
-			    headers = _ref25.headers,
-			    context = _ref25.context;
-
-			return this.updateDevice({ deviceId: deviceId, notes: notes, product: product, auth: auth, headers: headers, context: context });
-		}
-
-		/**
-   * Mark device as being used in development of a product so it opts out of automatic firmware updates
-   * @param {Object} options               Options for this API call
-   * @param {String} options.deviceId      Device ID or Name
-   * @param {Boolean} options.development  Set to true to mark as development, false to return to product fleet
-   * @param {String} options.product       Device in this product ID or slug
-   * @param {String} options.auth          Access Token
-   * @param {Object} [options.headers]     Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
-   * @param {Object} [options.context]     Request context
-   * @returns {Promise} A promise
-   */
-
-	}, {
-		key: 'markAsDevelopmentDevice',
-		value: function markAsDevelopmentDevice(_ref26) {
-			var deviceId = _ref26.deviceId,
-			    _ref26$development = _ref26.development,
-			    development = _ref26$development === undefined ? true : _ref26$development,
-			    product = _ref26.product,
-			    auth = _ref26.auth,
-			    headers = _ref26.headers,
-			    context = _ref26.context;
-
-			return this.updateDevice({ deviceId: deviceId, development: development, product: product, auth: auth, headers: headers, context: context });
-		}
-
-		/**
-   * Mark device as being used in development of a product so it opts out of automatic firmware updates
-   * @param {Object} options                         Options for this API call
-   * @param {String} options.deviceId                Device ID or Name
-   * @param {Number} options.desiredFirmwareVersion  Lock the product device to run this firmware version.
-   * @param {Boolean} [options.flash]                Immediately flash firmware indicated by desiredFirmwareVersion
-   * @param {String} options.product                 Device in this product ID or slug
-   * @param {String} options.auth                    Access Token
-   * @param {Object} [options.headers]               Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
-   * @param {Object} [options.context]               Request context
-   * @returns {Promise} A promise
-   */
-
-	}, {
-		key: 'lockDeviceProductFirmware',
-		value: function lockDeviceProductFirmware(_ref27) {
-			var deviceId = _ref27.deviceId,
-			    desiredFirmwareVersion = _ref27.desiredFirmwareVersion,
-			    flash = _ref27.flash,
-			    product = _ref27.product,
-			    auth = _ref27.auth,
-			    context = _ref27.context;
-
-			return this.updateDevice({ deviceId: deviceId, desiredFirmwareVersion: desiredFirmwareVersion, flash: flash, product: product, auth: auth, context: context });
-		}
-
-		/**
-   * Mark device as receiving automatic firmware updates
-   * @param {Object} options            Options for this API call
-   * @param {String} options.deviceId   Device ID or Name
-   * @param {String} options.product    Device in this product ID or slug
-   * @param {String} options.auth       Access Token
-   * @param {Object} [options.headers]  Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
-   * @param {Object} [options.context]  Request context
-   * @returns {Promise} A promise
-   */
-
-	}, {
-		key: 'unlockDeviceProductFirmware',
-		value: function unlockDeviceProductFirmware(_ref28) {
-			var deviceId = _ref28.deviceId,
-			    product = _ref28.product,
-			    auth = _ref28.auth,
-			    headers = _ref28.headers,
-			    context = _ref28.context;
-
-			return this.updateDevice({ deviceId: deviceId, desiredFirmwareVersion: null, product: product, auth: auth, headers: headers, context: context });
-		}
-
-		/**
-   * Update multiple device attributes at the same time
-   * @param {Object} options                           Options for this API call
-   * @param {String} options.deviceId                  Device ID or Name
-   * @param {String} [options.name]                    Desired Name
-   * @param {Boolean} options.signal                   Signal device on or off
-   * @param {String} [options.notes]                   Your notes about this device
-   * @param {Boolean} [options.development]            (Product only) Set to true to mark as development, false to return to product fleet
-   * @param {Number} [options.desiredFirmwareVersion]  (Product only) Lock the product device to run this firmware version.
-   *                                                   Pass `null` to unlock firmware and go back to released firmware.
-   * @param {Boolean} [options.flash]                  (Product only) Immediately flash firmware indicated by desiredFirmwareVersion
-   * @param {String} [options.product]                 Device in this product ID or slug
-   * @param {String} options.auth                      Access Token
-   * @param {Object} [options.headers]                 Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
-   * @param {Object} [options.context]                 Request context
-   * @returns {Promise} A promise
-   */
-
-	}, {
-		key: 'updateDevice',
-		value: function updateDevice(_ref29) {
-			var deviceId = _ref29.deviceId,
-			    name = _ref29.name,
-			    signal = _ref29.signal,
-			    notes = _ref29.notes,
-			    development = _ref29.development,
-			    desiredFirmwareVersion = _ref29.desiredFirmwareVersion,
-			    flash = _ref29.flash,
-			    product = _ref29.product,
-			    auth = _ref29.auth,
-			    headers = _ref29.headers,
-			    context = _ref29.context;
-
-			if (signal !== undefined) {
-				signal = signal ? '1' : '0';
-			}
-
-			var uri = this.deviceUri({ deviceId: deviceId, product: product });
-			var data = product ? { name: name, signal: signal, notes: notes, development: development, desired_firmware_version: desiredFirmwareVersion, flash: flash } : { name: name, signal: signal, notes: notes };
-
-			return this.put({ uri: uri, auth: auth, headers: headers, data: data, context: context });
-		}
-
-		/**
-   * Provision a new device for products that allow self-provisioning
-   * @param {Object} options            Options for this API call
-   * @param {String} options.productId  Product ID where to create this device
-   * @param {String} options.auth       Access Token
-   * @param {Object} [options.headers]  Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
-   * @param {Object} [options.context]  Request context
-   * @returns {Promise} A promise
-   */
-
-	}, {
-		key: 'provisionDevice',
-		value: function provisionDevice(_ref30) {
-			var productId = _ref30.productId,
-			    auth = _ref30.auth,
-			    headers = _ref30.headers,
-			    context = _ref30.context;
-
-			return this.post({
-				uri: '/v1/devices',
-				auth: auth,
-				headers: headers,
-				data: { product_id: productId },
-				context: context
-			});
-		}
-
-		/**
-   * Generate a claim code to use in the device claiming process.
-   * To generate a claim code for a product, the access token MUST belong to a
-   * customer of the product.
-   * @param {Object} options            Options for this API call
-   * @param {String} [options.iccid]    ICCID of the SIM card used in the Electron
-   * @param {String} [options.product]  Device in this product ID or slug
-   * @param {String} options.auth       Access Token
-   * @param {Object} [options.headers]  Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
-   * @param {Object} [options.context]  Request context
-   * @returns {Promise} A promise
-   */
-
-	}, {
-		key: 'getClaimCode',
-		value: function getClaimCode(_ref31) {
-			var iccid = _ref31.iccid,
-			    product = _ref31.product,
-			    auth = _ref31.auth,
-			    headers = _ref31.headers,
-			    context = _ref31.context;
-
-			var uri = product ? '/v1/products/' + product + '/device_claims' : '/v1/device_claims';
-			return this.post({ uri: uri, auth: auth, headers: headers, data: { iccid: iccid }, context: context });
-		}
-	}, {
-		key: 'validatePromoCode',
-		value: function validatePromoCode(_ref32) {
-			var promoCode = _ref32.promoCode,
-			    auth = _ref32.auth,
-			    headers = _ref32.headers,
-			    context = _ref32.context;
-
-			return this.get({
-				uri: '/v1/promo_code/' + promoCode,
-				auth: auth,
-				headers: headers,
-				context: context
-			});
-		}
-	}, {
-		key: 'changeProduct',
-		value: function changeProduct(_ref33) {
-			var deviceId = _ref33.deviceId,
-			    productId = _ref33.productId,
-			    auth = _ref33.auth,
-			    headers = _ref33.headers,
-			    context = _ref33.context;
-
-			return this.put({
-				uri: '/v1/devices/' + deviceId,
-				auth: auth,
-				headers: headers,
-				data: { product_id: productId },
-				context: context
-			});
-		}
-
-		/**
-   * Get the value of a device variable
-   * @param {Object} options            Options for this API call
-   * @param {String} options.deviceId   Device ID or Name
-   * @param {String} options.name       Variable name
-   * @param {String} [options.product]  Device in this product ID or slug
-   * @param {String} options.auth       Access Token
-   * @param {Object} [options.headers]  Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
-   * @param {Object} [options.context]  Request context
-   * @returns {Promise} A promise
-   */
-
-	}, {
-		key: 'getVariable',
-		value: function getVariable(_ref34) {
-			var deviceId = _ref34.deviceId,
-			    name = _ref34.name,
-			    product = _ref34.product,
-			    auth = _ref34.auth,
-			    headers = _ref34.headers,
-			    context = _ref34.context;
-
-			var uri = product ? '/v1/products/' + product + '/devices/' + deviceId + '/' + name : '/v1/devices/' + deviceId + '/' + name;
-
-			return this.get({ uri: uri, auth: auth, headers: headers, context: context });
-		}
-
-		/**
-   * Compile and flash application firmware to a device. Pass a pre-compiled binary to flash it directly to the device.
-   * @param {Object} options                         Options for this API call
-   * @param {String} options.deviceId                Device ID or Name
-   * @param {String} options.product                 Flash device in this product ID or slug
-   * @param {Object} options.files                   Object containing files to be compiled and flashed. Keys should be the filenames, including relative path, and the values should be a path or Buffer of the file contents in Node, or a File or Blob in the browser.
-   * @param {String} [options.targetVersion=latest]  System firmware version to compile against
-   * @param {String} options.auth                    Access Token
-   * @param {Object} [options.headers]               Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
-   * @param {Object} [options.context]               Request context
-   * @returns {Promise} A promise
-   */
-
-	}, {
-		key: 'flashDevice',
-		value: function flashDevice(_ref35) {
-			var deviceId = _ref35.deviceId,
-			    product = _ref35.product,
-			    files = _ref35.files,
-			    targetVersion = _ref35.targetVersion,
-			    auth = _ref35.auth,
-			    headers = _ref35.headers,
-			    context = _ref35.context;
-
-			var uri = this.deviceUri({ deviceId: deviceId, product: product });
-			var form = {};
-
-			if (targetVersion) {
-				form.build_target_version = targetVersion;
-			} else {
-				form.latest = 'true';
-			}
-
-			return this.request({ uri: uri, method: 'put', auth: auth, headers: headers, files: files, form: form, context: context });
-		}
-
-		/**
-   * DEPRECATED: Flash the Tinker application to a device. Instead compile and flash the Tinker source code.
-   * @param {Object} options            Options for this API call
-   * @param {String} options.deviceId   Device ID or Name
-   * @param {String} options.auth       Access Token
-   * @param {Object} [options.headers]  Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
-   * @param {Object} [options.context]  Request context
-   * @returns {Promise} A promise
-   */
-
-	}, {
-		key: 'flashTinker',
-		value: function flashTinker(_ref36) {
-			var deviceId = _ref36.deviceId,
-			    auth = _ref36.auth,
-			    headers = _ref36.headers,
-			    context = _ref36.context;
-
-			/* eslint-disable no-console */
-			if (console && console.warning) {
-				console.warning('Particle.flashTinker is deprecated');
-			}
-			/* eslint-enable no-console */
-			return this.put({
-				uri: '/v1/devices/' + deviceId,
-				headers: headers,
-				data: { app: 'tinker' },
-				auth: auth,
-				context: context
-			});
-		}
-
-		/**
-   * Compile firmware using the Particle Cloud
-   * @param {Object} options                         Options for this API call
-   * @param {Object} options.files                   Object containing files to be compiled. Keys should be the filenames, including relative path, and the values should be a path or Buffer of the file contents in Node, or a File or Blob in the browser.
-   * @param {Number} [options.platformId]            Platform id number of the device you are compiling for. Common values are 0=Core, 6=Photon, 10=Electron.
-   * @param {String} [options.targetVersion=latest]  System firmware version to compile against
-   * @param {String} options.auth                    Access Token
-   * @param {Object} [options.headers]               Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
-   * @param {Object} [options.context]               Request context
-   * @returns {Promise} A promise
-   */
-
-	}, {
-		key: 'compileCode',
-		value: function compileCode(_ref37) {
-			var files = _ref37.files,
-			    platformId = _ref37.platformId,
-			    targetVersion = _ref37.targetVersion,
-			    auth = _ref37.auth,
-			    headers = _ref37.headers,
-			    context = _ref37.context;
-
-			var form = { platform_id: platformId };
-
-			if (targetVersion) {
-				form.build_target_version = targetVersion;
-			} else {
-				form.latest = 'true';
-			}
-
-			return this.request({
-				uri: '/v1/binaries',
-				method: 'post',
-				auth: auth,
-				headers: headers,
-				files: files,
-				form: form,
-				context: context
-			});
-		}
-
-		/**
-   * Download a firmware binary
-   * @param {Object} options            Options for this API call
-   * @param {String} options.binaryId   Binary ID received from a successful compile call
-   * @param {String} options.auth       Access Token
-   * @param {Object} [options.headers]  Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
-   * @param {Object} [options.context]  Request context
-   * @returns {Request} A promise
-   */
-
-	}, {
-		key: 'downloadFirmwareBinary',
-		value: function downloadFirmwareBinary(_ref38) {
-			var binaryId = _ref38.binaryId,
-			    auth = _ref38.auth,
-			    headers = _ref38.headers,
-			    context = _ref38.context;
-
-			return this.request({
-				uri: '/v1/binaries/' + binaryId,
-				method: 'get',
-				auth: auth,
-				headers: headers,
-				context: context,
-				isBuffer: true
-			});
-		}
-
-		/**
-   * Send a new device public key to the Particle Cloud
-   * @param {Object} options                  Options for this API call
-   * @param {String} options.deviceId         Device ID or Name
-   * @param {(String|Buffer)} options.key     Public key contents
-   * @param {String} [options.algorithm=rsa]  Algorithm used to generate the public key. Valid values are `rsa` or `ecc`.
-   * @param {String} options.auth             Access Token
-   * @param {Object} [options.headers]        Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
-   * @param {Object} [options.context]        Request context
-   * @returns {Promise} A promise
-   */
-
-	}, {
-		key: 'sendPublicKey',
-		value: function sendPublicKey(_ref39) {
-			var deviceId = _ref39.deviceId,
-			    key = _ref39.key,
-			    algorithm = _ref39.algorithm,
-			    auth = _ref39.auth,
-			    headers = _ref39.headers,
-			    context = _ref39.context;
-
-			return this.post({
-				uri: '/v1/provisioning/' + deviceId,
-				auth: auth,
-				headers: headers,
-				data: {
-					deviceID: deviceId,
-					publicKey: typeof key === 'string' ? key : key.toString(),
-					filename: 'particle-api',
-					order: 'manual_' + Date.now(),
-					algorithm: algorithm || 'rsa'
-				},
-				context: context
-			});
-		}
-
-		/**
-   * Call a device function
-   * @param {Object} options            Options for this API call
-   * @param {String} options.deviceId   Device ID or Name
-   * @param {String} options.name       Function name
-   * @param {String} options.argument   Function argument
-   * @param {String} [options.product]  Device in this product ID or slug
-   * @param {String} options.auth       Access Token
-   * @param {Object} [options.headers]  Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
-   * @param {Object} [options.context]  Request context
-   * @returns {Promise} A promise
-   */
-
-	}, {
-		key: 'callFunction',
-		value: function callFunction(_ref40) {
-			var deviceId = _ref40.deviceId,
-			    name = _ref40.name,
-			    argument = _ref40.argument,
-			    product = _ref40.product,
-			    auth = _ref40.auth,
-			    headers = _ref40.headers,
-			    context = _ref40.context;
-
-			var uri = product ? '/v1/products/' + product + '/devices/' + deviceId + '/' + name : '/v1/devices/' + deviceId + '/' + name;
-			return this.post({ uri: uri, auth: auth, headers: headers, data: { args: argument }, context: context });
-		}
-
-		/**
-   * Get a stream of events
-   * @param {Object} options             Options for this API call
-   * @param {String} [options.deviceId]  Device ID or Name, or `mine` to indicate only your devices.
-   * @param {String} [options.name]      Event Name
-   * @param {String} [options.org]       Organization Slug
-   * @param {String} [options.product]   Events for this product ID or slug
-   * @param {String} options.auth        Access Token
-   * @returns {Promise} If the promise resolves, the resolution value will be an EventStream object that will
-   * emit 'event' events.
-   */
-
-	}, {
-		key: 'getEventStream',
-		value: function getEventStream(_ref41) {
-			var deviceId = _ref41.deviceId,
-			    name = _ref41.name,
-			    org = _ref41.org,
-			    product = _ref41.product,
-			    auth = _ref41.auth;
-
-			var uri = '/v1/';
-			if (org) {
-				uri += 'orgs/' + org + '/';
-			}
-
-			if (product) {
-				uri += 'products/' + product + '/';
-			}
-
-			if (deviceId) {
-				uri += 'devices/';
-				if (!(deviceId.toLowerCase() === 'mine')) {
-					uri += deviceId + '/';
-				}
-			}
-
-			uri += 'events';
-
-			if (name) {
-				uri += '/' + encodeURIComponent(name);
-			}
-
-			auth = this._getActiveAuthToken(auth);
-			return new _EventStream2.default('' + this.baseUrl + uri, auth).connect();
-		}
-
-		/**
-   * Publish a event to the Particle Cloud
-   * @param {Object} options             Options for this API call
-   * @param {String} options.name        Event name
-   * @param {String} options.data        Event data
-   * @param {Boolean} options.isPrivate  Should the event be publicly available?
-   * @param {String} [options.product]   Event for this product ID or slug
-   * @param {String} options.auth        Access Token
-   * @param {Object} [options.headers]   Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
-   * @param {Object} [options.context]   Request context
-   * @returns {Promise} A promise
-   */
-
-	}, {
-		key: 'publishEvent',
-		value: function publishEvent(_ref42) {
-			var name = _ref42.name,
-			    data = _ref42.data,
-			    isPrivate = _ref42.isPrivate,
-			    product = _ref42.product,
-			    auth = _ref42.auth,
-			    headers = _ref42.headers,
-			    context = _ref42.context;
-
-			var uri = product ? '/v1/products/' + product + '/events' : '/v1/devices/events';
-			var postData = { name: name, data: data, private: isPrivate };
-			return this.post({ uri: uri, auth: auth, headers: headers, data: postData, context: context });
-		}
-
-		/**
-   * Create a webhook
-   * @param {Object} options                            Options for this API call
-   * @param {String} options.event                      The name of the Particle event that should trigger the Webhook
-   * @param {String} options.url                        The web address that will be targeted when the Webhook is triggered
-   * @param {String} [options.device]                   Trigger Webhook only for this device ID or Name
-   * @param {Boolean} [options.rejectUnauthorized]      Set to `false` to skip SSL certificate validation of the target URL
-   * @param {Boolean} [options.noDefaults]              Don't include default event data in the webhook request
-   * @param {Object} [options.hook]                     Webhook configuration settings
-   * @param {String} [options.hook.method=POST]         Type of web request triggered by the Webhook (GET, POST, PUT, or DELETE)
-   * @param {Object} [options.hook.auth]                Auth data like `{ username: 'me', password: '1234' }` to send via basic auth header with the Webhook request
-   * @param {Object} [options.hook.headers]             Additional headers to add to the Webhook like `{ 'X-ONE': '1', X-TWO: '2' }`
-   * @param {Object} [options.hook.query]               Query params to add to the Webhook request like `{ foo: 'foo', bar: 'bar' }`
-   * @param {Object} [options.hook.json]                JSON data to send with the Webhook request - sets `Content-Type` to `application/json`
-   * @param {Object} [options.hook.form]                Form data to send with the Webhook request - sets `Content-Type` to `application/x-www-form-urlencoded`
-   * @param {String} [options.hook.body]                Custom body to send with the Webhook request
-   * @param {Object} [options.hook.responseTemplate]    Template to use to customize the Webhook response body
-   * @param {Object} [options.hook.responseEvent]       The Webhook response event name that your devices can subscribe to
-   * @param {Object} [options.hook.errorResponseEvent]  The Webhook error response event name that your devices can subscribe to
-   * @param {String} [options.product]                  Webhook for this product ID or slug
-   * @param {String} options.auth                       Access Token
-   * @param {Object} [options.headers]                  Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
-   * @param {Object} [options.context]                  Request context
-   * @returns {Promise} A promise
-   */
-
-	}, {
-		key: 'createWebhook',
-		value: function createWebhook(_ref43) {
-			var event = _ref43.event,
-			    url = _ref43.url,
-			    device = _ref43.device,
-			    rejectUnauthorized = _ref43.rejectUnauthorized,
-			    noDefaults = _ref43.noDefaults,
-			    hook = _ref43.hook,
-			    product = _ref43.product,
-			    auth = _ref43.auth,
-			    headers = _ref43.headers,
-			    context = _ref43.context;
-
-			var uri = product ? '/v1/products/' + product + '/webhooks' : '/v1/webhooks';
-			var data = { event: event, url: url, deviceId: device, rejectUnauthorized: rejectUnauthorized, noDefaults: noDefaults };
-
-			if (hook) {
-				data.requestType = hook.method;
-				data.auth = hook.auth;
-				data.headers = hook.headers;
-				data.query = hook.query;
-				data.json = hook.json;
-				data.form = hook.form;
-				data.body = hook.body;
-				data.responseTemplate = hook.responseTemplate;
-				data.responseTopic = hook.responseEvent;
-				data.errorResponseTopic = hook.errorResponseEvent;
-			}
-
-			if (!data.requestType) {
-				data.requestType = 'POST';
-			}
-
-			return this.post({ uri: uri, auth: auth, headers: headers, data: data, context: context });
-		}
-
-		/**
-   * Delete a webhook
-   * @param {Object} options            Options for this API call
-   * @param {String} options.hookId     Webhook ID
-   * @param {String} [options.product]  Webhook for this product ID or slug
-   * @param {String} options.auth       Access Token
-   * @param {Object} [options.headers]  Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
-   * @param {Object} [options.context]  Request context
-   * @returns {Promise} A promise
-   */
-
-	}, {
-		key: 'deleteWebhook',
-		value: function deleteWebhook(_ref44) {
-			var hookId = _ref44.hookId,
-			    product = _ref44.product,
-			    auth = _ref44.auth,
-			    headers = _ref44.headers,
-			    context = _ref44.context;
-
-			var uri = product ? '/v1/products/' + product + '/webhooks/' + hookId : '/v1/webhooks/' + hookId;
-			return this.delete({ uri: uri, auth: auth, headers: headers, context: context });
-		}
-
-		/**
-   * List all webhooks owned by the account or product
-   * @param {Object} options            Options for this API call
-   * @param {String} [options.product]  Webhooks for this product ID or slug
-   * @param {String} options.auth       Access Token
-   * @param {Object} [options.headers]  Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
-   * @param {Object} [options.context]  Request context
-   * @returns {Promise} A promise
-   */
-
-	}, {
-		key: 'listWebhooks',
-		value: function listWebhooks(_ref45) {
-			var product = _ref45.product,
-			    auth = _ref45.auth,
-			    headers = _ref45.headers,
-			    context = _ref45.context;
-
-			var uri = product ? '/v1/products/' + product + '/webhooks' : '/v1/webhooks';
-			return this.get({ uri: uri, auth: auth, headers: headers, context: context });
-		}
-
-		/**
-   * Create an integration to send events to an external service
-      *
-   * See the API docs for details https://docs.particle.io/reference/api/#integrations-webhooks-
-   *
-   * @param {Object} options             Options for this API call
-   * @param {String} options.event       Event that triggers the integration
-   * @param {Object} options.settings    Settings specific to that integration type
-   * @param {String} [options.deviceId]  Trigger integration only for this device ID or Name
-   * @param {String} [options.product]   Integration for this product ID or slug
-   * @param {String} options.auth        Access Token
-   * @param {Object} [options.headers]   Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
-   * @param {Object} [options.context]  Request context
-   * @returns {Promise} A promise
-   */
-
-	}, {
-		key: 'createIntegration',
-		value: function createIntegration(_ref46) {
-			var event = _ref46.event,
-			    settings = _ref46.settings,
-			    deviceId = _ref46.deviceId,
-			    product = _ref46.product,
-			    auth = _ref46.auth,
-			    headers = _ref46.headers,
-			    context = _ref46.context;
-
-			var uri = product ? '/v1/products/' + product + '/integrations' : '/v1/integrations';
-			var data = (0, _assign2.default)({ event: event, deviceid: deviceId }, settings);
-			return this.post({ uri: uri, data: data, auth: auth, headers: headers, context: context });
-		}
-
-		/**
-   * Edit an integration to send events to an external service
-   *
-   * See the API docs for details https://docs.particle.io/reference/api/#integrations-webhooks-
-   *
-   * @param {Object} options                Options for this API call
-   * @param {String} options.integrationId  The integration to edit
-   * @param {String} [options.event]        Change the event that triggers the integration
-   * @param {Object} [options.settings]     Change the settings specific to that integration type
-   * @param {String} [options.deviceId]     Trigger integration only for this device ID or Name
-   * @param {String} [options.product]      Integration for this product ID or slug
-   * @param {String} options.auth           Access Token
-   * @param {Object} [options.headers]      Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
-   * @param {Object} [options.context]      Request context
-   * @returns {Promise} A promise
-   */
-
-	}, {
-		key: 'editIntegration',
-		value: function editIntegration(_ref47) {
-			var integrationId = _ref47.integrationId,
-			    event = _ref47.event,
-			    settings = _ref47.settings,
-			    deviceId = _ref47.deviceId,
-			    product = _ref47.product,
-			    auth = _ref47.auth,
-			    headers = _ref47.headers,
-			    context = _ref47.context;
-
-			var uri = product ? '/v1/products/' + product + '/integrations/' + integrationId : '/v1/integrations/' + integrationId;
-			var data = (0, _assign2.default)({ event: event, deviceid: deviceId }, settings);
-			return this.put({ uri: uri, auth: auth, headers: headers, data: data, context: context });
-		}
-
-		/**
-   * Delete an integration to send events to an external service
-   *
-   * @param {Object} options                Options for this API call
-   * @param {String} options.integrationId  The integration to remove
-   * @param {String} [options.product]      Integration for this product ID or slug
-   * @param {String} options.auth           Access Token
-   * @param {Object} [options.headers]      Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
-   * @param {Object} [options.context]      Request context
-   * @returns {Promise} A promise
-   */
-
-	}, {
-		key: 'deleteIntegration',
-		value: function deleteIntegration(_ref48) {
-			var integrationId = _ref48.integrationId,
-			    product = _ref48.product,
-			    auth = _ref48.auth,
-			    headers = _ref48.headers,
-			    context = _ref48.context;
-
-			var uri = product ? '/v1/products/' + product + '/integrations/' + integrationId : '/v1/integrations/' + integrationId;
-			return this.delete({ uri: uri, auth: auth, headers: headers, context: context });
-		}
-
-		/**
-   * List all integrations owned by the account or product
-   * @param {Object} options            Options for this API call
-   * @param {String} [options.product]  Integrations for this product ID or slug
-   * @param {String} options.auth       Access Token
-   * @param {Object} [options.headers]  Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
-   * @param {Object} [options.context]  Request context
-   * @returns {Promise} A promise
-   */
-
-	}, {
-		key: 'listIntegrations',
-		value: function listIntegrations(_ref49) {
-			var product = _ref49.product,
-			    auth = _ref49.auth,
-			    headers = _ref49.headers,
-			    context = _ref49.context;
-
-			var uri = product ? '/v1/products/' + product + '/integrations' : '/v1/integrations';
-			return this.get({ uri: uri, auth: auth, headers: headers, context: context });
-		}
-
-		/**
-   * Get details about the current user
-   * @param {Object} options            Options for this API call
-   * @param {String} options.auth       Access Token
-   * @param {Object} [options.headers]  Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
-   * @param {Object} [options.context]  Request context
-   * @returns {Promise} A promise
-   */
-
-	}, {
-		key: 'getUserInfo',
-		value: function getUserInfo(_ref50) {
-			var auth = _ref50.auth,
-			    headers = _ref50.headers,
-			    context = _ref50.context;
-
-			return this.get({ uri: '/v1/user', auth: auth, headers: headers, context: context });
-		}
-
-		/**
-   * Set details on the current user
-   * @param {Object} options              Options for this API call
-   * @param {String} options.auth         Access Token
-   * @param {String} options.accountInfo  Set user's extended info fields (name, business account, company name, etc)
-   * @param {Object} [options.headers]    Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
-   * @param {Object} [options.context]    Request context
-   * @returns {Promise} A promise
-   */
-
-	}, {
-		key: 'setUserInfo',
-		value: function setUserInfo(_ref51) {
-			var accountInfo = _ref51.accountInfo,
-			    auth = _ref51.auth,
-			    headers = _ref51.headers,
-			    context = _ref51.context;
-
-			var data = { account_info: accountInfo };
-			return this.put({ uri: '/v1/user', auth: auth, headers: headers, data: data, context: context });
-		}
-
-		/**
-   * Change username (i.e, email)
-   * @param {Object} options                  Options for this API call
-   * @param {String} options.auth             Access Token
-   * @param {String} options.currentPassword  Current password
-   * @param {String} options.username         New email
-   * @param {Boolean} options.invalidateTokens Should all tokens be invalidated
-   * @param {Object} [options.headers]        Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
-   * @param {Object} [options.context]        Request context
-   * @returns {Promise} A promise
-   */
-
-	}, {
-		key: 'changeUsername',
-		value: function changeUsername(_ref52) {
-			var currentPassword = _ref52.currentPassword,
-			    username = _ref52.username,
-			    _ref52$invalidateToke = _ref52.invalidateTokens,
-			    invalidateTokens = _ref52$invalidateToke === undefined ? false : _ref52$invalidateToke,
-			    auth = _ref52.auth,
-			    headers = _ref52.headers,
-			    context = _ref52.context;
-
-			var data = { username: username, current_password: currentPassword };
-
-			if (invalidateTokens) {
-				data.invalidate_tokens = true;
-			}
-
-			return this.put({ uri: '/v1/user', auth: auth, headers: headers, data: data, context: context });
-		}
-
-		/**
-   * Change user's password
-   * @param {Object} options                   Options for this API call
-   * @param {String} options.auth              Access Token
-   * @param {String} options.currentPassword   Current password
-   * @param {String} options.password          New password
-   * @param {Boolean} options.invalidateTokens Should all tokens be invalidated
-   * @param {Object} [options.headers]         Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
-   * @param {Object} [options.context]         Request context
-   * @returns {Promise} A promise
-   */
-
-	}, {
-		key: 'changeUserPassword',
-		value: function changeUserPassword(_ref53) {
-			var currentPassword = _ref53.currentPassword,
-			    password = _ref53.password,
-			    _ref53$invalidateToke = _ref53.invalidateTokens,
-			    invalidateTokens = _ref53$invalidateToke === undefined ? false : _ref53$invalidateToke,
-			    auth = _ref53.auth,
-			    headers = _ref53.headers,
-			    context = _ref53.context;
-
-			var data = { password: password, current_password: currentPassword };
-
-			if (invalidateTokens) {
-				data.invalidate_tokens = true;
-			}
-
-			return this.put({ uri: '/v1/user', auth: auth, headers: headers, data: data, context: context });
-		}
-
-		/**
-   * List SIM cards owned by a user or product
-   * @param {Object} options               Options for this API call
-   * @param {String} [options.iccid]       (Product only) Filter to SIM cards matching this ICCID
-   * @param {String} [options.deviceId]    (Product only) Filter to SIM cards matching this device ID
-   * @param {String} [options.deviceName]  (Product only) Filter to SIM cards matching this device name
-   * @param {Number} [options.page]        (Product only) Current page of results
-   * @param {Number} [options.perPage]     (Product only) Records per page
-   * @param {String} [options.product]     SIM cards for this product ID or slug
-   * @param {String} options.auth          Access Token
-   * @param {Object} [options.headers]     Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
-   * @param {Object} [options.context]     Request context
-   * @returns {Promise} A promise
-   */
-
-	}, {
-		key: 'listSIMs',
-		value: function listSIMs(_ref54) {
-			var iccid = _ref54.iccid,
-			    deviceId = _ref54.deviceId,
-			    deviceName = _ref54.deviceName,
-			    page = _ref54.page,
-			    perPage = _ref54.perPage,
-			    product = _ref54.product,
-			    auth = _ref54.auth,
-			    headers = _ref54.headers,
-			    context = _ref54.context;
-
-			var uri = product ? '/v1/products/' + product + '/sims' : '/v1/sims';
-			var query = product ? { iccid: iccid, deviceId: deviceId, deviceName: deviceName, page: page, per_page: perPage } : undefined;
-			return this.get({ uri: uri, auth: auth, headers: headers, query: query, context: context });
-		}
-
-		/**
-   * Get data usage for one SIM card for the current billing period
-   * @param {Object} options            Options for this API call
-   * @param {String} options.iccid      ICCID of the SIM card
-   * @param {String} [options.product]  SIM card for this product ID or slug
-   * @param {String} options.auth       Access Token
-   * @param {Object} [options.headers]  Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
-   * @param {Object} [options.context]  Request context
-   * @returns {Promise} A promise
-   */
-
-	}, {
-		key: 'getSIMDataUsage',
-		value: function getSIMDataUsage(_ref55) {
-			var iccid = _ref55.iccid,
-			    product = _ref55.product,
-			    auth = _ref55.auth,
-			    headers = _ref55.headers,
-			    context = _ref55.context;
-
-			var uri = product ? '/v1/products/' + product + '/sims/' + iccid + '/data_usage' : '/v1/sims/' + iccid + '/data_usage';
-
-			return this.get({ uri: uri, auth: auth, headers: headers, context: context });
-		}
-
-		/**
-   * Get data usage for all SIM cards in a product the current billing period
-   * @param {Object} options            Options for this API call
-   * @param {String} options.product    SIM cards for this product ID or slug
-   * @param {String} options.auth       Access Token
-   * @param {Object} [options.headers]  Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
-   * @param {Object} [options.context]  Request context
-   * @returns {Promise} A promise
-   */
-
-	}, {
-		key: 'getFleetDataUsage',
-		value: function getFleetDataUsage(_ref56) {
-			var product = _ref56.product,
-			    auth = _ref56.auth,
-			    headers = _ref56.headers,
-			    context = _ref56.context;
-
-			return this.get({
-				uri: '/v1/products/' + product + '/sims/data_usage',
-				auth: auth,
-				headers: headers,
-				context: context
-			});
-		}
-
-		/**
-   * Check SIM status
-   * @param {Object} options            Options for this API call
-   * @param {String} options.iccid      ICCID of the SIM card
-   * @param {String} options.auth       Access Token
-   * @param {Object} [options.headers]  Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
-   * @param {Object} [options.context]  Request context
-   * @returns {Promise} A promise
-   */
-
-	}, {
-		key: 'checkSIM',
-		value: function checkSIM(_ref57) {
-			var iccid = _ref57.iccid,
-			    auth = _ref57.auth,
-			    headers = _ref57.headers,
-			    context = _ref57.context;
-
-			return this.head({ uri: '/v1/sims/' + iccid, auth: auth, headers: headers, context: context });
-		}
-
-		/**
-   * Activate and add SIM cards to an account or product
-   * @param {Object} options                Options for this API call
-   * @param {String} options.iccid          ICCID of the SIM card
-   * @param {Array<String>} options.iccids  (Product only) ICCID of multiple SIM cards to import
-   * @param {String} options.country        The ISO country code for the SIM cards
-   * @param {String} [options.product]      SIM cards for this product ID or slug
-   * @param {String} options.auth           Access Token
-   * @param {Object} [options.headers]      Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
-   * @param {Object} [options.context]      Request context
-   * @returns {Promise} A promise
-   */
-
-	}, {
-		key: 'activateSIM',
-		value: function activateSIM(_ref58) {
-			var iccid = _ref58.iccid,
-			    iccids = _ref58.iccids,
-			    country = _ref58.country,
-			    promoCode = _ref58.promoCode,
-			    product = _ref58.product,
-			    auth = _ref58.auth,
-			    headers = _ref58.headers,
-			    context = _ref58.context;
-
-			// promoCode is deprecated
-			iccids = iccids || [iccid];
-			var uri = product ? '/v1/products/' + product + '/sims' : '/v1/sims/' + iccid;
-			var data = product ? { sims: iccids, country: country } : { country: country, promoCode: promoCode, action: 'activate' };
-			var method = product ? 'post' : 'put';
-
-			return this.request({ uri: uri, method: method, headers: headers, data: data, auth: auth, context: context });
-		}
-
-		/**
-   * Deactivate a SIM card so it doesn't incur data usage in future months.
-   * @param {Object} options            Options for this API call
-   * @param {String} options.iccid      ICCID of the SIM card
-   * @param {String} [options.product]  SIM cards for this product ID or slug
-   * @param {String} options.auth       Access Token
-   * @param {Object} [options.headers]  Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
-   * @param {Object} [options.context]  Request context
-   * @returns {Promise} A promise
-   */
-
-	}, {
-		key: 'deactivateSIM',
-		value: function deactivateSIM(_ref59) {
-			var iccid = _ref59.iccid,
-			    product = _ref59.product,
-			    auth = _ref59.auth,
-			    headers = _ref59.headers,
-			    context = _ref59.context;
-
-			var uri = product ? '/v1/products/' + product + '/sims/' + iccid : '/v1/sims/' + iccid;
-			var data = { action: 'deactivate' };
-			return this.put({ uri: uri, auth: auth, headers: headers, data: data, context: context });
-		}
-
-		/**
-   * Reactivate a SIM card the was deactivated or unpause a SIM card that was automatically paused
-   * @param {Object} options            Options for this API call
-   * @param {String} options.iccid      ICCID of the SIM card
-   * @param {Number} [options.mbLimit]  New monthly data limit. Necessary if unpausing a SIM card
-   * @param {String} [options.product]  SIM cards for this product ID or slug
-   * @param {String} options.auth       Access Token
-   * @param {Object} [options.headers]  Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
-   * @param {Object} [options.context]  Request context
-   * @returns {Promise} A promise
-   */
-
-	}, {
-		key: 'reactivateSIM',
-		value: function reactivateSIM(_ref60) {
-			var iccid = _ref60.iccid,
-			    mbLimit = _ref60.mbLimit,
-			    product = _ref60.product,
-			    auth = _ref60.auth,
-			    headers = _ref60.headers,
-			    context = _ref60.context;
-
-			var uri = product ? '/v1/products/' + product + '/sims/' + iccid : '/v1/sims/' + iccid;
-			var data = { mb_limit: mbLimit, action: 'reactivate' };
-			return this.put({ uri: uri, auth: auth, headers: headers, data: data, context: context });
-		}
-
-		/**
-   * Update SIM card data limit
-   * @param {Object} options            Options for this API call
-   * @param {String} options.iccid      ICCID of the SIM card
-   * @param {Array}  options.mbLimit    Data limit in megabyte for the SIM card
-   * @param {String} [options.product]  SIM cards for this product ID or slug
-   * @param {String} options.auth       Access Token
-   * @param {Object} [options.headers]  Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
-   * @param {Object} [options.context]  Request context
-   * @returns {Promise} A promise
-   */
-
-	}, {
-		key: 'updateSIM',
-		value: function updateSIM(_ref61) {
-			var iccid = _ref61.iccid,
-			    mbLimit = _ref61.mbLimit,
-			    product = _ref61.product,
-			    auth = _ref61.auth,
-			    headers = _ref61.headers,
-			    context = _ref61.context;
-
-			var uri = product ? '/v1/products/' + product + '/sims/' + iccid : '/v1/sims/' + iccid;
-			var data = { mb_limit: mbLimit };
-			return this.put({ uri: uri, auth: auth, headers: headers, data: data, context: context });
-		}
-
-		/**
-   * Remove a SIM card from an account so it can be activated by a different account
-   * @param {Object} options            Options for this API call
-   * @param {String} options.iccid      ICCID of the SIM card
-   * @param {String} [options.product]  SIM cards for this product ID or slug
-   * @param {String} options.auth       Access Token
-   * @param {Object} [options.headers]  Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
-   * @param {Object} [options.context]  Request context
-   * @returns {Promise} A promise
-   */
-
-	}, {
-		key: 'removeSIM',
-		value: function removeSIM(_ref62) {
-			var iccid = _ref62.iccid,
-			    product = _ref62.product,
-			    auth = _ref62.auth,
-			    headers = _ref62.headers,
-			    context = _ref62.context;
-
-			var uri = product ? '/v1/products/' + product + '/sims/' + iccid : '/v1/sims/' + iccid;
-			return this.delete({ uri: uri, auth: auth, headers: headers, context: context });
-		}
-
-		/**
-   * List valid build targets to be used for compiling
-   * @param {Object} options                        Options for this API call
-   * @param {Boolean} [options.onlyFeatured=false]  Only list featured build targets
-   * @param {String} options.auth                   Access Token
-   * @param {Object} [options.headers]              Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
-   * @param {Object} [options.context]              Request context
-   * @returns {Promise} A promise
-   */
-
-	}, {
-		key: 'listBuildTargets',
-		value: function listBuildTargets(_ref63) {
-			var onlyFeatured = _ref63.onlyFeatured,
-			    auth = _ref63.auth,
-			    headers = _ref63.headers,
-			    context = _ref63.context;
-
-			var query = onlyFeatured ? { featured: !!onlyFeatured } : undefined;
-			return this.get({ uri: '/v1/build_targets', auth: auth, headers: headers, query: query, context: context });
-		}
-
-		/**
-   * List firmware libraries
-   * @param  {Object} options Options for this API call
-   * @param  {Number} options.page Page index (default, first page)
-   * @param  {Number} options.limit Number of items per page
-   * @param  {String} options.filter Search term for the libraries
-   * @param  {String} options.sort Ordering key for the library list
-   * @param  {Array<String>}  options.architectures List of architectures to filter
-   * @param  {String} options.category Category to filter
-   * @param  {String} options.scope The library scope to list. Default is 'all'. Other values are
-   * - 'all' - list public libraries and my private libraries
-   * - 'public' - list only public libraries
-   * - 'private' - list only my private libraries
-   * - 'mine' - list my libraries (public and private)
-   * - 'official' - list only official libraries
-   * - 'verified' - list only verified libraries
-   * - 'featured' - list only featured libraries
-   * @param  {String} options.excludeScopes  list of scopes to exclude
-   * @param  {String} options.category Category to filter
-   * @param  {String} options.auth Access Token
-   * @param {Object} [options.headers]              Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
-   * @param {Object} [options.context]              Request context
-   * @returns {Promise} A promise
-   */
-
-	}, {
-		key: 'listLibraries',
-		value: function listLibraries(_ref64) {
-			var page = _ref64.page,
-			    limit = _ref64.limit,
-			    filter = _ref64.filter,
-			    sort = _ref64.sort,
-			    architectures = _ref64.architectures,
-			    category = _ref64.category,
-			    scope = _ref64.scope,
-			    excludeScopes = _ref64.excludeScopes,
-			    auth = _ref64.auth,
-			    headers = _ref64.headers,
-			    context = _ref64.context;
-
-			return this.get({
-				uri: '/v1/libraries',
-				auth: auth,
-				headers: headers,
-				query: {
-					page: page,
-					filter: filter,
-					limit: limit,
-					sort: sort,
-					architectures: this._asList(architectures),
-					category: category,
-					scope: scope,
-					excludeScopes: this._asList(excludeScopes)
-				},
-				context: context
-			});
-		}
-	}, {
-		key: '_asList',
-		value: function _asList(value) {
-			return Array.isArray(value) ? value.join(',') : value;
-		}
-
-		/**
-   * Get firmware library details
-   * @param {Object} options            Options for this API call
-   * @param {String} options.name       Name of the library to fetch
-   * @param {String} options.version    Version of the library to fetch (default: latest)
-   * @param {String} options.auth       Access Token
-   * @param {Object} [options.headers]  Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
-   * @param {Object} [options.context]  Request context
-   * @returns {Promise} A promise
-   */
-
-	}, {
-		key: 'getLibrary',
-		value: function getLibrary(_ref65) {
-			var name = _ref65.name,
-			    version = _ref65.version,
-			    auth = _ref65.auth,
-			    headers = _ref65.headers,
-			    context = _ref65.context;
-
-			return this.get({
-				uri: '/v1/libraries/' + name,
-				auth: auth,
-				headers: headers,
-				query: { version: version },
-				context: context
-			});
-		}
-
-		/**
-   * Firmware library details for each version
-   * @param {Object} options            Options for this API call
-   * @param {String} options.name       Name of the library to fetch
-   * @param {Number} options.page       Page index (default, first page)
-   * @param {Number} options.limit      Number of items per page
-   * @param {String} options.auth       Access Token
-   * @param {Object} [options.headers]  Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
-   * @param {Object} [options.context]  Request context
-   * @returns {Promise} A promise
-   */
-
-	}, {
-		key: 'getLibraryVersions',
-		value: function getLibraryVersions(_ref66) {
-			var name = _ref66.name,
-			    page = _ref66.page,
-			    limit = _ref66.limit,
-			    auth = _ref66.auth,
-			    headers = _ref66.headers,
-			    context = _ref66.context;
-
-			return this.get({
-				uri: '/v1/libraries/' + name + '/versions',
-				auth: auth,
-				headers: headers,
-				query: { page: page, limit: limit },
-				context: context
-			});
-		}
-
-		/**
-   * Contribute a new library version from a compressed archive
-   * @param {Object} options            Options for this API call
-   * @param {String} options.archive    Compressed archive file containing the library sources
-   *                                    Either a path or Buffer of the file contents in Node, or a File or Blob in the browser.
-   * @param {String} options.auth       Access Token
-   * @param {Object} [options.headers]  Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
-   * @param {Object} [options.context]  Request context
-   * @returns {Promise} A promise
-   */
-
-	}, {
-		key: 'contributeLibrary',
-		value: function contributeLibrary(_ref67) {
-			var archive = _ref67.archive,
-			    auth = _ref67.auth,
-			    headers = _ref67.headers,
-			    context = _ref67.context;
-
-			var files = {
-				'archive.tar.gz': archive
-			};
-
-			return this.request({
-				uri: '/v1/libraries',
-				method: 'post',
-				auth: auth,
-				headers: headers,
-				files: files,
-				context: context
-			});
-		}
-
-		/**
-   * Publish the latest version of a library to the public
-   * @param {Object} options            Options for this API call
-   * @param {String} options.name       Name of the library to publish
-   * @param {String} options.auth       Access Token
-   * @param {Object} [options.headers]  Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
-   * @param {Object} [options.context]  Request context
-   * @returns {Promise} A promise
-   */
-
-	}, {
-		key: 'publishLibrary',
-		value: function publishLibrary(_ref68) {
-			var name = _ref68.name,
-			    auth = _ref68.auth,
-			    headers = _ref68.headers,
-			    context = _ref68.context;
-
-			return this.request({
-				uri: '/v1/libraries/' + name,
-				method: 'patch',
-				auth: auth,
-				headers: headers,
-				data: { visibility: 'public' },
-				context: context
-			});
-		}
-
-		/**
-   * Delete one version of a library or an entire private library
-   * @param {Object} options            Options for this API call
-   * @param {String} options.name       Name of the library to remove
-   * @param {String} options.force      Key to force deleting a public library
-   * @param {String} options.auth       Access Token
-   * @param {Object} [options.headers]  Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
-   * @param {Object} [options.context]  Request context
-   * @returns {Promise} A promise
-   */
-
-	}, {
-		key: 'deleteLibrary',
-		value: function deleteLibrary(_ref69) {
-			var name = _ref69.name,
-			    force = _ref69.force,
-			    auth = _ref69.auth,
-			    headers = _ref69.headers,
-			    context = _ref69.context;
-
-			return this.delete({
-				uri: '/v1/libraries/' + name,
-				auth: auth,
-				headers: headers,
-				data: { force: force },
-				context: context
-			});
-		}
-
-		/**
-   * Download an external file that may not be on the API
-   * @param {Object} options            Options for this API call
-   * @param {String} options.uri        URL of the file.
-   * @param {Object} [options.headers]  Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
-   * @param {Object} [options.context]  Request context
-   * @returns {Promise} Resolves to a buffer with the file data
-   */
-
-	}, {
-		key: 'downloadFile',
-		value: function downloadFile(_ref70) {
-			var uri = _ref70.uri,
-			    headers = _ref70.headers,
-			    context = _ref70.context;
-
-			return this.request({ uri: uri, method: 'get', headers: headers, context: context, isBuffer: true });
-		}
-
-		/**
-   * List OAuth client created by the account
-   * @param {Object} options            Options for this API call
-   * @param {String} [options.product]  List clients for this product ID or slug
-   * @param {String} options.auth       Access Token
-   * @param {Object} [options.headers]  Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
-   * @param {Object} [options.context]  Request context
-   * @returns {Promise} A promise
-   */
-
-	}, {
-		key: 'listOAuthClients',
-		value: function listOAuthClients(_ref71) {
-			var product = _ref71.product,
-			    auth = _ref71.auth,
-			    headers = _ref71.headers,
-			    context = _ref71.context;
-
-			var uri = product ? '/v1/products/' + product + '/clients' : '/v1/clients';
-			return this.get({ uri: uri, auth: auth, headers: headers, context: context });
-		}
-
-		/**
-   * Create an OAuth client
-   * @param {Object} options                 Options for this API call
-   * @param {String} options.name            Name of the OAuth client
-   * @param {String} options.type            web, installed or web
-   * @param {String} [options.redirect_uri]  URL to redirect after OAuth flow. Only for type web.
-   * @param {Object} [options.scope]         Limits what the access tokens created by this client can do.
-   * @param {String} [options.product]       Create client for this product ID or slug
-   * @param {String} options.auth            Access Token
-   * @param {Object} [options.headers]       Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
-   * @param {Object} [options.context]       Request context
-   * @returns {Promise} A promise
-   */
-
-	}, {
-		key: 'createOAuthClient',
-		value: function createOAuthClient(_ref72) {
-			var name = _ref72.name,
-			    type = _ref72.type,
-			    redirect_uri = _ref72.redirect_uri,
-			    scope = _ref72.scope,
-			    product = _ref72.product,
-			    auth = _ref72.auth,
-			    headers = _ref72.headers,
-			    context = _ref72.context;
-
-			var uri = product ? '/v1/products/' + product + '/clients' : '/v1/clients';
-			var data = { name: name, type: type, redirect_uri: redirect_uri, scope: scope };
-			return this.post({ uri: uri, auth: auth, headers: headers, data: data, context: context });
-		}
-
-		/**
-   * Update an OAuth client
-   * @param {Object} options            Options for this API call
-   * @param {String} options.clientId   The OAuth client to update
-   * @param {String} [options.name]     New Name of the OAuth client
-   * @param {Object} [options.scope]    New scope of the OAuth client
-   * @param {String} [options.product]  Update client linked to this product ID or slug
-   * @param {String} options.auth       Access Token
-   * @param {Object} [options.headers]  Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
-   * @param {Object} [options.context]  Request context
-   * @returns {Promise} A promise
-   */
-
-	}, {
-		key: 'updateOAuthClient',
-		value: function updateOAuthClient(_ref73) {
-			var clientId = _ref73.clientId,
-			    name = _ref73.name,
-			    scope = _ref73.scope,
-			    product = _ref73.product,
-			    auth = _ref73.auth,
-			    headers = _ref73.headers,
-			    context = _ref73.context;
-
-			var uri = product ? '/v1/products/' + product + '/clients/' + clientId : '/v1/clients/' + clientId;
-			var data = { name: name, scope: scope };
-			return this.put({ uri: uri, data: data, auth: auth, headers: headers, context: context });
-		}
-
-		/**
-   * Delete an OAuth client
-   * @param {Object} options            Options for this API call
-   * @param {String} options.clientId   The OAuth client to update
-   * @param {String} [options.product]  OAuth client linked to this product ID or slug
-   * @param {String} options.auth       Access Token
-   * @param {Object} [options.headers]  Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
-   * @param {Object} [options.context]  Request context
-   * @returns {Promise} A promise
-   */
-
-	}, {
-		key: 'deleteOAuthClient',
-		value: function deleteOAuthClient(_ref74) {
-			var clientId = _ref74.clientId,
-			    product = _ref74.product,
-			    auth = _ref74.auth,
-			    headers = _ref74.headers,
-			    context = _ref74.context;
-
-			var uri = product ? '/v1/products/' + product + '/clients/' + clientId : '/v1/clients/' + clientId;
-			return this.delete({ uri: uri, auth: auth, headers: headers, context: context });
-		}
-
-		/**
-   * List products the account has access to
-   * @param {Object} options            Options for this API call
-   * @param {String} options.auth       Access Token
-   * @param {Object} [options.headers]  Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
-   * @param {Object} [options.context]  Request context
-   * @returns {Promise} A promise
-   */
-
-	}, {
-		key: 'listProducts',
-		value: function listProducts(_ref75) {
-			var auth = _ref75.auth,
-			    headers = _ref75.headers,
-			    context = _ref75.context;
-
-			return this.get({ uri: '/v1/products', auth: auth, headers: headers, context: context });
-		}
-
-		/**
-   * Get detailed information about a product
-   * @param {Object} options            Options for this API call
-   * @param {String} options.product    Product ID or slug
-   * @param {String} options.auth       Access token
-   * @param {Object} [options.headers]  Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
-   * @param {Object} [options.context]  Request context
-   * @returns {Promise} A promise
-   */
-
-	}, {
-		key: 'getProduct',
-		value: function getProduct(_ref76) {
-			var product = _ref76.product,
-			    auth = _ref76.auth,
-			    headers = _ref76.headers,
-			    context = _ref76.context;
-
-			return this.get({ uri: '/v1/products/' + product, auth: auth, headers: headers, context: context });
-		}
-
-		/**
-   * List product firmware versions
-   * @param {Object} options            Options for this API call
-   * @param {String} options.product    Firmware for this product ID or slug
-   * @param {String} options.auth       Access Token
-   * @param {Object} [options.headers]  Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
-   * @param {Object} [options.context]  Request context
-   * @returns {Promise} A promise
-   */
-
-	}, {
-		key: 'listProductFirmware',
-		value: function listProductFirmware(_ref77) {
-			var product = _ref77.product,
-			    auth = _ref77.auth,
-			    headers = _ref77.headers,
-			    context = _ref77.context;
-
-			return this.get({ uri: '/v1/products/' + product + '/firmware', auth: auth, headers: headers, context: context });
-		}
-
-		/**
-   * List product firmware versions
-   * @param {Object} options                Options for this API call
-   * @param {Object} options.file           Path or Buffer of the new firmware file
-   *                                        Either a path or Buffer of the file contents in Node, or a File or Blob in the browser.
-   * @param {Number} options.version        Version number of new firmware
-   * @param {String} options.title          Short identifier for the new firmware
-   * @param {String} [options.description]  Longer description for the new firmware
-   * @param {String} options.product        Firmware for this product ID or slug
-   * @param {String} options.auth           Access Token
-   * @param {Object} [options.headers]      Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
-   * @param {Object} [options.context]      Request context
-   * @returns {Promise} A promise
-   */
-
-	}, {
-		key: 'uploadProductFirmware',
-		value: function uploadProductFirmware(_ref78) {
-			var file = _ref78.file,
-			    version = _ref78.version,
-			    title = _ref78.title,
-			    description = _ref78.description,
-			    product = _ref78.product,
-			    auth = _ref78.auth,
-			    headers = _ref78.headers,
-			    context = _ref78.context;
-
-			return this.request({
-				uri: '/v1/products/' + product + '/firmware',
-				method: 'post',
-				auth: auth,
-				headers: headers,
-				form: {
-					version: version,
-					title: title,
-					description: description
-				},
-				files: {
-					'firmware.bin': file
-				},
-				context: context
-			});
-		}
-
-		/**
-   * Get information about a product firmware version
-   * @param {Object} options            Options for this API call
-   * @param {Number} options.version    Version number of firmware
-   * @param {String} options.product    Firmware for this product ID or slug
-   * @param {String} options.auth       Access token
-   * @param {Object} [options.headers]  Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
-   * @param {Object} [options.context]  Request context
-   * @returns {Promise} A promise
-   */
-
-	}, {
-		key: 'getProductFirmware',
-		value: function getProductFirmware(_ref79) {
-			var version = _ref79.version,
-			    product = _ref79.product,
-			    auth = _ref79.auth,
-			    headers = _ref79.headers,
-			    context = _ref79.context;
-
-			return this.get({
-				uri: '/v1/products/' + product + '/firmware/' + version,
-				auth: auth,
-				headers: headers,
-				context: context
-			});
-		}
-
-		/**
-   * Update information for a product firmware version
-   * @param {Object} options                Options for this API call
-   * @param {Number} options.version        Version number of new firmware
-   * @param {String} [options.title]        New title
-   * @param {String} [options.description]  New description
-   * @param {String} options.product        Firmware for this product ID or slug
-   * @param {String} options.auth           Access Token
-   * @param {Object} [options.headers]      Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
-   * @param {Object} [options.context]      Request context
-   * @returns {Promise} A promise
-   */
-
-	}, {
-		key: 'updateProductFirmware',
-		value: function updateProductFirmware(_ref80) {
-			var version = _ref80.version,
-			    title = _ref80.title,
-			    description = _ref80.description,
-			    product = _ref80.product,
-			    auth = _ref80.auth,
-			    headers = _ref80.headers,
-			    context = _ref80.context;
-
-			var uri = '/v1/products/' + product + '/firmware/' + version;
-			return this.put({ uri: uri, auth: auth, headers: headers, data: { title: title, description: description }, context: context });
-		}
-
-		/**
-   * Download a product firmware binary
-   * @param {Object} options            Options for this API call
-   * @param {Number} options.version    Version number of new firmware
-   * @param {String} options.product    Firmware for this product ID or slug
-   * @param {String} options.auth       Access Token
-   * @param {Object} [options.headers]  Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
-   * @param {Object} [options.context]  Request context
-   * @returns {Request} A promise
-   */
-
-	}, {
-		key: 'downloadProductFirmware',
-		value: function downloadProductFirmware(_ref81) {
-			var version = _ref81.version,
-			    product = _ref81.product,
-			    auth = _ref81.auth,
-			    headers = _ref81.headers,
-			    context = _ref81.context;
-
-			return this.request({
-				uri: '/v1/products/' + product + '/firmware/' + version + '/binary',
-				method: 'get',
-				auth: auth,
-				headers: headers,
-				context: context,
-				isBuffer: true
-			});
-		}
-
-		/**
-   * Release a product firmware version as the default version
-   * @param {Object} options            Options for this API call
-   * @param {Number} options.version    Version number of new firmware
-   * @param {String} options.product    Firmware for this product ID or slug
-   * @param {String} options.auth       Access Token
-   * @param {Object} [options.headers]  Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
-   * @param {Object} [options.context]  Request context
-   * @returns {Promise} A promise
-   */
-
-	}, {
-		key: 'releaseProductFirmware',
-		value: function releaseProductFirmware(_ref82) {
-			var version = _ref82.version,
-			    product = _ref82.product,
-			    auth = _ref82.auth,
-			    headers = _ref82.headers,
-			    context = _ref82.context;
-
-			var uri = '/v1/products/' + product + '/firmware/release';
-			return this.put({ uri: uri, auth: auth, headers: headers, data: { version: version }, context: context });
-		}
-
-		/**
-   * List product team members
-   * @param {Object} options            Options for this API call
-   * @param {String} options.product    Team for this product ID or slug
-   * @param {String} options.auth       Access Token
-   * @param {Object} [options.headers]  Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
-   * @param {Object} [options.context]  Request context
-   * @returns {Promise} A promise
-   */
-
-	}, {
-		key: 'listTeamMembers',
-		value: function listTeamMembers(_ref83) {
-			var product = _ref83.product,
-			    auth = _ref83.auth,
-			    headers = _ref83.headers,
-			    context = _ref83.context;
-
-			return this.get({
-				uri: '/v1/products/' + product + '/team',
-				auth: auth,
-				headers: headers,
-				context: context
-			});
-		}
-
-		/**
-   * Invite Particle user to a product team
-   * @param {Object} options            Options for this API call
-   * @param {String} options.username   Username for the Particle account
-   * @param {String} options.product    Team for this product ID or slug
-   * @param {String} options.auth       Access Token
-   * @param {Object} [options.headers]  Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
-   * @param {Object} [options.context]  Request context
-   * @returns {Promise} A promise
-   */
-
-	}, {
-		key: 'inviteTeamMember',
-		value: function inviteTeamMember(_ref84) {
-			var username = _ref84.username,
-			    product = _ref84.product,
-			    auth = _ref84.auth,
-			    headers = _ref84.headers,
-			    context = _ref84.context;
-
-			return this.post({
-				uri: '/v1/products/' + product + '/team',
-				auth: auth,
-				headers: headers,
-				data: { username: username },
-				context: context
-			});
-		}
-
-		/**
-   * Remove Particle user to a product team
-   * @param {Object} options            Options for this API call
-   * @param {String} options.username   Username for the Particle account
-   * @param {String} options.product    Team for this product ID or slug
-   * @param {String} options.auth       Access Token
-   * @param {Object} [options.headers]  Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
-   * @param {Object} [options.context]  Request context
-   * @returns {Promise} A promise
-   */
-
-	}, {
-		key: 'removeTeamMember',
-		value: function removeTeamMember(_ref85) {
-			var username = _ref85.username,
-			    product = _ref85.product,
-			    auth = _ref85.auth,
-			    headers = _ref85.headers,
-			    context = _ref85.context;
-
-			return this.delete({
-				uri: '/v1/products/' + product + '/team/' + username,
-				auth: auth,
-				headers: headers,
-				context: context
-			});
-		}
-
-		/**
-   * Fetch details about a serial number
-   * @param {Object} options               Options for this API call
-   * @param {String} options.serialNumber  The serial number printed on the barcode of the device packaging
-   * @param {String} options.auth          Access Token
-   * @param {Object} [options.headers]     Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
-   * @param {Object} [options.context]     Request context
-   * @returns {Promise} A promise
-   */
-
-	}, {
-		key: 'lookupSerialNumber',
-		value: function lookupSerialNumber(_ref86) {
-			var serialNumber = _ref86.serialNumber,
-			    auth = _ref86.auth,
-			    headers = _ref86.headers,
-			    context = _ref86.context;
-
-			return this.get({
-				uri: '/v1/serial_numbers/' + serialNumber,
-				auth: auth,
-				headers: headers,
-				context: context
-			});
-		}
-
-		/**
-   * Create a mesh network
-   * @param {Object} options            Options for this API call
-   * @param {String} options.name       Network name
-   * @param {String} options.deviceId   Gateway device ID
-   * @param {String} [options.iccid]    ICCID of the active SIM card (only for cellular gateway devices)
-   * @param {String} options.auth       Access token
-   * @param {Object} [options.headers]  Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
-   * @param {Object} [options.context]  Request context
-   * @returns {Promise<Object>} A promise
-   */
-
-	}, {
-		key: 'createMeshNetwork',
-		value: function createMeshNetwork(_ref87) {
-			var name = _ref87.name,
-			    deviceId = _ref87.deviceId,
-			    iccid = _ref87.iccid,
-			    auth = _ref87.auth,
-			    headers = _ref87.headers,
-			    context = _ref87.context;
-
-			return this.post({
-				uri: '/v1/networks',
-				auth: auth,
-				headers: headers,
-				data: { name: name, device_id: deviceId, iccid: iccid },
-				context: context
-			});
-		}
-
-		/**
-   * Remove a mesh network.
-   * @param {Object} options            Options for this API call
-   * @param {String} options.networkId  Network ID or name
-   * @param {String} options.auth       Access token
-   * @param {Object} [options.headers]  Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
-   * @param {Object} [options.context]  Request context
-   * @returns {Promise<Object>} A promise
-   */
-
-	}, {
-		key: 'removeMeshNetwork',
-		value: function removeMeshNetwork(_ref88) {
-			var networkId = _ref88.networkId,
-			    auth = _ref88.auth,
-			    headers = _ref88.headers,
-			    context = _ref88.context;
-
-			return this.delete({ uri: '/v1/networks/' + networkId, auth: auth, headers: headers, context: context });
-		}
-
-		/**
-   * List all mesh networks
-   * @param {Object} options            Options for this API call
-   * @param {String} options.auth       Access token
-   * @param {Number} [options.page]     Current page of results
-   * @param {Number} [options.perPage]  Records per page
-   * @param {Object} [options.headers]  Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
-   * @param {Object} [options.context]  Request context
-   * @returns {Promise<Object>} A promise
-   */
-
-	}, {
-		key: 'listMeshNetworks',
-		value: function listMeshNetworks(_ref89) {
-			var page = _ref89.page,
-			    perPage = _ref89.perPage,
-			    auth = _ref89.auth,
-			    headers = _ref89.headers,
-			    context = _ref89.context;
-
-			var query = page ? { page: page, per_page: perPage } : undefined;
-			return this.get({ uri: '/v1/networks', auth: auth, headers: headers, query: query, context: context });
-		}
-
-		/**
-   * Get information about a mesh network.
-   * @param {Object} options            Options for this API call
-   * @param {String} options.networkId  Network ID or name
-   * @param {String} options.auth       Access token
-   * @param {Object} [options.headers]  Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
-   * @param {Object} [options.context]  Request context
-   * @returns {Promise<Object>} A promise
-   */
-
-	}, {
-		key: 'getMeshNetwork',
-		value: function getMeshNetwork(_ref90) {
-			var networkId = _ref90.networkId,
-			    auth = _ref90.auth,
-			    headers = _ref90.headers,
-			    context = _ref90.context;
-
-			return this.get({ uri: '/v1/networks/' + networkId, auth: auth, headers: headers, context: context });
-		}
-
-		/**
-   * Modify a mesh network.
-   * @param {Object} options            Options for this API call
-   * @param {String} options.networkId  Network ID or name
-   * @param {String} options.action     'add-device', 'remove-device', 'gateway-enable' or 'gateway-disable'
-   * @param {String} options.deviceId   Device ID
-   * @param {String} options.auth       Access token
-   * @param {Object} [options.headers]  Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
-   * @param {Object} [options.context]  Request context
-   * @returns {Promise<Object>} A promise
-   */
-
-	}, {
-		key: 'updateMeshNetwork',
-		value: function updateMeshNetwork(_ref91) {
-			var networkId = _ref91.networkId,
-			    action = _ref91.action,
-			    deviceId = _ref91.deviceId,
-			    auth = _ref91.auth,
-			    headers = _ref91.headers,
-			    context = _ref91.context;
-
-			return this.put({
-				uri: '/v1/networks/' + networkId,
-				auth: auth,
-				headers: headers,
-				data: { action: action, device_id: deviceId },
-				context: context
-			});
-		}
-
-		/**
-   * Add a device to a mesh network.
-   * @param {Object} options            Options for this API call
-   * @param {String} options.networkId  Network ID or name
-   * @param {String} options.deviceId   Device ID
-   * @param {String} options.auth       Access token
-   * @param {Object} [options.headers]  Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
-   * @param {Object} [options.context]  Request context
-   * @returns {Promise<Object>} A promise
-   */
-
-	}, {
-		key: 'addMeshNetworkDevice',
-		value: function addMeshNetworkDevice(_ref92) {
-			var networkId = _ref92.networkId,
-			    deviceId = _ref92.deviceId,
-			    auth = _ref92.auth,
-			    headers = _ref92.headers,
-			    context = _ref92.context;
-
-			return this.updateMeshNetwork({
-				action: 'add-device',
-				networkId: networkId,
-				deviceId: deviceId,
-				auth: auth,
-				headers: headers,
-				context: context
-			});
-		}
-
-		/**
-   * Remove a device from a mesh network.
-   * @param {Object} options              Options for this API call
-   * @param {String} [options.networkId]  Network ID or name
-   * @param {String} options.deviceId     Device ID
-   * @param {String} options.auth         Access token
-   * @param {Object} [options.headers]    Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
-   * @param {Object} [options.context]    Request context
-   * @returns {Promise<Object>} A promise
-   */
-
-	}, {
-		key: 'removeMeshNetworkDevice',
-		value: function removeMeshNetworkDevice(_ref93) {
-			var networkId = _ref93.networkId,
-			    deviceId = _ref93.deviceId,
-			    auth = _ref93.auth,
-			    headers = _ref93.headers,
-			    context = _ref93.context;
-
-			if (!networkId) {
-				return this.delete({
-					uri: '/v1/devices/' + deviceId + '/network',
-					auth: auth,
-					headers: headers, context: context
-				});
-			}
-			return this.updateMeshNetwork({
-				action: 'remove-device',
-				networkId: networkId,
-				deviceId: deviceId,
-				auth: auth,
-				headers: headers,
-				context: context
-			});
-		}
-
-		/**
-   * List all devices of a mesh network.
-   * @param {Object} options            Options for this API call
-   * @param {String} options.networkId  Network ID or name
-   * @param {String} options.auth       Access token
-   * @param {Number} [options.role]     Device role: 'gateway' or 'node'
-   * @param {Number} [options.page]     Current page of results
-   * @param {Number} [options.perPage]  Records per page
-   * @param {Object} [options.headers]  Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
-   * @param {Object} [options.context]  Request context
-   * @returns {Promise<Object>} A promise
-   */
-
-	}, {
-		key: 'listMeshNetworkDevices',
-		value: function listMeshNetworkDevices(_ref94) {
-			var networkId = _ref94.networkId,
-			    role = _ref94.role,
-			    page = _ref94.page,
-			    perPage = _ref94.perPage,
-			    auth = _ref94.auth,
-			    headers = _ref94.headers,
-			    context = _ref94.context;
-
-			var query = role || page ? { role: role, page: page, per_page: perPage } : undefined;
-			return this.get({
-				uri: '/v1/networks/' + networkId + '/devices',
-				auth: auth,
-				headers: headers,
-				query: query,
-				context: context
-			});
-		}
-
-		/**
-   * Get product configuration
-   * @param  {Object} options          Options for this API call
-   * @param  {String} options.product  Config for this product ID or slug
-   * @param  {String} options.auth     Access Token
-   * @param {Object} [options.headers] Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
-   * @param {Object} [options.context] Request context
-   * @returns {Promise} A promise
-   */
-
-	}, {
-		key: 'getProductConfiguration',
-		value: function getProductConfiguration(_ref95) {
-			var auth = _ref95.auth,
-			    product = _ref95.product,
-			    headers = _ref95.headers,
-			    context = _ref95.context;
-
-			return this.get({
-				uri: '/v1/products/' + product + '/config',
-				auth: auth,
-				headers: headers,
-				context: context
-			});
-		}
-
-		/**
-   * Get product configuration schema
-   * @param  {Object} options          Options for this API call
-   * @param  {String} options.product  Config for this product ID or slug
-   * @param  {String} options.auth     Access Token
-   * @param {Object} [options.headers] Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
-   * @param {Object} [options.context] Request context
-   * @returns {Promise} A promise
-   */
-
-	}, {
-		key: 'getProductConfigurationSchema',
-		value: function getProductConfigurationSchema(_ref96) {
-			var auth = _ref96.auth,
-			    product = _ref96.product,
-			    _ref96$headers = _ref96.headers,
-			    headers = _ref96$headers === undefined ? {} : _ref96$headers,
-			    context = _ref96.context;
-
-			headers.accept = 'application/schema+json';
-			return this.get({
-				uri: '/v1/products/' + product + '/config',
-				auth: auth,
-				headers: headers,
-				context: context
-			});
-		}
-
-		/**
-   * Get product device's configuration
-   * @param  {Object} options          Options for this API call
-   * @param  {String} options.product  Config for this product ID or slug
-   * @param  {String} options.auth     Access Token
-   * @param  {String} options.deviceId Device ID to access
-   * @param {Object} [options.headers] Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
-   * @param {Object} [options.context] Request context
-   * @returns {Promise} A promise
-   */
-
-	}, {
-		key: 'getProductDeviceConfiguration',
-		value: function getProductDeviceConfiguration(_ref97) {
-			var auth = _ref97.auth,
-			    product = _ref97.product,
-			    deviceId = _ref97.deviceId,
-			    headers = _ref97.headers,
-			    context = _ref97.context;
-
-			return this.get({
-				uri: '/v1/products/' + product + '/config/' + deviceId,
-				auth: auth,
-				headers: headers,
-				context: context
-			});
-		}
-
-		/**
-   * Get product device's configuration schema
-   * @param  {Object} options          Options for this API call
-   * @param  {String} options.product  Config for this product ID or slug
-   * @param  {String} options.auth     Access Token
-   * @param  {String} options.deviceId Device ID to access
-   * @param {Object} [options.headers] Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
-   * @param {Object} [options.context] Request context
-   * @returns {Promise} A promise
-   */
-
-	}, {
-		key: 'getProductDeviceConfigurationSchema',
-		value: function getProductDeviceConfigurationSchema(_ref98) {
-			var auth = _ref98.auth,
-			    product = _ref98.product,
-			    deviceId = _ref98.deviceId,
-			    headers = _ref98.headers,
-			    context = _ref98.context;
-
-			headers.accept = 'application/schema+json';
-			return this.get({
-				uri: '/v1/products/' + product + '/config/' + deviceId,
-				auth: auth,
-				headers: headers,
-				context: context
-			});
-		}
-
-		/**
-   * Set product configuration
-   * @param  {Object} options          Options for this API call
-   * @param  {String} options.product  Config for this product ID or slug
-   * @param  {String} options.auth     Access Token
-   * @param  {Object} opitons.config   Product configuration to update
-   * @param {Object} [options.headers] Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
-   * @param {Object} [options.context] Request context
-   * @returns {Promise} A promise
-   */
-
-	}, {
-		key: 'setProductConfiguration',
-		value: function setProductConfiguration(_ref99) {
-			var auth = _ref99.auth,
-			    product = _ref99.product,
-			    config = _ref99.config,
-			    headers = _ref99.headers,
-			    context = _ref99.context;
-
-			return this.put({
-				uri: '/v1/products/' + product + '/config',
-				auth: auth,
-				data: config,
-				headers: headers,
-				context: context
-			});
-		}
-
-		/**
-   * Set product configuration for a specific device within the product
-   * @param  {Object} options          Options for this API call
-   * @param  {String} options.product  Config for this product ID or slug
-   * @param  {String} options.auth     Access Token
-   * @param  {Object} opitons.config   Product configuration to update
-   * @param  {String} options.deviceId Device ID to access
-   * @param {Object} [options.headers] Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
-   * @param {Object} [options.context] Request context
-   * @returns {Promise} A promise
-   */
-
-	}, {
-		key: 'setProductDeviceConfiguration',
-		value: function setProductDeviceConfiguration(_ref100) {
-			var auth = _ref100.auth,
-			    product = _ref100.product,
-			    deviceId = _ref100.deviceId,
-			    config = _ref100.config,
-			    headers = _ref100.headers,
-			    context = _ref100.context;
-
-			return this.put({
-				uri: '/v1/products/' + product + '/config/' + deviceId,
-				data: config,
-				auth: auth,
-				headers: headers,
-				context: context
-			});
-		}
-
-		/**
-   * Query location for devices within a product
-   * @param  {Object} options            Options for this API call
-   * @param  {String} options.product    Locations for this product ID or slug
-   * @param  {String} options.auth       Access Token
-   * @param  {String} options.dateRange  Start and end date in ISO8601 format, separated by comma, to query
-   * @param  {String} options.rectBl     Bottom left of the rectangular bounding box to query. Latitude and longitude separated by comma
-   * @param  {String} options.rectTr     Top right of the rectangular bounding box to query. Latitude and longitude separated by comma
-   * @param  {String} options.deviceId   Device ID prefix to include in the query
-   * @param  {String} options.deviceName Device name prefix to include in the query
-   * @param  {String} options.groups     Array of group names to include in the query
-   * @param  {String} options.page       Page of results to display. Defaults to 1
-   * @param  {String} options.perPage    Number of results per page. Defaults to 20. Maximum of 100
-   * @param {Object} [options.headers]   Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
-   * @param {Object} [options.context]   Request context
-   * @returns {Promise} A promise
-   */
-
-	}, {
-		key: 'getProductLocations',
-		value: function getProductLocations(_ref101) {
-			var auth = _ref101.auth,
-			    product = _ref101.product,
-			    dateRange = _ref101.dateRange,
-			    rectBl = _ref101.rectBl,
-			    rectTr = _ref101.rectTr,
-			    deviceId = _ref101.deviceId,
-			    deviceName = _ref101.deviceName,
-			    groups = _ref101.groups,
-			    page = _ref101.page,
-			    perPage = _ref101.perPage,
-			    headers = _ref101.headers,
-			    context = _ref101.context;
-
-			return this.get({
-				uri: '/v1/products/' + product + '/locations',
-				query: {
-					date_range: dateRange,
-					rect_bl: rectBl,
-					rect_tr: rectTr,
-					device_id: deviceId,
-					device_name: deviceName,
-					groups: groups,
-					page: page,
-					per_page: perPage
-				},
-				auth: auth,
-				headers: headers,
-				context: context
-			});
-		}
-
-		/**
-   * Query location for one device within a product
-   * @param  {Object} options           Options for this API call
-   * @param  {String} options.product   Locations for this product ID or slug
-   * @param  {String} options.auth      Access Token
-   * @param  {String} options.dateRange Start and end date in ISO8601 format, separated by comma, to query
-   * @param  {String} options.rectBl    Bottom left of the rectangular bounding box to query. Latitude and longitude separated by comma
-   * @param  {String} options.rectTr    Top right of the rectangular bounding box to query. Latitude and longitude separated by comma
-   * @param  {String} options.deviceId  Device ID to query
-   * @param {Object} [options.headers]  Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
-   * @param {Object} [options.context]  Request context
-   * @param {Object} [options.headers]  Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
-   * @param {Object} [options.context]  Request context
-   * @returns {Promise} A promise
-   */
-
-	}, {
-		key: 'getProductDeviceLocations',
-		value: function getProductDeviceLocations(_ref102) {
-			var auth = _ref102.auth,
-			    product = _ref102.product,
-			    dateRange = _ref102.dateRange,
-			    rectBl = _ref102.rectBl,
-			    rectTr = _ref102.rectTr,
-			    deviceId = _ref102.deviceId,
-			    headers = _ref102.headers,
-			    context = _ref102.context;
-
-			return this.get({
-				uri: '/v1/products/' + product + '/locations/' + deviceId,
-				query: {
-					date_range: dateRange,
-					rect_bl: rectBl,
-					rect_tr: rectTr
-				},
-				auth: auth,
-				headers: headers,
-				context: context
-			});
-		}
-
-		/**
-   * Creates a new logic block in the specified organization using the provided block data.
-   *
-   * When you create a logic block with PubSub matchers, events will immediately
-   * start being handled by the block code.
-   *
-   * When you create a Chron matcher, it will immediately be scheduled at the next time
-   * according to the cron and start_at properties.
-   *
-   * @param {Object} options         The options for creating the logic block.
-   * @param {Object} options.auth    Access token
-   * @param {string} options.org     The name of the organization.
-   * @param {Block}  options.block   The block object containing the block details.
-   * @param {Object} [options.headers] Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
-   * @param {Object} [options.context] Request context
-   *
-   * @returns {Promise<{body: {block: ResponseBlock}, statusCode: int}>} A promise that resolves to the created logic block data.
-   */
-
-	}, {
-		key: 'createLogicBlock',
-		value: function createLogicBlock(_ref103) {
-			var auth = _ref103.auth,
-			    org = _ref103.org,
-			    block = _ref103.block,
-			    headers = _ref103.headers,
-			    context = _ref103.context;
-
-			return this.post({
-				uri: '/v1/orgs/' + org + '/blocks',
-				auth: auth,
-				data: { block: block },
-				headers: headers,
-				context: context
-			});
-		}
-
-		/**
-   * Get a logic block in the specified organization by block ID.
-   *
-   * @param {Object} options         The options for the logic block.
-   * @param {Object} options.auth    Access token
-   * @param {string} options.org     The name of the organization.
-   * @param {Block}  options.blockId The ID of the block to retrieve.
-   * @param {Object} [options.headers] Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
-   * @param {Object} [options.context] Request context
-   *
-   * @returns {Promise<{body: {block: ResponseBlock}, statusCode: int}>} A promise that resolves to the specified logic block data.
-   */
-
-	}, {
-		key: 'getLogicBlock',
-		value: function getLogicBlock(_ref104) {
-			var auth = _ref104.auth,
-			    org = _ref104.org,
-			    blockId = _ref104.blockId,
-			    headers = _ref104.headers,
-			    context = _ref104.context;
-
-			return this.get({
-				uri: '/v1/orgs/' + org + '/blocks/' + blockId,
-				auth: auth,
-				headers: headers,
-				context: context
-			});
-		}
-
-		/**
-   * Updates an existing logic block in the specified organization using the provided block data.
-   *
-   * If you include an id on a matcher, it will update the matcher in place.
-   *
-   * @param {Object} options          The options for updating the logic block.
-   * @param {Object} options.auth     The authentication object with the API key.
-   * @param {string} options.org      The unique identifier of the organization.
-   * @param {string} options.blockId  The ID of the block to update.
-   * @param {Block} options.block     The block object containing the block details.
-   * @param {Object} [options.headers] Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
-   * @param {Object} [options.context] Request context.
-   *
-   * @returns {Promise<{body: {block: ResponseBlock}, statusCode: int}>} A promise that resolves to the updated logic block data.
-   */
-
-	}, {
-		key: 'updateLogicBlock',
-		value: function updateLogicBlock(_ref105) {
-			var auth = _ref105.auth,
-			    org = _ref105.org,
-			    blockId = _ref105.blockId,
-			    block = _ref105.block,
-			    headers = _ref105.headers,
-			    context = _ref105.context;
-
-			return this.put({
-				uri: '/v1/orgs/' + org + '/blocks/' + blockId,
-				auth: auth,
-				data: { block: block },
-				headers: headers,
-				context: context
-			});
-		}
-
-		/**
-   * Deletes a logic block in the specified organization by block ID.
-   *
-   * @param {Object} options          The options for deleting the logic block.
-   * @param {Object} options.auth     The authentication object with the API key.
-   * @param {string} options.org      The unique identifier of the organization.
-   * @param {string} options.blockId  The ID of the block to delete.
-   * @param {Object} [options.headers] Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
-   * @param {Object} [options.context] Request context.
-   *
-   * @returns {Promise<{body: {block_id: int}, statusCode: int}>} A promise that resolves to an object containing the deleted block ID.
-   */
-
-	}, {
-		key: 'deleteLogicBlock',
-		value: function deleteLogicBlock(_ref106) {
-			var auth = _ref106.auth,
-			    org = _ref106.org,
-			    blockId = _ref106.blockId,
-			    headers = _ref106.headers,
-			    context = _ref106.context;
-
-			return this.delete({
-				uri: '/v1/orgs/' + org + '/blocks/' + blockId,
-				auth: auth,
-				headers: headers,
-				context: context
-			});
-		}
-
-		/**
-   * Lists all logic blocks in the specified organization.
-   *
-   * @param {Object} options          The options for listing logic blocks.
-   * @param {Object} options.auth     The authentication object with the API key.
-   * @param {string} options.org      The unique identifier of the organization.
-   * @param {Object} [options.headers] Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
-   * @param {Object} [options.context] Request context.
-   *
-   * @returns {Promise<{body: {blocks: ResponseBlock[]}, statusCode: int}>} A promise that resolves to an array of logic block data.
-   */
-
-	}, {
-		key: 'listLogicBlocks',
-		value: function listLogicBlocks(_ref107) {
-			var auth = _ref107.auth,
-			    org = _ref107.org,
-			    headers = _ref107.headers,
-			    context = _ref107.context;
-
-			return this.get({
-				uri: '/v1/orgs/' + org + '/blocks',
-				auth: auth,
-				headers: headers,
-				context: context
-			});
-		}
-
-		/**
-   * Lists all block runs for the specified block.
-   *
-   * @param {Object} options          The options for the request.
-   * @param {Object} options.auth     Access token
-   * @param {string} options.org      The unique identifier of the organization.
-   * @param {number} options.blockId  The ID of the block for which to retrieve the block runs.
-   * @param {Object} [options.headers] Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
-   * @param {Object} [options.context] Request context
-   *
-   * @returns {Promise<{body: {block_runs: BlockRun[]}, statusCode: int}>} A promise that resolves to an array of block run data.
-   */
-
-	}, {
-		key: 'listBlockRuns',
-		value: function listBlockRuns(_ref108) {
-			var auth = _ref108.auth,
-			    org = _ref108.org,
-			    blockId = _ref108.blockId,
-			    headers = _ref108.headers,
-			    context = _ref108.context;
-
-			return this.get({
-				uri: '/v1/orgs/' + org + '/blocks/' + blockId + '/runs',
-				auth: auth,
-				headers: headers,
-				context: context
-			});
-		}
-
-		/**
-   * Retrieves a block run by its ID for the specified block.
-   *
-   * @param {Object} options          The options for the request.
-   * @param {Object} options.auth     Access token
-   * @param {string} options.org      The unique identifier of the organization.
-   * @param {number} options.blockId  The ID of the block for which to retrieve the block run.
-   * @param {number} options.runId    The ID of the block run to retrieve.
-   * @param {Object} [options.headers] Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
-   * @param {Object} [options.context] Request context
-   *
-   * @returns {Promise<{body: {block_run: BlockRun}, statusCode: int}>} A promise that resolves to an array of block run data for the specified block run ID.
-   */
-
-	}, {
-		key: 'getBlockRun',
-		value: function getBlockRun(_ref109) {
-			var auth = _ref109.auth,
-			    org = _ref109.org,
-			    blockId = _ref109.blockId,
-			    runId = _ref109.runId,
-			    headers = _ref109.headers,
-			    context = _ref109.context;
-
-			return this.get({
-				uri: '/v1/orgs/' + org + '/blocks/' + blockId + '/runs/' + runId,
-				auth: auth,
-				headers: headers,
-				context: context
-			});
-		}
-
-		/**
-   * Retrieves the logs for a block run by its ID for the specified block.
-   *
-   * @param {Object} options          The options for the request.
-   * @param {Object} options.auth     Access token
-   * @param {string} options.org      The unique identifier of the organization.
-   * @param {number} options.blockId  The ID of the block for which to retrieve the block run logs.
-   * @param {number} options.runId    The ID of the block run for which to retrieve the logs.
-   * @param {Object} [options.headers] Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
-   * @param {Object} [options.context] Request context
-   *
-   * @returns {Promise<{body: {block_run_log: BlockRunLog}, statusCode: int}>} A promise that resolves to the logs for the specified block run ID.
-   */
-
-	}, {
-		key: 'getBlockRunLog',
-		value: function getBlockRunLog(_ref110) {
-			var auth = _ref110.auth,
-			    org = _ref110.org,
-			    blockId = _ref110.blockId,
-			    runId = _ref110.runId,
-			    headers = _ref110.headers,
-			    context = _ref110.context;
-
-			return this.get({
-				uri: '/v1/orgs/' + org + '/blocks/' + blockId + '/runs/' + runId + '/logs',
-				auth: auth,
-				headers: headers,
-				context: context
-			});
-		}
-
-		/**
-   * Creates a new ledger definition in the specified organization.
-   *
-   * @param {Object} options         The options for creating the ledger definition.
-   * @param {Object} options.auth    Access token
-   * @param {string} options.org     The name of the organization.
-   * @param {Ledger}  options.definition   The ledger definition object.
-   * @param {Object} [options.headers] Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
-   * @param {Object} [options.context] Request context
-   *
-   * @returns {Promise<{body: {ledger: ResponseLedger}, statusCode: int}>} A promise that resolves to the created ledger definition data.
-   */
-
-	}, {
-		key: 'createLedger',
-		value: function createLedger(_ref111) {
-			var auth = _ref111.auth,
-			    org = _ref111.org,
-			    ledger = _ref111.ledger,
-			    headers = _ref111.headers,
-			    context = _ref111.context;
-
-			return this.post({
-				uri: '/v1/orgs/' + org + '/ledgers',
-				auth: auth,
-				data: { ledger: ledger },
-				headers: headers,
-				context: context
-			});
-		}
-
-		/**
-   * Get a ledger definition in the specified organization by ledger name.
-   *
-   * @param {Object} options         The options for the ledger definition.
-   * @param {Object} options.auth    Access token
-   * @param {string} options.org     The name of the organization.
-   * @param {string} options.ledgerName The ID of the ledger definition to retrieve.
-   * @param {Object} [options.headers] Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
-   * @param {Object} [options.context] Request context
-   *
-   * @returns {Promise<{body: {ledger: ResponseLedger}, statusCode: int}>} A promise that resolves to the specified ledger definition data.
-   */
-
-	}, {
-		key: 'getLedger',
-		value: function getLedger(_ref112) {
-			var auth = _ref112.auth,
-			    org = _ref112.org,
-			    ledgerName = _ref112.ledgerName,
-			    headers = _ref112.headers,
-			    context = _ref112.context;
-
-			return this.get({
-				uri: '/v1/orgs/' + org + '/ledgers/' + ledgerName,
-				auth: auth,
-				headers: headers,
-				context: context
-			});
-		}
-
-		/**
-   * Updates an existing ledger definition in the specified organization.
-   *
-   * @param {Object} options          The options for updating the ledger definition.
-   * @param {Object} options.auth     The authentication object with the API key.
-   * @param {string} options.org      The unique identifier of the organization.
-   * @param {string} options.ledgerName  Name of the ledger definition to update.
-   * @param {Ledger} options.ledger     The ledger definition object.
-   * @param {Object} [options.headers] Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
-   * @param {Object} [options.context] Request context.
-   *
-   * @returns {Promise<{body: {ledger: ResponseLedger}, statusCode: int}>} A promise that resolves to the updated ledger definition data.
-   */
-
-	}, {
-		key: 'updateLedger',
-		value: function updateLedger(_ref113) {
-			var auth = _ref113.auth,
-			    org = _ref113.org,
-			    ledgerName = _ref113.ledgerName,
-			    ledger = _ref113.ledger,
-			    headers = _ref113.headers,
-			    context = _ref113.context;
-
-			return this.put({
-				uri: '/v1/orgs/' + org + '/ledgers/' + ledgerName,
-				auth: auth,
-				data: { ledger: ledger },
-				headers: headers,
-				context: context
-			});
-		}
-
-		/**
-   * Archives a ledger definition in the specified organization by ledger name.
-   *
-   * @param {Object} options          The options for archiving the ledger definition.
-   * @param {Object} options.auth     The authentication object with the API key.
-   * @param {string} options.org      The unique identifier of the organization.
-   * @param {string} options.ledgerName  Name of the ledger definition to archive.
-   * @param {Object} [options.headers] Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
-   * @param {Object} [options.context] Request context.
-   *
-   * @returns {Promise<{body: undefined, statusCode: int}>} A promise that resolves to an object confirming the ledger definition was archived.
-   */
-
-	}, {
-		key: 'archiveLedger',
-		value: function archiveLedger(_ref114) {
-			var auth = _ref114.auth,
-			    org = _ref114.org,
-			    ledgerName = _ref114.ledgerName,
-			    headers = _ref114.headers,
-			    context = _ref114.context;
-
-			return this.delete({
-				uri: '/v1/orgs/' + org + '/ledgers/' + ledgerName,
-				auth: auth,
-				headers: headers,
-				context: context
-			});
-		}
-
-		/**
-   * Lists all ledger definitions in the specified organization.
-   *
-   * @param {Object} options          The options for listing ledger definitions.
-   * @param {Object} options.auth     The authentication object with the API key.
-   * @param {string} options.org      The unique identifier of the organization.
-   * @param {Object} [options.headers] Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
-   * @param {Object} [options.context] Request context.
-   *
-   * @returns {Promise<{body: {ledgers: ResponseLedger[]}, statusCode: int}>} A promise that resolves to an array of ledger definition data.
-   */
-
-	}, {
-		key: 'listLedgers',
-		value: function listLedgers(_ref115) {
-			var auth = _ref115.auth,
-			    org = _ref115.org,
-			    headers = _ref115.headers,
-			    context = _ref115.context;
-
-			return this.get({
-				uri: '/v1/orgs/' + org + '/ledgers',
-				auth: auth,
-				headers: headers,
-				context: context
-			});
-		}
-
-		/**
-   * Get ledger instance data.
-   *
-   * @param {Object} options         The options for the ledger instance.
-   * @param {Object} options.auth    Access token
-   * @param {string} options.org     The name of the organization.
-   * @param {string} options.ledgerName Ledger name.
-   * @param {string} options.scopeValue Scope value.
-   * @param {Object} [options.headers] Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
-   * @param {Object} [options.context] Request context
-   *
-   * @returns {Promise<{body: {instance: ResponseLedgerInstance}, statusCode: int}>} A promise that resolves to the specified ledger instance data.
-   */
-
-	}, {
-		key: 'getLedgerInstance',
-		value: function getLedgerInstance(_ref116) {
-			var auth = _ref116.auth,
-			    org = _ref116.org,
-			    ledgerName = _ref116.ledgerName,
-			    scopeValue = _ref116.scopeValue,
-			    headers = _ref116.headers,
-			    context = _ref116.context;
-
-			return this.get({
-				uri: '/v1/orgs/' + org + '/ledgers/' + ledgerName + '/instances/' + scopeValue,
-				auth: auth,
-				headers: headers,
-				context: context
-			});
-		}
-
-		/**
-   * Set ledger instance data.
-   *
-   * @param {Object} options          The options for updating the ledger instance.
-   * @param {Object} options.auth     The authentication object with the API key.
-   * @param {string} options.org      The unique identifier of the organization.
-   * @param {string} options.ledgerName Ledger name.
-   * @param {string} options.scopeValue Scope value.
-   * @param {LedgerInstance} options.instance     The ledger instance object.
-   * @param {Object} [options.headers] Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
-   * @param {Object} [options.context] Request context.
-   *
-   * @returns {Promise<{body: {instance: ResponseLedgerInstance}, statusCode: int}>} A promise that resolves to the updated ledger instance data.
-   */
-
-	}, {
-		key: 'setLedgerInstance',
-		value: function setLedgerInstance(_ref117) {
-			var auth = _ref117.auth,
-			    org = _ref117.org,
-			    ledgerName = _ref117.ledgerName,
-			    scopeValue = _ref117.scopeValue,
-			    data = _ref117.data,
-			    headers = _ref117.headers,
-			    context = _ref117.context;
-
-			return this.put({
-				uri: '/v1/orgs/' + org + '/ledgers/' + ledgerName + '/instances/' + scopeValue,
-				auth: auth,
-				data: { data: data },
-				headers: headers,
-				context: context
-			});
-		}
-
-		/**
-   * Delete a ledger instance in the specified organization by ledger name.
-   *
-   * @param {Object} options          The options for archiving the ledger instance.
-   * @param {Object} options.auth     The authentication object with the API key.
-   * @param {string} options.org      The unique identifier of the organization.
-   * @param {string} options.ledgerName  Name of the ledger instance to archive.
-   * @param {string} options.scopeValue Scope value.
-   * @param {Object} [options.headers] Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
-   * @param {Object} [options.context] Request context.
-   *
-   * @returns {Promise<{body: undefined, statusCode: int}>} A promise that resolves to an object confirming the ledger instance was deleted.
-   */
-
-	}, {
-		key: 'deleteLedgerInstance',
-		value: function deleteLedgerInstance(_ref118) {
-			var auth = _ref118.auth,
-			    org = _ref118.org,
-			    ledgerName = _ref118.ledgerName,
-			    scopeValue = _ref118.scopeValue,
-			    headers = _ref118.headers,
-			    context = _ref118.context;
-
-			return this.delete({
-				uri: '/v1/orgs/' + org + '/ledgers/' + ledgerName + '/instances/' + scopeValue,
-				auth: auth,
-				headers: headers,
-				context: context
-			});
-		}
-
-		/**
-   * Lists ledger instances.
-   *
-   * @param {Object} options          The options for listing ledger instances.
-   * @param {Object} options.auth     The authentication object with the API key.
-   * @param {string} options.org      The unique identifier of the organization.
-   * @param {string} options.ledgerName  Name of the ledger instance to archive.
-   * @param {Object} [options.headers] Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
-   * @param {Object} [options.context] Request context.
-   *
-   * @returns {Promise<{body: {instances: ResponseLedgerInstance[]}, statusCode: int}>} A promise that resolves to an array of ledger instance data.
-   */
-
-	}, {
-		key: 'listLedgerInstances',
-		value: function listLedgerInstances(_ref119) {
-			var auth = _ref119.auth,
-			    org = _ref119.org,
-			    ledgerName = _ref119.ledgerName,
-			    headers = _ref119.headers,
-			    context = _ref119.context;
-
-			return this.get({
-				uri: '/v1/orgs/' + org + '/ledgers/' + ledgerName + '/instances',
-				auth: auth,
-				headers: headers,
-				context: context
-			});
-		}
-
-		/**
-   * Set default auth token that will be used in each method if `auth` is not provided
-   * @param  {String} auth A Particle access token
-   * @returns {undefined}
-   */
-
-	}, {
-		key: 'setDefaultAuth',
-		value: function setDefaultAuth(auth) {
-			if (typeof auth === 'string' && auth.length !== 0) {
-				this._defaultAuth = auth;
-			} else {
-				throw new Error('Must pass a non-empty string');
-			}
-		}
-		/**
-   * Return provided token if truthy else use default auth if truthy else undefined
-   * @param {*} auth Optional auth token or undefined
-   * @private
-   * @returns {String|undefined} a Particle auth token or undefined
-   */
-
-	}, {
-		key: '_getActiveAuthToken',
-		value: function _getActiveAuthToken(auth) {
-			return auth || this._defaultAuth;
-		}
-		/**
-   * API URI to access a device
-   * @param  {Object} options Options for this API call
-   * @param  {String} options.deviceId  Device ID to access
-   * @param  {String} [options.product] Device only in this product ID or slug
-   * @private
-   * @returns {string} URI
-   */
-
-	}, {
-		key: 'deviceUri',
-		value: function deviceUri(_ref120) {
-			var deviceId = _ref120.deviceId,
-			    product = _ref120.product;
-
-			return product ? '/v1/products/' + product + '/devices/' + deviceId : '/v1/devices/' + deviceId;
-		}
-
-		/**
-   * Make a GET request
-   * @param {string} uri		The URI to request
-   * @param {string} [auth]	Authorization token to use
-   * @param {object} [headers]	Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
-   * @param {string|object} [query] Key/VAlue pairs of query params or a correctly formatted string
-   * @param {object} [context[	The invocation context, describing the tool and project
-   * @returns {Promise<RequestResponse, RequestError>} A promise that resolves with either the requested data or an error object
-   */
-
-	}, {
-		key: 'get',
-		value: function get(_ref121) {
-			var uri = _ref121.uri,
-			    auth = _ref121.auth,
-			    headers = _ref121.headers,
-			    query = _ref121.query,
-			    context = _ref121.context;
-
-			context = this._buildContext(context);
-			auth = this._getActiveAuthToken(auth);
-			return this.agent.get({ uri: uri, auth: auth, headers: headers, query: query, context: context });
-		}
-
-		/**
-   * Make a HEAD request
-   * @param {string} uri		The URI to request
-   * @param {string} [auth]	Authorization token to use
-   * @param {object} [headers]	Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
-   * @param {string|object} [query] Key/VAlue pairs of query params or a correctly formatted string
-   * @param {object} [context]	The invocation context, describing the tool and project
-   * @returns {Promise<RequestResponse, RequestError>} A promise that resolves with either the requested data or an error object
-   */
-
-	}, {
-		key: 'head',
-		value: function head(_ref122) {
-			var uri = _ref122.uri,
-			    auth = _ref122.auth,
-			    headers = _ref122.headers,
-			    query = _ref122.query,
-			    context = _ref122.context;
-
-			context = this._buildContext(context);
-			auth = this._getActiveAuthToken(auth);
-			return this.agent.head({ uri: uri, auth: auth, headers: headers, query: query, context: context });
-		}
-
-		/**
-   * Make a POST request
-   * @param {string} uri		The URI to request
-   * @param {string} [auth]	Authorization token to use
-   * @param {object} [headers]	Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
-   * @param {string|object} [query] Key/VAlue pairs of query params or a correctly formatted string
-   * @param {object} [context]	The invocation context, describing the tool and project
-   * @returns {Promise<RequestResponse, RequestError>} A promise that resolves with either the requested data or an error object
-   */
-
-	}, {
-		key: 'post',
-		value: function post(_ref123) {
-			var uri = _ref123.uri,
-			    auth = _ref123.auth,
-			    headers = _ref123.headers,
-			    data = _ref123.data,
-			    context = _ref123.context;
-
-			context = this._buildContext(context);
-			auth = this._getActiveAuthToken(auth);
-			return this.agent.post({ uri: uri, auth: auth, headers: headers, data: data, context: context });
-		}
-
-		/**
-   * Make a PUT request
-   * @param {string} uri		The URI to request
-   * @param {string} [auth]	Authorization token to use
-   * @param {object} [headers]	Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
-   * @param {string|object} [query] Key/VAlue pairs of query params or a correctly formatted string
-   * @param {object} [context]	The invocation context, describing the tool and project
-   * @returns {Promise<RequestResponse, RequestError>} A promise that resolves with either the requested data or an error object
-   */
-
-	}, {
-		key: 'put',
-		value: function put(_ref124) {
-			var uri = _ref124.uri,
-			    auth = _ref124.auth,
-			    headers = _ref124.headers,
-			    data = _ref124.data,
-			    context = _ref124.context;
-
-			context = this._buildContext(context);
-			auth = this._getActiveAuthToken(auth);
-			return this.agent.put({ uri: uri, auth: auth, headers: headers, data: data, context: context });
-		}
-
-		/**
-   * Make a DELETE request
-   * @param {string} uri		The URI to request
-   * @param {string} [auth]	Authorization token to use
-   * @param {object} [headers]	Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
-   * @param {string|object} [query] Key/VAlue pairs of query params or a correctly formatted string
-   * @param {object} [context]	The invocation context, describing the tool and project
-   * @returns {Promise<RequestResponse, RequestError>} A promise that resolves with either the requested data or an error object
-   */
-
-	}, {
-		key: 'delete',
-		value: function _delete(_ref125) {
-			var uri = _ref125.uri,
-			    auth = _ref125.auth,
-			    headers = _ref125.headers,
-			    data = _ref125.data,
-			    context = _ref125.context;
-
-			context = this._buildContext(context);
-			auth = this._getActiveAuthToken(auth);
-			return this.agent.delete({ uri: uri, auth: auth, headers: headers, data: data, context: context });
-		}
-
-		/**
-   *
-   * @param {Object} args			An obj with all the possible request configurations
-   * @param {String} args.uri		The URI to request
-   * @param {String} args.method		The method used to request the URI, should be in uppercase.
-   * @param {Object} args.headers		Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
-   * @param {String} args.data		Arbitrary data to send as the body.
-   * @param {Object} args.auth		Authorization
-   * @param {String|Object} args.query	Query parameters
-   * @param {Object} args.form		Form fields
-   * @param {Object} args.files		Array of file names and file content
-   * @param {Object} args.context		The invocation context, describing the tool and project.
-   * @param {boolean} args.isBuffer	Indicate if the response should be treated as Buffer instead of JSON
-   * @returns {Promise<RequestResponse, RequestError>} A promise that resolves with either the requested data or an error object
-   */
-
-	}, {
-		key: 'request',
-		value: function request(args) {
-			args.context = this._buildContext(args.context);
-			args.auth = this._getActiveAuthToken(args.auth);
-			return this.agent.request(args);
-		}
-	}, {
-		key: 'client',
-		value: function client() {
-			var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-
-			return new _Client2.default((0, _assign2.default)({ api: this }, options));
-		}
-
-		// Internal method used to target Particle's APIs other than the default
-
-	}, {
-		key: 'setBaseUrl',
-		value: function setBaseUrl(baseUrl) {
-			this.baseUrl = baseUrl;
-			this.agent.setBaseUrl(baseUrl);
-		}
-	}]);
-	return Particle;
-}();
-
-// Aliases for backwards compatibility
-
-
-Particle.prototype.removeAccessToken = Particle.prototype.deleteAccessToken;
-
-exports["default"] = Particle;
-module.exports = exports['default'];
-//# sourceMappingURL=Particle.js.map
-
-/***/ }),
-
 /***/ 3959:
 /***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
 
@@ -23113,6 +14947,3786 @@ module.exports = function(dst, src) {
 
   return dst;
 };
+
+
+/***/ }),
+
+/***/ 2460:
+/***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
+
+/*
+ ******************************************************************************
+ Copyright (c) 2016 Particle Industries, Inc.  All rights reserved.
+
+ This program is free software; you can redistribute it and/or
+ modify it under the terms of the GNU Lesser General Public
+ License as published by the Free Software Foundation, either
+ version 3 of the License, or (at your option) any later version.
+
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ Lesser General Public License for more details.
+
+ You should have received a copy of the GNU Lesser General Public
+ License along with this program; if not, see <http://www.gnu.org/licenses/>.
+ ******************************************************************************
+ */
+
+const fetch = __nccwpck_require__(467);
+const FormData = __nccwpck_require__(3959);
+const qs = __nccwpck_require__(2760);
+const fs = __nccwpck_require__(6685);
+const packageJson = __nccwpck_require__(8116);
+
+/**
+ * The object returned for a basic request
+ * @typedef {object} JSONResponse
+ * @property {number} statusCode  The HTTP response status
+ * @property {object} body        The endpoint's response parsed as a JSON
+ */
+
+/**
+ * The possible response from an API request
+ * @typedef {JSONResponse | Buffer | ArrayBuffer} RequestResponse	The type is based on
+ * the request config and whether is on browser or node
+ */
+
+/**
+ * The error object generated in case of a failed request
+ * @typedef {object} RequestError
+ * @property {number} statusCode             The HTTP response status
+ * @property {string} errorDescription       Details on what caused the failed request
+ * @property {string} shortErrorDescription  Summarized version of the fail reason
+ * @property {object} body                   The response object from the request
+ * @property {object} error                  The error object from the request
+ */
+
+class Agent {
+    constructor(baseUrl){
+        this.setBaseUrl(baseUrl);
+    }
+
+    setBaseUrl(baseUrl) {
+        this.baseUrl = baseUrl;
+    }
+
+    /**
+     * Make a GET request
+     * @param {object} params            Configurations to customize the request
+     * @param {string} params.uri        The URI to request
+     * @param {string} [params.auth]     Authorization token to use
+     * @param {object} [params.headers]  Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
+     * @param {object} [params.query]    Key/Value pairs of query params
+     * @param {object} [params.context]  The invocation context, describing the tool and project
+     * @returns {Promise<RequestResponse, RequestError>} A promise that resolves with either the requested data or an error object
+     */
+    get({ uri, auth, headers, query, context }) {
+        return this.request({ uri, method: 'get', auth, headers, query, context });
+    }
+
+    /**
+     * Make a HEAD request
+     * @param {object} params            Configurations to customize the request
+     * @param {string} params.uri        The URI to request
+     * @param {string} [params.auth]     Authorization token to use
+     * @param {object} [params.headers]  Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
+     * @param {object} [params.query]    Key/Value pairs of query params
+     * @param {object} [params.context]  The invocation context, describing the tool and project
+     * @returns {Promise<RequestResponse, RequestError>} A promise that resolves with either the requested data or an error object
+     */
+    head({ uri, auth, headers, query, context }) {
+        return this.request({ uri, method: 'head', auth, headers, query, context });
+    }
+
+    /**
+     * Make a POST request
+     * @param {object} params            Configurations to customize the request
+     * @param {string} params.uri        The URI to request
+     * @param {string} [params.auth]     Authorization token to use
+     * @param {object} [params.headers]  Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
+     * @param {object} [params.data]     Request body
+     * @param {object} [params.context]  The invocation context, describing the tool and project
+     * @returns {Promise<RequestResponse, RequestError>} A promise that resolves with either the requested data or an error object
+     */
+    post({ uri, headers, data, auth, context }) {
+        return this.request({ uri, method: 'post', auth, headers, data, context });
+    }
+
+    /**
+     * Make a PUT request
+     * @param {object} params            Configurations to customize the request
+     * @param {string} params.uri        The URI to request
+     * @param {string} [params.auth]     Authorization token to use
+     * @param {object} [params.headers]  Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
+     * @param {object} [params.data]     Request body
+     * @param {object}          [params.query]    Key/Value pairs of query params or a correctly formatted string
+     * @param {object} [params.context]  The invocation context, describing the tool and project
+     * @returns {Promise<RequestResponse, RequestError>} A promise that resolves with either the requested data or an error object
+     */
+    put({ uri, auth, headers, data, query, context }) {
+        return this.request({ uri, method: 'put', auth, headers, data, query, context });
+    }
+
+    /**
+     * Make a DELETE request
+     * @param {object} params            Configurations to customize the request
+     * @param {string} params.uri        The URI to request
+     * @param {string} [params.auth]     Authorization token to use
+     * @param {object} [params.headers]  Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
+     * @param {object} [params.data]     Request body
+     * @param {object} [params.context]  The invocation context, describing the tool and project
+     * @returns {Promise<RequestResponse, RequestError>} A promise that resolves with either the requested data or an error object
+     */
+    delete({ uri, auth, headers, data, context }) {
+        return this.request({ uri, method: 'delete', auth, headers, data, context });
+    }
+
+    /**
+     *
+     * @param {object}  config                  An obj with all the possible request configurations
+     * @param {string}  config.uri              The URI to request
+     * @param {string}  config.method           The method used to request the URI, should be in uppercase.
+     * @param {object}  [config.headers]        Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
+     * @param {object}  [config.data]           Arbitrary data to send as the body.
+     * @param {string}  [config.auth]           Authorization
+     * @param {object}  [config.query]          Query parameters
+     * @param {object}  [config.form]           Form fields
+     * @param {object}  [config.files]          Array of file names and file content
+     * @param {object}  [config.context]        The invocation context, describing the tool and project.
+     * @param {boolean} [config.isBuffer=false] Indicate if the response should be treated as Buffer instead of JSON
+     * @returns {Promise<RequestResponse, RequestError>} A promise that resolves with either the requested data or an error object
+     */
+    request({
+        uri,
+        method,
+        headers = undefined,
+        data = undefined,
+        auth,
+        query = undefined,
+        form = undefined,
+        files = undefined,
+        context = undefined,
+        isBuffer = false
+    }){
+        const requestFiles = this._sanitizeFiles(files);
+        const requestParams = this._buildRequest({ uri, method, headers, data, auth, query, form, context, files: requestFiles });
+        return this._promiseResponse(requestParams, isBuffer);
+    }
+
+    /**
+     * Promises to send the request and retrieve the response.
+     * @param {[string, object]} requestParams        First argument is the URI to request, the second one are the options.
+     * @param {boolean}          isBuffer             Indicate if the response body should be returned as a Buffer (Node) / ArrayBuffer (browser) instead of JSON
+     * @param {function}         [makerequest=fetch]  The fetch function to use. Override for testing.
+     * @returns {Promise<RequestResponse, RequestError>} A promise that resolves with either the requested data or an error object
+     * @private
+     */
+    _promiseResponse(requestParams, isBuffer, makerequest = fetch) {
+        let status;
+        return makerequest(...requestParams)
+            .then((resp) => {
+                status = resp.status;
+                if (!resp.ok) {
+                    return resp.text().then((err) => {
+                        const objError = JSON.parse(err);
+                        // particle-commnds/src/cmd/api expects response.text. to be a string
+                        const response = Object.assign(resp, { text: err });
+                        throw Object.assign(objError, { response });
+                    });
+                }
+                if (status === 204) { // Can't do resp.json() since there is no body to parse
+                    return '';
+                }
+                if (isBuffer) {
+                    return resp.blob();
+                }
+                return resp.json();
+            }).then((body) => {
+                if (isBuffer) {
+                    return body.arrayBuffer().then((arrayBuffer) => {
+                        if (!this.isForBrowser()) {
+                            return Buffer.from(arrayBuffer);
+                        }
+                        return arrayBuffer;
+                    });
+                }
+                return {
+                    body,
+                    statusCode: status
+                };
+            }).catch((error) => {
+                const errorType = status ? `HTTP error ${status}` : 'Network error';
+                let errorDescription = `${errorType} from ${requestParams[0]}`;
+                let shortErrorDescription;
+                if (error.error_description) { // Fetch responded with ok false
+                    errorDescription = `${errorDescription} - ${error.error_description}`;
+                    shortErrorDescription = error.error_description;
+                }
+                const reason = new Error(errorDescription);
+                Object.assign(reason, {
+                    statusCode: status,
+                    errorDescription,
+                    shortErrorDescription,
+                    error,
+                    body: error
+                });
+                throw reason;
+            });
+    }
+
+    /**
+     * Generate the params in a format valid for 'fetch'
+     * @param {object} config            Configurations to customize the request
+     * @param {string} config.uri        The URI to request
+     * @param {string} config.method     The method used to request the URI, should be in uppercase.
+     * @param {object} [config.headers]  Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
+     * @param {object} [config.data]     Arbitrary data to send as the body.
+     * @param {string} [config.auth]     Authorization
+     * @param {object} [config.query]    Query parameters
+     * @param {object} [config.form]     Form fields
+     * @param {object} [config.files]    Array of file names and file content
+     * @param {object} [config.context]  The invocation context, describing the tool and project.
+     * @returns {[string, object]} The uri to make the request too, and extra configs
+     * @private
+     */
+    _buildRequest({ uri, method, headers, data, auth, query, form, files, context }){
+        let actualUri = uri;
+        if (this.baseUrl && uri[0] === '/') {
+            actualUri = `${this.baseUrl}${uri}`;
+        }
+        if (query) {
+            const queryParams = qs.stringify(query);
+            if (queryParams) {
+                const hasParams = actualUri.includes('?');
+                actualUri = `${actualUri}${hasParams ? '&' : '?'}${queryParams}`;
+            }
+        }
+
+        const userAgentHeader = { 'User-Agent': `${packageJson.name}/${packageJson.version} (${packageJson.repository.url})` };
+        let body;
+        let contentTypeHeader;
+        if (files){
+            // @ts-ignore
+            contentTypeHeader = {}; // Needed to allow fetch create its own
+            body = this._getFromData(files, form);
+        } else if (form){
+            contentTypeHeader = { 'Content-Type': 'application/x-www-form-urlencoded' };
+            body = qs.stringify(form);
+        } else if (data){
+            contentTypeHeader = { 'Content-Type': 'application/json' };
+            body = JSON.stringify(data);
+        }
+        const finalHeaders = Object.assign({},
+            userAgentHeader,
+            contentTypeHeader,
+            this._getAuthorizationHeader(auth),
+            this._getContextHeaders(context),
+            headers
+        );
+
+        return [actualUri, { method, body, headers: finalHeaders }];
+    }
+
+    isForBrowser() {
+        return typeof window !== 'undefined';
+    }
+
+    _getFromData(files, form) {
+        const formData = new FormData();
+        for (let [name, file] of Object.entries(files)){
+            let path = file.path;
+            let fileData = file.data;
+            if (!this.isForBrowser()) {
+                const nodeFormData = this._getNodeFormData(file);
+                path = nodeFormData.path;
+                fileData = nodeFormData.file;
+            }
+            formData.append(name, fileData, path);
+        }
+        if (form){
+            for (let [name, value] of Object.entries(form)){
+                formData.append(name, value);
+            }
+        }
+        return formData;
+    }
+
+    _getNodeFormData(file) {
+        let fileData = file.data;
+        if (typeof file.data === 'string') {
+            fileData = fs.createReadStream(file.data);
+        }
+        return {
+            file: fileData,
+            path: { filepath: file.path } // Different API for nodejs
+        };
+    }
+
+    _getContextHeaders(context = {}) {
+        return Object.assign({},
+            this._getToolContext(context.tool),
+            this._getProjectContext(context.project)
+        );
+    }
+
+    _getToolContext(tool = {}){
+        let value = '';
+        if (tool.name){
+            value += this._toolIdent(tool);
+            if (tool.components){
+                for (let component of tool.components){
+                    value += ', '+this._toolIdent(component);
+                }
+            }
+        }
+        if (value){
+            return { 'X-Particle-Tool': value };
+        }
+        return {};
+    }
+
+    _toolIdent(tool){
+        return this._nameAtVersion(tool.name, tool.version);
+    }
+
+    _nameAtVersion(name, version){
+        let value = '';
+        if (name){
+            value += name;
+            if (version){
+                value += '@'+version;
+            }
+        }
+        return value;
+    }
+
+    _getProjectContext(project = {}){
+        let value = this._buildSemicolonSeparatedProperties(project, 'name');
+        if (value){
+            return { 'X-Particle-Project': value };
+        }
+        return {};
+    }
+
+    /**
+     * Creates a string like primaryPropertyValue; name=value; name1=value
+     * from the properties of an object.
+     * @param {object} obj               The object to create the string from
+     * @param {string} primaryProperty   The name of the primary property which is the default value and must be defined.
+     * @private
+     * @return {string} The formatted string representing the object properties and the default property.
+     */
+    _buildSemicolonSeparatedProperties(obj, primaryProperty){
+        let value = '';
+        if (obj[primaryProperty]){
+            value += obj[primaryProperty];
+            for (let prop in obj){
+                if (prop!==primaryProperty && obj.hasOwnProperty(prop)){
+                    value += '; '+prop+'='+obj[prop];
+                }
+            }
+        }
+        return value;
+    }
+
+    /**
+     * Adds an authorization header.
+     * @param {string} [auth]  The authorization bearer token.
+     * @returns {object} The original request.
+     */
+    _getAuthorizationHeader(auth){
+        if (typeof auth === 'string') {
+            return { Authorization: `Bearer ${auth}` };
+        }
+
+        return {};
+    }
+
+    /**
+     *
+     * @param {Object} files  converts the file names to file, file1, file2.
+     * @returns {object} the renamed files.
+     */
+    _sanitizeFiles(files){
+        let requestFiles;
+        if (files){
+            requestFiles = {};
+            Object.keys(files).forEach((k, i) => {
+                const name = i ? `file${i + 1}` : 'file';
+                requestFiles[name] = {
+                    data: files[k],
+                    path: k
+                };
+            });
+        }
+        return requestFiles;
+    }
+}
+
+module.exports = Agent;
+
+
+/***/ }),
+
+/***/ 7159:
+/***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
+
+const Library = __nccwpck_require__(6196);
+let Particle;
+
+class Client {
+    constructor({ auth, api = new Particle() }){
+        this.auth = auth;
+        this.api = api;
+    }
+
+    ready(){
+        return Boolean(this.auth);
+    }
+
+    /**
+     * Get firmware library objects
+     * @param  {Object} query The query parameters for libraries. See Particle.listLibraries
+     * @returns {Promise} A promise
+     */
+    libraries(query = {}){
+        return this.api.listLibraries(Object.assign({}, query, { auth: this.auth }))
+            .then(payload => {
+                const libraries = payload.body.data || [];
+                return libraries.map(l => new Library(this, l));
+            });
+    }
+
+    /**
+     * Get one firmware library object
+     * @param  {String} name Name of the library to fetch
+     * @param  {Object} query The query parameters for libraries. See Particle.getLibrary
+     * @returns {Promise} A promise
+     */
+    library(name, query = {}){
+        return this.api.getLibrary(Object.assign({}, query, { name, auth: this.auth }))
+            .then(payload => {
+                const library = payload.body.data || {};
+                return new Library(this, library);
+            });
+    }
+
+    /**
+     * Get list of library versions
+     * @param  {String} name Name of the library to fetch
+     * @param  {Object} query The query parameters for versions. See Particle.getLibraryVersions
+     * @returns {Promise} A promise
+     */
+    libraryVersions(name, query = {}){
+        return this.api.getLibraryVersions(Object.assign({}, query, { name, auth: this.auth }))
+            .then(payload => {
+                const libraries = payload.body.data || [];
+                return libraries.map(l => new Library(this, l));
+            });
+    }
+
+    /**
+     * Contribute a new library version
+     * @param  {Buffer} archive The compressed archive with the library source
+     * @returns {Promise} A promise
+     */
+    contributeLibrary(archive){
+        return this.api.contributeLibrary({ archive, auth: this.auth })
+            .then(payload => {
+                const library = payload.body.data || {};
+                return new Library(this, library);
+            }, error => {
+                this._throwError(error);
+            });
+    }
+
+    /**
+     * Make the the most recent private library version public
+     * @param  {string} name The name of the library to publish
+     * @return {Promise} To publish the library
+     */
+    publishLibrary(name){
+        return this.api.publishLibrary({ name, auth: this.auth })
+            .then(payload => {
+                const library = payload.body.data || {};
+                return new Library(this, library);
+            }, error => {
+                this._throwError(error);
+            });
+    }
+
+    /**
+     * Delete an entire published library
+     * @param {object} params	Specific params of the library to delete
+     * @param {string} params.name	Name of the library to delete
+     * @param {string} params.force	Key to force deleting a public library
+     * @returns {Promise} A promise
+     */
+    deleteLibrary({ name, force }){
+        return this.api.deleteLibrary({ name, force, auth: this.auth })
+            .then(() => true, error => this._throwError(error));
+    }
+
+    _throwError(error){
+        if (error.body && error.body.errors){
+            const errorMessages = error.body.errors.map((e) => e.message).join('\n');
+            throw new Error(errorMessages);
+        }
+        throw error;
+    }
+
+    downloadFile(uri){
+        return this.api.downloadFile({ uri });
+    }
+
+    /**
+     * @param {Object} files Object containing files to be compiled
+     * @param {Number} platformId Platform id number of the device you are compiling for
+     * @param {String} targetVersion System firmware version to compile against
+     * @returns {Promise} A promise
+     * @deprecated Will be removed in 6.5
+     */
+    compileCode(files, platformId, targetVersion){
+        return this.api.compileCode({ files, platformId, targetVersion, auth: this.auth });
+    }
+
+    /**
+     * @param {object} params
+     * @param {string} params.deviceId	Device ID or Name
+     * @param {boolean} params.signal	Signal on or off
+     * @returns {Promise} A promise
+     * @deprecated Will be removed in 6.5
+     */
+    signalDevice({ signal, deviceId }){
+        return this.api.signalDevice({ signal, deviceId, auth: this.auth });
+    }
+
+    /**
+     * @returns {Promise} A promise
+     * @deprecated Will be removed in 6.5
+     */
+    listDevices(){
+        return this.api.listDevices({ auth: this.auth });
+    }
+
+    /**
+     * @returns {Promise} A promise
+     * @deprecated Will be removed in 6.5
+     */
+    listBuildTargets(){
+        return this.api.listBuildTargets({ onlyFeatured: true, auth: this.auth })
+            .then(payload => {
+                let targets = [];
+                for (let target of payload.body.targets){
+                    for (let platform of target.platforms){
+                        targets.push({
+                            version: target.version,
+                            platform: platform,
+                            prerelease: target.prereleases.indexOf(platform) > -1,
+                            firmware_vendor: target.firmware_vendor
+                        });
+                    }
+                }
+                return targets;
+            }, () => {});
+    }
+
+    trackingIdentity({ full = false, context = undefined }={}){
+        return this.api.trackingIdentity({ full, context, auth: this.auth })
+            .then(payload => {
+                return payload.body;
+            });
+    }
+}
+
+module.exports = Client;
+Particle = __nccwpck_require__(2649); // Move it to after the export to avoid issue with circular reference
+
+
+/***/ }),
+
+/***/ 1449:
+/***/ ((module) => {
+
+module.exports = {
+    baseUrl: 'https://api.particle.io',
+    clientSecret: 'particle-api',
+    clientId: 'particle-api',
+    tokenDuration: 7776000, // 90 days
+    auth: undefined
+};
+
+
+/***/ }),
+
+/***/ 8190:
+/***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
+
+/* eslint max-depth: 0 */
+const http = __nccwpck_require__(3685);
+const https = __nccwpck_require__(5687);
+const url = __nccwpck_require__(7310);
+const { EventEmitter } = __nccwpck_require__(2361);
+
+class EventStream extends EventEmitter {
+    constructor(uri, token) {
+        super();
+        this.uri = uri;
+        this.token = token;
+        this.reconnectInterval = 2000;
+        this.timeout = 13000; // keep alive can be sent up to 12 seconds after last event
+        this.data = '';
+        this.buf = '';
+
+        this.parse = this.parse.bind(this);
+        this.end = this.end.bind(this);
+        this.idleTimeoutExpired = this.idleTimeoutExpired.bind(this);
+    }
+
+    connect() {
+        return new Promise((resolve, reject) => {
+            const { hostname, protocol, port, path } = url.parse(this.uri);
+            this.origin = `${protocol}//${hostname}${port ? (':' + port) : ''}`;
+
+            const isSecure = protocol === 'https:';
+            const requestor = isSecure ? https : http;
+            const nonce = global.performance ? global.performance.now() : 0;
+            const req = requestor.request({
+                hostname,
+                protocol,
+                // Firefox has issues making multiple fetch requests with the same parameters so add a nonce
+                path: `${path}?nonce=${nonce}`,
+                headers: {
+                    'Authorization': `Bearer ${this.token}`
+                },
+                method: 'get',
+                // @ts-ignore
+                port: parseInt(port, 10) || (isSecure ? 443 : 80),
+                // @ts-ignore
+                mode: 'prefer-streaming'
+            });
+
+            this.req = req;
+
+            let connected = false;
+            let connectionTimeout = setTimeout(() => {
+                if (this.req) {
+                    this.req.abort();
+                }
+                reject({ error: new Error('Timeout'), errorDescription: `Timeout connecting to ${this.uri}` });
+            }, this.timeout);
+
+            req.on('error', e => {
+                clearTimeout(connectionTimeout);
+
+                if (connected) {
+                    this.end();
+                } else {
+                    reject({ error: e, errorDescription: `Network error from ${this.uri}` });
+                }
+            });
+
+            req.on('response', res => {
+                clearTimeout(connectionTimeout);
+
+                const statusCode = res.statusCode;
+                if (statusCode !== 200) {
+                    let body = '';
+                    res.on('data', chunk => body += chunk);
+                    res.on('end', () => {
+                        try {
+                            body = JSON.parse(body);
+                        } catch (e) {
+                            // don't bother doing anything special if the JSON.parse fails
+                            // since we are already about to reject the promise anyway
+                        } finally {
+                            let errorDescription = `HTTP error ${statusCode} from ${this.uri}`;
+                            // @ts-ignore
+                            if (body && body.error_description) {
+                                // @ts-ignore
+                                errorDescription += ' - ' + body.error_description;
+                            }
+                            reject({ statusCode, errorDescription, body });
+                            this.req = undefined;
+                        }
+                    });
+                    return;
+                }
+
+                this.data = '';
+                this.buf = '';
+
+                connected = true;
+                res.on('data', this.parse);
+                res.once('end', this.end);
+                this.startIdleTimeout();
+                resolve(this);
+            });
+            req.end();
+        });
+    }
+
+    abort() {
+        if (this.req) {
+            this.req.abort();
+            this.req = undefined;
+        }
+        this.removeAllListeners();
+    }
+
+    /* Private methods */
+
+    emitSafe(event, param) {
+        try {
+            this.emit(event, param);
+        } catch (error) {
+            if (event !== 'error') {
+                this.emitSafe('error', error);
+            }
+        }
+    }
+
+    end() {
+        this.stopIdleTimeout();
+
+        if (!this.req) {
+            // request was ended intentionally by abort
+            // do not auto reconnect.
+            return;
+        }
+
+        this.req = undefined;
+        this.emitSafe('disconnect');
+        this.reconnect();
+    }
+
+    reconnect() {
+        setTimeout(() => {
+            if (this.isOffline()) {
+                this.reconnect();
+                return;
+            }
+
+            this.emitSafe('reconnect');
+            this.connect().then(() => {
+                this.emitSafe('reconnect-success');
+            }).catch(err => {
+                this.emitSafe('reconnect-error', err);
+                this.reconnect();
+            });
+        }, this.reconnectInterval);
+    }
+
+    isOffline() {
+        if (typeof navigator === 'undefined' || navigator.hasOwnProperty('onLine')) {
+            return false;
+        }
+        return !navigator.onLine;
+    }
+
+    startIdleTimeout() {
+        this.stopIdleTimeout();
+        this.idleTimeout = setTimeout(this.idleTimeoutExpired, this.timeout);
+    }
+
+    stopIdleTimeout() {
+        if (this.idleTimeout) {
+            clearTimeout(this.idleTimeout);
+            this.idleTimeout = null;
+        }
+    }
+
+    idleTimeoutExpired() {
+        if (this.req) {
+            this.req.abort();
+            this.end();
+        }
+    }
+
+    parse(chunk) {
+        this.startIdleTimeout();
+
+        this.buf += chunk;
+        let pos = 0;
+        let length = this.buf.length;
+        let discardTrailingNewline = false;
+
+        while (pos < length) {
+            if (discardTrailingNewline) {
+                if (this.buf[pos] === '\n') {
+                    ++pos;
+                }
+                discardTrailingNewline = false;
+            }
+
+            let lineLength = -1;
+            let fieldLength = -1;
+
+            for (let i = pos; lineLength < 0 && i < length; ++i) {
+                const c = this.buf[i];
+                if (c === ':') {
+                    if (fieldLength < 0) {
+                        fieldLength = i - pos;
+                    }
+                } else if (c === '\r') {
+                    discardTrailingNewline = true;
+                    lineLength = i - pos;
+                } else if (c === '\n') {
+                    lineLength = i - pos;
+                }
+            }
+
+            if (lineLength < 0) {
+                break;
+            }
+
+            this.parseEventStreamLine(pos, fieldLength, lineLength);
+
+            pos += lineLength + 1;
+        }
+
+        if (pos === length) {
+            this.buf = '';
+        } else if (pos > 0) {
+            this.buf = this.buf.slice(pos);
+        }
+    }
+
+    parseEventStreamLine(pos, fieldLength, lineLength) {
+        if (lineLength === 0) {
+            try {
+                if (this.data.length > 0 && this.event) {
+                    const event = JSON.parse(this.data);
+                    event.name = this.eventName || '';
+                    this.emitSafe('event', event);
+                }
+            } catch (e) {
+                // do nothing if JSON.parse fails
+            } finally {
+                this.data = '';
+                this.eventName = undefined;
+                this.event = false;
+            }
+        } else if (fieldLength > 0) {
+            const field = this.buf.slice(pos, pos + fieldLength);
+            let step = 0;
+
+            if (this.buf[pos + fieldLength + 1] !== ' ') {
+                step = fieldLength + 1;
+            } else {
+                step = fieldLength + 2;
+            }
+            pos += step;
+            const valueLength = lineLength - step;
+            const value = this.buf.slice(pos, pos + valueLength);
+
+            if (field === 'data') {
+                this.data += value + '\n';
+            } else if (field === 'event') {
+                this.eventName = value;
+                this.event = true;
+            }
+        }
+    }
+}
+
+module.exports = EventStream;
+
+
+/***/ }),
+
+/***/ 6196:
+/***/ ((module) => {
+
+/* Library
+ * Represents a version of a library contributed in the cloud.
+ */
+
+class Library {
+    constructor(client, data) {
+        // Make client non-enumerable so it doesn't show up in Object.keys, JSON.stringify, etc
+        Object.defineProperty(this, 'client', { value: client });
+        this._assignAttributes(data);
+        this.downloadUrl = data.links && data.links.download;
+    }
+
+    _assignAttributes(data) {
+        Object.assign(this, data.attributes);
+    }
+
+
+    /**
+     * Download the compressed file containing the source code for this library version.
+     * @return {Promise} Resolves to the .tar.gz compressed source code
+     */
+    download() {
+        if (!this.downloadUrl) {
+            return Promise.reject(new Error('No download URL for this library'));
+        }
+        // @ts-ignore
+        return this.client.downloadFile(this.downloadUrl);
+    }
+
+    /* TODO: add a versions() method to fetch an array of library objects */
+}
+
+module.exports = Library;
+
+
+/***/ }),
+
+/***/ 2649:
+/***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
+
+const Defaults = __nccwpck_require__(1449);
+const EventStream = __nccwpck_require__(8190);
+const Agent = __nccwpck_require__(2460);
+const Client = __nccwpck_require__(7159);
+
+/**
+ * Particle Cloud API wrapper.
+ *
+ * See <https://docs.particle.io/reference/javascript/> for examples
+ * of using the `Particle` class.
+ *
+ * Most Particle methods take a single unnamed argument object documented as
+ * `options` with key/value pairs for each option.
+ *
+ * @typedef {import('./Agent').RequestResponse} RequestResponse
+ * @typedef {import('./Agent').RequestError} RequestError
+ */
+// These typedef avoid importing the type on every @return statement
+class Particle {
+    /**
+     * Contructor for the Cloud API wrapper.
+     *
+     * Create a new Particle object and call methods below on it.
+     *
+     * @param {Object} options                   Options for this API call Options to be used for all requests (see [Defaults](../src/Defaults.js))
+     * @param {string} [options.baseUrl]
+     * @param {string} [options.clientSecret]
+     * @param {string} [options.clientId]
+     * @param {number} [options.tokenDuration]
+     * @param {string} [options.auth]            The access token. If not specified here, will have to be added to every request
+     */
+    constructor(options = {}){
+        if (options.auth) {
+            this.setDefaultAuth(options.auth);
+        }
+
+        // todo - this seems a bit dangerous - would be better to put all options/context in a contained object
+        Object.assign(this, Defaults, options);
+        this.context = {};
+
+        this.agent = new Agent(this.baseUrl);
+    }
+
+    _isValidContext(name, context){
+        return (name === 'tool' || name === 'project') && context !== undefined;
+    }
+
+    /**
+     * @typedef {Object} ToolContext
+     * @property {string} name
+     * @property {string | number} [version]
+     * @property {Omit<ToolContext, 'components'>[]} [components]
+     */
+
+    /**
+     * @typedef {Record<string, string | number>} ProjectContext
+     * @property {string} name
+     */
+
+    /**
+     * Allows setting a tool or project context which will be sent as headers with every request.
+     * Tool- x-particle-tool
+     * Project- x-particle-project
+     * @param {'tool' | 'project'} name
+     * @param {ToolContext | ProjectContext | undefined} context
+     */
+    setContext(name, context){
+        if (context !== undefined){
+            if (this._isValidContext(name, context)){
+                this.context[name] = context;
+            } else {
+                throw Error('unknown context name or undefined context: ' + name);
+            }
+        }
+    }
+
+    /**
+     * Builds the final context from the context parameter and the context items in the api.
+     * @param   {Object} context  The invocation context, this takes precedence over the local context.
+     * @returns {Object} The context to use.
+     * @private
+     */
+    _buildContext(context){
+        return Object.assign(this.context, context);
+    }
+
+    /**
+     * Login to Particle Cloud using an existing Particle acccount.
+     * @param  {Object} options                Options for this API call
+     * @param  {String} options.username       Username for the Particle account
+     * @param  {String} options.password       Password for the Particle account
+     * @param  {Number} options.tokenDuration  How long the access token should last in seconds
+     * @param  {Object} [options.headers]      Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
+     * @param  {Number} [options.context]      Request context
+     * @returns {Promise} A promise
+     */
+    // @ts-ignore
+    login({ username, password, tokenDuration = this.tokenDuration, headers, context }){
+        return this.request({
+            uri: '/oauth/token',
+            method: 'post',
+            headers,
+            form: {
+                username,
+                password,
+                grant_type: 'password',
+                // @ts-ignore
+                client_id: this.clientId,
+                // @ts-ignore
+                client_secret: this.clientSecret,
+                expires_in: tokenDuration
+            },
+            context
+        });
+    }
+
+    /**
+     * If login failed with an 'mfa_required' error, this must be called with a valid OTP code to login
+     * @param  {Object} options            Options for this API call
+     * @param  {String} options.mfaToken   Given as 'mfa_token' in the error body of `.login()`.
+     * @param  {String} options.otp        Current one-time-password generated from the authentication application
+     * @param  {Object} [options.headers]  Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
+     * @param  {Number} [options.context]  Request context
+     * @returns {Promise} A promise
+     */
+    sendOtp({ mfaToken, otp, headers, context }){
+        return this.request({
+            uri: '/oauth/token',
+            method: 'post',
+            headers,
+            form: {
+                grant_type: 'urn:custom:mfa-otp',
+                mfa_token: mfaToken,
+                otp,
+                // @ts-ignore
+                client_id: this.clientId,
+                // @ts-ignore
+                client_secret: this.clientSecret
+            },
+            context
+        });
+    }
+
+    /**
+     * Enable MFA on the currently logged in user
+     * @param {Object} options            Options for this API call
+     * @param {string} [options.auth]     The access token. Can be ignored if provided in constructor
+     * @param {Object} [options.headers]  Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
+     * @param {Object} [options.context]  Request context
+     * @returns {Promise} A promise
+     */
+    enableMfa({ auth, headers, context }){
+        return this.get({ uri: '/v1/user/mfa-enable', auth, headers, context });
+    }
+
+    /**
+     * Confirm MFA for the user. This must be called with current TOTP code, determined from the results of enableMfa(). You will be prompted to enter an OTP code every time you login after enrollment is confirmed.
+     * @param {Object} options                    Options for this API call
+     * @param {string} [options.auth]               The access token. Can be ignored if provided in constructor
+     * @param {Object} options.mfaToken           Token given from previous step to
+     * @param {Object} options.otp                Current one-time-password generated from the authentication app
+     * @param {Boolean} options.invalidateTokens  Should all tokens be invalidated
+     * @param {Object} [options.headers]          Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
+     * @param {Object} [options.context]          Request context
+     * @returns {Promise} A promise
+     */
+    confirmMfa({ mfaToken, otp, invalidateTokens = false, auth, headers, context }){
+        let data =  { mfa_token: mfaToken, otp };
+
+        if (invalidateTokens) {
+            data.invalidate_tokens = true;
+        }
+
+        return this.post({
+            uri: '/v1/user/mfa-enable',
+            auth,
+            headers,
+            data,
+            context
+        });
+    }
+
+    /**
+     * Disable MFA for the user.
+     * @param {Object} options                  Options for this API call
+     * @param {string} [options.auth]             The access token. Can be ignored if provided in constructor
+     * @param {Object} options.currentPassword  User's current password
+     * @param {Object} [options.headers]        Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
+     * @param {Object} [options.context]        Request context
+     * @returns {Promise} A promise
+     */
+    disableMfa({ currentPassword, auth, headers, context }){
+        return this.put({
+            uri: '/v1/user/mfa-disable',
+            auth,
+            headers,
+            data: { current_password: currentPassword },
+            context
+        });
+    }
+
+    /**
+     * Create Customer for Product.
+     * @param {Object} options            Options for this API call
+     * @param {String} options.email      Username for the Particle account
+     * @param {String} options.password   Password for the Particle account
+     * @param {String} options.product    Create the customer in this product ID or slug
+     * @param {Object} [options.headers]  Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
+     * @param {Object} [options.context]  Request context
+     * @returns {Promise} A promise
+     */
+    createCustomer({ email, password, product, headers, context }){
+        return this.request({
+            uri: `/v1/products/${product}/customers`,
+            method: 'post',
+            headers,
+            form: {
+                email,
+                password,
+                grant_type: 'client_credentials',
+                // @ts-ignore
+                client_id: this.clientId,
+                // @ts-ignore
+                client_secret: this.clientSecret
+            },
+            context
+        });
+    }
+
+    /**
+     * Login to Particle Cloud using an OAuth client.
+     * @param {Object} options            Options for this API call
+     * @param {Object} [options.headers]  Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
+     * @param {Object} [options.context]  Request context
+     * @returns {Promise} A promise
+     */
+    loginAsClientOwner({ headers, context }){
+        return this.request({
+            uri: '/oauth/token',
+            method: 'post',
+            headers,
+            form: {
+                grant_type: 'client_credentials',
+                // @ts-ignore
+                client_id: this.clientId,
+                // @ts-ignore
+                client_secret: this.clientSecret
+            },
+            context
+        });
+    }
+
+    /**
+     * Create a user account for the Particle Cloud
+     * @param {Object} options              Options for this API call
+     * @param {String} options.username     Email of the new user
+     * @param {String} options.password     Password
+     * @param {String} options.accountInfo  Object that contains account information fields such as user real name, company name, business account flag etc
+     * @param {Object} [options.utm]        Object that contains info about the campaign that lead to this user creation
+     * @param {Object} [options.headers]    Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
+     * @param {Object} [options.context]    Request context
+     * @returns {Promise} A promise
+     */
+    createUser({ username, password, accountInfo, utm, headers, context }){
+        return this.post({
+            uri: '/v1/users',
+            headers,
+            data: {
+                username,
+                password,
+                account_info: accountInfo,
+                utm
+            },
+            context
+        });
+    }
+
+    /**
+     * Verify new user account via verification email
+     * @param {Object} options            Options for this API call
+     * @param {String} options.token      The string token sent in the verification email
+     * @param {Object} [options.headers]  Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
+     * @param {Object} [options.context]  Request context
+     * @returns {Promise} A promise
+     */
+    verifyUser({ token, headers, context }){
+        return this.post({
+            uri: '/v1/user/verify',
+            headers,
+            data: { token },
+            context
+        });
+    }
+
+    /**
+     * Send reset password email for a Particle Cloud user account
+     * @param {Object} options            Options for this API call
+     * @param {String} options.username   Email of the user
+     * @param {Object} [options.headers]  Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
+     * @param {Object} [options.context]  Request context
+     * @returns {Promise} A promise
+     */
+    resetPassword({ username, headers, context }){
+        return this.post({
+            uri: '/v1/user/password-reset',
+            headers,
+            data: { username },
+            context
+        });
+    }
+
+    /**
+     * Revoke an access token
+     * @param {Object} options            Options for this API call
+     * @param {String} options.token      Access token you wish to revoke
+     * @param {Object} [options.headers]  Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
+     * @param {Object} [options.context]  Request context
+     * @returns {Promise} A promise
+     */
+    deleteAccessToken({ token, headers, context }){
+        return this.delete({
+            uri: `/v1/access_tokens/${token}`,
+            headers,
+            context
+        });
+    }
+
+    /**
+     * Revoke the current session access token
+     * @param {Object} options            Options for this API call
+     * @param {string} [options.auth]     The access token. Can be ignored if provided in constructor
+     * @param {Object} [options.headers]  Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
+     * @param {Object} [options.context]  Request context
+     * @returns {Promise} A promise
+     */
+    deleteCurrentAccessToken({ auth, headers, context }){
+        return this.delete({
+            uri: '/v1/access_tokens/current',
+            auth,
+            headers,
+            context
+        });
+    }
+
+    /**
+     * Revoke all active access tokens
+     * @param {Object} options            Options for this API call
+     * @param {string} [options.auth]     The access token. Can be ignored if provided in constructor
+     * @param {Object} [options.headers]  Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
+     * @param {Object} [options.context]  Request context
+     * @returns {Promise} A promise
+     */
+    deleteActiveAccessTokens({ auth, headers, context }){
+        return this.delete({
+            uri: '/v1/access_tokens',
+            auth,
+            headers,
+            context
+        });
+    }
+
+    /**
+     * Delete the current user
+     * @param {Object} options            Options for this API call
+     * @param {string} [options.auth]     The access token. Can be ignored if provided in constructor
+     * @param {String} options.password   Password
+     * @param {Object} [options.headers]  Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
+     * @param {Object} [options.context]  Request context
+     * @returns {Promise} A promise
+     */
+    deleteUser({ auth, password, headers, context }){
+        return this.delete({
+            uri: '/v1/user',
+            data: { password },
+            auth,
+            headers,
+            context
+        });
+    }
+
+    /**
+     * Retrieves the information that is used to identify the current login for tracking.
+     * @param {Object}  [options]          Options for this API call
+     * @param {string}  [options.auth]     The access token. Can be ignored if provided in constructor
+     * @param {Boolean} [options.full]     When true, retrieve all information for registering a user with the tracking API. When false,
+     *                                     retrieve only the unique tracking ID for the current login.
+     * @param {Object}  [options.headers]  Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
+     * @param {Object}  [options.context]  Request context
+     * @returns {Promise<Object>} Resolve the tracking identify of the current login
+     */
+    trackingIdentity({ full = false, auth, headers, context } = {}){
+        return this.get({
+            uri: '/v1/user/identify',
+            auth,
+            headers,
+            query: (full ? undefined : { tracking: 1 }),
+            context
+        });
+    }
+
+    /**
+     * List devices claimed to the account or product
+     * @param {Object}         options               Options for this API call
+     * @param {String}         [options.deviceId]    (Product only) Filter results to devices with this ID (partial matching)
+     * @param {String}         [options.deviceName]  (Product only) Filter results to devices with this name (partial matching)
+     * @param {Array.<string>} [options.groups]      (Product only) A list of full group names to filter results to devices belonging to these groups only.
+     * @param {String}         [options.sortAttr]    (Product only) The attribute by which to sort results. See API docs for options.
+     * @param {String}         [options.sortDir]     (Product only) The direction of sorting. See API docs for options.
+     * @param {Number}         [options.page]        (Product only) Current page of results
+     * @param {Number}         [options.perPage]     (Product only) Records per page
+     * @param {String}         [options.product]     List devices in this product ID or slug
+     * @param {string}         [options.auth]        The access token. Can be ignored if provided in constructor
+     * @param {Object}         [options.headers]     Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
+     * @param {Object}         [options.context]     Request context
+     * @returns {Promise} A promise
+     */
+    listDevices({ deviceId, deviceName, groups, sortAttr, sortDir, page, perPage, product, auth, headers, context }){
+        let uri, query;
+
+        if (product){
+            uri = `/v1/products/${product}/devices`;
+            query = {
+                deviceId,
+                deviceName,
+                groups: Array.isArray(groups) ? groups.join(',') : undefined,
+                sortAttr,
+                sortDir,
+                page,
+                per_page: perPage
+            };
+        } else {
+            uri = '/v1/devices';
+        }
+
+        return this.get({ uri, auth, headers, query, context });
+    }
+
+    /**
+     * Get detailed informationa about a device
+     * @param {Object} options            Options for this API call
+     * @param {String} options.deviceId   Device ID or Name
+     * @param {String} [options.product]  Device in this product ID or slug
+     * @param {string} [options.auth]     The access token. Can be ignored if provided in constructor
+     * @param {Object} [options.headers]  Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
+     * @param {Object} [options.context]  Request context
+     * @returns {Promise} A promise
+     */
+    getDevice({ deviceId, product, auth, headers, context }){
+        const uri = this.deviceUri({ deviceId, product });
+        return this.get({ uri, auth, headers, context });
+    }
+
+    /**
+     * Claim a device to the account. The device must be online and unclaimed.
+     * @param {Object}  options                  Options for this API call
+     * @param {String}  options.deviceId         Device ID
+     * @param {string}  [options.auth]           The access token. Can be ignored if provided in constructor
+     * @param {boolean} options.requestTransfer  True to request the device be transfered from another user
+     * @param {Object}  [options.headers]        Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
+     * @param {Object}  [options.context]        Request context
+     * @returns {Promise} A promise
+     */
+    claimDevice({ deviceId, requestTransfer, auth, headers, context }){
+        return this.post({
+            uri: '/v1/devices',
+            auth,
+            headers,
+            data: {
+                id: deviceId,
+                request_transfer: !!requestTransfer
+            },
+            context
+        });
+    }
+
+    /**
+     * Add a device to a product or move device out of quarantine.
+     * @param {Object} options            Options for this API call
+     * @param {String} options.deviceId   Device ID
+     * @param {Object} options.file       A file that contains a single-column list of device IDs, device serial numbers, device IMEIs, or devie ICCIDs.
+     *                                    Node: Either a path or Buffer. Browser: a File or Blob.
+     * @param {String} options.product    Add to this product ID or slug
+     * @param {string} [options.auth]     The access token. Can be ignored if provided in constructor
+     * @param {Object} [options.headers]  Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
+     * @param {Object} [options.context]  Request context
+     * @returns {Promise} A promise
+     */
+    addDeviceToProduct({ deviceId, product, file, auth, headers, context }){
+        let files, data;
+
+        if (file){
+            files = { file };
+        } else if (deviceId){
+            data = { id: deviceId };
+        }
+
+        return this.request({
+            uri: `/v1/products/${product}/devices`,
+            method: 'post',
+            headers,
+            data,
+            files,
+            auth,
+            context
+        });
+    }
+
+    /**
+     * Unclaim / Remove a device from your account or product, or deny quarantine
+     * @param {Object}  options            Options for this API call
+     * @param {String}  options.deviceId   Device ID or Name
+     * @param {Boolean} [options.deny]     (Product only) Deny this quarantined device, instead of removing an already approved device
+     * @param {String}  options.product    Remove from this product ID or slug
+     * @param {string}  [options.auth]     The access token. Can be ignored if provided in constructor
+     * @param {Object}  [options.headers]  Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
+     * @param {Object}  [options.context]  Request context
+     * @returns {Promise} A promise
+     */
+    removeDevice({ deviceId, deny, product, auth, headers, context }){
+        const uri = this.deviceUri({ deviceId, product });
+        const data = product ? { deny } : undefined;
+        return this.delete({ uri, data, auth, headers, context });
+    }
+
+    /**
+     * Unclaim a product device its the owner, but keep it in the product
+     * @param {Object} options            Options for this API call
+     * @param {String} options.deviceId   Device ID or Name
+     * @param {String} options.product    Remove from this product ID or slug
+     * @param {string} [options.auth]     The access token. Can be ignored if provided in constructor
+     * @param {Object} [options.headers]  Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
+     * @param {Object} [options.context]  Request context
+     * @returns {Promise} A promise
+     */
+    removeDeviceOwner({ deviceId, product, auth, headers, context }){
+        const uri = `/v1/products/${product}/devices/${deviceId}/owner`;
+        return this.delete({ uri, auth, headers, context });
+    }
+
+    /**
+     * Rename a device
+     * @param {Object} options            Options for this API call
+     * @param {String} options.deviceId   Device ID or Name
+     * @param {String} options.name       Desired Name
+     * @param {String} [options.product]  Rename device in this product ID or slug
+     * @param {string} [options.auth]     The access token. Can be ignored if provided in constructor
+     * @param {Object} [options.headers]  Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
+     * @param {Object} [options.context]  Request context
+     * @returns {Promise} A promise
+     */
+    renameDevice({ deviceId, name, product, auth, headers, context }){
+        return this.updateDevice({ deviceId, name, product, auth, headers, context });
+    }
+
+    /**
+     * Instruct the device to turn on/off the LED in a rainbow pattern
+     * @param {Object} options            Options for this API call
+     * @param {String} options.deviceId   Device ID or Name
+     * @param {Boolean} options.signal    Signal on or off
+     * @param {String} [options.product]  Device in this product ID or slug
+     * @param {string} [options.auth]     The access token. Can be ignored if provided in constructor
+     * @param {Object} [options.headers]  Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
+     * @param {Object} [options.context]  Request context
+     * @returns {Promise} A promise
+     */
+    signalDevice({ deviceId, signal, product, auth, headers, context }){
+        return this.updateDevice({ deviceId, signal, product, auth, headers, context });
+    }
+
+    /**
+     * Store some notes about device
+     * @param {Object} options            Options for this API call
+     * @param {String} options.deviceId   Device ID or Name
+     * @param {String} options.notes      Your notes about this device
+     * @param {String} [options.product]  Device in this product ID or slug
+     * @param {string} [options.auth]     The access token. Can be ignored if provided in constructor
+     * @param {Object} [options.headers]  Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
+     * @param {Object} [options.context]  Request context
+     * @returns {Promise} A promise
+     */
+    setDeviceNotes({ deviceId, notes, product, auth, headers, context }){
+        return this.updateDevice({ deviceId, notes, product, auth, headers, context });
+    }
+
+    /**
+     * Mark device as being used in development of a product so it opts out of automatic firmware updates
+     * @param {Object} options               Options for this API call
+     * @param {String} options.deviceId      Device ID or Name
+     * @param {Boolean} options.development  Set to true to mark as development, false to return to product fleet
+     * @param {String} options.product       Device in this product ID or slug
+     * @param {string} [options.auth]        The access token. Can be ignored if provided in constructor
+     * @param {Object} [options.headers]     Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
+     * @param {Object} [options.context]     Request context
+     * @returns {Promise} A promise
+     */
+    markAsDevelopmentDevice({ deviceId, development = true, product, auth, headers, context }){
+        return this.updateDevice({ deviceId, development, product, auth, headers, context });
+    }
+
+    /**
+     * Mark device as being used in development of a product, so it opts out of automatic firmware updates
+     * @param {Object}  options                         Options for this API call
+     * @param {String}  options.deviceId                Device ID or Name
+     * @param {Number}  options.desiredFirmwareVersion  Lock the product device to run this firmware version.
+     * @param {Boolean} [options.flash]                 Immediately flash firmware indicated by desiredFirmwareVersion
+     * @param {String}  options.product                 Device in this product ID or slug
+     * @param {string}  [options.auth]                  The access token. Can be ignored if provided in constructor
+     * @param {Object}  [options.headers]               Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
+     * @param {Object}  [options.context]               Request context
+     * @returns {Promise} A promise
+     */
+    lockDeviceProductFirmware({ deviceId, desiredFirmwareVersion, flash, product, auth, headers, context }){
+        return this.updateDevice({ deviceId, desiredFirmwareVersion, flash, product, auth, headers, context });
+    }
+
+    /**
+     * Mark device as receiving automatic firmware updates
+     * @param {Object} options            Options for this API call
+     * @param {String} options.deviceId   Device ID or Name
+     * @param {String} options.product    Device in this product ID or slug
+     * @param {string} [options.auth]     The access token. Can be ignored if provided in constructor
+     * @param {Object} [options.headers]  Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
+     * @param {Object} [options.context]  Request context
+     * @returns {Promise} A promise
+     */
+    unlockDeviceProductFirmware({ deviceId, product, auth, headers, context }){
+        return this.updateDevice({ deviceId, desiredFirmwareVersion: null, product, auth, headers, context });
+    }
+
+    /**
+     * Update multiple device attributes at the same time
+     * @param {Object}        options                           Options for this API call
+     * @param {String}        options.deviceId                  Device ID or Name
+     * @param {String}        [options.name]                    Desired Name
+     * @param {Boolean}       [options.signal]                  Signal device on or off
+     * @param {String}        [options.notes]                   Your notes about this device
+     * @param {Boolean}       [options.development]             (Product only) Set to true to mark as development, false to return to product fleet
+     * @param {Number | null} [options.desiredFirmwareVersion]  (Product only) Lock the product device to run this firmware version.
+     *                                                          Pass `null` to unlock firmware and go back to released firmware.
+     * @param {Boolean}       [options.flash]                   (Product only) Immediately flash firmware indicated by desiredFirmwareVersion
+     * @param {String}        [options.product]                 Device in this product ID or slug
+     * @param {string}        [options.auth]                    The access token. Can be ignored if provided in constructor
+     * @param {Object}        [options.headers]                 Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
+     * @param {Object}        [options.context]                 Request context
+     * @returns {Promise} A promise
+     */
+    updateDevice({ deviceId, name, signal, notes, development, desiredFirmwareVersion, flash, product, auth, headers, context }){
+        let signalValue;
+        if (signal !== undefined){
+            signalValue = signal ? '1' : '0';
+        }
+
+        const uri = this.deviceUri({ deviceId, product });
+        const data = product ?
+            { name, signal: signalValue, notes, development, desired_firmware_version: desiredFirmwareVersion, flash } :
+            { name, signal: signalValue, notes };
+
+        return this.put({ uri, auth, headers, data, context });
+    }
+
+    /**
+     * Disable device protection.
+     *
+     * @param {Object} options                   Options for this API call.
+     * @param {String} options.deviceId          Device ID or name.
+     * @param {String} options.action            Request action: `prepare` or `confirm`.
+     * @param {String} [options.org]             Organziation ID or slug.
+     * @param {String} [options.product]         Product ID or slug.
+     * @param {String} [options.serverNonce]     Base64-encoded server nonce. Mandatory if `action` is `confirm`,
+     * @param {String} [options.deviceNonce]     Base64-encoded device nonce. Mandatory if `action` is `confirm`,
+     * @param {String} [options.deviceSignature] Base64-encoded device signature. Mandatory if `action` is `confirm`,
+     * @param {String} [options.devicePublicKeyFingerprint] Base64-encoded fingerprint of the device public key.
+     *                                           Mandatory if `action` is `confirm`,
+     * @param {string} [options.auth]            The access token. Can be ignored if provided in constructor.
+     * @param {Object} [options.headers]         Key/value pairs to send as headers.
+     * @param {Object} [options.context]         Request context.
+     * @returns {Promise} A promise
+     */
+    unprotectDevice({ deviceId, org, product, action, serverNonce, deviceNonce, deviceSignature, devicePublicKeyFingerprint, auth, headers, context }) {
+        const data = { action };
+        if (deviceNonce !== undefined) {
+            data.device_nonce = deviceNonce;
+        }
+        if (serverNonce !== undefined) {
+            data.server_nonce = serverNonce;
+        }
+        if (deviceSignature !== undefined) {
+            data.device_signature = deviceSignature;
+        }
+        if (devicePublicKeyFingerprint !== undefined) {
+            data.device_public_key_fingerprint = devicePublicKeyFingerprint;
+        }
+        const uri = this.deviceUri({ deviceId, product, org }) + '/unprotect';
+        return this.put({ uri, data, auth, headers, context });
+    }
+
+    /**
+     * Provision a new device for products that allow self-provisioning
+     * @param {Object} options            Options for this API call
+     * @param {String} options.productId  Product ID where to create this device
+     * @param {string} [options.auth]     The access token. Can be ignored if provided in constructor
+     * @param {Object} [options.headers]  Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
+     * @param {Object} [options.context]  Request context
+     * @returns {Promise} A promise
+     */
+    provisionDevice({ productId, auth, headers, context }){
+        return this.post({
+            uri: '/v1/devices',
+            auth,
+            headers,
+            data: { product_id: productId },
+            context
+        });
+    }
+
+    /**
+     * Generate a claim code to use in the device claiming process.
+     * To generate a claim code for a product, the access token MUST belong to a
+     * customer of the product.
+     * @param {Object} options            Options for this API call
+     * @param {String} [options.iccid]    ICCID of the SIM card used in the Electron
+     * @param {String} [options.product]  Device in this product ID or slug
+     * @param {string} [options.auth]     The access token. Can be ignored if provided in constructor
+     * @param {Object} [options.headers]  Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
+     * @param {Object} [options.context]  Request context
+     * @returns {Promise} A promise
+     */
+    getClaimCode({ iccid, product, auth, headers, context }){
+        const uri = product ? `/v1/products/${product}/device_claims` : '/v1/device_claims';
+        return this.post({ uri, auth, headers, data: { iccid }, context });
+    }
+
+    validatePromoCode({ promoCode, auth, headers, context }){
+        return this.get({
+            uri: `/v1/promo_code/${promoCode}`,
+            auth,
+            headers,
+            context
+        });
+    }
+
+    /**
+     * Get the value of a device variable
+     * @param {Object} options            Options for this API call
+     * @param {String} options.deviceId   Device ID or Name
+     * @param {String} options.name       Variable name
+     * @param {String} [options.product]  Device in this product ID or slug
+     * @param {string} [options.auth]     The access token. Can be ignored if provided in constructor
+     * @param {Object} [options.headers]  Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
+     * @param {Object} [options.context]  Request context
+     * @returns {Promise} A promise
+     */
+    getVariable({ deviceId, name, product, auth, headers, context }){
+        const uri = product ?
+            `/v1/products/${product}/devices/${deviceId}/${name}` :
+            `/v1/devices/${deviceId}/${name}`;
+
+        return this.get({ uri, auth, headers, context });
+    }
+
+    /**
+     * Compile and flash application firmware to a device. Pass a pre-compiled binary to flash it directly to the device.
+     * @param {Object} options                         Options for this API call
+     * @param {String} options.deviceId                Device ID or Name
+     * @param {String} options.product                 Flash device in this product ID or slug
+     * @param {Object} options.files                   Object containing files to be compiled and flashed. Keys should be the filenames, including relative path, and the values should be a path or Buffer of the file contents in Node, or a File or Blob in the browser.
+     * @param {String} [options.targetVersion=latest]  System firmware version to compile against
+     * @param {string} [options.auth]                  The access token. Can be ignored if provided in constructor
+     * @param {Object} [options.headers]               Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
+     * @param {Object} [options.context]               Request context
+     * @returns {Promise} A promise
+     */
+    flashDevice({ deviceId, product, files, targetVersion, auth, headers, context }){
+        const uri = this.deviceUri({ deviceId, product });
+        const form = {};
+
+        if (targetVersion){
+            form.build_target_version = targetVersion;
+        } else {
+            form.latest = 'true';
+        }
+
+        return this.request({ uri, method: 'put', auth, headers, files, form, context });
+    }
+
+    /**
+     * DEPRECATED: Flash the Tinker application to a device. Instead compile and flash the Tinker source code.
+     * @param {Object} options            Options for this API call
+     * @param {String} options.deviceId   Device ID or Name
+     * @param {string} [options.auth]     The access token. Can be ignored if provided in constructor
+     * @param {Object} [options.headers]  Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
+     * @param {Object} [options.context]  Request context
+     * @returns {Promise} A promise
+     */
+    flashTinker({ deviceId, auth, headers, context }){
+        /* eslint-disable no-console */
+        /* @ts-ignore */
+        if (console && console.warning){
+            // @ts-ignore
+            console.warning('Particle.flashTinker is deprecated');
+        }
+        /* eslint-enable no-console */
+        return this.put({
+            uri: `/v1/devices/${deviceId}`,
+            headers,
+            data: { app: 'tinker' },
+            auth,
+            context
+        });
+    }
+
+    /**
+     * Compile firmware using the Particle Cloud
+     * @param {Object} options                         Options for this API call
+     * @param {Object} options.files                   Object containing files to be compiled. Keys should be the filenames, including relative path, and the values should be a path or Buffer of the file contents in Node, or a File or Blob in the browser.
+     * @param {Number} [options.platformId]            Platform id number of the device you are compiling for. Common values are 0=Core, 6=Photon, 10=Electron.
+     * @param {String} [options.targetVersion=latest]  System firmware version to compile against
+     * @param {string} [options.auth]                  The access token. Can be ignored if provided in constructor
+     * @param {Object} [options.headers]               Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
+     * @param {Object} [options.context]               Request context
+     * @returns {Promise} A promise
+     */
+    compileCode({ files, platformId, targetVersion, auth, headers, context }){
+        const form = { platform_id: platformId };
+
+        if (targetVersion){
+            form.build_target_version = targetVersion;
+        } else {
+            form.latest = 'true';
+        }
+
+        return this.request({
+            uri: '/v1/binaries',
+            method: 'post',
+            auth,
+            headers,
+            files,
+            form,
+            context
+        });
+    }
+
+    /**
+     * Download a firmware binary
+     * @param {Object} options            Options for this API call
+     * @param {String} options.binaryId   Binary ID received from a successful compile call
+     * @param {string} [options.auth]     The access token. Can be ignored if provided in constructor
+     * @param {Object} [options.headers]  Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
+     * @param {Object} [options.context]  Request context
+     * @returns {Promise<RequestResponse, RequestError>} A promise
+     */
+    downloadFirmwareBinary({ binaryId, auth, headers, context }){
+        return this.request({
+            uri: `/v1/binaries/${binaryId}`,
+            method: 'get',
+            auth,
+            headers,
+            context,
+            isBuffer: true
+        });
+    }
+
+    /**
+     * Send a new device public key to the Particle Cloud
+     * @param {Object}          options                  Options for this API call
+     * @param {String}          options.deviceId         Device ID or Name
+     * @param {String | Buffer} options.key              Public key contents
+     * @param {String}          [options.algorithm=rsa]  Algorithm used to generate the public key. Valid values are `rsa` or `ecc`.
+     * @param {string}          [options.auth]           The access token. Can be ignored if provided in constructor
+     * @param {Object}          [options.headers]        Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
+     * @param {Object}          [options.context]        Request context
+     * @returns {Promise} A promise
+     */
+    sendPublicKey({ deviceId, key, algorithm, auth, headers, context }){
+        return this.post({
+            uri: `/v1/provisioning/${deviceId}`,
+            auth,
+            headers,
+            data: {
+                deviceID: deviceId,
+                publicKey: ( typeof key === 'string' ? key : key.toString() ),
+                filename: 'particle-api',
+                order: `manual_${ Date.now() }`,
+                algorithm: algorithm || 'rsa'
+            },
+            context
+        });
+    }
+
+    /**
+     * Call a device function
+     * @param {Object} options            Options for this API call
+     * @param {String} options.deviceId   Device ID or Name
+     * @param {String} options.name       Function name
+     * @param {String} options.argument   Function argument
+     * @param {String} [options.product]  Device in this product ID or slug
+     * @param {string} [options.auth]     The access token. Can be ignored if provided in constructor
+     * @param {Object} [options.headers]  Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
+     * @param {Object} [options.context]  Request context
+     * @returns {Promise} A promise
+     */
+    callFunction({ deviceId, name, argument, product, auth, headers, context }){
+        const uri = product ?
+            `/v1/products/${product}/devices/${deviceId}/${name}` :
+            `/v1/devices/${deviceId}/${name}`;
+        return this.post({ uri, auth, headers, data: { args: argument }, context });
+    }
+
+    /**
+     * Get a stream of events
+     * @param {Object} options             Options for this API call
+     * @param {String} [options.deviceId]  Device ID or Name, or `mine` to indicate only your devices.
+     * @param {String} [options.name]      Event Name
+     * @param {String} [options.org]       Organization Slug
+     * @param {String} [options.product]   Events for this product ID or slug
+     * @param {string} [options.auth]      The access token. Can be ignored if provided in constructor
+     * @returns {Promise} If the promise resolves, the resolution value will be an EventStream object that will
+     * emit 'event' events.
+     */
+    getEventStream({ deviceId, name, org, product, auth }){
+        let uri = '/v1/';
+        if (org){
+            uri += `orgs/${org}/`;
+        }
+
+        if (product){
+            uri += `products/${product}/`;
+        }
+
+        if (deviceId){
+            uri += 'devices/';
+            if (!(deviceId.toLowerCase() === 'mine')){
+                uri += `${deviceId}/`;
+            }
+        }
+
+        uri += 'events';
+
+        if (name){
+            uri += `/${encodeURIComponent(name)}`;
+        }
+
+        auth = this._getActiveAuthToken(auth);
+        return new EventStream(`${this.baseUrl}${uri}`, auth).connect();
+    }
+
+    /**
+     * Publish a event to the Particle Cloud
+     * @param {Object}  options            Options for this API call
+     * @param {String}  options.name       Event name
+     * @param {String}  options.data       Event data
+     * @param {Boolean} options.isPrivate  Should the event be publicly available?
+     * @param {String}  [options.product]  Event for this product ID or slug
+     * @param {string}  [options.auth]     The access token. Can be ignored if provided in constructor
+     * @param {Object}  [options.headers]  Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
+     * @param {Object}  [options.context]  Request context
+     * @returns {Promise} A promise
+     */
+    publishEvent({ name, data, isPrivate, product, auth, headers, context }){
+        const uri = product ? `/v1/products/${product}/events` : '/v1/devices/events';
+        const postData = { name, data, private: isPrivate };
+        return this.post({ uri, auth, headers, data: postData, context });
+    }
+
+    /**
+     * @typedef  {Object}  Hook
+     * @property {String}  [method=POST]         Type of web request triggered by the Webhook (GET, POST, PUT, or DELETE)
+     * @property {Object}  [auth]                Auth data like `{ user: 'me', pass: '1234' }` for basic auth or `{ bearer: 'token' }` to send with the Webhook request
+     * @property {Object}  [headers]             Additional headers to add to the Webhook like `{ 'X-ONE': '1', X-TWO: '2' }`
+     * @property {Object}  [query]               Query params to add to the Webhook request like `{ foo: 'foo', bar: 'bar' }`
+     * @property {Object}  [json]                JSON data to send with the Webhook request - sets `Content-Type` to `application/json`
+     * @property {Object}  [form]                Form data to send with the Webhook request - sets `Content-Type` to `application/x-www-form-urlencoded`
+     * @property {String}  [body]                Custom body to send with the Webhook request
+     * @property {Object}  [responseTemplate]    Template to use to customize the Webhook response body
+     * @property {Object}  [responseEvent]       The Webhook response event name that your devices can subscribe to
+     * @property {Object}  [errorResponseEvent]  The Webhook error response event name that your devices can subscribe to
+     */
+
+    /**
+     * Create a webhook
+     * @param {Object}  options                       Options for this API call
+     * @param {String}  options.event                 The name of the Particle event that should trigger the Webhook
+     * @param {String}  options.url                   The web address that will be targeted when the Webhook is triggered
+     * @param {String}  [options.device]              Trigger Webhook only for this device ID or Name
+     * @param {Boolean} [options.rejectUnauthorized]  Set to `false` to skip SSL certificate validation of the target URL
+     * @param {Boolean} [options.noDefaults]          Don't include default event data in the webhook request
+     * @param {Hook}    [options.hook]                Webhook configuration settings
+     * @param {String}  [options.product]             Webhook for this product ID or slug
+     * @param {string}  [options.auth]                The access token. Can be ignored if provided in constructor
+     * @param {Object}  [options.headers]             Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
+     * @param {Object}  [options.context]             Request context
+     * @returns {Promise} A promise
+     */
+    createWebhook({ event, url, device, rejectUnauthorized, noDefaults, hook, product, auth, headers, context }){
+        const uri = product ? `/v1/products/${product}/webhooks` : '/v1/webhooks';
+        const data = { event, url, deviceId: device, rejectUnauthorized, noDefaults };
+
+        if (hook){
+            data.requestType = hook.method;
+            data.auth = hook.auth;
+            data.headers = hook.headers;
+            data.query = hook.query;
+            data.json = hook.json;
+            data.form = hook.form;
+            data.body = hook.body;
+            data.responseTemplate = hook.responseTemplate;
+            data.responseTopic = hook.responseEvent;
+            data.errorResponseTopic = hook.errorResponseEvent;
+        }
+
+        if (!data.requestType){
+            data.requestType = 'POST';
+        }
+
+        return this.post({ uri, auth, headers, data, context });
+    }
+
+    /**
+     * Delete a webhook
+     * @param {Object} options            Options for this API call
+     * @param {String} options.hookId     Webhook ID
+     * @param {String} [options.product]  Webhook for this product ID or slug
+     * @param {string} [options.auth] The access token. Can be ignored if provided in constructor
+     * @param {Object} [options.headers]  Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
+     * @param {Object} [options.context]  Request context
+     * @returns {Promise} A promise
+     */
+    deleteWebhook({ hookId, product, auth, headers, context }){
+        const uri = product ? `/v1/products/${product}/webhooks/${hookId}` : `/v1/webhooks/${hookId}`;
+        return this.delete({ uri, auth, headers, context });
+    }
+
+    /**
+     * List all webhooks owned by the account or product
+     * @param {Object} options            Options for this API call
+     * @param {String} [options.product]  Webhooks for this product ID or slug
+     * @param {string} [options.auth] The access token. Can be ignored if provided in constructor
+     * @param {Object} [options.headers]  Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
+     * @param {Object} [options.context]  Request context
+     * @returns {Promise} A promise
+     */
+    listWebhooks({ product, auth, headers, context }){
+        const uri = product ? `/v1/products/${product}/webhooks` : '/v1/webhooks';
+        return this.get({ uri, auth, headers, context });
+    }
+
+    /**
+     * Create an integration to send events to an external service
+     *
+     * See the API docs for details https://docs.particle.io/reference/api/#integrations-webhooks-
+     *
+     * @param {Object} options             Options for this API call
+     * @param {String} options.event       Event that triggers the integration
+     * @param {Object} options.settings    Settings specific to that integration type
+     * @param {String} [options.deviceId]  Trigger integration only for this device ID or Name
+     * @param {String} [options.product]   Integration for this product ID or slug
+     * @param {string} [options.auth]      The access token. Can be ignored if provided in constructor
+     * @param {Object} [options.headers]   Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
+     * @param {Object} [options.context]   Request context
+     * @returns {Promise} A promise
+     */
+    createIntegration({ event, settings, deviceId, product, auth, headers, context }){
+        const uri = product ? `/v1/products/${product}/integrations` : '/v1/integrations';
+        const data = Object.assign({ event, deviceid: deviceId }, settings);
+        return this.post({ uri, data, auth, headers, context });
+    }
+
+    /**
+     * Edit an integration to send events to an external service
+     *
+     * See the API docs for details https://docs.particle.io/reference/api/#integrations-webhooks-
+     *
+     * @param {Object} options                Options for this API call
+     * @param {String} options.integrationId  The integration to edit
+     * @param {String} [options.event]        Change the event that triggers the integration
+     * @param {Object} [options.settings]     Change the settings specific to that integration type
+     * @param {String} [options.deviceId]     Trigger integration only for this device ID or Name
+     * @param {String} [options.product]      Integration for this product ID or slug
+     * @param {string} [options.auth]         The access token. Can be ignored if provided in constructor
+     * @param {Object} [options.headers]      Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
+     * @param {Object} [options.context]      Request context
+     * @returns {Promise} A promise
+     */
+    editIntegration({ integrationId, event, settings, deviceId, product, auth, headers, context }){
+        const uri = product ? `/v1/products/${product}/integrations/${integrationId}` : `/v1/integrations/${integrationId}`;
+        const data = Object.assign({ event, deviceid: deviceId }, settings);
+        return this.put({ uri, auth, headers, data, context });
+    }
+
+    /**
+     * Delete an integration to send events to an external service
+     *
+     * @param {Object} options                Options for this API call
+     * @param {String} options.integrationId  The integration to remove
+     * @param {String} [options.product]      Integration for this product ID or slug
+     * @param {string} [options.auth]         The access token. Can be ignored if provided in constructor
+     * @param {Object} [options.headers]      Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
+     * @param {Object} [options.context]      Request context
+     * @returns {Promise} A promise
+     */
+    deleteIntegration({ integrationId, product, auth, headers, context }){
+        const uri = product ? `/v1/products/${product}/integrations/${integrationId}` : `/v1/integrations/${integrationId}`;
+        return this.delete({ uri, auth, headers, context });
+    }
+
+    /**
+     * List all integrations owned by the account or product
+     * @param {Object} options            Options for this API call
+     * @param {String} [options.product]  Integrations for this product ID or slug
+     * @param {string} [options.auth]     The access token. Can be ignored if provided in constructor
+     * @param {Object} [options.headers]  Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
+     * @param {Object} [options.context]  Request context
+     * @returns {Promise} A promise
+     */
+    listIntegrations({ product, auth, headers, context }){
+        const uri = product ? `/v1/products/${product}/integrations` : '/v1/integrations';
+        return this.get({ uri, auth, headers, context });
+    }
+
+    /**
+     * Get details about the current user
+     * @param {Object} options            Options for this API call
+     * @param {string} [options.auth]     The access token. Can be ignored if provided in constructor
+     * @param {Object} [options.headers]  Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
+     * @param {Object} [options.context]  Request context
+     * @returns {Promise} A promise
+     */
+    getUserInfo({ auth, headers, context }){
+        return this.get({ uri: '/v1/user', auth, headers, context });
+    }
+
+    /**
+     * Set details on the current user
+     * @param {Object} options              Options for this API call
+     * @param {string} [options.auth]       The access token. Can be ignored if provided in constructor
+     * @param {String} options.accountInfo  Set user's extended info fields (name, business account, company name, etc)
+     * @param {Object} [options.headers]    Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
+     * @param {Object} [options.context]    Request context
+     * @returns {Promise} A promise
+     */
+    setUserInfo({ accountInfo, auth, headers, context }){
+        const data = { account_info: accountInfo };
+        return this.put({ uri: '/v1/user', auth, headers, data, context });
+    }
+
+    /**
+     * Change username (i.e, email)
+     * @param {Object}  options                   Options for this API call
+     * @param {string}  [options.auth]            The access token. Can be ignored if provided in constructor
+     * @param {String}  options.currentPassword   Current password
+     * @param {String}  options.username          New email
+     * @param {Boolean} options.invalidateTokens  Should all tokens be invalidated
+     * @param {Object}  [options.headers]         Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
+     * @param {Object}  [options.context]         Request context
+     * @returns {Promise} A promise
+     */
+    changeUsername({ currentPassword, username, invalidateTokens = false, auth, headers, context }){
+        const data = { username, current_password: currentPassword };
+
+        if (invalidateTokens) {
+            data.invalidate_tokens = true;
+        }
+
+        return this.put({ uri: '/v1/user', auth, headers, data, context });
+    }
+
+    /**
+     * Change user's password
+     * @param {Object}  options                   Options for this API call
+     * @param {string}  [options.auth]            The access token. Can be ignored if provided in constructor
+     * @param {String}  options.currentPassword   Current password
+     * @param {String}  options.password          New password
+     * @param {Boolean} options.invalidateTokens  Should all tokens be invalidated
+     * @param {Object}  [options.headers]         Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
+     * @param {Object}  [options.context]         Request context
+     * @returns {Promise} A promise
+     */
+    changeUserPassword({ currentPassword, password, invalidateTokens = false, auth, headers, context }){
+        const data = { password, current_password: currentPassword };
+
+        if (invalidateTokens) {
+            data.invalidate_tokens = true;
+        }
+
+        return this.put({ uri: '/v1/user', auth, headers, data, context });
+    }
+
+    /**
+     * List SIM cards owned by a user or product
+     * @param {Object} options               Options for this API call
+     * @param {String} [options.iccid]       (Product only) Filter to SIM cards matching this ICCID
+     * @param {String} [options.deviceId]    (Product only) Filter to SIM cards matching this device ID
+     * @param {String} [options.deviceName]  (Product only) Filter to SIM cards matching this device name
+     * @param {Number} [options.page]        (Product only) Current page of results
+     * @param {Number} [options.perPage]     (Product only) Records per page
+     * @param {String} [options.product]     SIM cards for this product ID or slug
+     * @param {string} [options.auth]        The access token. Can be ignored if provided in constructor
+     * @param {Object} [options.headers]     Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
+     * @param {Object} [options.context]     Request context
+     * @returns {Promise} A promise
+     */
+    listSIMs({ iccid, deviceId, deviceName, page, perPage, product, auth, headers, context }){
+        const uri = product ? `/v1/products/${product}/sims` : '/v1/sims';
+        const query = product ? { iccid, deviceId, deviceName, page, per_page: perPage } : undefined;
+        return this.get({ uri, auth, headers, query, context });
+    }
+
+    /**
+     * Get data usage for one SIM card for the current billing period
+     * @param {Object} options            Options for this API call
+     * @param {String} options.iccid      ICCID of the SIM card
+     * @param {String} [options.product]  SIM card for this product ID or slug
+     * @param {string} [options.auth]     The access token. Can be ignored if provided in constructor
+     * @param {Object} [options.headers]  Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
+     * @param {Object} [options.context]  Request context
+     * @returns {Promise} A promise
+     */
+    getSIMDataUsage({ iccid, product, auth, headers, context }){
+        const uri = product ?
+            `/v1/products/${product}/sims/${iccid}/data_usage` :
+            `/v1/sims/${iccid}/data_usage`;
+
+        return this.get({ uri, auth, headers, context });
+    }
+
+    /**
+     * Get data usage for all SIM cards in a product the current billing period
+     * @param {Object} options            Options for this API call
+     * @param {String} options.product    SIM cards for this product ID or slug
+     * @param {string} [options.auth]     The access token. Can be ignored if provided in constructor
+     * @param {Object} [options.headers]  Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
+     * @param {Object} [options.context]  Request context
+     * @returns {Promise} A promise
+     */
+    getFleetDataUsage({ product, auth, headers, context }){
+        return this.get({
+            uri: `/v1/products/${product}/sims/data_usage`,
+            auth,
+            headers,
+            context
+        });
+    }
+
+    /**
+     * Check SIM status
+     * @param {Object} options            Options for this API call
+     * @param {String} options.iccid      ICCID of the SIM card
+     * @param {string} [options.auth]     The access token. Can be ignored if provided in constructor
+     * @param {Object} [options.headers]  Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
+     * @param {Object} [options.context]  Request context
+     * @returns {Promise} A promise
+     */
+    checkSIM({ iccid, auth, headers, context }){
+        return this.head({ uri: `/v1/sims/${iccid}`, auth, headers, context });
+    }
+
+    /**
+     * Activate and add SIM cards to an account or product
+     * @param {Object}        options              Options for this API call
+     * @param {String}        options.iccid        ICCID of the SIM card
+     * @param {Array<String>} options.iccids       (Product only) ICCID of multiple SIM cards to import
+     * @param {String}        options.country      The ISO country code for the SIM cards
+     * @param {String}        [options.product]    SIM cards for this product ID or slug
+     * @param {string}        [options.auth]       The access token. Can be ignored if provided in constructor
+     * @param {Object}        [options.headers]    Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
+     * @param {Object}        [options.context]    Request context
+     * @param {any}           [options.promoCode]
+     * @returns {Promise} A promise
+     */
+    activateSIM({ iccid, iccids, country, promoCode, product, auth, headers, context }){
+        // promoCode is deprecated
+        iccids = iccids || [iccid];
+        const uri = product ? `/v1/products/${product}/sims` : `/v1/sims/${iccid}`;
+        const data = product ?
+            { sims: iccids, country } :
+            { country, promoCode, action: 'activate' };
+        const method = product ? 'post' : 'put';
+
+        return this.request({ uri, method, headers, data, auth, context });
+    }
+
+    /**
+     * Deactivate a SIM card so it doesn't incur data usage in future months.
+     * @param {Object} options            Options for this API call
+     * @param {String} options.iccid      ICCID of the SIM card
+     * @param {String} [options.product]  SIM cards for this product ID or slug
+     * @param {string} [options.auth]     The access token. Can be ignored if provided in constructor
+     * @param {Object} [options.headers]  Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
+     * @param {Object} [options.context]  Request context
+     * @returns {Promise} A promise
+     */
+    deactivateSIM({ iccid, product, auth, headers, context }){
+        const uri = product ? `/v1/products/${product}/sims/${iccid}` : `/v1/sims/${iccid}`;
+        const data = { action: 'deactivate' };
+        return this.put({ uri, auth, headers, data, context });
+    }
+
+    /**
+     * Reactivate a SIM card the was deactivated or unpause a SIM card that was automatically paused
+     * @param {Object} options            Options for this API call
+     * @param {String} options.iccid      ICCID of the SIM card
+     * @param {Number} [options.mbLimit]  New monthly data limit. Necessary if unpausing a SIM card
+     * @param {String} [options.product]  SIM cards for this product ID or slug
+     * @param {string} [options.auth]     The access token. Can be ignored if provided in constructor
+     * @param {Object} [options.headers]  Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
+     * @param {Object} [options.context]  Request context
+     * @returns {Promise} A promise
+     */
+    reactivateSIM({ iccid, mbLimit, product, auth, headers, context }){
+        const uri = product ? `/v1/products/${product}/sims/${iccid}` : `/v1/sims/${iccid}`;
+        const data = { mb_limit: mbLimit, action: 'reactivate' };
+        return this.put({ uri, auth, headers, data, context });
+    }
+
+    /**
+     * Update SIM card data limit
+     * @param {Object} options            Options for this API call
+     * @param {String} options.iccid      ICCID of the SIM card
+     * @param {Array}  options.mbLimit    Data limit in megabyte for the SIM card
+     * @param {String} [options.product]  SIM cards for this product ID or slug
+     * @param {string} [options.auth]     The access token. Can be ignored if provided in constructor
+     * @param {Object} [options.headers]  Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
+     * @param {Object} [options.context]  Request context
+     * @returns {Promise} A promise
+     */
+    updateSIM({ iccid, mbLimit, product, auth, headers, context }){
+        const uri = product ? `/v1/products/${product}/sims/${iccid}` : `/v1/sims/${iccid}`;
+        const data = { mb_limit: mbLimit };
+        return this.put({ uri, auth, headers, data, context });
+    }
+
+    /**
+     * Remove a SIM card from an account so it can be activated by a different account
+     * @param {Object} options            Options for this API call
+     * @param {String} options.iccid      ICCID of the SIM card
+     * @param {String} [options.product]  SIM cards for this product ID or slug
+     * @param {string} [options.auth]     The access token. Can be ignored if provided in constructor
+     * @param {Object} [options.headers]  Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
+     * @param {Object} [options.context]  Request context
+     * @returns {Promise} A promise
+     */
+    removeSIM({ iccid, product, auth, headers, context }){
+        const uri = product ? `/v1/products/${product}/sims/${iccid}` : `/v1/sims/${iccid}`;
+        return this.delete({ uri, auth, headers, context });
+    }
+
+    /**
+     * List valid build targets to be used for compiling
+     * @param {Object}  options                       Options for this API call
+     * @param {Boolean} [options.onlyFeatured=false]  Only list featured build targets
+     * @param {string}  [options.auth]                The access token. Can be ignored if provided in constructor
+     * @param {Object}  [options.headers]             Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
+     * @param {Object}  [options.context]             Request context
+     * @returns {Promise} A promise
+     */
+    listBuildTargets({ onlyFeatured, auth, headers, context }){
+        const query = onlyFeatured ? { featured: !!onlyFeatured } : undefined;
+        return this.get({ uri: '/v1/build_targets', auth, headers, query, context });
+    }
+
+    /**
+     * List firmware libraries
+     * @param {Object}         options                Options for this API call
+     * @param {Number}         options.page           Page index (default, first page)
+     * @param {Number}         options.limit          Number of items per page
+     * @param {String}         options.filter         Search term for the libraries
+     * @param {String}         options.sort           Ordering key for the library list
+     * @param {Array<String>}  options.architectures  List of architectures to filter
+     * @param {String}         options.category       Category to filter
+     * @param {String}         options.scope          The library scope to list. Default is 'all'. Other values are
+     *                                                - 'all' - list public libraries and my private libraries
+     *                                                - 'public' - list only public libraries
+     *                                                - 'private' - list only my private libraries
+     *                                                - 'mine' - list my libraries (public and private)
+     *                                                - 'official' - list only official libraries
+     *                                                - 'verified' - list only verified libraries
+     *                                                - 'featured' - list only featured libraries
+     * @param {String}         options.excludeScopes  list of scopes to exclude
+     * @param {String}         options.category       Category to filter
+     * @param {string}         [options.auth]         The access token. Can be ignored if provided in constructor
+     * @param {Object}         [options.headers]      Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
+     * @param {Object}         [options.context]      Request context
+     * @returns {Promise} A promise
+     */
+    listLibraries({ page, limit, filter, sort, architectures, category, scope, excludeScopes, auth, headers, context }){
+        return this.get({
+            uri: '/v1/libraries',
+            auth,
+            headers,
+            query: {
+                page,
+                filter,
+                limit,
+                sort,
+                architectures: this._asList(architectures),
+                category,
+                scope,
+                excludeScopes: this._asList(excludeScopes)
+            },
+            context
+        });
+    }
+
+    _asList(value){
+        return (Array.isArray(value) ? value.join(',') : value);
+    }
+
+    /**
+     * Get firmware library details
+     * @param {Object} options            Options for this API call
+     * @param {String} options.name       Name of the library to fetch
+     * @param {String} options.version    Version of the library to fetch (default: latest)
+     * @param {string} [options.auth]     The access token. Can be ignored if provided in constructor
+     * @param {Object} [options.headers]  Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
+     * @param {Object} [options.context]  Request context
+     * @returns {Promise} A promise
+     */
+    getLibrary({ name, version, auth, headers, context }){
+        return this.get({
+            uri: `/v1/libraries/${name}`,
+            auth,
+            headers,
+            query: { version },
+            context
+        });
+    }
+
+    /**
+     * Firmware library details for each version
+     * @param {Object} options            Options for this API call
+     * @param {String} options.name       Name of the library to fetch
+     * @param {Number} options.page       Page index (default, first page)
+     * @param {Number} options.limit      Number of items per page
+     * @param {string} [options.auth]     The access token. Can be ignored if provided in constructor
+     * @param {Object} [options.headers]  Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
+     * @param {Object} [options.context]  Request context
+     * @returns {Promise} A promise
+     */
+    getLibraryVersions({ name, page, limit, auth, headers, context }){
+        return this.get({
+            uri: `/v1/libraries/${name}/versions`,
+            auth,
+            headers,
+            query: { page, limit },
+            context
+        });
+    }
+
+    /**
+     * Contribute a new library version from a compressed archive
+     * @param {Object}          options            Options for this API call
+     * @param {String | Buffer} options.archive    Compressed archive file containing the library sources
+     *                                             Either a path or Buffer of the file contents in Node, or a File or Blob in the browser.
+     * @param {string}          [options.auth]     The access token. Can be ignored if provided in constructor
+     * @param {Object}          [options.headers]  Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
+     * @param {Object}          [options.context]  Request context
+     * @returns {Promise} A promise
+     */
+    contributeLibrary({ archive, auth, headers, context }){
+        const files = {
+            'archive.tar.gz': archive
+        };
+
+        return this.request({
+            uri: '/v1/libraries',
+            method: 'post',
+            auth,
+            headers,
+            files,
+            context
+        });
+    }
+
+    /**
+     * Publish the latest version of a library to the public
+     * @param {Object} options            Options for this API call
+     * @param {String} options.name       Name of the library to publish
+     * @param {string} [options.auth]     The access token. Can be ignored if provided in constructor
+     * @param {Object} [options.headers]  Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
+     * @param {Object} [options.context]  Request context
+     * @returns {Promise} A promise
+     */
+    publishLibrary({ name, auth, headers, context }){
+        return this.request({
+            uri: `/v1/libraries/${name}`,
+            method: 'patch',
+            auth,
+            headers,
+            data: { visibility: 'public' },
+            context
+        });
+    }
+
+    /**
+     * Delete one version of a library or an entire private library
+     * @param {Object} options            Options for this API call
+     * @param {String} options.name       Name of the library to remove
+     * @param {String} options.force      Key to force deleting a public library
+     * @param {string} [options.auth]     The access token. Can be ignored if provided in constructor
+     * @param {Object} [options.headers]  Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
+     * @param {Object} [options.context]  Request context
+     * @returns {Promise} A promise
+     */
+    deleteLibrary({ name, force, auth, headers, context }){
+        return this.delete({
+            uri: `/v1/libraries/${name}`,
+            auth,
+            headers,
+            data: { force },
+            context
+        });
+    }
+
+    /**
+     * Download an external file that may not be on the API
+     * @param {Object} options            Options for this API call
+     * @param {String} options.uri        URL of the file.
+     * @param {Object} [options.headers]  Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
+     * @param {Object} [options.context]  Request context
+     * @returns {Promise} Resolves to a buffer with the file data
+     */
+    downloadFile({ uri, headers, context }){
+        return this.request({ uri, method: 'get', headers, context, isBuffer: true });
+    }
+
+    /**
+     * List OAuth client created by the account
+     * @param {Object} options            Options for this API call
+     * @param {String} [options.product]  List clients for this product ID or slug
+     * @param {string} [options.auth]     The access token. Can be ignored if provided in constructor
+     * @param {Object} [options.headers]  Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
+     * @param {Object} [options.context]  Request context
+     * @returns {Promise} A promise
+     */
+    listOAuthClients({ product, auth, headers, context }){
+        const uri = product ? `/v1/products/${product}/clients` : '/v1/clients';
+        return this.get({ uri, auth, headers, context });
+    }
+
+    /**
+     * Create an OAuth client
+     * @param {Object} options                 Options for this API call
+     * @param {String} options.name            Name of the OAuth client
+     * @param {String} options.type            web, installed or web
+     * @param {String} [options.redirect_uri]  URL to redirect after OAuth flow. Only for type web.
+     * @param {Object} [options.scope]         Limits what the access tokens created by this client can do.
+     * @param {String} [options.product]       Create client for this product ID or slug
+     * @param {string} [options.auth]          The access token. Can be ignored if provided in constructor
+     * @param {Object} [options.headers]       Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
+     * @param {Object} [options.context]       Request context
+     * @returns {Promise} A promise
+     */
+    createOAuthClient({ name, type, redirect_uri, scope, product, auth, headers, context }){
+        const uri = product ? `/v1/products/${product}/clients` : '/v1/clients';
+        const data = { name, type, redirect_uri, scope };
+        return this.post({ uri, auth, headers, data, context });
+    }
+
+    /**
+     * Update an OAuth client
+     * @param {Object} options            Options for this API call
+     * @param {String} options.clientId   The OAuth client to update
+     * @param {String} [options.name]     New Name of the OAuth client
+     * @param {Object} [options.scope]    New scope of the OAuth client
+     * @param {String} [options.product]  Update client linked to this product ID or slug
+     * @param {string} [options.auth]     The access token. Can be ignored if provided in constructor
+     * @param {Object} [options.headers]  Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
+     * @param {Object} [options.context]  Request context
+     * @returns {Promise} A promise
+     */
+    updateOAuthClient({ clientId, name, scope, product, auth, headers, context }){
+        const uri = product ? `/v1/products/${product}/clients/${clientId}` : `/v1/clients/${clientId}`;
+        const data = { name, scope };
+        return this.put({ uri, data, auth, headers, context });
+    }
+
+    /**
+     * Delete an OAuth client
+     * @param {Object} options            Options for this API call
+     * @param {String} options.clientId   The OAuth client to update
+     * @param {String} [options.product]  OAuth client linked to this product ID or slug
+     * @param {string} [options.auth]     The access token. Can be ignored if provided in constructor
+     * @param {Object} [options.headers]  Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
+     * @param {Object} [options.context]  Request context
+     * @returns {Promise} A promise
+     */
+    deleteOAuthClient({ clientId, product, auth, headers, context }){
+        const uri = product ? `/v1/products/${product}/clients/${clientId}` : `/v1/clients/${clientId}`;
+        return this.delete({ uri, auth, headers, context });
+    }
+
+    /**
+     * List products the account has access to
+     * @param {Object} options            Options for this API call
+     * @param {string} [options.auth]     The access token. Can be ignored if provided in constructor
+     * @param {Object} [options.headers]  Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
+     * @param {Object} [options.context]  Request context
+     * @returns {Promise} A promise
+     */
+    listProducts({ auth, headers, context }){
+        return this.get({ uri: '/v1/products', auth, headers, context });
+    }
+
+    /**
+     * Get detailed information about a product
+     * @param {Object} options            Options for this API call
+     * @param {String} options.product    Product ID or slug
+     * @param {string} [options.auth]     The access token. Can be ignored if provided in constructor
+     * @param {Object} [options.headers]  Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
+     * @param {Object} [options.context]  Request context
+     * @returns {Promise} A promise
+     */
+    getProduct({ product, auth, headers, context }){
+        return this.get({ uri: `/v1/products/${product}`, auth, headers, context });
+    }
+
+    /**
+     * List product firmware versions
+     * @param {Object} options            Options for this API call
+     * @param {String} options.product    Firmware for this product ID or slug
+     * @param {string} [options.auth]     The access token. Can be ignored if provided in constructor
+     * @param {Object} [options.headers]  Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
+     * @param {Object} [options.context]  Request context
+     * @returns {Promise} A promise
+     */
+    listProductFirmware({ product, auth, headers, context }){
+        return this.get({ uri: `/v1/products/${product}/firmware`, auth, headers, context });
+    }
+
+    /**
+     * List product firmware versions
+     * @param {Object} options                Options for this API call
+     * @param {Object} options.file           Path or Buffer of the new firmware file
+     *                                        Either a path or Buffer of the file contents in Node, or a File or Blob in the browser.
+     * @param {Number} options.version        Version number of new firmware
+     * @param {String} options.title          Short identifier for the new firmware
+     * @param {String} [options.description]  Longer description for the new firmware
+     * @param {String} options.product        Firmware for this product ID or slug
+     * @param {string} [options.auth]         The access token. Can be ignored if provided in constructor
+     * @param {Object} [options.headers]      Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
+     * @param {Object} [options.context]      Request context
+     * @returns {Promise} A promise
+     */
+    uploadProductFirmware({ file, version, title, description, product, auth, headers, context }){
+        return this.request({
+            uri: `/v1/products/${product}/firmware`,
+            method: 'post',
+            auth,
+            headers,
+            form: {
+                version,
+                title,
+                description
+            },
+            files: {
+                'firmware.bin': file
+            },
+            context
+        });
+    }
+
+    /**
+     * Get information about a product firmware version
+     * @param {Object} options            Options for this API call
+     * @param {Number} options.version    Version number of firmware
+     * @param {String} options.product    Firmware for this product ID or slug
+     * @param {string} [options.auth]     The access token. Can be ignored if provided in constructor
+     * @param {Object} [options.headers]  Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
+     * @param {Object} [options.context]  Request context
+     * @returns {Promise} A promise
+     */
+    getProductFirmware({ version, product, auth, headers, context }){
+        return this.get({
+            uri: `/v1/products/${product}/firmware/${version}`,
+            auth,
+            headers,
+            context
+        });
+    }
+
+    /**
+     * Update information for a product firmware version
+     * @param {Object} options                Options for this API call
+     * @param {Number} options.version        Version number of new firmware
+     * @param {String} [options.title]        New title
+     * @param {String} [options.description]  New description
+     * @param {String} options.product        Firmware for this product ID or slug
+     * @param {string} [options.auth]         The access token. Can be ignored if provided in constructor
+     * @param {Object} [options.headers]      Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
+     * @param {Object} [options.context]      Request context
+     * @returns {Promise} A promise
+     */
+    updateProductFirmware({ version, title, description, product, auth, headers, context }){
+        const uri = `/v1/products/${product}/firmware/${version}`;
+        return this.put({ uri, auth, headers, data: { title, description }, context });
+    }
+
+    /**
+     * Download a product firmware binary
+     * @param {Object} options            Options for this API call
+     * @param {Number} options.version    Version number of new firmware
+     * @param {String} options.product    Firmware for this product ID or slug
+     * @param {string} [options.auth]     The access token. Can be ignored if provided in constructor
+     * @param {Object} [options.headers]  Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
+     * @param {Object} [options.context]  Request context
+     * @returns {Promise<RequestResponse, RequestError>} A promise that resolves with either the requested data or an error object
+     */
+    downloadProductFirmware({ version, product, auth, headers, context }){
+        return this.request({
+            uri: `/v1/products/${product}/firmware/${version}/binary`,
+            method: 'get',
+            auth,
+            headers,
+            context,
+            isBuffer: true
+        });
+    }
+
+    /**
+     * Release a product firmware version as the default version
+     * @param {Object} options            Options for this API call
+     * @param {Number} options.version    Version number of new firmware
+     * @param {String} options.product    Firmware for this product ID or slug
+     * @param {string} [options.auth]     The access token. Can be ignored if provided in constructor
+     * @param {Object} [options.headers]  Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
+     * @param {Object} [options.context]  Request context
+     * @returns {Promise} A promise
+     */
+    releaseProductFirmware({ version, product, auth, headers, context }){
+        const uri = `/v1/products/${product}/firmware/release`;
+        return this.put({ uri, auth, headers, data: { version }, context });
+    }
+
+    /**
+     * List product team members
+     * @param {Object} options            Options for this API call
+     * @param {String} options.product    Team for this product ID or slug
+     * @param {string} [options.auth]     The access token. Can be ignored if provided in constructor
+     * @param {Object} [options.headers]  Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
+     * @param {Object} [options.context]  Request context
+     * @returns {Promise} A promise
+     */
+    listTeamMembers({ product, auth, headers, context }){
+        return this.get({
+            uri: `/v1/products/${product}/team`,
+            auth,
+            headers,
+            context
+        });
+    }
+
+    /**
+     * Invite Particle user to a product team
+     * @param {Object} options            Options for this API call
+     * @param {String} options.username   Username for the Particle account
+     * @param {String} options.product    Team for this product ID or slug
+     * @param {string} [options.auth]     The access token. Can be ignored if provided in constructor
+     * @param {Object} [options.headers]  Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
+     * @param {Object} [options.context]  Request context
+     * @returns {Promise} A promise
+     */
+    inviteTeamMember({ username, product, auth, headers, context }){
+        return this.post({
+            uri: `/v1/products/${product}/team`,
+            auth,
+            headers,
+            data: { username },
+            context
+        });
+    }
+
+    /**
+     * Remove Particle user to a product team
+     * @param {Object} options            Options for this API call
+     * @param {String} options.username   Username for the Particle account
+     * @param {String} options.product    Team for this product ID or slug
+     * @param {string} [options.auth]     The access token. Can be ignored if provided in constructor
+     * @param {Object} [options.headers]  Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
+     * @param {Object} [options.context]  Request context
+     * @returns {Promise} A promise
+     */
+    removeTeamMember({ username, product, auth, headers, context }){
+        return this.delete({
+            uri: `/v1/products/${product}/team/${username}`,
+            auth,
+            headers,
+            context
+        });
+    }
+
+    /**
+     * Fetch details about a serial number
+     * @param {Object} options               Options for this API call
+     * @param {String} options.serialNumber  The serial number printed on the barcode of the device packaging
+     * @param {string} [options.auth]        The access token. Can be ignored if provided in constructor
+     * @param {Object} [options.headers]     Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
+     * @param {Object} [options.context]     Request context
+     * @returns {Promise} A promise
+     */
+    lookupSerialNumber({ serialNumber, auth, headers, context }){
+        return this.get({
+            uri: `/v1/serial_numbers/${serialNumber}`,
+            auth,
+            headers,
+            context
+        });
+    }
+
+    /**
+     * Create a mesh network
+     * @param {Object} options            Options for this API call
+     * @param {String} options.name       Network name
+     * @param {String} options.deviceId   Gateway device ID
+     * @param {String} [options.iccid]    ICCID of the active SIM card (only for cellular gateway devices)
+     * @param {string} [options.auth]     The access token. Can be ignored if provided in constructor
+     * @param {Object} [options.headers]  Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
+     * @param {Object} [options.context]  Request context
+     * @returns {Promise<Object>} A promise
+     */
+    createMeshNetwork({ name, deviceId, iccid, auth, headers, context }){
+        return this.post({
+            uri: '/v1/networks',
+            auth,
+            headers,
+            data: { name, device_id: deviceId, iccid },
+            context
+        });
+    }
+
+    /**
+     * Remove a mesh network.
+     * @param {Object} options            Options for this API call
+     * @param {String} options.networkId  Network ID or name
+     * @param {string} [options.auth]     The access token. Can be ignored if provided in constructor
+     * @param {Object} [options.headers]  Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
+     * @param {Object} [options.context]  Request context
+     * @returns {Promise<Object>} A promise
+     */
+    removeMeshNetwork({ networkId, auth, headers, context }){
+        return this.delete({ uri: `/v1/networks/${networkId}`, auth, headers, context });
+    }
+
+    /**
+     * List all mesh networks
+     * @param {Object} options            Options for this API call
+     * @param {string} [options.auth]     The access token. Can be ignored if provided in constructor
+     * @param {Number} [options.page]     Current page of results
+     * @param {Number} [options.perPage]  Records per page
+     * @param {Object} [options.headers]  Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
+     * @param {Object} [options.context]  Request context
+     * @returns {Promise<Object>} A promise
+     */
+    listMeshNetworks({ page, perPage, auth, headers, context }){
+        const query = page ? { page, per_page: perPage } : undefined;
+        return this.get({ uri: '/v1/networks', auth, headers, query, context });
+    }
+
+    /**
+     * Get information about a mesh network.
+     * @param {Object} options            Options for this API call
+     * @param {String} options.networkId  Network ID or name
+     * @param {string} [options.auth]     The access token. Can be ignored if provided in constructor
+     * @param {Object} [options.headers]  Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
+     * @param {Object} [options.context]  Request context
+     * @returns {Promise<Object>} A promise
+     */
+    getMeshNetwork({ networkId, auth, headers, context }){
+        return this.get({ uri: `/v1/networks/${networkId}`, auth, headers, context });
+    }
+
+    /**
+     * Modify a mesh network.
+     * @param {Object} options            Options for this API call
+     * @param {String} options.networkId  Network ID or name
+     * @param {String} options.action     'add-device', 'remove-device', 'gateway-enable' or 'gateway-disable'
+     * @param {String} options.deviceId   Device ID
+     * @param {string} [options.auth]     The access token. Can be ignored if provided in constructor
+     * @param {Object} [options.headers]  Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
+     * @param {Object} [options.context]  Request context
+     * @returns {Promise<Object>} A promise
+     */
+    updateMeshNetwork({ networkId, action, deviceId, auth, headers, context }){
+        return this.put({
+            uri: `/v1/networks/${networkId}`,
+            auth,
+            headers,
+            data: { action, device_id: deviceId },
+            context
+        });
+    }
+
+    /**
+     * Add a device to a mesh network.
+     * @param {Object} options            Options for this API call
+     * @param {String} options.networkId  Network ID or name
+     * @param {String} options.deviceId   Device ID
+     * @param {string} [options.auth]     The access token. Can be ignored if provided in constructor
+     * @param {Object} [options.headers]  Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
+     * @param {Object} [options.context]  Request context
+     * @returns {Promise<Object>} A promise
+     */
+    addMeshNetworkDevice({ networkId, deviceId, auth, headers, context }){
+        return this.updateMeshNetwork({
+            action: 'add-device',
+            networkId,
+            deviceId,
+            auth,
+            headers,
+            context
+        });
+    }
+
+    /**
+     * Remove a device from a mesh network.
+     * @param {Object} options              Options for this API call
+     * @param {String} [options.networkId]  Network ID or name
+     * @param {String} options.deviceId     Device ID
+     * @param {string} [options.auth]       The access token. Can be ignored if provided in constructor
+     * @param {Object} [options.headers]    Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
+     * @param {Object} [options.context]    Request context
+     * @returns {Promise<Object>} A promise
+     */
+    removeMeshNetworkDevice({ networkId, deviceId, auth, headers, context }){
+        if (!networkId){
+            return this.delete({
+                uri: `/v1/devices/${deviceId}/network`,
+                auth,
+                headers, context
+            });
+        }
+        return this.updateMeshNetwork({
+            action: 'remove-device',
+            networkId,
+            deviceId,
+            auth,
+            headers,
+            context
+        });
+    }
+
+    /**
+     * List all devices of a mesh network.
+     * @param {Object} options            Options for this API call
+     * @param {String} options.networkId  Network ID or name
+     * @param {string} [options.auth]     The access token. Can be ignored if provided in constructor
+     * @param {Number} [options.role]     Device role: 'gateway' or 'node'
+     * @param {Number} [options.page]     Current page of results
+     * @param {Number} [options.perPage]  Records per page
+     * @param {Object} [options.headers]  Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
+     * @param {Object} [options.context]  Request context
+     * @returns {Promise<Object>} A promise
+     */
+    listMeshNetworkDevices({ networkId, role, page, perPage, auth, headers, context }){
+        const query = (role || page) ? { role, page, per_page: perPage } : undefined;
+        return this.get({
+            uri: `/v1/networks/${networkId}/devices`,
+            auth,
+            headers,
+            query,
+            context
+        });
+    }
+
+    /**
+     * Get product configuration
+     * @param {Object} options            Options for this API call
+     * @param {String} options.product    Config for this product ID or slug
+     * @param {string} [options.auth]     The access token. Can be ignored if provided in constructor
+     * @param {Object} [options.headers]  Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
+     * @param {Object} [options.context]  Request context
+     * @returns {Promise} A promise
+     */
+    getProductConfiguration({ auth, product, headers, context }){
+        return this.get({
+            uri: `/v1/products/${product}/config`,
+            auth,
+            headers,
+            context
+        });
+    }
+
+    /**
+     * Get product configuration schema
+     * @param {Object} options            Options for this API call
+     * @param {String} options.product    Config for this product ID or slug
+     * @param {string} [options.auth]     The access token. Can be ignored if provided in constructor
+     * @param {Object} [options.headers]  Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
+     * @param {Object} [options.context]  Request context
+     * @returns {Promise} A promise
+     */
+    getProductConfigurationSchema({ auth, product, headers = {}, context }){
+        headers.accept = 'application/schema+json';
+        return this.get({
+            uri: `/v1/products/${product}/config`,
+            auth,
+            headers,
+            context
+        });
+    }
+
+    /**
+     * Get product device's configuration
+     * @param {Object} options            Options for this API call
+     * @param {String} options.product    Config for this product ID or slug
+     * @param {string} [options.auth]     The access token. Can be ignored if provided in constructor
+     * @param {String} options.deviceId   Device ID to access
+     * @param {Object} [options.headers]  Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
+     * @param {Object} [options.context]  Request context
+     * @returns {Promise} A promise
+     */
+    getProductDeviceConfiguration({ auth, product, deviceId, headers, context }){
+        return this.get({
+            uri: `/v1/products/${product}/config/${deviceId}`,
+            auth,
+            headers,
+            context
+        });
+    }
+
+    /**
+     * Get product device's configuration schema
+     * @param {Object} options            Options for this API call
+     * @param {String} options.product    Config for this product ID or slug
+     * @param {string} [options.auth]     The access token. Can be ignored if provided in constructor
+     * @param {String} options.deviceId   Device ID to access
+     * @param {Object} [options.headers]  Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
+     * @param {Object} [options.context]  Request context
+     * @returns {Promise} A promise
+     */
+    getProductDeviceConfigurationSchema({ auth, product, deviceId, headers, context }){
+        headers.accept = 'application/schema+json';
+        return this.get({
+            uri: `/v1/products/${product}/config/${deviceId}`,
+            auth,
+            headers,
+            context
+        });
+    }
+
+    /**
+     * Set product configuration
+     * @param {Object} options            Options for this API call
+     * @param {String} options.product    Config for this product ID or slug
+     * @param {string} [options.auth]     The access token. Can be ignored if provided in constructor
+     * @param {Object} options.config     Product configuration to update
+     * @param {Object} [options.headers]  Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
+     * @param {Object} [options.context]  Request context
+     * @returns {Promise} A promise
+     */
+    setProductConfiguration({ auth, product, config, headers, context }){
+        return this.put({
+            uri: `/v1/products/${product}/config`,
+            auth,
+            data: config,
+            headers,
+            context
+        });
+    }
+
+    /**
+     * Set product configuration for a specific device within the product
+     * @param {Object} options            Options for this API call
+     * @param {String} options.product    Config for this product ID or slug
+     * @param {string} [options.auth]     The access token. Can be ignored if provided in constructor
+     * @param {Object} options.config     Product configuration to update
+     * @param {String} options.deviceId   Device ID to access
+     * @param {Object} [options.headers]  Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
+     * @param {Object} [options.context]  Request context
+     * @returns {Promise} A promise
+     */
+    setProductDeviceConfiguration({ auth, product, deviceId, config, headers, context }){
+        return this.put({
+            uri: `/v1/products/${product}/config/${deviceId}`,
+            data: config,
+            auth,
+            headers,
+            context
+        });
+    }
+
+    /**
+     * Query location for devices within a product
+     * @param {Object} options             Options for this API call
+     * @param {String} options.product     Locations for this product ID or slug
+     * @param {string} [options.auth]      The access token. Can be ignored if provided in constructor
+     * @param {String} options.dateRange   Start and end date in ISO8601 format, separated by comma, to query
+     * @param {String} options.rectBl      Bottom left of the rectangular bounding box to query. Latitude and longitude separated by comma
+     * @param {String} options.rectTr      Top right of the rectangular bounding box to query. Latitude and longitude separated by comma
+     * @param {String} options.deviceId    Device ID prefix to include in the query
+     * @param {String} options.deviceName  Device name prefix to include in the query
+     * @param {String} options.groups      Array of group names to include in the query
+     * @param {String} options.page        Page of results to display. Defaults to 1
+     * @param {String} options.perPage     Number of results per page. Defaults to 20. Maximum of 100
+     * @param {Object} [options.headers]   Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
+     * @param {Object} [options.context]   Request context
+     * @returns {Promise} A promise
+     */
+    getProductLocations({ auth, product, dateRange, rectBl, rectTr, deviceId, deviceName, groups, page, perPage, headers, context }){
+        return this.get({
+            uri: `/v1/products/${product}/locations`,
+            query: {
+                date_range: dateRange,
+                rect_bl: rectBl,
+                rect_tr: rectTr,
+                device_id: deviceId,
+                device_name: deviceName,
+                groups,
+                page,
+                per_page: perPage
+            },
+            auth,
+            headers,
+            context
+        });
+    }
+
+    /**
+     * Query location for one device within a product
+     * @param {Object} options            Options for this API call
+     * @param {String} options.product    Locations for this product ID or slug
+     * @param {string} [options.auth]     The access token. Can be ignored if provided in constructor
+     * @param {String} options.dateRange  Start and end date in ISO8601 format, separated by comma, to query
+     * @param {String} options.rectBl     Bottom left of the rectangular bounding box to query. Latitude and longitude separated by comma
+     * @param {String} options.rectTr     Top right of the rectangular bounding box to query. Latitude and longitude separated by comma
+     * @param {String} options.deviceId   Device ID to query
+     * @param {Object} [options.headers]  Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
+     * @param {Object} [options.context]  Request context
+     * @param {Object} [options.headers]  Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
+     * @param {Object} [options.context]  Request context
+     * @returns {Promise} A promise
+     */
+    getProductDeviceLocations({ auth, product, dateRange, rectBl, rectTr, deviceId, headers, context }){
+        return this.get({
+            uri: `/v1/products/${product}/locations/${deviceId}`,
+            query: {
+                date_range: dateRange,
+                rect_bl: rectBl,
+                rect_tr: rectTr
+            },
+            auth,
+            headers,
+            context
+        });
+    }
+
+    /**
+     * Executes the provided logic function once and returns the result. No logs, runs, etc are saved
+     *
+     * NOTE: Any external interactions such as Particle.publish will actually occur when the logic is executed.
+     *
+     * @param {Object} options            The options for creating the logic function.
+     * @param {string} [options.auth]     The access token. Can be ignored if provided in constructor
+     * @param {string} [options.org]      The Organization ID or slug. If not provided, the request will go to your sandbox account.
+     * @param {Object} options.logic      The logic "function" which will be executed once
+     * @param {Object} [options.headers]  Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
+     * @param {Object} [options.context]  Request context
+     *
+     * @returns {Promise<RequestResponse>} A promise that resolves to the created logic function data.
+     */
+    executeLogic({ auth, org, logic, headers, context }) {
+        return this.post({
+            uri: this._namespacedPath(org, 'logic/execute'),
+            auth,
+            data: logic,
+            headers,
+            context
+        });
+    }
+
+    /**
+     * Creates a new logic function in the specified organization or sandbox using the provided function data.
+     *
+     * When you create a logic function with Event logic triggers, events will immediately
+     * start being handled by the function code.
+     *
+     * When you create a Scheduled logic trigger, it will immediately be scheduled at the next time
+     * according to the cron and start_at properties.
+     *
+     * @param {Object} options                The options for creating the logic function.
+     * @param {string} [options.auth]         The access token. Can be ignored if provided in constructor
+     * @param {string} [options.org]          The Organization ID or slug. If not provided, the request will go to your sandbox account.
+     * @param {Object} options.logicFunction  The logic function object containing the function details.
+     * @param {Object} [options.headers]      Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
+     * @param {Object} [options.context]      Request context
+     *
+     * @returns {Promise<RequestResponse>} A promise that resolves to the created logic function data.
+     */
+    createLogicFunction({ auth, org, logicFunction, headers, context }) {
+        return this.post({
+            uri: this._namespacedPath(org, 'logic/functions'),
+            auth,
+            data: { logic_function: logicFunction },
+            headers,
+            context
+        });
+    }
+
+    /**
+     * Get a logic function in the specified organization or sandbox by logic function ID.
+     *
+     * @param {Object} options                 The options for the logic function.
+     * @param {string} [options.auth]          The access token. Can be ignored if provided in constructor
+     * @param {string} [options.org]           The Organization ID or slug. If not provided, the request will go to your sandbox account.
+     * @param {string} options.logicFunctionId The ID of the logic function to retrieve.
+     * @param {Object} [options.headers]       Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
+     * @param {Object} [options.context]       Request context
+     *
+     * @returns {Promise<RequestResponse>} A promise that resolves to the specified logic function data.
+     */
+    getLogicFunction({ auth, org, logicFunctionId, headers, context }) {
+        return this.get({
+            uri: this._namespacedPath(org, `logic/functions/${logicFunctionId}`),
+            auth,
+            headers,
+            context
+        });
+    }
+
+    /**
+     * Updates an existing logic function in the specified organization or sandbox using the provided function data.
+     *
+     * If you include an id on a logic trigger, it will update the logic trigger in place.
+     *
+     * @param {Object} options                  The options for updating the logic function.
+     * @param {string} [options.auth]           The access token. Can be ignored if provided in constructor
+     * @param {string} [options.org]            The Organization ID or slug. If not provided, the request will go to your sandbox account.
+     * @param {string} options.logicFunctionId  The ID of the logic function to update.
+     * @param {Object} options.logicFunction    The logic function object containing the logic function details.
+     * @param {Object} [options.headers]        Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
+     * @param {Object} [options.context]        Request context.
+     *
+     * @returns {Promise<RequestResponse>} A promise that resolves to the updated logic function data.
+     */
+    updateLogicFunction({ auth, org, logicFunctionId, logicFunction, headers, context }) {
+        return this.put({
+            uri: this._namespacedPath(org, `logic/functions/${logicFunctionId}`),
+            auth,
+            data: { logic_function: logicFunction },
+            headers,
+            context
+        });
+    }
+
+    /**
+     * Deletes a logic function in the specified organization or sandbox by logic function ID.
+     *
+     * @param {Object} options                  The options for deleting the logic function.
+     * @param {string} [options.auth]           The access token. Can be ignored if provided in constructor
+     * @param {string} [options.org]            The Organization ID or slug. If not provided, the request will go to your sandbox account.
+     * @param {string} options.logicFunctionId  The ID of the logic function to delete.
+     * @param {Object} [options.headers]        Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
+     * @param {Object} [options.context]        Request context.
+     *
+     * @returns {Promise<RequestResponse>} A promise that resolves to an object containing the deleted logic function ID.
+     */
+    deleteLogicFunction({ auth, org, logicFunctionId, headers, context }) {
+        return this.delete({
+            uri: this._namespacedPath(org, `logic/functions/${logicFunctionId}`),
+            auth,
+            headers,
+            context
+        });
+    }
+
+    /**
+     * Lists all logic functions in the specified organization or sandbox.
+     *
+     * @param {Object}  options               The options for listing logic functions.
+     * @param {string}  [options.auth]        The access token. Can be ignored if provided in constructor
+     * @param {string}  [options.org]         The Organization ID or slug. If not provided, the request will go to your sandbox account.
+     * @param {boolean} [options.todayStats]  Whether to include today's stats in the response
+     * @param {Object}  [options.headers]     Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
+     * @param {Object}  [options.context]     Request context.
+     *
+     * @returns {Promise<RequestResponse>} A promise that resolves to an array of logic functions data.
+     */
+    listLogicFunctions({ auth, org, todayStats, headers, context }) {
+        return this.get({
+            uri: this._namespacedPath(org, 'logic/functions'),
+            query: {
+                today_stats: todayStats
+            },
+            auth,
+            headers,
+            context
+        });
+    }
+
+    /**
+     * Lists all logic runs for the specified logic function in the specified organization or sandbox.
+     *
+     * @param {Object} options                  The options for the request.
+     * @param {string} [options.auth]           The access token. Can be ignored if provided in constructor
+     * @param {string} [options.org]            The Organization ID or slug. If not provided, the request will go to your sandbox account.
+     * @param {string} options.logicFunctionId  The ID of the logic function for which to retrieve the logic runs.
+     * @param {Object} [options.headers]        Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
+     * @param {Object} [options.context]        Request context
+     *
+     * @returns {Promise<RequestResponse>} A promise that resolves to an array of logic run data.
+     */
+    listLogicRuns({ auth, org, logicFunctionId, headers, context }) {
+        return this.get({
+            uri: this._namespacedPath(org, `logic/functions/${logicFunctionId}/runs`),
+            auth,
+            headers,
+            context
+        });
+    }
+
+    /**
+     * Retrieves a logic run by its ID for the specified logic function in the specified organization or sandbox.
+     *
+     * @param {Object} options                  The options for the request.
+     * @param {string} [options.auth]           The access token. Can be ignored if provided in constructor
+     * @param {string} [options.org]            The Organization ID or slug. If not provided, the request will go to your sandbox account.
+     * @param {string} options.logicFunctionId  The ID of the logic function for which to retrieve the logic run.
+     * @param {string} options.logicRunId       The ID of the logic run to retrieve.
+     * @param {Object} [options.headers]        Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
+     * @param {Object} [options.context]        Request context
+     *
+     * @returns {Promise<RequestResponse>} A promise that resolves to an array of logic run data for the specified logic run ID.
+     */
+    getLogicRun({ auth, org, logicFunctionId, logicRunId, headers, context }) {
+        return this.get({
+            uri: this._namespacedPath(org, `logic/functions/${logicFunctionId}/runs/${logicRunId}`),
+            auth,
+            headers,
+            context
+        });
+    }
+
+    /**
+     * Retrieves the logs for a logic run by its ID for the specified logic function in the specified organization or sandbox.
+     *
+     * @param {Object} options                  The options for the request.
+     * @param {string} [options.auth]           The access token. Can be ignored if provided in constructor
+     * @param {string} [options.org]            The unique identifier of the organization.
+     * @param {string} options.logicFunctionId  The ID of the logic function for which to retrieve the logic run logs.
+     * @param {string} options.logicRunId       The ID of the logic run for which to retrieve the logs.
+     * @param {Object} [options.headers]        Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
+     * @param {Object} [options.context]        Request context
+     *
+     * @returns {Promise<RequestResponse>} A promise that resolves to the logs for the specified logic run ID.
+     */
+    getLogicRunLogs({ auth, org, logicFunctionId, logicRunId, headers, context }) {
+        return this.get({
+            uri: this._namespacedPath(org, `logic/functions/${logicFunctionId}/runs/${logicRunId}/logs`),
+            auth,
+            headers,
+            context
+        });
+    }
+
+    /**
+     * Creates a new ledger definition in the specified organization or sandbox.
+     *
+     * @param {Object} options              The options for creating the ledger definition.
+     * @param {string} [options.auth]       The access token. Can be ignored if provided in constructor
+     * @param {string} [options.org]        The Organization ID or slug. If not provided, the request will go to your sandbox account.
+     * @param {object} options.ledger       The ledger definition object.
+     * @param {Object} [options.headers]    Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
+     * @param {Object} [options.context]    Request context
+     *
+     * @returns {Promise<RequestResponse>} A promise that resolves to the created ledger definition data.
+     */
+    createLedger({ auth, org, ledger, headers, context }) {
+        return this.post({
+            uri: this._namespacedPath(org, 'ledgers'),
+            auth,
+            data: { ledger },
+            headers,
+            context
+        });
+    }
+
+    /**
+     * Get a ledger definition in the specified organization or sandbox by ledger name.
+     *
+     * @param {Object} options             The options for the ledger definition.
+     * @param {string} [options.auth]      The access token. Can be ignored if provided in constructor
+     * @param {string} [options.org]       The Organization ID or slug. If not provided, the request will go to your sandbox account.
+     * @param {string} options.ledgerName  The ID of the ledger definition to retrieve.
+     * @param {Object} [options.headers]   Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
+     * @param {Object} [options.context]   Request context
+     *
+     * @returns {Promise<RequestResponse>} A promise that resolves to the specified ledger definition data.
+     */
+    getLedger({ auth, org, ledgerName, headers, context }) {
+        return this.get({
+            uri: this._namespacedPath(org, `ledgers/${ledgerName}`),
+            auth,
+            headers,
+            context
+        });
+    }
+
+    /**
+     * Updates an existing ledger definition in the specified organization or sandbox.
+     *
+     * @param {Object} options             The options for updating the ledger definition.
+     * @param {string} [options.auth]      The access token. Can be ignored if provided in constructor
+     * @param {string} [options.org]       The Organization ID or slug. If not provided, the request will go to your sandbox account.
+     * @param {string} options.ledgerName  Name of the ledger definition to update.
+     * @param {object} options.ledger      The ledger definition object.
+     * @param {Object} [options.headers]   Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
+     * @param {Object} [options.context]   Request context.
+     *
+     * @returns {Promise<RequestResponse>} A promise that resolves to the updated ledger definition data.
+     */
+    updateLedger({ auth, org, ledgerName, ledger, headers, context }) {
+        return this.put({
+            uri: this._namespacedPath(org, `ledgers/${ledgerName}`),
+            auth,
+            data: { ledger },
+            headers,
+            context
+        });
+    }
+
+    /**
+     * Archives a ledger definition in the specified organization or sandbox by ledger name.
+     *
+     * @param {Object} options             The options for archiving the ledger definition.
+     * @param {string} [options.auth]      The access token. Can be ignored if provided in constructor
+     * @param {string} [options.org]       The Organization ID or slug. If not provided, the request will go to your sandbox account.
+     * @param {string} options.ledgerName  Name of the ledger definition to archive.
+     * @param {Object} [options.headers]   Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
+     * @param {Object} [options.context]   Request context.
+     *
+     * @returns {Promise<RequestResponse>} A promise that resolves to an object confirming the ledger definition was archived.
+     */
+    archiveLedger({ auth, org, ledgerName, headers, context }) {
+        return this.delete({
+            uri: this._namespacedPath(org, `ledgers/${ledgerName}`),
+            auth,
+            headers,
+            context
+        });
+    }
+
+    /**
+     * @typedef {"Owner" | "Product" | "Device"} Scope
+     */
+
+    /**
+     * Lists all ledger definitions in the specified organization or sandbox.
+     *
+     * @param {Object}  options             The options for listing ledger definitions.
+     * @param {string}  [options.auth]      The access token. Can be ignored if provided in constructor
+     * @param {string}  [options.org]       The Organization ID or slug. If not provided, the request will go to your sandbox account.
+     * @param {Scope}   [options.scope]     Filter to show only ledgers of the specified scope
+     * @param {boolean} [options.archived]  Filter to show only archived ledger or non-archived ledgers. If not provided, all ledgers are returned.
+     * @param {number}  [options.page]      Page of results to display
+     * @param {number}  [options.perPage]   Number of results per page. Default is 100
+     * @param {Object}  [options.headers]   Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
+     * @param {Object}  [options.context]   Request context.
+     *
+     * @returns {Promise<RequestResponse>} A promise that resolves to an array of ledger definition data.
+     */
+    listLedgers({ auth, org, scope, page, perPage, archived, headers, context }) {
+        return this.get({
+            uri: this._namespacedPath(org, 'ledgers'),
+            query: {
+                scope,
+                page,
+                per_page: perPage,
+                archived
+            },
+            auth,
+            headers,
+            context
+        });
+    }
+
+    /**
+     * Get ledger instance data.
+     *
+     * @param {Object} options             The options for the ledger instance.
+     * @param {string} [options.auth]      The access token. Can be ignored if provided in constructor
+     * @param {string} [options.org]       The Organization ID or slug. If not provided, the request will go to your sandbox account.
+     * @param {string} options.ledgerName  Ledger name.
+     * @param {string} options.scopeValue  Scope value.
+     * @param {Object} [options.headers]   Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
+     * @param {Object} [options.context]   Request context
+     *
+     * @returns {Promise<RequestResponse>} A promise that resolves to the specified ledger instance data.
+     */
+    getLedgerInstance({ auth, org, ledgerName, scopeValue, headers, context }) {
+        return this.get({
+            uri: this._namespacedPath(org, `ledgers/${ledgerName}/instances/${scopeValue}`),
+            auth,
+            headers,
+            context
+        });
+    }
+
+    /**
+     * @typedef {"Replace" | "Merge"} SetMode
+     */
+
+    /**
+     * Set ledger instance data.
+     *
+     * @param {Object}  options             The options for updating the ledger instance.
+     * @param {string}  [options.auth]      The access token. Can be ignored if provided in constructor
+     * @param {string}  [options.org]       The Organization ID or slug. If not provided, the request will go to your sandbox account.
+     * @param {string}  options.ledgerName  Ledger name.
+     * @param {string}  options.scopeValue  Scope value.
+     * @param {object}  options.instance    The instance with the data
+     * @param {SetMode} [options.setMode]   How the data should be set with existing data. Default is "Replace"
+     * @param {Object}  [options.headers]   Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
+     * @param {Object}  [options.context]   Request context.
+     *
+     * @returns {Promise<RequestResponse>} A promise that resolves to the updated ledger instance data.
+     */
+    setLedgerInstance({ auth, org, ledgerName, scopeValue, instance, setMode, headers, context }) {
+        return this.put({
+            uri: this._namespacedPath(org, `ledgers/${ledgerName}/instances/${scopeValue}`),
+            query: {
+                set_mode: setMode
+            },
+            auth,
+            data: { instance },
+            headers,
+            context
+        });
+    }
+
+    /**
+     * Delete a ledger instance in the specified organization or sandbox by ledger name.
+     *
+     * @param {Object} options             The options for archiving the ledger instance.
+     * @param {string} [options.auth]      The access token. Can be ignored if provided in constructor
+     * @param {string} [options.org]       The Organization ID or slug. If not provided, the request will go to your sandbox account.
+     * @param {string} options.ledgerName  Name of the ledger instance to archive.
+     * @param {string} options.scopeValue  Scope value.
+     * @param {Object} [options.headers]   Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
+     * @param {Object} [options.context]   Request context.
+     *
+     * @returns {Promise<RequestResponse>} A promise that resolves to an object confirming the ledger instance was deleted.
+     */
+    deleteLedgerInstance({ auth, org, ledgerName, scopeValue, headers, context }) {
+        return this.delete({
+            uri: this._namespacedPath(org, `ledgers/${ledgerName}/instances/${scopeValue}`),
+            auth,
+            headers,
+            context
+        });
+    }
+
+    /**
+     * Lists ledger instances in the specified organization or sandbox.
+     *
+     * @param {Object} options             The options for listing ledger instances.
+     * @param {string} [options.auth]      The access token. Can be ignored if provided in constructor
+     * @param {string} [options.org]       The unique identifier of the organization.
+     * @param {string} options.ledgerName  Name of the ledger instance to archive.
+     * @param {number} [options.page]      Page of results to display
+     * @param {number} [options.perPage]   Number of results per page. Default is 100
+     * @param {Object} [options.headers]   Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
+     * @param {Object} [options.context]   Request context.
+     *
+     * @returns {Promise<RequestResponse>} A promise that resolves to an array of ledger instance data.
+     */
+    listLedgerInstances({ auth, org, ledgerName, page, perPage, headers, context }) {
+        return this.get({
+            uri: this._namespacedPath(org, `ledgers/${ledgerName}/instances`),
+            query: {
+                page,
+                per_page: perPage
+            },
+            auth,
+            headers,
+            context
+        });
+    }
+
+    /**
+     * List ledger instance versions
+     *
+     * @param {Object} options                   The options for the ledger instance.
+     * @param {string} [options.auth]            The access token. Can be ignored if provided in constructor
+     * @param {string} [options.org]             The Organization ID or slug. If not provided, the request will go to your sandbox account.
+     * @param {string} options.ledgerName        Ledger name.
+     * @param {string} options.scopeValue        Scope value.
+     * @param {string} [options.replacedBefore]  ISO date string to filter to instances replaced before this time
+     * @param {string} [options.replacedAfter]   ISO date string to filter to instances replaced after this time
+     * @param {Object} [options.headers]         Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
+     * @param {Object} [options.context]         Request context
+     *
+     * @returns {Promise<RequestResponse>} A promise that resolves to an array of ledger instance data.
+     */
+    listLedgerInstanceVersions({ auth, org, ledgerName, scopeValue, replacedBefore, replacedAfter, headers, context }) {
+        return this.get({
+            uri: this._namespacedPath(org, `ledgers/${ledgerName}/instances/${scopeValue}/versions`),
+            query: {
+                replaced_before: replacedBefore,
+                replaced_after: replacedAfter
+            },
+            auth,
+            headers,
+            context
+        });
+    }
+
+    /**
+     * Get specific ledger instance version
+     *
+     * @param {Object} options             The options for the ledger instance.
+     * @param {string} [options.auth]      The access token. Can be ignored if provided in constructor
+     * @param {string} [options.org]       The Organization ID or slug. If not provided, the request will go to your sandbox account.
+     * @param {string} options.ledgerName  Ledger name.
+     * @param {string} options.scopeValue  Scope value.
+     * @param {string} options.version     Version of the ledger instance
+     * @param {Object} [options.headers]   Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
+     * @param {Object} [options.context]   Request context
+     *
+     * @returns {Promise<RequestResponse>} A promise that resolves to the specified ledger instance data.
+     */
+    getLedgerInstanceVersion({ auth, org, ledgerName, scopeValue, version, headers, context }) {
+        return this.get({
+            uri: this._namespacedPath(org, `ledgers/${ledgerName}/instances/${scopeValue}/versions/${version}`),
+            auth,
+            headers,
+            context
+        });
+    }
+
+    /**
+     * List Device OS versions
+     *
+     * @param {Object} options                    Options for this API call
+     * @param {Number} [options.platformId]       Platform ID to filter Device OS versions
+     * @param {Number} [options.internalVersion]  Internal version number to filter Device OS versions
+     * @param {Number} [options.page]             Page number for pagination
+     * @param {Number} [options.perPage]          Number of items per page
+     * @param {string} [options.auth]             The access token. Can be ignored if provided in constructor
+     * @param {Object} [options.headers]          Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
+     * @param {Object} [options.context]          Request context
+     *
+     * @returns {Promise<RequestResponse>}        A promise that resolves to the list of Device OS versions.
+     */
+    listDeviceOsVersions({ platformId, internalVersion, page, perPage, auth, headers, context }) {
+        const query = {
+            platform_id: platformId,
+            internal_version: internalVersion,
+            page,
+            per_page: perPage
+        };
+
+        return this.get({
+            uri: '/v1/device-os/versions',
+            query,
+            auth,
+            headers,
+            context
+        });
+    }
+
+    /**
+     * Get a specific Device OS version
+     *
+     * @param {Object} options               Options for this API call
+     * @param {String} options.version       Version of the Device OS
+     * @param {Number} [options.platformId]  Optional platform ID to filter Device OS version
+     * @param {string} [options.auth]        The access token. Can be ignored if provided in constructor
+     * @param {Object} [options.headers]     Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
+     * @param {Object} [options.context]     Request context
+     *
+     * @returns {Promise<RequestResponse>}        A promise that resolves to the specified Device OS version data.
+     */
+    getDeviceOsVersion({ version, platformId, auth, headers, context }) {
+        const query = platformId ? { platform_id: platformId } : {};
+        return this.get({
+            uri: `/v1/device-os/versions/${version}`,
+            query,
+            auth,
+            headers,
+            context
+        });
+    }
+
+    /**
+     * Set default auth token that will be used in each method if `auth` is not provided
+     * @param {string} auth The access token
+     * @throws {Error} When not auth string is provided
+     */
+    setDefaultAuth(auth){
+        if (typeof auth === 'string' && auth.length !== 0) {
+            this._defaultAuth = auth;
+        } else {
+            throw new Error('Must pass a non-empty string representing an auth token!');
+        }
+    }
+    /**
+     * Return provided token if truthy else use default auth if truthy else undefined
+     * @param {any} auth Optional auth token or undefined
+     * @private
+     * @returns {String|undefined} a Particle auth token or undefined
+     */
+    _getActiveAuthToken(auth) {
+        return auth || this._defaultAuth;
+    }
+    /**
+     * API URI to access a device
+     * @param {Object} options           Options for this API call
+     * @param {String} options.deviceId  Device ID to access
+     * @param {String} [options.product] Device only in this product ID or slug
+     * @param {String} [options.org]     Device only in this organization ID or slug
+     * @private
+     * @returns {string} URI
+     */
+    deviceUri({ deviceId, product, org }){
+        if (org) {
+            return `/v1/orgs/${org}/devices/${deviceId}`;
+        }
+        if (product) {
+            return `/v1/products/${product}/devices/${deviceId}`;
+        }
+        return `/v1/devices/${deviceId}`;
+    }
+
+    /**
+     * Helper for building API paths that support sandbox and org prefixes based on org presence
+     * @param {string | undefined} org slug or ID
+     * @param {string}             path will be appended to the end of the org/sandbox prefix
+     * @returns {string} the full combined path
+     * @private
+     */
+    _namespacedPath(org, path) {
+        return org ? `/v1/orgs/${org}/${path}` : `/v1/${path}`;
+    }
+
+    /**
+     * Make a GET request
+     * @param {object} params
+     * @param {string} params.uri        The URI to request
+     * @param {string} [params.auth]     Authorization token to use
+     * @param {object} [params.headers]  Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
+     * @param {object} [params.query]    Key/Value pairs of query params or a correctly formatted string
+     * @param {object} [params.context]  The invocation context, describing the tool and project
+     * @returns {Promise<RequestResponse, RequestError>} A promise that resolves with either the requested data or an error object
+     */
+    get({ uri, auth, headers, query, context }){
+        context = this._buildContext(context);
+        auth = this._getActiveAuthToken(auth);
+        return this.agent.get({ uri, auth, headers, query, context });
+    }
+
+    /**
+     * Make a HEAD request
+     * @param {object} params
+     * @param {string} params.uri        The URI to request
+     * @param {string} [params.auth]     Authorization token to use
+     * @param {object} [params.headers]  Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
+     * @param {object} [params.query]    Key/Value pairs of query params or a correctly formatted string
+     * @param {object} [params.context]  The invocation context, describing the tool and project
+     * @returns {Promise<RequestResponse, RequestError>} A promise that resolves with either the requested data or an error object
+     */
+    head({ uri, auth, headers, query, context }){
+        context = this._buildContext(context);
+        auth = this._getActiveAuthToken(auth);
+        return this.agent.head({ uri, auth, headers, query, context });
+    }
+
+    /**
+     * Make a POST request
+     * @param {object}          params
+     * @param {string}          params.uri        The URI to request
+     * @param {string}          [params.auth]     Authorization token to use
+     * @param {object}          [params.headers]  Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
+     * @param {string | object} [params.data]     Request body
+     * @param {object}          [params.context]  The invocation context, describing the tool and project
+     * @returns {Promise<RequestResponse, RequestError>} A promise that resolves with either the requested data or an error object
+     */
+    post({ uri, auth, headers, data, context }){
+        context = this._buildContext(context);
+        auth = this._getActiveAuthToken(auth);
+        return this.agent.post({ uri, auth, headers, data, context });
+    }
+
+    /**
+     * Make a PUT request
+     * @param {object}          params
+     * @param {string}          params.uri        The URI to request
+     * @param {string}          [params.auth]     Authorization token to use
+     * @param {object}          [params.headers]  Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
+     * @param {string | object} [params.data]     Request body
+     * @param {object}          [params.query]    Key/Value pairs of query params or a correctly formatted string
+     * @param {object}          [params.context]  The invocation context, describing the tool and project
+     * @returns {Promise<RequestResponse, RequestError>} A promise that resolves with either the requested data or an error object
+     */
+    put({ uri, auth, headers, data, query, context }){
+        context = this._buildContext(context);
+        auth = this._getActiveAuthToken(auth);
+        return this.agent.put({ uri, auth, headers, data, query, context });
+    }
+
+    /**
+     * Make a DELETE request
+     * @param {object}          params
+     * @param {string}          params.uri        The URI to request
+     * @param {string}          [params.auth]     Authorization token to use
+     * @param {object}          [params.headers]  Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
+     * @param {string | object} [params.data]     Request body
+     * @param {object}          [params.context]  The invocation context, describing the tool and project
+     * @returns {Promise<RequestResponse, RequestError>} A promise that resolves with either the requested data or an error object
+     */
+    delete({ uri, auth, headers, data, context }){
+        context = this._buildContext(context);
+        auth = this._getActiveAuthToken(auth);
+        return this.agent.delete({ uri, auth, headers, data, context });
+    }
+
+    /**
+     *
+     * @param {Object}  args             An obj with all the possible request configurations
+     * @param {String}  args.uri         The URI to request
+     * @param {String}  args.method      The method used to request the URI, should be in uppercase.
+     * @param {Object}  [args.headers]   Key/Value pairs like `{ 'X-FOO': 'foo', X-BAR: 'bar' }` to send as headers.
+     * @param {object}  [args.data]      Arbitrary data to send as the body.
+     * @param {string}  [args.auth]      Authorization
+     * @param {Object}  [args.query]     Query parameters
+     * @param {Object}  [args.form]      Form fields
+     * @param {Object}  [args.files]     Array of file names and file content
+     * @param {Object}  [args.context]   The invocation context, describing the tool and project.
+     * @param {boolean} [args.isBuffer]  Indicate if the response should be treated as Buffer instead of JSON
+     * @returns {Promise<RequestResponse, RequestError>} A promise that resolves with either the requested data or an error object
+     */
+    request(args){
+        args.context = this._buildContext(args.context);
+        args.auth = this._getActiveAuthToken(args.auth);
+        return this.agent.request(args);
+    }
+
+    client(options = {}){
+        // @ts-ignore
+        return new Client(Object.assign({ api: this }, options));
+    }
+
+    // Internal method used to target Particle's APIs other than the default
+    setBaseUrl(baseUrl){
+        this.baseUrl = baseUrl;
+        this.agent.setBaseUrl(baseUrl);
+    }
+}
+
+module.exports = Particle;
 
 
 /***/ }),
@@ -32085,7 +27699,7 @@ module.exports = input => {
 
 const os = __nccwpck_require__(2037);
 const tty = __nccwpck_require__(6224);
-const hasFlag = __nccwpck_require__(104);
+const hasFlag = __nccwpck_require__(1621);
 
 const {env} = process;
 
@@ -34560,7 +30174,7 @@ exports.particleDownloadBinary = exports.particleCloudCompile = void 0;
 const core_1 = __nccwpck_require__(2186);
 const fs_1 = __nccwpck_require__(7147);
 const util_1 = __nccwpck_require__(2629);
-const ParticleApi = __nccwpck_require__(2918);
+const ParticleApi = __nccwpck_require__(2649);
 const particle = new ParticleApi();
 const headers = {
     'User-Agent': 'particle-compile-action',
@@ -34993,7 +30607,7 @@ module.exports = require("zlib");
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse('{"core":{"id":0,"name":"core","displayName":"Core","generation":1,"baseMcu":"stm32f1xx","features":["wifi","tcp"],"aliases":["c"],"billingConnectivity":"wifi","productEligible":false,"public":true,"usb":{"vendorId":"0x1d50","productId":"0x607d"},"dfu":{"vendorId":"0x1d50","productId":"0x607f","segments":{"factoryReset":{"address":"0x00020000","alt":1}}}},"gcc":{"id":3,"name":"gcc","displayName":"GCC","generation":-1,"baseMcu":"gcc","features":["wifi","tcp"],"billingConnectivity":"wifi","productEligible":false,"public":false,"usb":{"vendorId":"0x0","productId":"0x0"},"dfu":{"vendorId":"0x0","productId":"0x0"}},"photon":{"id":6,"name":"photon","displayName":"Photon","generation":2,"baseMcu":"stm32f2xx","features":["wifi","tcp"],"aliases":["p"],"billingConnectivity":"wifi","productEligible":true,"public":true,"firmwareModules":[{"type":"bootloader","storage":"internalFlash"},{"type":"systemPart","index":1,"storage":"internalFlash"},{"type":"systemPart","index":2,"storage":"internalFlash"},{"type":"userPart","storage":"internalFlash","maxSize":131072}],"usb":{"vendorId":"0x2b04","productId":"0xc006"},"dfu":{"vendorId":"0x2b04","productId":"0xd006","storage":[{"type":"internalFlash","alt":0}],"segments":{"factoryReset":{"address":"0x080e0000","alt":0}}}},"p1":{"id":8,"name":"p1","displayName":"P1","generation":2,"baseMcu":"stm32f2xx","features":["wifi","tcp"],"billingConnectivity":"wifi","productEligible":true,"public":true,"firmwareModules":[{"type":"bootloader","storage":"internalFlash"},{"type":"systemPart","index":1,"storage":"internalFlash"},{"type":"systemPart","index":2,"storage":"internalFlash"},{"type":"userPart","storage":"internalFlash","maxSize":131072}],"usb":{"vendorId":"0x2b04","productId":"0xc008"},"dfu":{"vendorId":"0x2b04","productId":"0xd008","storage":[{"type":"internalFlash","alt":0}],"segments":{"factoryReset":{"address":"0x080e0000","alt":0}}}},"electron":{"id":10,"name":"electron","displayName":"Electron","generation":2,"baseMcu":"stm32f2xx","features":["cellular","udp"],"aliases":["e"],"billingConnectivity":"cellular","productEligible":true,"public":true,"firmwareModules":[{"type":"bootloader","storage":"internalFlash"},{"type":"systemPart","index":1,"storage":"internalFlash"},{"type":"systemPart","index":2,"storage":"internalFlash"},{"type":"systemPart","index":3,"storage":"internalFlash"},{"type":"userPart","storage":"internalFlash","maxSize":131072}],"usb":{"vendorId":"0x2b04","productId":"0xc00a"},"dfu":{"vendorId":"0x2b04","productId":"0xd00a","storage":[{"type":"internalFlash","alt":0}],"segments":{"factoryReset":{"address":"0x080a0000","alt":0},"transport":{"address":"2977","alt":1,"size":1}}}},"esp32":{"id":11,"name":"esp32","displayName":"ESP32","generation":-1,"baseMcu":"esp32xx","features":["wifi","udp","ble"],"billingConnectivity":"wifi","productEligible":false,"public":false,"usb":{"vendorId":"0x0","productId":"0x0"},"dfu":{"vendorId":"0x0","productId":"0x0"}},"argon":{"id":12,"name":"argon","displayName":"Argon","generation":3,"baseMcu":"nrf52840","features":["wifi","udp","mesh","ble"],"aliases":["a"],"billingConnectivity":"wifi","productEligible":true,"public":true,"firmwareModules":[{"type":"bootloader","storage":"internalFlash"},{"type":"systemPart","storage":"internalFlash"},{"type":"userPart","storage":"internalFlash","maxSize":262144},{"type":"radioStack","storage":"internalFlash"},{"type":"ncpFirmware","storage":"externalMcu"}],"usb":{"vendorId":"0x2b04","productId":"0xc00c"},"dfu":{"vendorId":"0x2b04","productId":"0xd00c","storage":[{"type":"internalFlash","alt":0},{"type":"externalFlash","alt":2}],"segments":{"factoryReset":{"address":"0x00200000","alt":2},"formerUserPart":{"address":"0xd4000","alt":0,"size":4096}}},"assets":{"blockSize":4096,"storageTotalBlocks":288,"maxSingleAssetSize":606208,"assetPerBlockOverhead":8,"assetOverhead":0,"reservedBlocks":10}},"boron":{"id":13,"name":"boron","displayName":"Boron","generation":3,"baseMcu":"nrf52840","features":["cellular","udp","mesh","ble"],"aliases":["b"],"billingConnectivity":"cellular","productEligible":true,"public":true,"firmwareModules":[{"type":"bootloader","storage":"internalFlash"},{"type":"systemPart","storage":"internalFlash"},{"type":"userPart","storage":"internalFlash","maxSize":262144},{"type":"radioStack","storage":"internalFlash"}],"usb":{"vendorId":"0x2b04","productId":"0xc00d"},"dfu":{"vendorId":"0x2b04","productId":"0xd00d","storage":[{"type":"internalFlash","alt":0},{"type":"externalFlash","alt":2}],"segments":{"factoryReset":{"address":"0x00200000","alt":2},"formerUserPart":{"address":"0xd4000","alt":0,"size":4096}}},"assets":{"blockSize":4096,"storageTotalBlocks":288,"maxSingleAssetSize":606208,"assetPerBlockOverhead":8,"assetOverhead":0,"reservedBlocks":10}},"xenon":{"id":14,"name":"xenon","displayName":"Xenon","generation":3,"baseMcu":"nrf52840","features":["mesh","ble"],"aliases":["x"],"billingConnectivity":"wifi","productEligible":false,"public":true,"firmwareModules":[{"type":"bootloader","storage":"internalFlash"},{"type":"systemPart","storage":"internalFlash"},{"type":"userPart","storage":"internalFlash","maxSize":131072},{"type":"radioStack","storage":"internalFlash"}],"usb":{"vendorId":"0x2b04","productId":"0xc00e"},"dfu":{"vendorId":"0x2b04","productId":"0xd00e","storage":[{"type":"internalFlash","alt":0},{"type":"externalFlash","alt":2}],"segments":{"factoryReset":{"address":"0x00200000","alt":2},"formerUserPart":{"address":"0xd4000","alt":0,"size":4096}}}},"esomx":{"id":15,"name":"esomx","displayName":"E SoM X","generation":3,"baseMcu":"nrf52840","features":["som","cellular","udp","ble"],"billingConnectivity":"cellular","productEligible":true,"public":true,"firmwareModules":[{"type":"bootloader","storage":"internalFlash"},{"type":"systemPart","storage":"internalFlash"},{"type":"userPart","storage":"internalFlash","maxSize":262144},{"type":"radioStack","storage":"internalFlash"}],"usb":{"vendorId":"0x2b04","productId":"0xc00f"},"dfu":{"vendorId":"0x2b04","productId":"0xd00f","storage":[{"type":"internalFlash","alt":0},{"type":"externalFlash","alt":2}],"segments":{"factoryReset":{"address":"0x00200000","alt":2},"formerUserPart":{"address":"0xd4000","alt":0,"size":4096}}},"assets":{"blockSize":4096,"storageTotalBlocks":512,"maxSingleAssetSize":1572864,"assetPerBlockOverhead":8,"assetOverhead":0,"reservedBlocks":10}},"asom":{"id":22,"name":"asom","displayName":"A SoM","generation":3,"baseMcu":"nrf52840","features":["som","wifi","mesh","udp","ble"],"billingConnectivity":"wifi","productEligible":false,"public":false,"firmwareModules":[{"type":"bootloader","storage":"internalFlash"},{"type":"systemPart","storage":"internalFlash"},{"type":"userPart","storage":"internalFlash","maxSize":131072},{"type":"radioStack","storage":"internalFlash"},{"type":"ncpFirmware","storage":"externalMcu"}],"usb":{"vendorId":"0x2b04","productId":"0xc016"},"dfu":{"vendorId":"0x2b04","productId":"0xd016","storage":[{"type":"internalFlash","alt":0},{"type":"externalFlash","alt":2}],"segments":{"factoryReset":{"address":"0x00200000","alt":2},"formerUserPart":{"address":"0xd4000","alt":0,"size":4096}}}},"bsom":{"id":23,"name":"bsom","displayName":"B SoM","generation":3,"baseMcu":"nrf52840","features":["som","cellular","mesh","udp","ble"],"billingConnectivity":"cellular","productEligible":true,"public":true,"firmwareModules":[{"type":"bootloader","storage":"internalFlash"},{"type":"systemPart","storage":"internalFlash"},{"type":"userPart","storage":"internalFlash","maxSize":262144},{"type":"radioStack","storage":"internalFlash"}],"usb":{"vendorId":"0x2b04","productId":"0xc017"},"dfu":{"vendorId":"0x2b04","productId":"0xd017","storage":[{"type":"internalFlash","alt":0},{"type":"externalFlash","alt":2}],"segments":{"factoryReset":{"address":"0x00200000","alt":2},"formerUserPart":{"address":"0xd4000","alt":0,"size":4096}}},"assets":{"blockSize":4096,"storageTotalBlocks":288,"maxSingleAssetSize":606208,"assetPerBlockOverhead":8,"assetOverhead":0,"reservedBlocks":10}},"xsom":{"id":24,"name":"xsom","displayName":"X SoM","generation":3,"baseMcu":"nrf52840","features":["mesh","ble"],"billingConnectivity":"wifi","productEligible":false,"public":false,"firmwareModules":[{"type":"bootloader","storage":"internalFlash"},{"type":"systemPart","storage":"internalFlash"},{"type":"userPart","storage":"internalFlash","maxSize":131072},{"type":"radioStack","storage":"internalFlash"}],"usb":{"vendorId":"0x2b04","productId":"0xc018"},"dfu":{"vendorId":"0x2b04","productId":"0xd018","storage":[{"type":"internalFlash","alt":0},{"type":"externalFlash","alt":2}],"segments":{"factoryReset":{"address":"0x00200000","alt":2},"formerUserPart":{"address":"0xd4000","alt":0,"size":4096}}}},"b5som":{"id":25,"name":"b5som","displayName":"B5 SoM","generation":3,"baseMcu":"nrf52840","features":["som","cellular","mesh","udp","ble"],"billingConnectivity":"cellular","productEligible":true,"public":true,"firmwareModules":[{"type":"bootloader","storage":"internalFlash"},{"type":"systemPart","storage":"internalFlash"},{"type":"userPart","storage":"internalFlash","maxSize":262144},{"type":"radioStack","storage":"internalFlash"}],"usb":{"vendorId":"0x2b04","productId":"0xc019"},"dfu":{"vendorId":"0x2b04","productId":"0xd019","storage":[{"type":"internalFlash","alt":0},{"type":"externalFlash","alt":2}],"segments":{"factoryReset":{"address":"0x00600000","alt":2},"formerUserPart":{"address":"0xd4000","alt":0,"size":4096}}},"assets":{"blockSize":4096,"storageTotalBlocks":512,"maxSingleAssetSize":1572864,"assetPerBlockOverhead":8,"assetOverhead":0,"reservedBlocks":10}},"tracker":{"id":26,"name":"tracker","displayName":"Asset Tracker / Monitor One","generation":3,"baseMcu":"nrf52840","features":["som","cellular","udp","ble","gnss","trackerServices"],"aliases":["assettracker"],"billingConnectivity":"cellular","productEligible":true,"public":true,"firmwareModules":[{"type":"bootloader","storage":"internalFlash"},{"type":"systemPart","storage":"internalFlash"},{"type":"userPart","storage":"internalFlash","maxSize":262144},{"type":"radioStack","storage":"internalFlash"},{"type":"ncpFirmware","storage":"externalMcu"}],"usb":{"vendorId":"0x2b04","productId":"0xc01a"},"dfu":{"vendorId":"0x2b04","productId":"0xd01a","storage":[{"type":"internalFlash","alt":0},{"type":"externalFlash","alt":2}],"segments":{"factoryReset":{"address":"0x00600000","alt":2},"formerUserPart":{"address":"0xd4000","alt":0,"size":4096}}},"assets":{"blockSize":4096,"storageTotalBlocks":512,"maxSingleAssetSize":1572864,"assetPerBlockOverhead":8,"assetOverhead":0,"reservedBlocks":10}},"trackerm":{"id":28,"name":"trackerm","displayName":"Tracker M","generation":3,"baseMcu":"rtl872x","features":["som","cellular","udp","ble","gnss","trackerServices"],"billingConnectivity":"cellular","productEligible":true,"public":true,"firmwareModules":[{"type":"bootloader","index":0,"storage":"internalFlash"},{"type":"bootloader","index":1,"storage":"internalFlash","encrypted":true},{"type":"bootloader","index":2,"storage":"internalFlash"},{"type":"systemPart","storage":"internalFlash"},{"type":"userPart","storage":"internalFlash","growsLeft":true,"maxSize":1572864}],"usb":{"vendorId":"0x2b04","productId":"0xc01c","quirks":{"controlOutTransfersRequireDataStage":true}},"dfu":{"vendorId":"0x2b04","productId":"0xd01c","storage":[{"type":"internalFlash","alt":0}]},"assets":{"blockSize":4096,"storageTotalBlocks":288,"maxSingleAssetSize":1179648,"assetPerBlockOverhead":8,"assetOverhead":0,"reservedBlocks":10}},"raspi":{"id":31,"name":"raspi","displayName":"Raspberry Pi","generation":-1,"baseMcu":"raspi","features":["wifi","tcp"],"billingConnectivity":"wifi","productEligible":false,"public":false,"usb":{"vendorId":"0x0","productId":"0x0"},"dfu":{"vendorId":"0x0","productId":"0x0"}},"p2":{"id":32,"name":"p2","displayName":"Photon 2 / P2","generation":3,"baseMcu":"rtl872x","features":["wifi","udp","ble"],"aliases":["photon2"],"billingConnectivity":"wifi","productEligible":true,"public":true,"firmwareModules":[{"type":"bootloader","index":0,"storage":"internalFlash"},{"type":"bootloader","index":1,"storage":"internalFlash","encrypted":true},{"type":"bootloader","index":2,"storage":"internalFlash"},{"type":"systemPart","storage":"internalFlash"},{"type":"userPart","storage":"internalFlash","growsLeft":true,"maxSize":1572864}],"usb":{"vendorId":"0x2b04","productId":"0xc020","quirks":{"controlOutTransfersRequireDataStage":true}},"dfu":{"vendorId":"0x2b04","productId":"0xd020","storage":[{"type":"internalFlash","alt":0}]},"assets":{"blockSize":4096,"storageTotalBlocks":288,"maxSingleAssetSize":1179648,"assetPerBlockOverhead":8,"assetOverhead":0,"reservedBlocks":10}},"msom":{"id":35,"name":"msom","displayName":"M SoM","generation":3,"baseMcu":"rtl872x","features":["wifi","cellular","udp","ble","gnss","trackerServices"],"aliases":["muon"],"billingConnectivity":"cellular","productEligible":true,"public":true,"firmwareModules":[{"type":"bootloader","index":0,"storage":"internalFlash"},{"type":"bootloader","index":1,"storage":"internalFlash","encrypted":true},{"type":"bootloader","index":2,"storage":"internalFlash"},{"type":"systemPart","storage":"internalFlash"},{"type":"userPart","storage":"internalFlash","growsLeft":true,"maxSize":1572864}],"usb":{"vendorId":"0x2b04","productId":"0xc023","quirks":{"controlOutTransfersRequireDataStage":true}},"dfu":{"vendorId":"0x2b04","productId":"0xd023","storage":[{"type":"internalFlash","alt":0}]},"assets":{"blockSize":4096,"storageTotalBlocks":288,"maxSingleAssetSize":1179648,"assetPerBlockOverhead":8,"assetOverhead":0,"reservedBlocks":10}},"oak":{"id":82,"name":"oak","displayName":"Oak","generation":-1,"baseMcu":"esp8266","features":["wifi","tcp"],"billingConnectivity":"wifi","productEligible":false,"public":false,"usb":{"vendorId":"0x0","productId":"0x0"},"dfu":{"vendorId":"0x0","productId":"0x0"}},"duo":{"id":88,"name":"duo","displayName":"Duo","generation":-1,"baseMcu":"stm32f2xx","features":["wifi","tcp","ble"],"billingConnectivity":"wifi","productEligible":false,"public":false,"usb":{"vendorId":"0x0","productId":"0x0"},"dfu":{"vendorId":"0x0","productId":"0x0"}},"bluz":{"id":103,"name":"bluz","displayName":"Bluz","generation":-1,"baseMcu":"stm32f2xx","features":["wifi","tcp","ble"],"billingConnectivity":"wifi","productEligible":false,"public":false,"usb":{"vendorId":"0x0","productId":"0x0"},"dfu":{"vendorId":"0x0","productId":"0x0"}}}');
+module.exports = JSON.parse('{"core":{"id":0,"name":"core","displayName":"Core","generation":1,"baseMcu":"stm32f1xx","features":["wifi","tcp"],"aliases":["c"],"billingConnectivity":"wifi","productEligible":false,"public":true,"usb":{"vendorId":"0x1d50","productId":"0x607d"},"dfu":{"vendorId":"0x1d50","productId":"0x607f","segments":{"factoryReset":{"address":"0x00020000","alt":1}}}},"gcc":{"id":3,"name":"gcc","displayName":"GCC","generation":-1,"baseMcu":"gcc","features":["wifi","tcp"],"billingConnectivity":"wifi","productEligible":false,"public":false,"usb":{"vendorId":"0x0","productId":"0x0"},"dfu":{"vendorId":"0x0","productId":"0x0"}},"photon":{"id":6,"name":"photon","displayName":"Photon","generation":2,"baseMcu":"stm32f2xx","features":["wifi","tcp"],"aliases":["p"],"billingConnectivity":"wifi","productEligible":true,"public":true,"firmwareModules":[{"type":"bootloader","storage":"internalFlash"},{"type":"systemPart","index":1,"storage":"internalFlash"},{"type":"systemPart","index":2,"storage":"internalFlash"},{"type":"userPart","storage":"internalFlash","maxSize":131072},{"type":"monoFirmware","index":1,"storage":"internalFlash"}],"usb":{"vendorId":"0x2b04","productId":"0xc006"},"dfu":{"vendorId":"0x2b04","productId":"0xd006","storage":[{"type":"internalFlash","alt":0}],"segments":{"factoryReset":{"address":"0x080e0000","alt":0}}}},"p1":{"id":8,"name":"p1","displayName":"P1","generation":2,"baseMcu":"stm32f2xx","features":["wifi","tcp"],"billingConnectivity":"wifi","productEligible":true,"public":true,"firmwareModules":[{"type":"bootloader","storage":"internalFlash"},{"type":"systemPart","index":1,"storage":"internalFlash"},{"type":"systemPart","index":2,"storage":"internalFlash"},{"type":"userPart","storage":"internalFlash","maxSize":131072},{"type":"monoFirmware","index":1,"storage":"internalFlash"}],"usb":{"vendorId":"0x2b04","productId":"0xc008"},"dfu":{"vendorId":"0x2b04","productId":"0xd008","storage":[{"type":"internalFlash","alt":0}],"segments":{"factoryReset":{"address":"0x080e0000","alt":0}}}},"electron":{"id":10,"name":"electron","displayName":"Electron","generation":2,"baseMcu":"stm32f2xx","features":["cellular","udp"],"aliases":["e"],"billingConnectivity":"cellular","productEligible":true,"public":true,"firmwareModules":[{"type":"bootloader","storage":"internalFlash"},{"type":"systemPart","index":1,"storage":"internalFlash"},{"type":"systemPart","index":2,"storage":"internalFlash"},{"type":"systemPart","index":3,"storage":"internalFlash"},{"type":"userPart","storage":"internalFlash","maxSize":131072},{"type":"monoFirmware","index":1,"storage":"internalFlash"}],"usb":{"vendorId":"0x2b04","productId":"0xc00a"},"dfu":{"vendorId":"0x2b04","productId":"0xd00a","storage":[{"type":"internalFlash","alt":0}],"segments":{"factoryReset":{"address":"0x080a0000","alt":0},"transport":{"address":"2977","alt":1,"size":1}}}},"esp32":{"id":11,"name":"esp32","displayName":"ESP32","generation":-1,"baseMcu":"esp32xx","features":["wifi","udp","ble"],"billingConnectivity":"wifi","productEligible":false,"public":false,"usb":{"vendorId":"0x0","productId":"0x0"},"dfu":{"vendorId":"0x0","productId":"0x0"}},"argon":{"id":12,"name":"argon","displayName":"Argon","generation":3,"baseMcu":"nrf52840","features":["wifi","udp","mesh","ble"],"aliases":["a"],"billingConnectivity":"wifi","productEligible":true,"public":true,"firmwareModules":[{"type":"bootloader","storage":"internalFlash"},{"type":"systemPart","storage":"internalFlash"},{"type":"userPart","storage":"internalFlash","maxSize":262144},{"type":"radioStack","storage":"internalFlash"},{"type":"ncpFirmware","storage":"externalMcu"},{"type":"monoFirmware","storage":"internalFlash"}],"usb":{"vendorId":"0x2b04","productId":"0xc00c"},"dfu":{"vendorId":"0x2b04","productId":"0xd00c","storage":[{"type":"internalFlash","alt":0},{"type":"externalFlash","alt":2}],"segments":{"factoryReset":{"address":"0x00200000","alt":2},"formerUserPart":{"address":"0xd4000","alt":0,"size":4096}}},"assets":{"blockSize":4096,"storageTotalBlocks":288,"maxSingleAssetSize":606208,"assetPerBlockOverhead":8,"assetOverhead":0,"reservedBlocks":10}},"boron":{"id":13,"name":"boron","displayName":"Boron","generation":3,"baseMcu":"nrf52840","features":["cellular","udp","mesh","ble"],"aliases":["b"],"billingConnectivity":"cellular","productEligible":true,"public":true,"firmwareModules":[{"type":"bootloader","storage":"internalFlash"},{"type":"systemPart","storage":"internalFlash"},{"type":"userPart","storage":"internalFlash","maxSize":262144},{"type":"radioStack","storage":"internalFlash"},{"type":"monoFirmware","storage":"internalFlash"}],"usb":{"vendorId":"0x2b04","productId":"0xc00d"},"dfu":{"vendorId":"0x2b04","productId":"0xd00d","storage":[{"type":"internalFlash","alt":0},{"type":"externalFlash","alt":2}],"segments":{"factoryReset":{"address":"0x00200000","alt":2},"formerUserPart":{"address":"0xd4000","alt":0,"size":4096}}},"assets":{"blockSize":4096,"storageTotalBlocks":288,"maxSingleAssetSize":606208,"assetPerBlockOverhead":8,"assetOverhead":0,"reservedBlocks":10}},"xenon":{"id":14,"name":"xenon","displayName":"Xenon","generation":3,"baseMcu":"nrf52840","features":["mesh","ble"],"aliases":["x"],"billingConnectivity":"wifi","productEligible":false,"public":true,"firmwareModules":[{"type":"bootloader","storage":"internalFlash"},{"type":"systemPart","storage":"internalFlash"},{"type":"userPart","storage":"internalFlash","maxSize":131072},{"type":"radioStack","storage":"internalFlash"},{"type":"monoFirmware","storage":"internalFlash"}],"usb":{"vendorId":"0x2b04","productId":"0xc00e"},"dfu":{"vendorId":"0x2b04","productId":"0xd00e","storage":[{"type":"internalFlash","alt":0},{"type":"externalFlash","alt":2}],"segments":{"factoryReset":{"address":"0x00200000","alt":2},"formerUserPart":{"address":"0xd4000","alt":0,"size":4096}}}},"esomx":{"id":15,"name":"esomx","displayName":"E-SoM-X","generation":3,"baseMcu":"nrf52840","features":["som","cellular","udp","ble"],"billingConnectivity":"cellular","productEligible":true,"public":true,"firmwareModules":[{"type":"bootloader","storage":"internalFlash"},{"type":"systemPart","storage":"internalFlash"},{"type":"userPart","storage":"internalFlash","maxSize":262144},{"type":"radioStack","storage":"internalFlash"},{"type":"monoFirmware","storage":"internalFlash"}],"usb":{"vendorId":"0x2b04","productId":"0xc00f"},"dfu":{"vendorId":"0x2b04","productId":"0xd00f","storage":[{"type":"internalFlash","alt":0},{"type":"externalFlash","alt":2}],"segments":{"factoryReset":{"address":"0x00200000","alt":2},"formerUserPart":{"address":"0xd4000","alt":0,"size":4096}}},"assets":{"blockSize":4096,"storageTotalBlocks":512,"maxSingleAssetSize":1572864,"assetPerBlockOverhead":8,"assetOverhead":0,"reservedBlocks":10}},"asom":{"id":22,"name":"asom","displayName":"A-SoM","generation":3,"baseMcu":"nrf52840","features":["som","wifi","mesh","udp","ble"],"billingConnectivity":"wifi","productEligible":false,"public":false,"firmwareModules":[{"type":"bootloader","storage":"internalFlash"},{"type":"systemPart","storage":"internalFlash"},{"type":"userPart","storage":"internalFlash","maxSize":131072},{"type":"radioStack","storage":"internalFlash"},{"type":"ncpFirmware","storage":"externalMcu"},{"type":"monoFirmware","storage":"internalFlash"}],"usb":{"vendorId":"0x2b04","productId":"0xc016"},"dfu":{"vendorId":"0x2b04","productId":"0xd016","storage":[{"type":"internalFlash","alt":0},{"type":"externalFlash","alt":2}],"segments":{"factoryReset":{"address":"0x00200000","alt":2},"formerUserPart":{"address":"0xd4000","alt":0,"size":4096}}}},"bsom":{"id":23,"name":"bsom","displayName":"B-SoM","generation":3,"baseMcu":"nrf52840","features":["som","cellular","mesh","udp","ble","muonCompatible"],"billingConnectivity":"cellular","productEligible":true,"public":true,"firmwareModules":[{"type":"bootloader","storage":"internalFlash"},{"type":"systemPart","storage":"internalFlash"},{"type":"userPart","storage":"internalFlash","maxSize":262144},{"type":"radioStack","storage":"internalFlash"},{"type":"monoFirmware","storage":"internalFlash"}],"usb":{"vendorId":"0x2b04","productId":"0xc017"},"dfu":{"vendorId":"0x2b04","productId":"0xd017","storage":[{"type":"internalFlash","alt":0},{"type":"externalFlash","alt":2}],"segments":{"factoryReset":{"address":"0x00200000","alt":2},"formerUserPart":{"address":"0xd4000","alt":0,"size":4096}}},"assets":{"blockSize":4096,"storageTotalBlocks":288,"maxSingleAssetSize":606208,"assetPerBlockOverhead":8,"assetOverhead":0,"reservedBlocks":10}},"xsom":{"id":24,"name":"xsom","displayName":"X-SoM","generation":3,"baseMcu":"nrf52840","features":["mesh","ble"],"billingConnectivity":"wifi","productEligible":false,"public":false,"firmwareModules":[{"type":"bootloader","storage":"internalFlash"},{"type":"systemPart","storage":"internalFlash"},{"type":"userPart","storage":"internalFlash","maxSize":131072},{"type":"radioStack","storage":"internalFlash"},{"type":"monoFirmware","storage":"internalFlash"}],"usb":{"vendorId":"0x2b04","productId":"0xc018"},"dfu":{"vendorId":"0x2b04","productId":"0xd018","storage":[{"type":"internalFlash","alt":0},{"type":"externalFlash","alt":2}],"segments":{"factoryReset":{"address":"0x00200000","alt":2},"formerUserPart":{"address":"0xd4000","alt":0,"size":4096}}}},"b5som":{"id":25,"name":"b5som","displayName":"B5-SoM","generation":3,"baseMcu":"nrf52840","features":["som","cellular","mesh","udp","ble","muonCompatible"],"billingConnectivity":"cellular","productEligible":true,"public":true,"firmwareModules":[{"type":"bootloader","storage":"internalFlash"},{"type":"systemPart","storage":"internalFlash"},{"type":"userPart","storage":"internalFlash","maxSize":262144},{"type":"radioStack","storage":"internalFlash"},{"type":"monoFirmware","storage":"internalFlash"}],"usb":{"vendorId":"0x2b04","productId":"0xc019"},"dfu":{"vendorId":"0x2b04","productId":"0xd019","storage":[{"type":"internalFlash","alt":0},{"type":"externalFlash","alt":2}],"segments":{"factoryReset":{"address":"0x00600000","alt":2},"formerUserPart":{"address":"0xd4000","alt":0,"size":4096}}},"assets":{"blockSize":4096,"storageTotalBlocks":512,"maxSingleAssetSize":1572864,"assetPerBlockOverhead":8,"assetOverhead":0,"reservedBlocks":10}},"tracker":{"id":26,"name":"tracker","displayName":"Asset Tracker / Monitor One","generation":3,"baseMcu":"nrf52840","features":["som","cellular","udp","ble","gnss","trackerServices"],"aliases":["assettracker"],"billingConnectivity":"cellular","productEligible":true,"public":true,"firmwareModules":[{"type":"bootloader","storage":"internalFlash"},{"type":"systemPart","storage":"internalFlash"},{"type":"userPart","storage":"internalFlash","maxSize":262144},{"type":"radioStack","storage":"internalFlash"},{"type":"ncpFirmware","storage":"externalMcu"},{"type":"monoFirmware","storage":"internalFlash"}],"usb":{"vendorId":"0x2b04","productId":"0xc01a"},"dfu":{"vendorId":"0x2b04","productId":"0xd01a","storage":[{"type":"internalFlash","alt":0},{"type":"externalFlash","alt":2}],"segments":{"factoryReset":{"address":"0x00600000","alt":2},"formerUserPart":{"address":"0xd4000","alt":0,"size":4096}}},"assets":{"blockSize":4096,"storageTotalBlocks":512,"maxSingleAssetSize":1572864,"assetPerBlockOverhead":8,"assetOverhead":0,"reservedBlocks":10}},"trackerm":{"id":28,"name":"trackerm","displayName":"Tracker-M","generation":3,"baseMcu":"rtl872x","features":["som","cellular","udp","ble","gnss","trackerServices"],"billingConnectivity":"cellular","productEligible":true,"public":true,"firmwareModules":[{"type":"bootloader","index":0,"storage":"internalFlash"},{"type":"bootloader","index":1,"storage":"internalFlash","encrypted":true},{"type":"bootloader","index":2,"storage":"internalFlash"},{"type":"systemPart","storage":"internalFlash"},{"type":"userPart","storage":"internalFlash","growsLeft":true,"maxSize":1572864},{"type":"monoFirmware","storage":"internalFlash"}],"usb":{"vendorId":"0x2b04","productId":"0xc01c","quirks":{"controlOutTransfersRequireDataStage":true}},"dfu":{"vendorId":"0x2b04","productId":"0xd01c","storage":[{"type":"internalFlash","alt":0}]},"assets":{"blockSize":4096,"storageTotalBlocks":288,"maxSingleAssetSize":1179648,"assetPerBlockOverhead":8,"assetOverhead":0,"reservedBlocks":10}},"raspi":{"id":31,"name":"raspi","displayName":"Raspberry Pi","generation":-1,"baseMcu":"raspi","features":["wifi","tcp"],"billingConnectivity":"wifi","productEligible":false,"public":false,"usb":{"vendorId":"0x0","productId":"0x0"},"dfu":{"vendorId":"0x0","productId":"0x0"}},"p2":{"id":32,"name":"p2","displayName":"Photon 2 / P2","generation":4,"baseMcu":"rtl872x","features":["wifi","udp","ble"],"aliases":["photon2"],"billingConnectivity":"wifi","productEligible":true,"public":true,"firmwareModules":[{"type":"bootloader","index":0,"storage":"internalFlash"},{"type":"bootloader","index":1,"storage":"internalFlash","encrypted":true},{"type":"bootloader","index":2,"storage":"internalFlash"},{"type":"systemPart","storage":"internalFlash"},{"type":"userPart","storage":"internalFlash","growsLeft":true,"maxSize":1572864},{"type":"monoFirmware","storage":"internalFlash"}],"usb":{"vendorId":"0x2b04","productId":"0xc020","quirks":{"controlOutTransfersRequireDataStage":true}},"dfu":{"vendorId":"0x2b04","productId":"0xd020","storage":[{"type":"internalFlash","alt":0}]},"assets":{"blockSize":4096,"storageTotalBlocks":288,"maxSingleAssetSize":1179648,"assetPerBlockOverhead":8,"assetOverhead":0,"reservedBlocks":10}},"msom":{"id":35,"name":"msom","displayName":"M-SoM","generation":4,"baseMcu":"rtl872x","features":["wifi","cellular","udp","ble","gnss","trackerServices","muonCompatible"],"aliases":["muon"],"billingConnectivity":"cellular","productEligible":true,"public":true,"firmwareModules":[{"type":"bootloader","index":0,"storage":"internalFlash"},{"type":"bootloader","index":1,"storage":"internalFlash","encrypted":true},{"type":"bootloader","index":2,"storage":"internalFlash"},{"type":"systemPart","storage":"internalFlash"},{"type":"userPart","storage":"internalFlash","growsLeft":true,"maxSize":1572864},{"type":"monoFirmware","storage":"internalFlash"}],"usb":{"vendorId":"0x2b04","productId":"0xc023","quirks":{"controlOutTransfersRequireDataStage":true}},"dfu":{"vendorId":"0x2b04","productId":"0xd023","storage":[{"type":"internalFlash","alt":0}]},"assets":{"blockSize":4096,"storageTotalBlocks":288,"maxSingleAssetSize":1179648,"assetPerBlockOverhead":8,"assetOverhead":0,"reservedBlocks":10}},"electron2":{"id":37,"name":"electron2","displayName":"Electron 2","generation":3,"baseMcu":"nrf52840","features":["cellular","udp","ble"],"aliases":["electron2"],"billingConnectivity":"cellular","productEligible":true,"public":true,"firmwareModules":[{"type":"bootloader","storage":"internalFlash"},{"type":"systemPart","storage":"internalFlash"},{"type":"userPart","storage":"internalFlash","maxSize":262144},{"type":"radioStack","storage":"internalFlash"},{"type":"monoFirmware","storage":"internalFlash"}],"usb":{"vendorId":"0x2b04","productId":"0xc025"},"dfu":{"vendorId":"0x2b04","productId":"0xd025","storage":[{"type":"internalFlash","alt":0},{"type":"externalFlash","alt":2}],"segments":{"factoryReset":{"address":"0x00200000","alt":2},"formerUserPart":{"address":"0xd4000","alt":0,"size":4096}}},"assets":{"blockSize":4096,"storageTotalBlocks":512,"maxSingleAssetSize":1572864,"assetPerBlockOverhead":8,"assetOverhead":0,"reservedBlocks":10}},"tachyon":{"id":42,"name":"tachyon","displayName":"Tachyon","generation":-1,"features":["linux"],"productEligible":true,"public":false,"billingConnectivity":"cellular","baseMcu":"qcm6490","usb":{"vendorId":"0x2b04","productId":"0xc02a"},"dfu":{"vendorId":"0x0","productId":"0x0"}},"linux":{"id":43,"name":"linux","displayName":"Linux","generation":-1,"features":["linux"],"productEligible":true,"public":false,"billingConnectivity":"wifi","baseMcu":"unknown"},"oak":{"id":82,"name":"oak","displayName":"Oak","generation":-1,"baseMcu":"esp8266","features":["wifi","tcp"],"billingConnectivity":"wifi","productEligible":false,"public":false,"usb":{"vendorId":"0x0","productId":"0x0"},"dfu":{"vendorId":"0x0","productId":"0x0"}},"duo":{"id":88,"name":"duo","displayName":"Duo","generation":-1,"baseMcu":"stm32f2xx","features":["wifi","tcp","ble"],"billingConnectivity":"wifi","productEligible":false,"public":false,"usb":{"vendorId":"0x0","productId":"0x0"},"dfu":{"vendorId":"0x0","productId":"0x0"}},"bluz":{"id":103,"name":"bluz","displayName":"Bluz","generation":-1,"baseMcu":"stm32f2xx","features":["wifi","tcp","ble"],"billingConnectivity":"wifi","productEligible":false,"public":false,"usb":{"vendorId":"0x0","productId":"0x0"},"dfu":{"vendorId":"0x0","productId":"0x0"}}}');
 
 /***/ }),
 
@@ -35017,7 +30631,7 @@ module.exports = JSON.parse('[[[0,44],"disallowed_STD3_valid"],[[45,46],"valid"]
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse('{"name":"particle-api-js","version":"10.0.0","description":"Particle API Client","main":"lib/Particle.js","scripts":{"babel-watch":"babel src -d lib --watch --source-maps","prepublish":"npm run lint && npm run compile","compile":"babel src -sd lib","test":"npm run lint && npm run test:unit","test:ci":"npm run lint && npm run test:unit -- --forbid-only && npm run coverage","test:unit":"mocha test/ -R spec --compilers js:babel-register","test:unit:silent":"npm run test:unit > tmp/test-unit-log.txt 2>&1","test:browser":"karma start --single-run","test:watch":"npm run test:unit -- --watch","coverage":"nyc --reporter=text --include=\'src/**/*.js\' --temp-dir=./tmp/ --check-coverage --lines 91 npm run test:unit:silent","lint":"eslint . --ext .js --format unix --ignore-path .gitignore --ignore-pattern \\"dist/*\\"","lint:fix":"npm run lint -- --fix","docs":"documentation build src/Particle.js --shallow -g -f md -o docs/api.md","build":"browserify lib/Particle.js -s Particle -d -p [minifyify --map particle.min.js.map --output dist/particle.min.js.map] > dist/particle.min.js","build-nomin":"browserify lib/Particle.js -s Particle > dist/particle.js","preversion":"npm run test && npm run prepublish","reinstall":"rm -rf ./node_modules && npm i","version":"npm run build && npm run docs && npm run update-changelog && git add dist/* docs/*","update-changelog":"VERSION=`node -p -e \\"require(\'./package.json\').version\\"` bash -c \'read -p \\"Update CHANGELOG.md for version $VERSION and press ENTER when done.\\"\' && git add CHANGELOG.md"},"repository":{"type":"git","url":"https://github.com/particle-iot/particle-api-js"},"author":"Julien Vanier <julien@particle.io>","contributors":["Ido Kleinman","Bryce Kahle","Justin Debbink","Matthew McGowan","Julien Vanier","Wojtek Siudzinski","Emily Rose"],"keywords":["particle","library","spark","api"],"license":"Apache-2.0","devDependencies":{"babel-cli":"^6.9.0","babel-eslint":"^6.0.4","babel-plugin-add-module-exports":"^0.1.2","babel-plugin-transform-runtime":"^6.9.0","babel-preset-es2015":"^6.6.0","babel-register":"^6.5.2","babelify":"^7.3.0","brfs":"^1.4.3","browserify":"^13.0.0","chai":"^4.3.6","chai-as-promised":"^7.1.1","documentation":"^4.0.0-rc.1","eslint":"^8.17.0","eslint-config-particle":"^2.2.1","karma":"^1.1.1","karma-browserify":"^5.1.0","karma-chai":"^0.1.0","karma-cli":"^1.0.1","karma-coverage":"^1.1.0","karma-firefox-launcher":"^1.0.0","karma-mocha":"^1.1.1","minifyify":"^7.3.1","mocha":"^2.5.1","nyc":"^15.1.0","should":"^9.0.0","sinon":"^7.2.5","sinon-chai":"^3.7.0","watchify":"^3.7.0"},"dependencies":{"babel-runtime":"^6.9.2","form-data":"^4.0.0","node-fetch":"^2.7.0","qs":"^6.11.2","stream-http":"^3.2.0"},"browser":{"./fs":false,"http":"stream-http","https":"stream-http"},"engines":{"node":">=12.x","npm":"8.x"}}');
+module.exports = JSON.parse('{"name":"particle-api-js","version":"11.1.2","description":"Particle API Client","main":"src/Particle.js","scripts":{"prepublish":"npm run lint && npm run build","test":"npm run lint && npm run typecheck && npm run test:unit","test:ci":"npm run lint && npm run test:unit -- --forbid-only && npm run coverage","test:unit":"mocha test/ -R spec","test:unit:silent":"npm run test:unit > tmp/test-unit-log.txt 2>&1","test:browser":"karma start --single-run","test:watch":"npm run test:unit -- --watch","typecheck":"tsc --noEmit","coverage":"nyc --reporter=text --include=\'src/**/*.js\' --temp-dir=./tmp/ --check-coverage --lines 91 npm run test:unit:silent","lint":"eslint . --ext .js --format unix --ignore-path .gitignore --ignore-pattern \\"dist/*\\"","lint:fix":"npm run lint -- --fix","docs":"documentation build src/Particle.js --shallow -g -f md -o docs/api.md","build":"webpack --env mode=production","build-nomin":"webpack --env mode=development","preversion":"npm run test && npm run prepublish","reinstall":"rm -rf ./node_modules && npm i","version":"npm run build && npm run docs && npm run update-changelog && git add dist/* docs/*","update-changelog":"VERSION=`node -p -e \\"require(\'./package.json\').version\\"` bash -c \'read -p \\"Update CHANGELOG.md for version $VERSION and press ENTER when done.\\"\' && git add CHANGELOG.md"},"repository":{"type":"git","url":"https://github.com/particle-iot/particle-api-js"},"author":"Julien Vanier <julien@particle.io>","contributors":["Ido Kleinman","Bryce Kahle","Justin Debbink","Matthew McGowan","Julien Vanier","Wojtek Siudzinski","Emily Rose"],"keywords":["particle","library","spark","api"],"license":"Apache-2.0","devDependencies":{"@types/node":"^20.5.9","buffer":"^6.0.3","chai":"^4.3.6","chai-as-promised":"^7.1.1","documentation":"^4.0.0-rc.1","eslint":"^8.17.0","eslint-config-particle":"^2.2.1","events":"^3.3.0","karma":"^1.1.1","karma-chai":"^0.1.0","karma-cli":"^1.0.1","karma-coverage":"^1.1.0","karma-firefox-launcher":"^1.0.0","karma-mocha":"^1.1.1","karma-webpack":"^5.0.0","mocha":"^2.5.1","nyc":"^15.1.0","process":"^0.11.10","should":"^9.0.0","sinon":"^7.2.5","sinon-chai":"^3.7.0","terser-webpack-plugin":"^5.3.9","typescript":"^5.2.2","url":"^0.11.3","webpack":"^5.88.2","webpack-cli":"^5.1.4"},"dependencies":{"form-data":"^4.0.0","node-fetch":"^2.7.0","qs":"^6.11.2","stream-http":"^3.2.0"},"browser":{"./fs":false,"http":"stream-http","https":"stream-http"},"engines":{"node":">=12.x","npm":"8.x"}}');
 
 /***/ })
 
