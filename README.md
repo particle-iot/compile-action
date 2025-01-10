@@ -11,7 +11,7 @@ Other Actions for firmware development: Compile | [Flash Device](https://github.
 - uses: particle-iot/compile-action@v1
   with:
     # The platform name to target the compilation
-    # Allowed values: core, photon, p1, electron, argon, boron, xenon, esomx, bsom, b5som, tracker, trackerm, p2, msom
+    # Allowed values: core, photon, p1, electron, argon, boron, xenon, esomx, bsom, b5som, tracker, trackerm, p2, msom, electron2
     # Required: true
     particle-platform-name: ''
       
