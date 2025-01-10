@@ -28,7 +28,7 @@
     "@actions/http-client": "^2.2.3",
     "@particle/device-constants": "^3.7.0",
     "execa": "^5.0.0",
-    "glob": "^7.2.3",
+    "glob": "^11.0.1",
     "particle-api-js": "^11.1.2",
     "semver": "^7.5.4",
     "simple-git": "^3.19.1",
