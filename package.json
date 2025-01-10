@@ -30,7 +30,7 @@
     "execa": "^5.0.0",
     "glob": "^11.0.1",
     "particle-api-js": "^11.1.2",
-    "semver": "^7.5.4",
+    "semver": "^7.6.3",
     "simple-git": "^3.19.1",
     "wiring-preprocessor": "^2.3.0"
   },
