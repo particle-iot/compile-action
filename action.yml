@@ -37,5 +37,5 @@ outputs:
   firmware-version-updated:
     description: 'Boolean value indicating whether the product firmware version was updated. Can only be true with auto-version enabled.'
 runs:
-  using: 'node16'
+  using: 'node20'
   main: 'dist/index.js'
