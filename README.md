@@ -122,29 +122,7 @@ There is no scope for cloud compilation specifically, but your access token shou
 If you plan to [flash firmware](https://github.com/particle-iot/flash-device-action) to test devices, it will need the `devices:update` scope.
 If you plan to [upload product firmware binaries](https://github.com/particle-iot/firmware-upload-action) to the cloud, it will need the `firmware:create` scope.
 
-The best way to create an API user with the [API User tool](https://docs.particle.io/getting-started/cloud/cloud-api/#api-users).
-
-Here's an example of how to manually create an API User for just the `compile-action`:
-
-```bash
-# Create a new Particle access token with the `binary:compile` scope
-$ export TOKEN=<your Particle access token>
-$ export ORG_SLUG=<your Particle organization slug, visible in urls>
-$ curl "https://api.particle.io/v1/orgs/$ORG_SLUG/team?access_token=$TOKEN" -H "Content-Type: application/json" -d '{ "friendly_name": "GitHub Actions Compiling", "scopes": [ "binary:compile" ] }'
-{
-  "ok": true,
-  "created": {
-    "username": "github-actions-compiling+nz3nseew@api.particle.io",
-    "is_programmatic": true,
-    "tokens": [
-      {
-        "token": "9383649a07fb505c6b4ae9d5exampleexample"
-      }
-    ]
-  }
-}
-```
-
+To create an API user, go to the Team page in your organization and click "Add API User".
 
 ## Known Issues
 
