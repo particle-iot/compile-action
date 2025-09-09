@@ -3848,6 +3848,83 @@ function range(a, b, str) {
 
 /***/ }),
 
+/***/ 2639:
+/***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
+
+"use strict";
+
+
+var bind = __nccwpck_require__(7564);
+
+var $apply = __nccwpck_require__(3945);
+var $call = __nccwpck_require__(8093);
+var $reflectApply = __nccwpck_require__(1330);
+
+/** @type {import('./actualApply')} */
+module.exports = $reflectApply || bind.call($call, $apply);
+
+
+/***/ }),
+
+/***/ 3945:
+/***/ ((module) => {
+
+"use strict";
+
+
+/** @type {import('./functionApply')} */
+module.exports = Function.prototype.apply;
+
+
+/***/ }),
+
+/***/ 8093:
+/***/ ((module) => {
+
+"use strict";
+
+
+/** @type {import('./functionCall')} */
+module.exports = Function.prototype.call;
+
+
+/***/ }),
+
+/***/ 8705:
+/***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
+
+"use strict";
+
+
+var bind = __nccwpck_require__(7564);
+var $TypeError = __nccwpck_require__(3314);
+
+var $call = __nccwpck_require__(8093);
+var $actualApply = __nccwpck_require__(2639);
+
+/** @type {(args: [Function, thisArg?: unknown, ...args: unknown[]]) => Function} TODO FIXME, find a way to use import('.') */
+module.exports = function callBindBasic(args) {
+	if (args.length < 1 || typeof args[0] !== 'function') {
+		throw new $TypeError('a function is required');
+	}
+	return $actualApply(bind, $call, args);
+};
+
+
+/***/ }),
+
+/***/ 1330:
+/***/ ((module) => {
+
+"use strict";
+
+
+/** @type {import('./reflectApply')} */
+module.exports = typeof Reflect !== 'undefined' && Reflect && Reflect.apply;
+
+
+/***/ }),
+
 /***/ 2856:
 /***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
 
@@ -5479,6 +5556,205 @@ DelayedStream.prototype._checkIfMaxDataSizeExceeded = function() {
 
 /***/ }),
 
+/***/ 6669:
+/***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
+
+"use strict";
+
+
+var callBind = __nccwpck_require__(8705);
+var gOPD = __nccwpck_require__(3170);
+
+var hasProtoAccessor;
+try {
+	// eslint-disable-next-line no-extra-parens, no-proto
+	hasProtoAccessor = /** @type {{ __proto__?: typeof Array.prototype }} */ ([]).__proto__ === Array.prototype;
+} catch (e) {
+	if (!e || typeof e !== 'object' || !('code' in e) || e.code !== 'ERR_PROTO_ACCESS') {
+		throw e;
+	}
+}
+
+// eslint-disable-next-line no-extra-parens
+var desc = !!hasProtoAccessor && gOPD && gOPD(Object.prototype, /** @type {keyof typeof Object.prototype} */ ('__proto__'));
+
+var $Object = Object;
+var $getPrototypeOf = $Object.getPrototypeOf;
+
+/** @type {import('./get')} */
+module.exports = desc && typeof desc.get === 'function'
+	? callBind([desc.get])
+	: typeof $getPrototypeOf === 'function'
+		? /** @type {import('./get')} */ function getDunder(value) {
+			// eslint-disable-next-line eqeqeq
+			return $getPrototypeOf(value == null ? value : $Object(value));
+		}
+		: false;
+
+
+/***/ }),
+
+/***/ 9094:
+/***/ ((module) => {
+
+"use strict";
+
+
+/** @type {import('.')} */
+var $defineProperty = Object.defineProperty || false;
+if ($defineProperty) {
+	try {
+		$defineProperty({}, 'a', { value: 1 });
+	} catch (e) {
+		// IE 8 has a broken defineProperty
+		$defineProperty = false;
+	}
+}
+
+module.exports = $defineProperty;
+
+
+/***/ }),
+
+/***/ 3056:
+/***/ ((module) => {
+
+"use strict";
+
+
+/** @type {import('./eval')} */
+module.exports = EvalError;
+
+
+/***/ }),
+
+/***/ 1620:
+/***/ ((module) => {
+
+"use strict";
+
+
+/** @type {import('.')} */
+module.exports = Error;
+
+
+/***/ }),
+
+/***/ 4585:
+/***/ ((module) => {
+
+"use strict";
+
+
+/** @type {import('./range')} */
+module.exports = RangeError;
+
+
+/***/ }),
+
+/***/ 6905:
+/***/ ((module) => {
+
+"use strict";
+
+
+/** @type {import('./ref')} */
+module.exports = ReferenceError;
+
+
+/***/ }),
+
+/***/ 105:
+/***/ ((module) => {
+
+"use strict";
+
+
+/** @type {import('./syntax')} */
+module.exports = SyntaxError;
+
+
+/***/ }),
+
+/***/ 3314:
+/***/ ((module) => {
+
+"use strict";
+
+
+/** @type {import('./type')} */
+module.exports = TypeError;
+
+
+/***/ }),
+
+/***/ 2578:
+/***/ ((module) => {
+
+"use strict";
+
+
+/** @type {import('./uri')} */
+module.exports = URIError;
+
+
+/***/ }),
+
+/***/ 5399:
+/***/ ((module) => {
+
+"use strict";
+
+
+/** @type {import('.')} */
+module.exports = Object;
+
+
+/***/ }),
+
+/***/ 8700:
+/***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
+
+"use strict";
+
+
+var GetIntrinsic = __nccwpck_require__(470);
+
+var $defineProperty = GetIntrinsic('%Object.defineProperty%', true);
+
+var hasToStringTag = __nccwpck_require__(5479)();
+var hasOwn = __nccwpck_require__(4076);
+var $TypeError = __nccwpck_require__(3314);
+
+var toStringTag = hasToStringTag ? Symbol.toStringTag : null;
+
+/** @type {import('.')} */
+module.exports = function setToStringTag(object, value) {
+	var overrideIfSet = arguments.length > 2 && !!arguments[2] && arguments[2].force;
+	var nonConfigurable = arguments.length > 2 && !!arguments[2] && arguments[2].nonConfigurable;
+	if (
+		(typeof overrideIfSet !== 'undefined' && typeof overrideIfSet !== 'boolean')
+		|| (typeof nonConfigurable !== 'undefined' && typeof nonConfigurable !== 'boolean')
+	) {
+		throw new $TypeError('if provided, the `overrideIfSet` and `nonConfigurable` options must be booleans');
+	}
+	if (toStringTag && (overrideIfSet || !hasOwn(object, toStringTag))) {
+		if ($defineProperty) {
+			$defineProperty(object, toStringTag, {
+				configurable: !nonConfigurable,
+				enumerable: false,
+				value: value,
+				writable: false
+			});
+		} else {
+			object[toStringTag] = value; // eslint-disable-line no-param-reassign
+		}
+	}
+};
+
+
+/***/ }),
+
 /***/ 8204:
 /***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
 
@@ -6253,6 +6529,526 @@ module.exports = {
 
 /***/ }),
 
+/***/ 6454:
+/***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
+
+"use strict";
+
+
+var CombinedStream = __nccwpck_require__(5630);
+var util = __nccwpck_require__(9023);
+var path = __nccwpck_require__(6928);
+var http = __nccwpck_require__(8611);
+var https = __nccwpck_require__(5692);
+var parseUrl = (__nccwpck_require__(7016).parse);
+var fs = __nccwpck_require__(9896);
+var Stream = (__nccwpck_require__(2203).Stream);
+var crypto = __nccwpck_require__(6982);
+var mime = __nccwpck_require__(4096);
+var asynckit = __nccwpck_require__(1324);
+var setToStringTag = __nccwpck_require__(8700);
+var hasOwn = __nccwpck_require__(4076);
+var populate = __nccwpck_require__(1835);
+
+/**
+ * Create readable "multipart/form-data" streams.
+ * Can be used to submit forms
+ * and file uploads to other web applications.
+ *
+ * @constructor
+ * @param {object} options - Properties to be added/overriden for FormData and CombinedStream
+ */
+function FormData(options) {
+  if (!(this instanceof FormData)) {
+    return new FormData(options);
+  }
+
+  this._overheadLength = 0;
+  this._valueLength = 0;
+  this._valuesToMeasure = [];
+
+  CombinedStream.call(this);
+
+  options = options || {}; // eslint-disable-line no-param-reassign
+  for (var option in options) { // eslint-disable-line no-restricted-syntax
+    this[option] = options[option];
+  }
+}
+
+// make it a Stream
+util.inherits(FormData, CombinedStream);
+
+FormData.LINE_BREAK = '\r\n';
+FormData.DEFAULT_CONTENT_TYPE = 'application/octet-stream';
+
+FormData.prototype.append = function (field, value, options) {
+  options = options || {}; // eslint-disable-line no-param-reassign
+
+  // allow filename as single option
+  if (typeof options === 'string') {
+    options = { filename: options }; // eslint-disable-line no-param-reassign
+  }
+
+  var append = CombinedStream.prototype.append.bind(this);
+
+  // all that streamy business can't handle numbers
+  if (typeof value === 'number' || value == null) {
+    value = String(value); // eslint-disable-line no-param-reassign
+  }
+
+  // https://github.com/felixge/node-form-data/issues/38
+  if (Array.isArray(value)) {
+    /*
+     * Please convert your array into string
+     * the way web server expects it
+     */
+    this._error(new Error('Arrays are not supported.'));
+    return;
+  }
+
+  var header = this._multiPartHeader(field, value, options);
+  var footer = this._multiPartFooter();
+
+  append(header);
+  append(value);
+  append(footer);
+
+  // pass along options.knownLength
+  this._trackLength(header, value, options);
+};
+
+FormData.prototype._trackLength = function (header, value, options) {
+  var valueLength = 0;
+
+  /*
+   * used w/ getLengthSync(), when length is known.
+   * e.g. for streaming directly from a remote server,
+   * w/ a known file a size, and not wanting to wait for
+   * incoming file to finish to get its size.
+   */
+  if (options.knownLength != null) {
+    valueLength += Number(options.knownLength);
+  } else if (Buffer.isBuffer(value)) {
+    valueLength = value.length;
+  } else if (typeof value === 'string') {
+    valueLength = Buffer.byteLength(value);
+  }
+
+  this._valueLength += valueLength;
+
+  // @check why add CRLF? does this account for custom/multiple CRLFs?
+  this._overheadLength += Buffer.byteLength(header) + FormData.LINE_BREAK.length;
+
+  // empty or either doesn't have path or not an http response or not a stream
+  if (!value || (!value.path && !(value.readable && hasOwn(value, 'httpVersion')) && !(value instanceof Stream))) {
+    return;
+  }
+
+  // no need to bother with the length
+  if (!options.knownLength) {
+    this._valuesToMeasure.push(value);
+  }
+};
+
+FormData.prototype._lengthRetriever = function (value, callback) {
+  if (hasOwn(value, 'fd')) {
+    // take read range into a account
+    // `end` = Infinity –> read file till the end
+    //
+    // TODO: Looks like there is bug in Node fs.createReadStream
+    // it doesn't respect `end` options without `start` options
+    // Fix it when node fixes it.
+    // https://github.com/joyent/node/issues/7819
+    if (value.end != undefined && value.end != Infinity && value.start != undefined) {
+      // when end specified
+      // no need to calculate range
+      // inclusive, starts with 0
+      callback(null, value.end + 1 - (value.start ? value.start : 0)); // eslint-disable-line callback-return
+
+      // not that fast snoopy
+    } else {
+      // still need to fetch file size from fs
+      fs.stat(value.path, function (err, stat) {
+        if (err) {
+          callback(err);
+          return;
+        }
+
+        // update final size based on the range options
+        var fileSize = stat.size - (value.start ? value.start : 0);
+        callback(null, fileSize);
+      });
+    }
+
+    // or http response
+  } else if (hasOwn(value, 'httpVersion')) {
+    callback(null, Number(value.headers['content-length'])); // eslint-disable-line callback-return
+
+    // or request stream http://github.com/mikeal/request
+  } else if (hasOwn(value, 'httpModule')) {
+    // wait till response come back
+    value.on('response', function (response) {
+      value.pause();
+      callback(null, Number(response.headers['content-length']));
+    });
+    value.resume();
+
+    // something else
+  } else {
+    callback('Unknown stream'); // eslint-disable-line callback-return
+  }
+};
+
+FormData.prototype._multiPartHeader = function (field, value, options) {
+  /*
+   * custom header specified (as string)?
+   * it becomes responsible for boundary
+   * (e.g. to handle extra CRLFs on .NET servers)
+   */
+  if (typeof options.header === 'string') {
+    return options.header;
+  }
+
+  var contentDisposition = this._getContentDisposition(value, options);
+  var contentType = this._getContentType(value, options);
+
+  var contents = '';
+  var headers = {
+    // add custom disposition as third element or keep it two elements if not
+    'Content-Disposition': ['form-data', 'name="' + field + '"'].concat(contentDisposition || []),
+    // if no content type. allow it to be empty array
+    'Content-Type': [].concat(contentType || [])
+  };
+
+  // allow custom headers.
+  if (typeof options.header === 'object') {
+    populate(headers, options.header);
+  }
+
+  var header;
+  for (var prop in headers) { // eslint-disable-line no-restricted-syntax
+    if (hasOwn(headers, prop)) {
+      header = headers[prop];
+
+      // skip nullish headers.
+      if (header == null) {
+        continue; // eslint-disable-line no-restricted-syntax, no-continue
+      }
+
+      // convert all headers to arrays.
+      if (!Array.isArray(header)) {
+        header = [header];
+      }
+
+      // add non-empty headers.
+      if (header.length) {
+        contents += prop + ': ' + header.join('; ') + FormData.LINE_BREAK;
+      }
+    }
+  }
+
+  return '--' + this.getBoundary() + FormData.LINE_BREAK + contents + FormData.LINE_BREAK;
+};
+
+FormData.prototype._getContentDisposition = function (value, options) { // eslint-disable-line consistent-return
+  var filename;
+
+  if (typeof options.filepath === 'string') {
+    // custom filepath for relative paths
+    filename = path.normalize(options.filepath).replace(/\\/g, '/');
+  } else if (options.filename || (value && (value.name || value.path))) {
+    /*
+     * custom filename take precedence
+     * formidable and the browser add a name property
+     * fs- and request- streams have path property
+     */
+    filename = path.basename(options.filename || (value && (value.name || value.path)));
+  } else if (value && value.readable && hasOwn(value, 'httpVersion')) {
+    // or try http response
+    filename = path.basename(value.client._httpMessage.path || '');
+  }
+
+  if (filename) {
+    return 'filename="' + filename + '"';
+  }
+};
+
+FormData.prototype._getContentType = function (value, options) {
+  // use custom content-type above all
+  var contentType = options.contentType;
+
+  // or try `name` from formidable, browser
+  if (!contentType && value && value.name) {
+    contentType = mime.lookup(value.name);
+  }
+
+  // or try `path` from fs-, request- streams
+  if (!contentType && value && value.path) {
+    contentType = mime.lookup(value.path);
+  }
+
+  // or if it's http-reponse
+  if (!contentType && value && value.readable && hasOwn(value, 'httpVersion')) {
+    contentType = value.headers['content-type'];
+  }
+
+  // or guess it from the filepath or filename
+  if (!contentType && (options.filepath || options.filename)) {
+    contentType = mime.lookup(options.filepath || options.filename);
+  }
+
+  // fallback to the default content type if `value` is not simple value
+  if (!contentType && value && typeof value === 'object') {
+    contentType = FormData.DEFAULT_CONTENT_TYPE;
+  }
+
+  return contentType;
+};
+
+FormData.prototype._multiPartFooter = function () {
+  return function (next) {
+    var footer = FormData.LINE_BREAK;
+
+    var lastPart = this._streams.length === 0;
+    if (lastPart) {
+      footer += this._lastBoundary();
+    }
+
+    next(footer);
+  }.bind(this);
+};
+
+FormData.prototype._lastBoundary = function () {
+  return '--' + this.getBoundary() + '--' + FormData.LINE_BREAK;
+};
+
+FormData.prototype.getHeaders = function (userHeaders) {
+  var header;
+  var formHeaders = {
+    'content-type': 'multipart/form-data; boundary=' + this.getBoundary()
+  };
+
+  for (header in userHeaders) { // eslint-disable-line no-restricted-syntax
+    if (hasOwn(userHeaders, header)) {
+      formHeaders[header.toLowerCase()] = userHeaders[header];
+    }
+  }
+
+  return formHeaders;
+};
+
+FormData.prototype.setBoundary = function (boundary) {
+  if (typeof boundary !== 'string') {
+    throw new TypeError('FormData boundary must be a string');
+  }
+  this._boundary = boundary;
+};
+
+FormData.prototype.getBoundary = function () {
+  if (!this._boundary) {
+    this._generateBoundary();
+  }
+
+  return this._boundary;
+};
+
+FormData.prototype.getBuffer = function () {
+  var dataBuffer = new Buffer.alloc(0); // eslint-disable-line new-cap
+  var boundary = this.getBoundary();
+
+  // Create the form content. Add Line breaks to the end of data.
+  for (var i = 0, len = this._streams.length; i < len; i++) {
+    if (typeof this._streams[i] !== 'function') {
+      // Add content to the buffer.
+      if (Buffer.isBuffer(this._streams[i])) {
+        dataBuffer = Buffer.concat([dataBuffer, this._streams[i]]);
+      } else {
+        dataBuffer = Buffer.concat([dataBuffer, Buffer.from(this._streams[i])]);
+      }
+
+      // Add break after content.
+      if (typeof this._streams[i] !== 'string' || this._streams[i].substring(2, boundary.length + 2) !== boundary) {
+        dataBuffer = Buffer.concat([dataBuffer, Buffer.from(FormData.LINE_BREAK)]);
+      }
+    }
+  }
+
+  // Add the footer and return the Buffer object.
+  return Buffer.concat([dataBuffer, Buffer.from(this._lastBoundary())]);
+};
+
+FormData.prototype._generateBoundary = function () {
+  // This generates a 50 character boundary similar to those used by Firefox.
+
+  // They are optimized for boyer-moore parsing.
+  this._boundary = '--------------------------' + crypto.randomBytes(12).toString('hex');
+};
+
+// Note: getLengthSync DOESN'T calculate streams length
+// As workaround one can calculate file size manually and add it as knownLength option
+FormData.prototype.getLengthSync = function () {
+  var knownLength = this._overheadLength + this._valueLength;
+
+  // Don't get confused, there are 3 "internal" streams for each keyval pair so it basically checks if there is any value added to the form
+  if (this._streams.length) {
+    knownLength += this._lastBoundary().length;
+  }
+
+  // https://github.com/form-data/form-data/issues/40
+  if (!this.hasKnownLength()) {
+    /*
+     * Some async length retrievers are present
+     * therefore synchronous length calculation is false.
+     * Please use getLength(callback) to get proper length
+     */
+    this._error(new Error('Cannot calculate proper length in synchronous way.'));
+  }
+
+  return knownLength;
+};
+
+// Public API to check if length of added values is known
+// https://github.com/form-data/form-data/issues/196
+// https://github.com/form-data/form-data/issues/262
+FormData.prototype.hasKnownLength = function () {
+  var hasKnownLength = true;
+
+  if (this._valuesToMeasure.length) {
+    hasKnownLength = false;
+  }
+
+  return hasKnownLength;
+};
+
+FormData.prototype.getLength = function (cb) {
+  var knownLength = this._overheadLength + this._valueLength;
+
+  if (this._streams.length) {
+    knownLength += this._lastBoundary().length;
+  }
+
+  if (!this._valuesToMeasure.length) {
+    process.nextTick(cb.bind(this, null, knownLength));
+    return;
+  }
+
+  asynckit.parallel(this._valuesToMeasure, this._lengthRetriever, function (err, values) {
+    if (err) {
+      cb(err);
+      return;
+    }
+
+    values.forEach(function (length) {
+      knownLength += length;
+    });
+
+    cb(null, knownLength);
+  });
+};
+
+FormData.prototype.submit = function (params, cb) {
+  var request;
+  var options;
+  var defaults = { method: 'post' };
+
+  // parse provided url if it's string or treat it as options object
+  if (typeof params === 'string') {
+    params = parseUrl(params); // eslint-disable-line no-param-reassign
+    /* eslint sort-keys: 0 */
+    options = populate({
+      port: params.port,
+      path: params.pathname,
+      host: params.hostname,
+      protocol: params.protocol
+    }, defaults);
+  } else { // use custom params
+    options = populate(params, defaults);
+    // if no port provided use default one
+    if (!options.port) {
+      options.port = options.protocol === 'https:' ? 443 : 80;
+    }
+  }
+
+  // put that good code in getHeaders to some use
+  options.headers = this.getHeaders(params.headers);
+
+  // https if specified, fallback to http in any other case
+  if (options.protocol === 'https:') {
+    request = https.request(options);
+  } else {
+    request = http.request(options);
+  }
+
+  // get content length and fire away
+  this.getLength(function (err, length) {
+    if (err && err !== 'Unknown stream') {
+      this._error(err);
+      return;
+    }
+
+    // add content length
+    if (length) {
+      request.setHeader('Content-Length', length);
+    }
+
+    this.pipe(request);
+    if (cb) {
+      var onResponse;
+
+      var callback = function (error, responce) {
+        request.removeListener('error', callback);
+        request.removeListener('response', onResponse);
+
+        return cb.call(this, error, responce); // eslint-disable-line no-invalid-this
+      };
+
+      onResponse = callback.bind(this, null);
+
+      request.on('error', callback);
+      request.on('response', onResponse);
+    }
+  }.bind(this));
+
+  return request;
+};
+
+FormData.prototype._error = function (err) {
+  if (!this.error) {
+    this.error = err;
+    this.pause();
+    this.emit('error', err);
+  }
+};
+
+FormData.prototype.toString = function () {
+  return '[object FormData]';
+};
+setToStringTag(FormData, 'FormData');
+
+// Public API
+module.exports = FormData;
+
+
+/***/ }),
+
+/***/ 1835:
+/***/ ((module) => {
+
+"use strict";
+
+
+// populates missing values
+module.exports = function (dst, src) {
+  Object.keys(src).forEach(function (prop) {
+    dst[prop] = dst[prop] || src[prop]; // eslint-disable-line no-param-reassign
+  });
+
+  return dst;
+};
+
+
+/***/ }),
+
 /***/ 9808:
 /***/ ((module) => {
 
@@ -6262,43 +7058,75 @@ module.exports = {
 /* eslint no-invalid-this: 1 */
 
 var ERROR_MESSAGE = 'Function.prototype.bind called on incompatible ';
-var slice = Array.prototype.slice;
 var toStr = Object.prototype.toString;
+var max = Math.max;
 var funcType = '[object Function]';
+
+var concatty = function concatty(a, b) {
+    var arr = [];
+
+    for (var i = 0; i < a.length; i += 1) {
+        arr[i] = a[i];
+    }
+    for (var j = 0; j < b.length; j += 1) {
+        arr[j + a.length] = b[j];
+    }
+
+    return arr;
+};
+
+var slicy = function slicy(arrLike, offset) {
+    var arr = [];
+    for (var i = offset || 0, j = 0; i < arrLike.length; i += 1, j += 1) {
+        arr[j] = arrLike[i];
+    }
+    return arr;
+};
+
+var joiny = function (arr, joiner) {
+    var str = '';
+    for (var i = 0; i < arr.length; i += 1) {
+        str += arr[i];
+        if (i + 1 < arr.length) {
+            str += joiner;
+        }
+    }
+    return str;
+};
 
 module.exports = function bind(that) {
     var target = this;
-    if (typeof target !== 'function' || toStr.call(target) !== funcType) {
+    if (typeof target !== 'function' || toStr.apply(target) !== funcType) {
         throw new TypeError(ERROR_MESSAGE + target);
     }
-    var args = slice.call(arguments, 1);
+    var args = slicy(arguments, 1);
 
     var bound;
     var binder = function () {
         if (this instanceof bound) {
             var result = target.apply(
                 this,
-                args.concat(slice.call(arguments))
+                concatty(args, arguments)
             );
             if (Object(result) === result) {
                 return result;
             }
             return this;
-        } else {
-            return target.apply(
-                that,
-                args.concat(slice.call(arguments))
-            );
         }
+        return target.apply(
+            that,
+            concatty(args, arguments)
+        );
+
     };
 
-    var boundLength = Math.max(0, target.length - args.length);
+    var boundLength = max(0, target.length - args.length);
     var boundArgs = [];
     for (var i = 0; i < boundLength; i++) {
-        boundArgs.push('$' + i);
+        boundArgs[i] = '$' + i;
     }
 
-    bound = Function('binder', 'return function (' + boundArgs.join(',') + '){ return binder.apply(this,arguments); }')(binder);
+    bound = Function('binder', 'return function (' + joiny(boundArgs, ',') + '){ return binder.apply(this,arguments); }')(binder);
 
     if (target.prototype) {
         var Empty = function Empty() {};
@@ -6334,9 +7162,25 @@ module.exports = Function.prototype.bind || implementation;
 
 var undefined;
 
-var $SyntaxError = SyntaxError;
+var $Object = __nccwpck_require__(5399);
+
+var $Error = __nccwpck_require__(1620);
+var $EvalError = __nccwpck_require__(3056);
+var $RangeError = __nccwpck_require__(4585);
+var $ReferenceError = __nccwpck_require__(6905);
+var $SyntaxError = __nccwpck_require__(105);
+var $TypeError = __nccwpck_require__(3314);
+var $URIError = __nccwpck_require__(2578);
+
+var abs = __nccwpck_require__(5641);
+var floor = __nccwpck_require__(6171);
+var max = __nccwpck_require__(7147);
+var min = __nccwpck_require__(1017);
+var pow = __nccwpck_require__(6947);
+var round = __nccwpck_require__(2621);
+var sign = __nccwpck_require__(156);
+
 var $Function = Function;
-var $TypeError = TypeError;
 
 // eslint-disable-next-line consistent-return
 var getEvalledConstructor = function (expressionSyntax) {
@@ -6345,14 +7189,8 @@ var getEvalledConstructor = function (expressionSyntax) {
 	} catch (e) {}
 };
 
-var $gOPD = Object.getOwnPropertyDescriptor;
-if ($gOPD) {
-	try {
-		$gOPD({}, '');
-	} catch (e) {
-		$gOPD = null; // this is IE 8, which has a broken gOPD
-	}
-}
+var $gOPD = __nccwpck_require__(3170);
+var $defineProperty = __nccwpck_require__(9094);
 
 var throwTypeError = function () {
 	throw new $TypeError();
@@ -6376,17 +7214,23 @@ var ThrowTypeError = $gOPD
 
 var hasSymbols = __nccwpck_require__(3336)();
 
-var getProto = Object.getPrototypeOf || function (x) { return x.__proto__; }; // eslint-disable-line no-proto
+var getProto = __nccwpck_require__(1967);
+var $ObjectGPO = __nccwpck_require__(1311);
+var $ReflectGPO = __nccwpck_require__(8681);
+
+var $apply = __nccwpck_require__(3945);
+var $call = __nccwpck_require__(8093);
 
 var needsEval = {};
 
-var TypedArray = typeof Uint8Array === 'undefined' ? undefined : getProto(Uint8Array);
+var TypedArray = typeof Uint8Array === 'undefined' || !getProto ? undefined : getProto(Uint8Array);
 
 var INTRINSICS = {
+	__proto__: null,
 	'%AggregateError%': typeof AggregateError === 'undefined' ? undefined : AggregateError,
 	'%Array%': Array,
 	'%ArrayBuffer%': typeof ArrayBuffer === 'undefined' ? undefined : ArrayBuffer,
-	'%ArrayIteratorPrototype%': hasSymbols ? getProto([][Symbol.iterator]()) : undefined,
+	'%ArrayIteratorPrototype%': hasSymbols && getProto ? getProto([][Symbol.iterator]()) : undefined,
 	'%AsyncFromSyncIteratorPrototype%': undefined,
 	'%AsyncFunction%': needsEval,
 	'%AsyncGenerator%': needsEval,
@@ -6403,9 +7247,10 @@ var INTRINSICS = {
 	'%decodeURIComponent%': decodeURIComponent,
 	'%encodeURI%': encodeURI,
 	'%encodeURIComponent%': encodeURIComponent,
-	'%Error%': Error,
+	'%Error%': $Error,
 	'%eval%': eval, // eslint-disable-line no-eval
-	'%EvalError%': EvalError,
+	'%EvalError%': $EvalError,
+	'%Float16Array%': typeof Float16Array === 'undefined' ? undefined : Float16Array,
 	'%Float32Array%': typeof Float32Array === 'undefined' ? undefined : Float32Array,
 	'%Float64Array%': typeof Float64Array === 'undefined' ? undefined : Float64Array,
 	'%FinalizationRegistry%': typeof FinalizationRegistry === 'undefined' ? undefined : FinalizationRegistry,
@@ -6416,26 +7261,27 @@ var INTRINSICS = {
 	'%Int32Array%': typeof Int32Array === 'undefined' ? undefined : Int32Array,
 	'%isFinite%': isFinite,
 	'%isNaN%': isNaN,
-	'%IteratorPrototype%': hasSymbols ? getProto(getProto([][Symbol.iterator]())) : undefined,
+	'%IteratorPrototype%': hasSymbols && getProto ? getProto(getProto([][Symbol.iterator]())) : undefined,
 	'%JSON%': typeof JSON === 'object' ? JSON : undefined,
 	'%Map%': typeof Map === 'undefined' ? undefined : Map,
-	'%MapIteratorPrototype%': typeof Map === 'undefined' || !hasSymbols ? undefined : getProto(new Map()[Symbol.iterator]()),
+	'%MapIteratorPrototype%': typeof Map === 'undefined' || !hasSymbols || !getProto ? undefined : getProto(new Map()[Symbol.iterator]()),
 	'%Math%': Math,
 	'%Number%': Number,
-	'%Object%': Object,
+	'%Object%': $Object,
+	'%Object.getOwnPropertyDescriptor%': $gOPD,
 	'%parseFloat%': parseFloat,
 	'%parseInt%': parseInt,
 	'%Promise%': typeof Promise === 'undefined' ? undefined : Promise,
 	'%Proxy%': typeof Proxy === 'undefined' ? undefined : Proxy,
-	'%RangeError%': RangeError,
-	'%ReferenceError%': ReferenceError,
+	'%RangeError%': $RangeError,
+	'%ReferenceError%': $ReferenceError,
 	'%Reflect%': typeof Reflect === 'undefined' ? undefined : Reflect,
 	'%RegExp%': RegExp,
 	'%Set%': typeof Set === 'undefined' ? undefined : Set,
-	'%SetIteratorPrototype%': typeof Set === 'undefined' || !hasSymbols ? undefined : getProto(new Set()[Symbol.iterator]()),
+	'%SetIteratorPrototype%': typeof Set === 'undefined' || !hasSymbols || !getProto ? undefined : getProto(new Set()[Symbol.iterator]()),
 	'%SharedArrayBuffer%': typeof SharedArrayBuffer === 'undefined' ? undefined : SharedArrayBuffer,
 	'%String%': String,
-	'%StringIteratorPrototype%': hasSymbols ? getProto(''[Symbol.iterator]()) : undefined,
+	'%StringIteratorPrototype%': hasSymbols && getProto ? getProto(''[Symbol.iterator]()) : undefined,
 	'%Symbol%': hasSymbols ? Symbol : undefined,
 	'%SyntaxError%': $SyntaxError,
 	'%ThrowTypeError%': ThrowTypeError,
@@ -6445,18 +7291,33 @@ var INTRINSICS = {
 	'%Uint8ClampedArray%': typeof Uint8ClampedArray === 'undefined' ? undefined : Uint8ClampedArray,
 	'%Uint16Array%': typeof Uint16Array === 'undefined' ? undefined : Uint16Array,
 	'%Uint32Array%': typeof Uint32Array === 'undefined' ? undefined : Uint32Array,
-	'%URIError%': URIError,
+	'%URIError%': $URIError,
 	'%WeakMap%': typeof WeakMap === 'undefined' ? undefined : WeakMap,
 	'%WeakRef%': typeof WeakRef === 'undefined' ? undefined : WeakRef,
-	'%WeakSet%': typeof WeakSet === 'undefined' ? undefined : WeakSet
+	'%WeakSet%': typeof WeakSet === 'undefined' ? undefined : WeakSet,
+
+	'%Function.prototype.call%': $call,
+	'%Function.prototype.apply%': $apply,
+	'%Object.defineProperty%': $defineProperty,
+	'%Object.getPrototypeOf%': $ObjectGPO,
+	'%Math.abs%': abs,
+	'%Math.floor%': floor,
+	'%Math.max%': max,
+	'%Math.min%': min,
+	'%Math.pow%': pow,
+	'%Math.round%': round,
+	'%Math.sign%': sign,
+	'%Reflect.getPrototypeOf%': $ReflectGPO
 };
 
-try {
-	null.error; // eslint-disable-line no-unused-expressions
-} catch (e) {
-	// https://github.com/tc39/proposal-shadowrealm/pull/384#issuecomment-1364264229
-	var errorProto = getProto(getProto(e));
-	INTRINSICS['%Error.prototype%'] = errorProto;
+if (getProto) {
+	try {
+		null.error; // eslint-disable-line no-unused-expressions
+	} catch (e) {
+		// https://github.com/tc39/proposal-shadowrealm/pull/384#issuecomment-1364264229
+		var errorProto = getProto(getProto(e));
+		INTRINSICS['%Error.prototype%'] = errorProto;
+	}
 }
 
 var doEval = function doEval(name) {
@@ -6474,7 +7335,7 @@ var doEval = function doEval(name) {
 		}
 	} else if (name === '%AsyncIteratorPrototype%') {
 		var gen = doEval('%AsyncGenerator%');
-		if (gen) {
+		if (gen && getProto) {
 			value = getProto(gen.prototype);
 		}
 	}
@@ -6485,6 +7346,7 @@ var doEval = function doEval(name) {
 };
 
 var LEGACY_ALIASES = {
+	__proto__: null,
 	'%ArrayBufferPrototype%': ['ArrayBuffer', 'prototype'],
 	'%ArrayPrototype%': ['Array', 'prototype'],
 	'%ArrayProto_entries%': ['Array', 'prototype', 'entries'],
@@ -6539,12 +7401,12 @@ var LEGACY_ALIASES = {
 };
 
 var bind = __nccwpck_require__(7564);
-var hasOwn = __nccwpck_require__(685);
-var $concat = bind.call(Function.call, Array.prototype.concat);
-var $spliceApply = bind.call(Function.apply, Array.prototype.splice);
-var $replace = bind.call(Function.call, String.prototype.replace);
-var $strSlice = bind.call(Function.call, String.prototype.slice);
-var $exec = bind.call(Function.call, RegExp.prototype.exec);
+var hasOwn = __nccwpck_require__(4076);
+var $concat = bind.call($call, Array.prototype.concat);
+var $spliceApply = bind.call($apply, Array.prototype.splice);
+var $replace = bind.call($call, String.prototype.replace);
+var $strSlice = bind.call($call, String.prototype.slice);
+var $exec = bind.call($call, RegExp.prototype.exec);
 
 /* adapted from https://github.com/lodash/lodash/blob/4.17.15/dist/lodash.js#L6735-L6744 */
 var rePropName = /[^%.[\]]+|\[(?:(-?\d+(?:\.\d+)?)|(["'])((?:(?!\2)[^\\]|\\.)*?)\2)\]|(?=(?:\.|\[\])(?:\.|\[\]|%$))/g;
@@ -6674,6 +7536,67 @@ module.exports = function GetIntrinsic(name, allowMissing) {
 	}
 	return value;
 };
+
+
+/***/ }),
+
+/***/ 1311:
+/***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
+
+"use strict";
+
+
+var $Object = __nccwpck_require__(5399);
+
+/** @type {import('./Object.getPrototypeOf')} */
+module.exports = $Object.getPrototypeOf || null;
+
+
+/***/ }),
+
+/***/ 8681:
+/***/ ((module) => {
+
+"use strict";
+
+
+/** @type {import('./Reflect.getPrototypeOf')} */
+module.exports = (typeof Reflect !== 'undefined' && Reflect.getPrototypeOf) || null;
+
+
+/***/ }),
+
+/***/ 1967:
+/***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
+
+"use strict";
+
+
+var reflectGetProto = __nccwpck_require__(8681);
+var originalGetProto = __nccwpck_require__(1311);
+
+var getDunderProto = __nccwpck_require__(6669);
+
+/** @type {import('.')} */
+module.exports = reflectGetProto
+	? function getProto(O) {
+		// @ts-expect-error TS can't narrow inside a closure, for some reason
+		return reflectGetProto(O);
+	}
+	: originalGetProto
+		? function getProto(O) {
+			if (!O || (typeof O !== 'object' && typeof O !== 'function')) {
+				throw new TypeError('getProto: not an object');
+			}
+			// @ts-expect-error TS can't narrow inside a closure, for some reason
+			return originalGetProto(O);
+		}
+		: getDunderProto
+			? function getProto(O) {
+				// @ts-expect-error TS can't narrow inside a closure, for some reason
+				return getDunderProto(O);
+			}
+			: null;
 
 
 /***/ }),
@@ -6928,7 +7851,7 @@ function expand(str, isTop) {
     var isOptions = m.body.indexOf(',') >= 0;
     if (!isSequence && !isOptions) {
       // {a},b}
-      if (m.post.match(/,.*\}/)) {
+      if (m.post.match(/,(?!,).*\}/)) {
         str = m.pre + '{' + m.body + escClose + m.post;
         return expand(str);
       }
@@ -7017,6 +7940,41 @@ function expand(str, isTop) {
 
 /***/ }),
 
+/***/ 1174:
+/***/ ((module) => {
+
+"use strict";
+
+
+/** @type {import('./gOPD')} */
+module.exports = Object.getOwnPropertyDescriptor;
+
+
+/***/ }),
+
+/***/ 3170:
+/***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
+
+"use strict";
+
+
+/** @type {import('.')} */
+var $gOPD = __nccwpck_require__(1174);
+
+if ($gOPD) {
+	try {
+		$gOPD([], 'length');
+	} catch (e) {
+		// IE 8 has a broken gOPD
+		$gOPD = null;
+	}
+}
+
+module.exports = $gOPD;
+
+
+/***/ }),
+
 /***/ 3813:
 /***/ ((module) => {
 
@@ -7042,6 +8000,7 @@ module.exports = (flag, argv = process.argv) => {
 var origSymbol = typeof Symbol !== 'undefined' && Symbol;
 var hasSymbolSham = __nccwpck_require__(1114);
 
+/** @type {import('.')} */
 module.exports = function hasNativeSymbols() {
 	if (typeof origSymbol !== 'function') { return false; }
 	if (typeof Symbol !== 'function') { return false; }
@@ -7060,11 +8019,13 @@ module.exports = function hasNativeSymbols() {
 "use strict";
 
 
+/** @type {import('./shams')} */
 /* eslint complexity: [2, 18], max-statements: [2, 33] */
 module.exports = function hasSymbols() {
 	if (typeof Symbol !== 'function' || typeof Object.getOwnPropertySymbols !== 'function') { return false; }
 	if (typeof Symbol.iterator === 'symbol') { return true; }
 
+	/** @type {{ [k in symbol]?: unknown }} */
 	var obj = {};
 	var sym = Symbol('test');
 	var symObj = Object(sym);
@@ -7083,7 +8044,7 @@ module.exports = function hasSymbols() {
 
 	var symVal = 42;
 	obj[sym] = symVal;
-	for (sym in obj) { return false; } // eslint-disable-line no-restricted-syntax, no-unreachable-loop
+	for (var _ in obj) { return false; } // eslint-disable-line no-restricted-syntax, no-unreachable-loop
 	if (typeof Object.keys === 'function' && Object.keys(obj).length !== 0) { return false; }
 
 	if (typeof Object.getOwnPropertyNames === 'function' && Object.getOwnPropertyNames(obj).length !== 0) { return false; }
@@ -7094,7 +8055,8 @@ module.exports = function hasSymbols() {
 	if (!Object.prototype.propertyIsEnumerable.call(obj, sym)) { return false; }
 
 	if (typeof Object.getOwnPropertyDescriptor === 'function') {
-		var descriptor = Object.getOwnPropertyDescriptor(obj, sym);
+		// eslint-disable-next-line no-extra-parens
+		var descriptor = /** @type {PropertyDescriptor} */ (Object.getOwnPropertyDescriptor(obj, sym));
 		if (descriptor.value !== symVal || descriptor.enumerable !== true) { return false; }
 	}
 
@@ -7104,15 +8066,34 @@ module.exports = function hasSymbols() {
 
 /***/ }),
 
-/***/ 685:
+/***/ 5479:
 /***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
 
 "use strict";
 
 
+var hasSymbols = __nccwpck_require__(1114);
+
+/** @type {import('.')} */
+module.exports = function hasToStringTagShams() {
+	return hasSymbols() && !!Symbol.toStringTag;
+};
+
+
+/***/ }),
+
+/***/ 4076:
+/***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
+
+"use strict";
+
+
+var call = Function.prototype.call;
+var $hasOwn = Object.prototype.hasOwnProperty;
 var bind = __nccwpck_require__(7564);
 
-module.exports = bind.call(Function.call, Object.prototype.hasOwnProperty);
+/** @type {import('.')} */
+module.exports = bind.call(call, $hasOwn);
 
 
 /***/ }),
@@ -7736,6 +8717,111 @@ function isexe (path, options, cb) {
 function sync (path, options) {
   return checkStat(fs.statSync(path), path, options)
 }
+
+
+/***/ }),
+
+/***/ 5641:
+/***/ ((module) => {
+
+"use strict";
+
+
+/** @type {import('./abs')} */
+module.exports = Math.abs;
+
+
+/***/ }),
+
+/***/ 6171:
+/***/ ((module) => {
+
+"use strict";
+
+
+/** @type {import('./floor')} */
+module.exports = Math.floor;
+
+
+/***/ }),
+
+/***/ 7044:
+/***/ ((module) => {
+
+"use strict";
+
+
+/** @type {import('./isNaN')} */
+module.exports = Number.isNaN || function isNaN(a) {
+	return a !== a;
+};
+
+
+/***/ }),
+
+/***/ 7147:
+/***/ ((module) => {
+
+"use strict";
+
+
+/** @type {import('./max')} */
+module.exports = Math.max;
+
+
+/***/ }),
+
+/***/ 1017:
+/***/ ((module) => {
+
+"use strict";
+
+
+/** @type {import('./min')} */
+module.exports = Math.min;
+
+
+/***/ }),
+
+/***/ 6947:
+/***/ ((module) => {
+
+"use strict";
+
+
+/** @type {import('./pow')} */
+module.exports = Math.pow;
+
+
+/***/ }),
+
+/***/ 2621:
+/***/ ((module) => {
+
+"use strict";
+
+
+/** @type {import('./round')} */
+module.exports = Math.round;
+
+
+/***/ }),
+
+/***/ 156:
+/***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
+
+"use strict";
+
+
+var $isNaN = __nccwpck_require__(7044);
+
+/** @type {import('./sign')} */
+module.exports = function sign(number) {
+	if ($isNaN(number) || number === 0) {
+		return number;
+	}
+	return number < 0 ? -1 : +1;
+};
 
 
 /***/ }),
@@ -12798,531 +13884,6 @@ module.exports = __nccwpck_require__(9896);
 
 /***/ }),
 
-/***/ 1197:
-/***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
-
-var CombinedStream = __nccwpck_require__(5630);
-var util = __nccwpck_require__(9023);
-var path = __nccwpck_require__(6928);
-var http = __nccwpck_require__(8611);
-var https = __nccwpck_require__(5692);
-var parseUrl = (__nccwpck_require__(7016).parse);
-var fs = __nccwpck_require__(9896);
-var Stream = (__nccwpck_require__(2203).Stream);
-var mime = __nccwpck_require__(4096);
-var asynckit = __nccwpck_require__(1324);
-var populate = __nccwpck_require__(6958);
-
-// Public API
-module.exports = FormData;
-
-// make it a Stream
-util.inherits(FormData, CombinedStream);
-
-/**
- * Create readable "multipart/form-data" streams.
- * Can be used to submit forms
- * and file uploads to other web applications.
- *
- * @constructor
- * @param {Object} options - Properties to be added/overriden for FormData and CombinedStream
- */
-function FormData(options) {
-  if (!(this instanceof FormData)) {
-    return new FormData(options);
-  }
-
-  this._overheadLength = 0;
-  this._valueLength = 0;
-  this._valuesToMeasure = [];
-
-  CombinedStream.call(this);
-
-  options = options || {};
-  for (var option in options) {
-    this[option] = options[option];
-  }
-}
-
-FormData.LINE_BREAK = '\r\n';
-FormData.DEFAULT_CONTENT_TYPE = 'application/octet-stream';
-
-FormData.prototype.append = function(field, value, options) {
-
-  options = options || {};
-
-  // allow filename as single option
-  if (typeof options == 'string') {
-    options = {filename: options};
-  }
-
-  var append = CombinedStream.prototype.append.bind(this);
-
-  // all that streamy business can't handle numbers
-  if (typeof value == 'number') {
-    value = '' + value;
-  }
-
-  // https://github.com/felixge/node-form-data/issues/38
-  if (util.isArray(value)) {
-    // Please convert your array into string
-    // the way web server expects it
-    this._error(new Error('Arrays are not supported.'));
-    return;
-  }
-
-  var header = this._multiPartHeader(field, value, options);
-  var footer = this._multiPartFooter();
-
-  append(header);
-  append(value);
-  append(footer);
-
-  // pass along options.knownLength
-  this._trackLength(header, value, options);
-};
-
-FormData.prototype._trackLength = function(header, value, options) {
-  var valueLength = 0;
-
-  // used w/ getLengthSync(), when length is known.
-  // e.g. for streaming directly from a remote server,
-  // w/ a known file a size, and not wanting to wait for
-  // incoming file to finish to get its size.
-  if (options.knownLength != null) {
-    valueLength += +options.knownLength;
-  } else if (Buffer.isBuffer(value)) {
-    valueLength = value.length;
-  } else if (typeof value === 'string') {
-    valueLength = Buffer.byteLength(value);
-  }
-
-  this._valueLength += valueLength;
-
-  // @check why add CRLF? does this account for custom/multiple CRLFs?
-  this._overheadLength +=
-    Buffer.byteLength(header) +
-    FormData.LINE_BREAK.length;
-
-  // empty or either doesn't have path or not an http response or not a stream
-  if (!value || ( !value.path && !(value.readable && value.hasOwnProperty('httpVersion')) && !(value instanceof Stream))) {
-    return;
-  }
-
-  // no need to bother with the length
-  if (!options.knownLength) {
-    this._valuesToMeasure.push(value);
-  }
-};
-
-FormData.prototype._lengthRetriever = function(value, callback) {
-
-  if (value.hasOwnProperty('fd')) {
-
-    // take read range into a account
-    // `end` = Infinity –> read file till the end
-    //
-    // TODO: Looks like there is bug in Node fs.createReadStream
-    // it doesn't respect `end` options without `start` options
-    // Fix it when node fixes it.
-    // https://github.com/joyent/node/issues/7819
-    if (value.end != undefined && value.end != Infinity && value.start != undefined) {
-
-      // when end specified
-      // no need to calculate range
-      // inclusive, starts with 0
-      callback(null, value.end + 1 - (value.start ? value.start : 0));
-
-    // not that fast snoopy
-    } else {
-      // still need to fetch file size from fs
-      fs.stat(value.path, function(err, stat) {
-
-        var fileSize;
-
-        if (err) {
-          callback(err);
-          return;
-        }
-
-        // update final size based on the range options
-        fileSize = stat.size - (value.start ? value.start : 0);
-        callback(null, fileSize);
-      });
-    }
-
-  // or http response
-  } else if (value.hasOwnProperty('httpVersion')) {
-    callback(null, +value.headers['content-length']);
-
-  // or request stream http://github.com/mikeal/request
-  } else if (value.hasOwnProperty('httpModule')) {
-    // wait till response come back
-    value.on('response', function(response) {
-      value.pause();
-      callback(null, +response.headers['content-length']);
-    });
-    value.resume();
-
-  // something else
-  } else {
-    callback('Unknown stream');
-  }
-};
-
-FormData.prototype._multiPartHeader = function(field, value, options) {
-  // custom header specified (as string)?
-  // it becomes responsible for boundary
-  // (e.g. to handle extra CRLFs on .NET servers)
-  if (typeof options.header == 'string') {
-    return options.header;
-  }
-
-  var contentDisposition = this._getContentDisposition(value, options);
-  var contentType = this._getContentType(value, options);
-
-  var contents = '';
-  var headers  = {
-    // add custom disposition as third element or keep it two elements if not
-    'Content-Disposition': ['form-data', 'name="' + field + '"'].concat(contentDisposition || []),
-    // if no content type. allow it to be empty array
-    'Content-Type': [].concat(contentType || [])
-  };
-
-  // allow custom headers.
-  if (typeof options.header == 'object') {
-    populate(headers, options.header);
-  }
-
-  var header;
-  for (var prop in headers) {
-    if (!headers.hasOwnProperty(prop)) continue;
-    header = headers[prop];
-
-    // skip nullish headers.
-    if (header == null) {
-      continue;
-    }
-
-    // convert all headers to arrays.
-    if (!Array.isArray(header)) {
-      header = [header];
-    }
-
-    // add non-empty headers.
-    if (header.length) {
-      contents += prop + ': ' + header.join('; ') + FormData.LINE_BREAK;
-    }
-  }
-
-  return '--' + this.getBoundary() + FormData.LINE_BREAK + contents + FormData.LINE_BREAK;
-};
-
-FormData.prototype._getContentDisposition = function(value, options) {
-
-  var filename
-    , contentDisposition
-    ;
-
-  if (typeof options.filepath === 'string') {
-    // custom filepath for relative paths
-    filename = path.normalize(options.filepath).replace(/\\/g, '/');
-  } else if (options.filename || value.name || value.path) {
-    // custom filename take precedence
-    // formidable and the browser add a name property
-    // fs- and request- streams have path property
-    filename = path.basename(options.filename || value.name || value.path);
-  } else if (value.readable && value.hasOwnProperty('httpVersion')) {
-    // or try http response
-    filename = path.basename(value.client._httpMessage.path || '');
-  }
-
-  if (filename) {
-    contentDisposition = 'filename="' + filename + '"';
-  }
-
-  return contentDisposition;
-};
-
-FormData.prototype._getContentType = function(value, options) {
-
-  // use custom content-type above all
-  var contentType = options.contentType;
-
-  // or try `name` from formidable, browser
-  if (!contentType && value.name) {
-    contentType = mime.lookup(value.name);
-  }
-
-  // or try `path` from fs-, request- streams
-  if (!contentType && value.path) {
-    contentType = mime.lookup(value.path);
-  }
-
-  // or if it's http-reponse
-  if (!contentType && value.readable && value.hasOwnProperty('httpVersion')) {
-    contentType = value.headers['content-type'];
-  }
-
-  // or guess it from the filepath or filename
-  if (!contentType && (options.filepath || options.filename)) {
-    contentType = mime.lookup(options.filepath || options.filename);
-  }
-
-  // fallback to the default content type if `value` is not simple value
-  if (!contentType && typeof value == 'object') {
-    contentType = FormData.DEFAULT_CONTENT_TYPE;
-  }
-
-  return contentType;
-};
-
-FormData.prototype._multiPartFooter = function() {
-  return function(next) {
-    var footer = FormData.LINE_BREAK;
-
-    var lastPart = (this._streams.length === 0);
-    if (lastPart) {
-      footer += this._lastBoundary();
-    }
-
-    next(footer);
-  }.bind(this);
-};
-
-FormData.prototype._lastBoundary = function() {
-  return '--' + this.getBoundary() + '--' + FormData.LINE_BREAK;
-};
-
-FormData.prototype.getHeaders = function(userHeaders) {
-  var header;
-  var formHeaders = {
-    'content-type': 'multipart/form-data; boundary=' + this.getBoundary()
-  };
-
-  for (header in userHeaders) {
-    if (userHeaders.hasOwnProperty(header)) {
-      formHeaders[header.toLowerCase()] = userHeaders[header];
-    }
-  }
-
-  return formHeaders;
-};
-
-FormData.prototype.setBoundary = function(boundary) {
-  this._boundary = boundary;
-};
-
-FormData.prototype.getBoundary = function() {
-  if (!this._boundary) {
-    this._generateBoundary();
-  }
-
-  return this._boundary;
-};
-
-FormData.prototype.getBuffer = function() {
-  var dataBuffer = new Buffer.alloc( 0 );
-  var boundary = this.getBoundary();
-
-  // Create the form content. Add Line breaks to the end of data.
-  for (var i = 0, len = this._streams.length; i < len; i++) {
-    if (typeof this._streams[i] !== 'function') {
-
-      // Add content to the buffer.
-      if(Buffer.isBuffer(this._streams[i])) {
-        dataBuffer = Buffer.concat( [dataBuffer, this._streams[i]]);
-      }else {
-        dataBuffer = Buffer.concat( [dataBuffer, Buffer.from(this._streams[i])]);
-      }
-
-      // Add break after content.
-      if (typeof this._streams[i] !== 'string' || this._streams[i].substring( 2, boundary.length + 2 ) !== boundary) {
-        dataBuffer = Buffer.concat( [dataBuffer, Buffer.from(FormData.LINE_BREAK)] );
-      }
-    }
-  }
-
-  // Add the footer and return the Buffer object.
-  return Buffer.concat( [dataBuffer, Buffer.from(this._lastBoundary())] );
-};
-
-FormData.prototype._generateBoundary = function() {
-  // This generates a 50 character boundary similar to those used by Firefox.
-  // They are optimized for boyer-moore parsing.
-  var boundary = '--------------------------';
-  for (var i = 0; i < 24; i++) {
-    boundary += Math.floor(Math.random() * 10).toString(16);
-  }
-
-  this._boundary = boundary;
-};
-
-// Note: getLengthSync DOESN'T calculate streams length
-// As workaround one can calculate file size manually
-// and add it as knownLength option
-FormData.prototype.getLengthSync = function() {
-  var knownLength = this._overheadLength + this._valueLength;
-
-  // Don't get confused, there are 3 "internal" streams for each keyval pair
-  // so it basically checks if there is any value added to the form
-  if (this._streams.length) {
-    knownLength += this._lastBoundary().length;
-  }
-
-  // https://github.com/form-data/form-data/issues/40
-  if (!this.hasKnownLength()) {
-    // Some async length retrievers are present
-    // therefore synchronous length calculation is false.
-    // Please use getLength(callback) to get proper length
-    this._error(new Error('Cannot calculate proper length in synchronous way.'));
-  }
-
-  return knownLength;
-};
-
-// Public API to check if length of added values is known
-// https://github.com/form-data/form-data/issues/196
-// https://github.com/form-data/form-data/issues/262
-FormData.prototype.hasKnownLength = function() {
-  var hasKnownLength = true;
-
-  if (this._valuesToMeasure.length) {
-    hasKnownLength = false;
-  }
-
-  return hasKnownLength;
-};
-
-FormData.prototype.getLength = function(cb) {
-  var knownLength = this._overheadLength + this._valueLength;
-
-  if (this._streams.length) {
-    knownLength += this._lastBoundary().length;
-  }
-
-  if (!this._valuesToMeasure.length) {
-    process.nextTick(cb.bind(this, null, knownLength));
-    return;
-  }
-
-  asynckit.parallel(this._valuesToMeasure, this._lengthRetriever, function(err, values) {
-    if (err) {
-      cb(err);
-      return;
-    }
-
-    values.forEach(function(length) {
-      knownLength += length;
-    });
-
-    cb(null, knownLength);
-  });
-};
-
-FormData.prototype.submit = function(params, cb) {
-  var request
-    , options
-    , defaults = {method: 'post'}
-    ;
-
-  // parse provided url if it's string
-  // or treat it as options object
-  if (typeof params == 'string') {
-
-    params = parseUrl(params);
-    options = populate({
-      port: params.port,
-      path: params.pathname,
-      host: params.hostname,
-      protocol: params.protocol
-    }, defaults);
-
-  // use custom params
-  } else {
-
-    options = populate(params, defaults);
-    // if no port provided use default one
-    if (!options.port) {
-      options.port = options.protocol == 'https:' ? 443 : 80;
-    }
-  }
-
-  // put that good code in getHeaders to some use
-  options.headers = this.getHeaders(params.headers);
-
-  // https if specified, fallback to http in any other case
-  if (options.protocol == 'https:') {
-    request = https.request(options);
-  } else {
-    request = http.request(options);
-  }
-
-  // get content length and fire away
-  this.getLength(function(err, length) {
-    if (err && err !== 'Unknown stream') {
-      this._error(err);
-      return;
-    }
-
-    // add content length
-    if (length) {
-      request.setHeader('Content-Length', length);
-    }
-
-    this.pipe(request);
-    if (cb) {
-      var onResponse;
-
-      var callback = function (error, responce) {
-        request.removeListener('error', callback);
-        request.removeListener('response', onResponse);
-
-        return cb.call(this, error, responce);
-      };
-
-      onResponse = callback.bind(this, null);
-
-      request.on('error', callback);
-      request.on('response', onResponse);
-    }
-  }.bind(this));
-
-  return request;
-};
-
-FormData.prototype._error = function(err) {
-  if (!this.error) {
-    this.error = err;
-    this.pause();
-    this.emit('error', err);
-  }
-};
-
-FormData.prototype.toString = function () {
-  return '[object FormData]';
-};
-
-
-/***/ }),
-
-/***/ 6958:
-/***/ ((module) => {
-
-// populates missing values
-module.exports = function(dst, src) {
-
-  Object.keys(src).forEach(function(prop)
-  {
-    dst[prop] = dst[prop] || src[prop];
-  });
-
-  return dst;
-};
-
-
-/***/ }),
-
 /***/ 5569:
 /***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
 
@@ -13346,7 +13907,7 @@ module.exports = function(dst, src) {
  */
 
 const fetch = __nccwpck_require__(6705);
-const FormData = __nccwpck_require__(1197);
+const FormData = __nccwpck_require__(6454);
 const qs = __nccwpck_require__(240);
 const fs = __nccwpck_require__(142);
 const packageJson = __nccwpck_require__(2705);
@@ -31764,7 +32325,7 @@ module.exports = {
 
 
 const { parseSetCookie } = __nccwpck_require__(8915)
-const { stringify, getHeadersList } = __nccwpck_require__(3834)
+const { stringify } = __nccwpck_require__(3834)
 const { webidl } = __nccwpck_require__(4222)
 const { Headers } = __nccwpck_require__(6349)
 
@@ -31840,14 +32401,13 @@ function getSetCookies (headers) {
 
   webidl.brandCheck(headers, Headers, { strict: false })
 
-  const cookies = getHeadersList(headers).cookies
+  const cookies = headers.getSetCookie()
 
   if (!cookies) {
     return []
   }
 
-  // In older versions of undici, cookies is a list of name:value.
-  return cookies.map((pair) => parseSetCookie(Array.isArray(pair) ? pair[1] : pair))
+  return cookies.map((pair) => parseSetCookie(pair))
 }
 
 /**
@@ -32275,14 +32835,15 @@ module.exports = {
 /***/ }),
 
 /***/ 3834:
-/***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
+/***/ ((module) => {
 
 "use strict";
 
 
-const assert = __nccwpck_require__(2613)
-const { kHeadersList } = __nccwpck_require__(6443)
-
+/**
+ * @param {string} value
+ * @returns {boolean}
+ */
 function isCTLExcludingHtab (value) {
   if (value.length === 0) {
     return false
@@ -32543,31 +33104,13 @@ function stringify (cookie) {
   return out.join('; ')
 }
 
-let kHeadersListNode
-
-function getHeadersList (headers) {
-  if (headers[kHeadersList]) {
-    return headers[kHeadersList]
-  }
-
-  if (!kHeadersListNode) {
-    kHeadersListNode = Object.getOwnPropertySymbols(headers).find(
-      (symbol) => symbol.description === 'headers list'
-    )
-
-    assert(kHeadersListNode, 'Headers cannot be parsed')
-  }
-
-  const headersList = headers[kHeadersListNode]
-  assert(headersList)
-
-  return headersList
-}
-
 module.exports = {
   isCTLExcludingHtab,
-  stringify,
-  getHeadersList
+  validateCookieName,
+  validateCookiePath,
+  validateCookieValue,
+  toIMFDate,
+  stringify
 }
 
 
@@ -34496,6 +35039,14 @@ const { isUint8Array, isArrayBuffer } = __nccwpck_require__(8253)
 const { File: UndiciFile } = __nccwpck_require__(3041)
 const { parseMIMEType, serializeAMimeType } = __nccwpck_require__(4322)
 
+let random
+try {
+  const crypto = __nccwpck_require__(7598)
+  random = (max) => crypto.randomInt(0, max)
+} catch {
+  random = (max) => Math.floor(Math.random(max))
+}
+
 let ReadableStream = globalThis.ReadableStream
 
 /** @type {globalThis['File']} */
@@ -34581,7 +35132,7 @@ function extractBody (object, keepalive = false) {
     // Set source to a copy of the bytes held by object.
     source = new Uint8Array(object.buffer.slice(object.byteOffset, object.byteOffset + object.byteLength))
   } else if (util.isFormDataLike(object)) {
-    const boundary = `----formdata-undici-0${`${Math.floor(Math.random() * 1e11)}`.padStart(11, '0')}`
+    const boundary = `----formdata-undici-0${`${random(1e11)}`.padStart(11, '0')}`
     const prefix = `--${boundary}\r\nContent-Disposition: form-data`
 
     /*! formdata-polyfill. MIT License. Jimmy Wärting <https://jimmy.warting.se/opensource> */
@@ -36563,6 +37114,7 @@ const {
   isValidHeaderName,
   isValidHeaderValue
 } = __nccwpck_require__(5523)
+const util = __nccwpck_require__(9023)
 const { webidl } = __nccwpck_require__(4222)
 const assert = __nccwpck_require__(2613)
 
@@ -37116,6 +37668,9 @@ Object.defineProperties(Headers.prototype, {
   [Symbol.toStringTag]: {
     value: 'Headers',
     configurable: true
+  },
+  [util.inspect.custom]: {
+    enumerable: false
   }
 })
 
@@ -46292,6 +46847,20 @@ class Pool extends PoolBase {
       ? { ...options.interceptors }
       : undefined
     this[kFactory] = factory
+
+    this.on('connectionError', (origin, targets, error) => {
+      // If a connection error occurs, we remove the client from the pool,
+      // and emit a connectionError event. They will not be re-used.
+      // Fixes https://github.com/nodejs/undici/issues/3895
+      for (const target of targets) {
+        // Do not use kRemoveClient here, as it will close the client,
+        // but the client cannot be closed in this state.
+        const idx = this[kClients].indexOf(target)
+        if (idx !== -1) {
+          this[kClients].splice(idx, 1)
+        }
+      }
+    })
   }
 
   [kGetDispatcher] () {
@@ -50355,6 +50924,14 @@ module.exports = require("https");
 
 "use strict";
 module.exports = require("net");
+
+/***/ }),
+
+/***/ 7598:
+/***/ ((module) => {
+
+"use strict";
+module.exports = require("node:crypto");
 
 /***/ }),
 
