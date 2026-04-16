@@ -209,12 +209,12 @@ describe('findProductVersionMacroFile', () => {
 				'project.properties',
 				'readme.md',
 				'src' // mock directory
-			] as unknown as Dirent[])
+			] as unknown as Dirent<Buffer>[])
 			.mockResolvedValueOnce([
 				'application.h',
 				'application.cpp',
 				'util.cpp'
-			] as unknown as Dirent[]);
+			] as unknown as Dirent<Buffer>[]);
 		// @ts-ignore
 		statMock.mockImplementation((file) => {
 			if (file === '/path/to/repo/src' || file === '/path/to/repo/.git') {
@@ -245,7 +245,7 @@ describe('findProductVersionMacroFile', () => {
 			'file1',
 			'file2',
 			'file3'
-		] as unknown as Dirent[]);
+		] as unknown as Dirent<Buffer>[]);
 		// @ts-ignore
 		statMock.mockResolvedValue({ isDirectory: () => false });
 		readFileMock.mockResolvedValue(`Different content`);
