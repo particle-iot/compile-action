@@ -29,7 +29,7 @@
     "@actions/http-client": "^2.2.3",
     "@particle/device-constants": "^3.7.0",
     "execa": "^5.0.0",
-    "glob": "^11.0.1",
+    "glob": "^11.1.0",
     "particle-api-js": "^11.1.2",
     "semver": "^7.6.3",
     "simple-git": "^3.36.0",
