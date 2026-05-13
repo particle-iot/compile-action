@@ -50721,6 +50721,10 @@ function fetchBuildTargets() {
     });
 }
 exports.fetchBuildTargets = fetchBuildTargets;
+function isPatchExcluded(version) {
+    const p = (0, semver_1.patch)(version);
+    return p === 98 || p === 99;
+}
 function resolveVersion(platform, requestedVersion) {
     return __awaiter(this, void 0, void 0, function* () {
         if (!requestedVersion) {
@@ -50732,7 +50736,8 @@ function resolveVersion(platform, requestedVersion) {
             .filter((t) => (0, semver_1.prerelease)(t.version) === null)
             .map((t) => t.version)
             .sort();
-        const latest = versions[versions.length - 1];
+        const candidateVersions = versions.filter((v) => !isPatchExcluded(v));
+        const latest = candidateVersions[candidateVersions.length - 1];
         if (requestedVersion === 'default') {
             return defaultVersions[getPlatformId(platform)];
         }
@@ -50741,7 +50746,9 @@ function resolveVersion(platform, requestedVersion) {
         }
         if (requestedVersion === 'latest-lts') {
             // find latest lts version that supports this platform
-            const ltsVersions = versions.filter((version) => (0, semver_1.major)(version) % 2 === 0 && (0, semver_1.major)(version) >= 2).sort();
+            const ltsVersions = candidateVersions
+                .filter((version) => (0, semver_1.major)(version) % 2 === 0 && (0, semver_1.major)(version) >= 2)
+                .sort();
             const ltsVersion = ltsVersions.pop();
             if (!ltsVersion) {
                 throw new Error(`No latest-lts build target found. The latest Device OS version for '${platform}' is '${latest}'`);
@@ -50749,7 +50756,8 @@ function resolveVersion(platform, requestedVersion) {
             return ltsVersion;
         }
         // find the latest version that satisfies the version range
-        const maxVersion = (0, semver_1.maxSatisfying)(versions, requestedVersion);
+        const pool = (0, semver_1.valid)(requestedVersion) ? versions : candidateVersions;
+        const maxVersion = (0, semver_1.maxSatisfying)(pool, requestedVersion);
         if (!maxVersion) {
             throw new Error(`No Device OS version satisfies '${requestedVersion}'. The latest Device OS version for '${platform}' is '${latest}'`);
         }

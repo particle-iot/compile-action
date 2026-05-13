@@ -272,6 +272,18 @@ describe('resolveVersion', () => {
 		await expect(resolveVersion('argon', '^100.0.0')).rejects.toThrow(`No Device OS version satisfies '^100.0.0'`);
 	});
 
+	it('should resolve an explicitly-requested patch 98 or 99 version', async () => {
+		expect(await resolveVersion('argon', '5.3.99')).toEqual('5.3.99');
+		expect(await resolveVersion('argon', '5.3.98')).toEqual('5.3.98');
+		expect(await resolveVersion('argon', '4.0.99')).toEqual('4.0.99');
+	});
+
+	it('should skip patch 98 and 99 versions when resolving a range', async () => {
+		expect(await resolveVersion('argon', '5.x')).toEqual('5.3.1');
+		expect(await resolveVersion('argon', '5.3.x')).toEqual('5.3.1');
+		expect(await resolveVersion('argon', '^5.3.0')).toEqual('5.3.1');
+		expect(await resolveVersion('argon', '~4.0.0')).toEqual('4.0.2');
+	});
 
 });
 

@@ -2,7 +2,7 @@ import { _handleMultiFileArgs, populateFileMapping } from './cli';
 import { existsSync, renameSync, readFileSync, writeFileSync, readdirSync, statSync } from 'fs';
 import deviceConstants from '@particle/device-constants';
 import * as httpm from '@actions/http-client';
-import { maxSatisfying, major, prerelease } from 'semver';
+import { maxSatisfying, major, patch, prerelease, valid } from 'semver';
 import { dirname, join, basename, extname } from 'path';
 import { info, debug } from '@actions/core';
 import preprocessor from 'wiring-preprocessor';
@@ -82,6 +82,11 @@ export async function fetchBuildTargets(): Promise<BuildTargetsResponseV1> {
 	return buildTargets;
 }
 
+function isPatchExcluded(version: string): boolean {
+	const p = patch(version);
+	return p === 98 || p === 99;
+}
+
 export async function resolveVersion(platform: string, requestedVersion: string): Promise<string> {
 	if (!requestedVersion) {
 		throw new Error(`Device OS version is required`);
@@ -93,7 +98,8 @@ export async function resolveVersion(platform: string, requestedVersion: string)
 		.filter((t: BuildTargetV1) => prerelease(t.version) === null)
 		.map((t: BuildTargetV1) => t.version)
 		.sort();
-	const latest = versions[versions.length - 1];
+	const candidateVersions = versions.filter((v) => !isPatchExcluded(v));
+	const latest = candidateVersions[candidateVersions.length - 1];
 
 	if (requestedVersion === 'default') {
 		return defaultVersions[getPlatformId(platform)];
@@ -105,7 +111,9 @@ export async function resolveVersion(platform: string, requestedVersion: string)
 
 	if (requestedVersion === 'latest-lts') {
 		// find latest lts version that supports this platform
-		const ltsVersions = versions.filter((version) => major(version) % 2 === 0 && major(version) >= 2).sort();
+		const ltsVersions = candidateVersions
+			.filter((version) => major(version) % 2 === 0 && major(version) >= 2)
+			.sort();
 		const ltsVersion = ltsVersions.pop();
 		if (!ltsVersion) {
 			throw new Error(`No latest-lts build target found. The latest Device OS version for '${platform}' is '${latest}'`);
@@ -114,7 +122,8 @@ export async function resolveVersion(platform: string, requestedVersion: string)
 	}
 
 	// find the latest version that satisfies the version range
-	const maxVersion = maxSatisfying(versions, requestedVersion);
+	const pool = valid(requestedVersion) ? versions : candidateVersions;
+	const maxVersion = maxSatisfying(pool, requestedVersion);
 	if (!maxVersion) {
 		throw new Error(`No Device OS version satisfies '${requestedVersion}'. The latest Device OS version for '${platform}' is '${latest}'`);
 	}
