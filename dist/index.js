@@ -21592,27 +21592,10 @@ if (process.platform === 'linux') {
 
 var __create = Object.create;
 var __defProp = Object.defineProperty;
-var __defProps = Object.defineProperties;
 var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
-var __getOwnPropDescs = Object.getOwnPropertyDescriptors;
 var __getOwnPropNames = Object.getOwnPropertyNames;
-var __getOwnPropSymbols = Object.getOwnPropertySymbols;
 var __getProtoOf = Object.getPrototypeOf;
 var __hasOwnProp = Object.prototype.hasOwnProperty;
-var __propIsEnum = Object.prototype.propertyIsEnumerable;
-var __defNormalProp = (obj, key, value) => key in obj ? __defProp(obj, key, { enumerable: true, configurable: true, writable: true, value }) : obj[key] = value;
-var __spreadValues = (a, b) => {
-  for (var prop in b || (b = {}))
-    if (__hasOwnProp.call(b, prop))
-      __defNormalProp(a, prop, b[prop]);
-  if (__getOwnPropSymbols)
-    for (var prop of __getOwnPropSymbols(b)) {
-      if (__propIsEnum.call(b, prop))
-        __defNormalProp(a, prop, b[prop]);
-    }
-  return a;
-};
-var __spreadProps = (a, b) => __defProps(a, __getOwnPropDescs(b));
 var __esm = (fn, res) => function __init() {
   return fn && (res = (0, fn[__getOwnPropNames(fn)[0]])(fn = 0)), res;
 };
@@ -21632,30 +21615,14 @@ var __copyProps = (to, from, except, desc) => {
   return to;
 };
 var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__getProtoOf(mod)) : {}, __copyProps(
+  // If the importer is in node compatibility mode or this is not an ESM
+  // file that has been converted to a CommonJS file using a Babel-
+  // compatible transform (i.e. "__esModule" has not been set), then set
+  // "default" to the CommonJS "module.exports" for node compatibility.
   isNodeMode || !mod || !mod.__esModule ? __defProp(target, "default", { value: mod, enumerable: true }) : target,
   mod
 ));
 var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: true }), mod);
-var __async = (__this, __arguments, generator) => {
-  return new Promise((resolve, reject) => {
-    var fulfilled = (value) => {
-      try {
-        step(generator.next(value));
-      } catch (e) {
-        reject(e);
-      }
-    };
-    var rejected = (value) => {
-      try {
-        step(generator.throw(value));
-      } catch (e) {
-        reject(e);
-      }
-    };
-    var step = (x) => x.done ? resolve(x.value) : Promise.resolve(x.value).then(fulfilled, rejected);
-    step((generator = generator.apply(__this, __arguments)).next());
-  });
-};
 
 // src/lib/errors/git-error.ts
 var GitError;
@@ -21684,26 +21651,6 @@ var init_git_response_error = __esm({
         this.git = git;
       }
     };
-  }
-});
-
-// src/lib/args/pathspec.ts
-function pathspec(...paths) {
-  const key = new String(paths);
-  cache.set(key, paths);
-  return key;
-}
-function isPathSpec(path) {
-  return path instanceof String && cache.has(path);
-}
-function toPaths(pathSpec) {
-  return cache.get(pathSpec) || [];
-}
-var cache;
-var init_pathspec = __esm({
-  "src/lib/args/pathspec.ts"() {
-    "use strict";
-    cache = /* @__PURE__ */ new WeakMap();
   }
 });
 
@@ -21755,7 +21702,10 @@ var init_task_configuration_error = __esm({
 
 // src/lib/utils/util.ts
 function asFunction(source) {
-  return typeof source === "function" ? source : NOOP;
+  if (typeof source !== "function") {
+    return NOOP;
+  }
+  return source;
 }
 function isUserFunction(source) {
   return typeof source === "function" && source !== NOOP;
@@ -21776,7 +21726,7 @@ function last(input, offset = 0) {
   }
 }
 function isArrayLike(input) {
-  return !!(input && typeof input.length === "number");
+  return filterHasLength(input);
 }
 function toLinesWithContent(input = "", trimmed2 = true, separator = "\n") {
   return input.split(separator).reduce((output, line) => {
@@ -21829,14 +21779,16 @@ function asCamelCase(str) {
   });
 }
 function asStringArray(source) {
-  return asArray(source).map(String);
+  return asArray(source).map((item) => {
+    return item instanceof String ? item : String(item);
+  });
 }
 function asNumber(source, onNaN = 0) {
   if (source == null) {
     return onNaN;
   }
   const num = parseInt(source, 10);
-  return isNaN(num) ? onNaN : num;
+  return Number.isNaN(num) ? onNaN : num;
 }
 function prefixedArray(input, prefix) {
   const output = [];
@@ -21849,10 +21801,13 @@ function bufferToString(input) {
   return (Array.isArray(input) ? Buffer.concat(input) : input).toString("utf-8");
 }
 function pick(source, properties) {
-  return Object.assign(
-    {},
-    ...properties.map((property) => property in source ? { [property]: source[property] } : {})
-  );
+  const out = {};
+  properties.forEach((key) => {
+    if (source[key] !== void 0) {
+      out[key] = source[key];
+    }
+  });
+  return out;
 }
 function delay(duration = 0) {
   return new Promise((done) => setTimeout(done, duration));
@@ -21868,6 +21823,7 @@ var init_util = __esm({
   "src/lib/utils/util.ts"() {
     "use strict";
     import_file_exists = __nccwpck_require__(7117);
+    init_argument_filters();
     NULL = "\0";
     NOOP = () => {
     };
@@ -21883,7 +21839,7 @@ function filterType(input, filter, def) {
   return arguments.length > 2 ? def : void 0;
 }
 function filterPrimitives(input, omit) {
-  const type = isPathSpec(input) ? "string" : typeof input;
+  const type = (0, import_args_pathspec.isPathSpec)(input) ? "string" : typeof input;
   return /number|string|boolean/.test(type) && (!omit || !omit.includes(type));
 }
 function filterPlainObject(input) {
@@ -21892,20 +21848,20 @@ function filterPlainObject(input) {
 function filterFunction(input) {
   return typeof input === "function";
 }
-var filterArray, filterString, filterStringArray, filterStringOrStringArray, filterHasLength;
+var import_args_pathspec, filterArray, filterNumber, filterString, filterStringOrStringArray, filterHasLength;
 var init_argument_filters = __esm({
   "src/lib/utils/argument-filters.ts"() {
     "use strict";
+    import_args_pathspec = __nccwpck_require__(6632);
     init_util();
-    init_pathspec();
     filterArray = (input) => {
       return Array.isArray(input);
     };
-    filterString = (input) => {
-      return typeof input === "string";
+    filterNumber = (input) => {
+      return typeof input === "number";
     };
-    filterStringArray = (input) => {
-      return Array.isArray(input) && input.every(filterString);
+    filterString = (input) => {
+      return typeof input === "string" || (0, import_args_pathspec.isPathSpec)(input);
     };
     filterStringOrStringArray = (input) => {
       return filterString(input) || Array.isArray(input) && input.every(filterString);
@@ -21914,7 +21870,7 @@ var init_argument_filters = __esm({
       if (input == null || "number|boolean|function".includes(typeof input)) {
         return false;
       }
-      return Array.isArray(input) || typeof input === "string" || typeof input.length === "number";
+      return typeof input.length === "number";
     };
   }
 });
@@ -21939,19 +21895,22 @@ var GitOutputStreams;
 var init_git_output_streams = __esm({
   "src/lib/utils/git-output-streams.ts"() {
     "use strict";
-    GitOutputStreams = class {
+    GitOutputStreams = class _GitOutputStreams {
       constructor(stdOut, stdErr) {
         this.stdOut = stdOut;
         this.stdErr = stdErr;
       }
       asStrings() {
-        return new GitOutputStreams(this.stdOut.toString("utf8"), this.stdErr.toString("utf8"));
+        return new _GitOutputStreams(this.stdOut.toString("utf8"), this.stdErr.toString("utf8"));
       }
     };
   }
 });
 
 // src/lib/utils/line-parser.ts
+function useMatchesDefault() {
+  throw new Error(`LineParser:useMatches not implemented`);
+}
 var LineParser, RemoteLineParser;
 var init_line_parser = __esm({
   "src/lib/utils/line-parser.ts"() {
@@ -21959,6 +21918,7 @@ var init_line_parser = __esm({
     LineParser = class {
       constructor(regExp, useMatches) {
         this.matches = [];
+        this.useMatches = useMatchesDefault;
         this.parse = (line, target) => {
           this.resetMatches();
           if (!this._regExp.every((reg, index) => this.addMatch(reg, index, line(index)))) {
@@ -21970,9 +21930,6 @@ var init_line_parser = __esm({
         if (useMatches) {
           this.useMatches = useMatches;
         }
-      }
-      useMatches(target, match) {
-        throw new Error(`LineParser:useMatches not implemented`);
       }
       resetMatches() {
         this.matches.length = 0;
@@ -22008,7 +21965,7 @@ var init_line_parser = __esm({
 function createInstanceConfig(...options) {
   const baseDir = process.cwd();
   const config = Object.assign(
-    __spreadValues({ baseDir }, defaultOptions),
+    { baseDir, ...defaultOptions },
     ...options.filter((o) => typeof o === "object" && o)
   );
   config.baseDir = config.baseDir || baseDir;
@@ -22035,10 +21992,16 @@ function appendTaskOptions(options, commands = []) {
   }
   return Object.keys(options).reduce((commands2, key) => {
     const value = options[key];
-    if (isPathSpec(value)) {
+    if ((0, import_args_pathspec2.isPathSpec)(value)) {
       commands2.push(value);
     } else if (filterPrimitives(value, ["boolean"])) {
       commands2.push(key + "=" + value);
+    } else if (Array.isArray(value)) {
+      for (const v of value) {
+        if (!filterPrimitives(v, ["string", "number"])) {
+          commands2.push(key + "=" + v);
+        }
+      }
     } else {
       commands2.push(key);
     }
@@ -22060,7 +22023,7 @@ function getTrailingOptions(args, initialPrimitive = 0, objectOnly = false) {
 }
 function trailingArrayArgument(args) {
   const hasTrailingCallback = typeof last(args) === "function";
-  return filterType(last(args, hasTrailingCallback ? 1 : 0), filterArray, []);
+  return asStringArray(filterType(last(args, hasTrailingCallback ? 1 : 0), filterArray, []));
 }
 function trailingOptionsArgument(args) {
   const hasTrailingCallback = filterFunction(last(args));
@@ -22070,12 +22033,13 @@ function trailingFunctionArgument(args, includeNoop = true) {
   const callback = asFunction(last(args));
   return includeNoop || isUserFunction(callback) ? callback : void 0;
 }
+var import_args_pathspec2;
 var init_task_options = __esm({
   "src/lib/utils/task-options.ts"() {
     "use strict";
     init_argument_filters();
     init_util();
-    init_pathspec();
+    import_args_pathspec2 = __nccwpck_require__(6632);
   }
 });
 
@@ -22127,10 +22091,10 @@ __export(utils_exports, {
   filterArray: () => filterArray,
   filterFunction: () => filterFunction,
   filterHasLength: () => filterHasLength,
+  filterNumber: () => filterNumber,
   filterPlainObject: () => filterPlainObject,
   filterPrimitives: () => filterPrimitives,
   filterString: () => filterString,
-  filterStringArray: () => filterStringArray,
   filterStringOrStringArray: () => filterStringOrStringArray,
   filterType: () => filterType,
   first: () => first,
@@ -22494,7 +22458,7 @@ var init_ConfigList = __esm({
       }
       addValue(file, key, value) {
         const values = this.addFile(file);
-        if (!values.hasOwnProperty(key)) {
+        if (!Object.hasOwn(values, key)) {
           values[key] = value;
         } else if (Array.isArray(values[key])) {
           values[key].push(value);
@@ -22509,7 +22473,7 @@ var init_ConfigList = __esm({
 
 // src/lib/tasks/config.ts
 function asConfigScope(scope, fallback) {
-  if (typeof scope === "string" && GitConfigScope.hasOwnProperty(scope)) {
+  if (typeof scope === "string" && Object.hasOwn(GitConfigScope, scope)) {
     return scope;
   }
   return fallback;
@@ -22728,12 +22692,13 @@ function getResetMode(mode) {
   return;
 }
 function isValidResetMode(mode) {
-  return ResetModes.includes(mode);
+  return typeof mode === "string" && validResetModes.includes(mode);
 }
-var ResetMode, ResetModes;
+var ResetMode, validResetModes;
 var init_reset = __esm({
   "src/lib/tasks/reset.ts"() {
     "use strict";
+    init_utils();
     init_task();
     ResetMode = /* @__PURE__ */ ((ResetMode2) => {
       ResetMode2["MIXED"] = "mixed";
@@ -22743,7 +22708,7 @@ var init_reset = __esm({
       ResetMode2["KEEP"] = "keep";
       return ResetMode2;
     })(ResetMode || {});
-    ResetModes = Array.from(Object.values(ResetMode));
+    validResetModes = asStringArray(Object.values(ResetMode));
   }
 });
 
@@ -22761,12 +22726,13 @@ __export(api_exports, {
   ResetMode: () => ResetMode,
   TaskConfigurationError: () => TaskConfigurationError,
   grepQueryBuilder: () => grepQueryBuilder,
-  pathspec: () => pathspec
+  pathspec: () => import_args_pathspec3.pathspec
 });
+var import_args_pathspec3;
 var init_api = __esm({
   "src/lib/api.ts"() {
     "use strict";
-    init_pathspec();
+    import_args_pathspec3 = __nccwpck_require__(6632);
     init_git_construct_error();
     init_git_error();
     init_git_plugin_error();
@@ -22814,64 +22780,24 @@ var init_abort_plugin = __esm({
 });
 
 // src/lib/plugins/block-unsafe-operations-plugin.ts
-function isConfigSwitch(arg) {
-  return typeof arg === "string" && arg.trim().toLowerCase() === "-c";
-}
-function preventProtocolOverride(arg, next) {
-  if (!isConfigSwitch(arg)) {
-    return;
-  }
-  if (!/^\s*protocol(.[a-z]+)?.allow/.test(next)) {
-    return;
-  }
-  throw new GitPluginError(
-    void 0,
-    "unsafe",
-    "Configuring protocol.allow is not permitted without enabling allowUnsafeExtProtocol"
-  );
-}
-function preventUploadPack(arg, method) {
-  if (/^\s*--(upload|receive)-pack/.test(arg)) {
-    throw new GitPluginError(
-      void 0,
-      "unsafe",
-      `Use of --upload-pack or --receive-pack is not permitted without enabling allowUnsafePack`
-    );
-  }
-  if (method === "clone" && /^\s*-u\b/.test(arg)) {
-    throw new GitPluginError(
-      void 0,
-      "unsafe",
-      `Use of clone with option -u is not permitted without enabling allowUnsafePack`
-    );
-  }
-  if (method === "push" && /^\s*--exec\b/.test(arg)) {
-    throw new GitPluginError(
-      void 0,
-      "unsafe",
-      `Use of push with option --exec is not permitted without enabling allowUnsafePack`
-    );
-  }
-}
-function blockUnsafeOperationsPlugin({
-  allowUnsafeProtocolOverride = false,
-  allowUnsafePack = false
-} = {}) {
+function blockUnsafeOperationsPlugin(options = {}) {
   return {
     type: "spawn.args",
-    action(args, context) {
-      args.forEach((current, index) => {
-        const next = index < args.length ? args[index + 1] : "";
-        allowUnsafeProtocolOverride || preventProtocolOverride(current, next);
-        allowUnsafePack || preventUploadPack(current, context.method);
-      });
+    action(args, { env }) {
+      for (const vulnerability of (0, import_argv_parser.vulnerabilityCheck)(args, env)) {
+        if (options[vulnerability.category] !== true) {
+          throw new GitPluginError(void 0, "unsafe", vulnerability.message);
+        }
+      }
       return args;
     }
   };
 }
+var import_argv_parser;
 var init_block_unsafe_operations_plugin = __esm({
   "src/lib/plugins/block-unsafe-operations-plugin.ts"() {
     "use strict";
+    import_argv_parser = __nccwpck_require__(7202);
     init_git_plugin_error();
   }
 });
@@ -22935,27 +22861,24 @@ function completionDetectionPlugin({
   }
   return {
     type: "spawn.after",
-    action(_0, _1) {
-      return __async(this, arguments, function* (_data, { spawned, close }) {
-        var _a3, _b;
-        const events = createEvents();
-        let deferClose = true;
-        let quickClose = () => void (deferClose = false);
-        (_a3 = spawned.stdout) == null ? void 0 : _a3.on("data", quickClose);
-        (_b = spawned.stderr) == null ? void 0 : _b.on("data", quickClose);
-        spawned.on("error", quickClose);
-        spawned.on("close", (code) => events.close(code));
-        spawned.on("exit", (code) => events.exit(code));
-        try {
-          yield events.result;
-          if (deferClose) {
-            yield delay(50);
-          }
-          close(events.exitCode);
-        } catch (err) {
-          close(events.exitCode, err);
+    async action(_data, { spawned, close }) {
+      const events = createEvents();
+      let deferClose = true;
+      let quickClose = () => void (deferClose = false);
+      spawned.stdout?.on("data", quickClose);
+      spawned.stderr?.on("data", quickClose);
+      spawned.on("error", quickClose);
+      spawned.on("close", (code) => events.close(code));
+      spawned.on("exit", (code) => events.exit(code));
+      try {
+        await events.result;
+        if (deferClose) {
+          await delay(50);
         }
-      });
+        close(events.exitCode);
+      } catch (err) {
+        close(events.exitCode, err);
+      }
     }
   };
 }
@@ -22971,7 +22894,7 @@ var init_completion_detection_plugin = __esm({
 
 // src/lib/plugins/custom-binary.plugin.ts
 function isBadArgument(arg) {
-  return !arg || !/^([a-z]:)?([a-z0-9/.\\_-]+)$/i.test(arg);
+  return !arg || !/^([a-z]:)?([a-z0-9/.\\_~-]+)$/i.test(arg);
 }
 function toBinaryConfig(input, allowUnsafe) {
   if (input.length < 1 || input.length > 2) {
@@ -23104,11 +23027,10 @@ function progressMonitorPlugin(progress) {
   const onProgress = {
     type: "spawn.after",
     action(_data, context) {
-      var _a2;
       if (!context.commands.includes(progressCommand)) {
         return;
       }
-      (_a2 = context.spawned.stderr) == null ? void 0 : _a2.on("data", (chunk) => {
+      context.spawned.stderr?.on("data", (chunk) => {
         const message = /^([\s\S]+?):\s*(\d+)% \((\d+)\/(\d+)\)/.exec(chunk.toString("utf8"));
         if (!message) {
           return;
@@ -23157,7 +23079,7 @@ function spawnOptionsPlugin(spawnOptions) {
   return {
     type: "spawn.options",
     action(data) {
-      return __spreadValues(__spreadValues({}, options), data);
+      return { ...options, ...data };
     }
   };
 }
@@ -23178,16 +23100,14 @@ function timeoutPlugin({
     return {
       type: "spawn.after",
       action(_data, context) {
-        var _a2, _b;
         let timeout;
         function wait() {
           timeout && clearTimeout(timeout);
           timeout = setTimeout(kill, block);
         }
         function stop() {
-          var _a3, _b2;
-          (_a3 = context.spawned.stdout) == null ? void 0 : _a3.off("data", wait);
-          (_b2 = context.spawned.stderr) == null ? void 0 : _b2.off("data", wait);
+          context.spawned.stdout?.off("data", wait);
+          context.spawned.stderr?.off("data", wait);
           context.spawned.off("exit", stop);
           context.spawned.off("close", stop);
           timeout && clearTimeout(timeout);
@@ -23196,8 +23116,8 @@ function timeoutPlugin({
           stop();
           context.kill(new GitPluginError(void 0, "timeout", `block timeout reached`));
         }
-        stdOut && ((_a2 = context.spawned.stdout) == null ? void 0 : _a2.on("data", wait));
-        stdErr && ((_b = context.spawned.stderr) == null ? void 0 : _b.on("data", wait));
+        stdOut && context.spawned.stdout?.on("data", wait);
+        stdErr && context.spawned.stderr?.on("data", wait);
         context.spawned.on("exit", stop);
         context.spawned.on("close", stop);
         wait();
@@ -23242,13 +23162,13 @@ function suffixPathsPlugin() {
       }
       for (let i = 0; i < data.length; i++) {
         const param = data[i];
-        if (isPathSpec(param)) {
-          append2(toPaths(param));
+        if ((0, import_args_pathspec4.isPathSpec)(param)) {
+          append2((0, import_args_pathspec4.toPaths)(param));
           continue;
         }
         if (param === "--") {
           append2(
-            data.slice(i + 1).flatMap((item) => isPathSpec(item) && toPaths(item) || item)
+            data.slice(i + 1).flatMap((item) => (0, import_args_pathspec4.isPathSpec)(item) && (0, import_args_pathspec4.toPaths)(item) || item)
           );
           break;
         }
@@ -23258,10 +23178,11 @@ function suffixPathsPlugin() {
     }
   };
 }
+var import_args_pathspec4;
 var init_suffix_paths_plugin = __esm({
   "src/lib/plugins/suffix-paths.plugin.ts"() {
     "use strict";
-    init_pathspec();
+    import_args_pathspec4 = __nccwpck_require__(6632);
   }
 });
 
@@ -23334,13 +23255,13 @@ var init_git_logger = __esm({
 });
 
 // src/lib/runners/tasks-pending-queue.ts
-var _TasksPendingQueue, TasksPendingQueue;
+var TasksPendingQueue;
 var init_tasks_pending_queue = __esm({
   "src/lib/runners/tasks-pending-queue.ts"() {
     "use strict";
     init_git_error();
     init_git_logger();
-    _TasksPendingQueue = class {
+    TasksPendingQueue = class _TasksPendingQueue {
       constructor(logLabel = "GitExecutor") {
         this.logLabel = logLabel;
         this._queue = /* @__PURE__ */ new Map();
@@ -23399,9 +23320,10 @@ var init_tasks_pending_queue = __esm({
       static getName(name = "empty") {
         return `task:${name}:${++_TasksPendingQueue.counter}`;
       }
+      static {
+        this.counter = 0;
+      }
     };
-    TasksPendingQueue = _TasksPendingQueue;
-    TasksPendingQueue.counter = 0;
   }
 });
 
@@ -23461,20 +23383,18 @@ var init_git_executor_chain = __esm({
         this._queue.push(task);
         return this._chain = this._chain.then(() => this.attemptTask(task));
       }
-      attemptTask(task) {
-        return __async(this, null, function* () {
-          const onScheduleComplete = yield this._scheduler.next();
-          const onQueueComplete = () => this._queue.complete(task);
-          try {
-            const { logger } = this._queue.attempt(task);
-            return yield isEmptyTask(task) ? this.attemptEmptyTask(task, logger) : this.attemptRemoteTask(task, logger);
-          } catch (e) {
-            throw this.onFatalException(task, e);
-          } finally {
-            onQueueComplete();
-            onScheduleComplete();
-          }
-        });
+      async attemptTask(task) {
+        const onScheduleComplete = await this._scheduler.next();
+        const onQueueComplete = () => this._queue.complete(task);
+        try {
+          const { logger } = this._queue.attempt(task);
+          return await (isEmptyTask(task) ? this.attemptEmptyTask(task, logger) : this.attemptRemoteTask(task, logger));
+        } catch (e) {
+          throw this.onFatalException(task, e);
+        } finally {
+          onQueueComplete();
+          onScheduleComplete();
+        }
       }
       onFatalException(task, e) {
         const gitError = e instanceof GitError ? Object.assign(e, { task }) : new GitError(task, e && String(e));
@@ -23482,34 +23402,29 @@ var init_git_executor_chain = __esm({
         this._queue.fatal(gitError);
         return gitError;
       }
-      attemptRemoteTask(task, logger) {
-        return __async(this, null, function* () {
-          const binary = this._plugins.exec("spawn.binary", "", pluginContext(task, task.commands));
-          const args = this._plugins.exec(
-            "spawn.args",
-            [...task.commands],
-            pluginContext(task, task.commands)
-          );
-          const raw = yield this.gitResponse(
-            task,
-            binary,
-            args,
-            this.outputHandler,
-            logger.step("SPAWN")
-          );
-          const outputStreams = yield this.handleTaskData(task, args, raw, logger.step("HANDLE"));
-          logger(`passing response to task's parser as a %s`, task.format);
-          if (isBufferTask(task)) {
-            return callTaskParser(task.parser, outputStreams);
-          }
-          return callTaskParser(task.parser, outputStreams.asStrings());
+      async attemptRemoteTask(task, logger) {
+        const binary = this._plugins.exec("spawn.binary", "", pluginContext(task, task.commands));
+        const args = this._plugins.exec("spawn.args", [...task.commands], {
+          ...pluginContext(task, task.commands),
+          env: { ...this.env }
         });
+        const raw = await this.gitResponse(
+          task,
+          binary,
+          args,
+          this.outputHandler,
+          logger.step("SPAWN")
+        );
+        const outputStreams = await this.handleTaskData(task, args, raw, logger.step("HANDLE"));
+        logger(`passing response to task's parser as a %s`, task.format);
+        if (isBufferTask(task)) {
+          return callTaskParser(task.parser, outputStreams);
+        }
+        return callTaskParser(task.parser, outputStreams.asStrings());
       }
-      attemptEmptyTask(task, logger) {
-        return __async(this, null, function* () {
-          logger(`empty task bypassing child process to call to task's parser`);
-          return task.parser(this);
-        });
+      async attemptEmptyTask(task, logger) {
+        logger(`empty task bypassing child process to call to task's parser`);
+        return task.parser(this);
       }
       handleTaskData(task, args, result, logger) {
         const { exitCode, rejection, stdOut, stdErr } = result;
@@ -23518,7 +23433,10 @@ var init_git_executor_chain = __esm({
           const { error } = this._plugins.exec(
             "task.error",
             { error: rejection },
-            __spreadValues(__spreadValues({}, pluginContext(task, args)), result)
+            {
+              ...pluginContext(task, args),
+              ...result
+            }
           );
           if (error && task.onError) {
             logger.info(`exitCode=%s handling with custom error handler`);
@@ -23551,79 +23469,80 @@ var init_git_executor_chain = __esm({
           done(new GitOutputStreams(Buffer.concat(stdOut), Buffer.concat(stdErr)));
         });
       }
-      gitResponse(task, command, args, outputHandler, logger) {
-        return __async(this, null, function* () {
-          const outputLogger = logger.sibling("output");
-          const spawnOptions = this._plugins.exec(
-            "spawn.options",
-            {
-              cwd: this.cwd,
-              env: this.env,
-              windowsHide: true
-            },
-            pluginContext(task, task.commands)
+      async gitResponse(task, command, args, outputHandler, logger) {
+        const outputLogger = logger.sibling("output");
+        const spawnOptions = this._plugins.exec(
+          "spawn.options",
+          {
+            cwd: this.cwd,
+            env: this.env,
+            windowsHide: true
+          },
+          pluginContext(task, task.commands)
+        );
+        return new Promise((done) => {
+          const stdOut = [];
+          const stdErr = [];
+          logger.info(`%s %o`, command, args);
+          logger("%O", spawnOptions);
+          let rejection = this._beforeSpawn(task, args);
+          if (rejection) {
+            return done({
+              stdOut,
+              stdErr,
+              exitCode: 9901,
+              rejection
+            });
+          }
+          this._plugins.exec("spawn.before", void 0, {
+            ...pluginContext(task, args),
+            kill(reason) {
+              rejection = reason || rejection;
+            }
+          });
+          const spawned = (0, import_child_process.spawn)(command, args, spawnOptions);
+          spawned.stdout.on(
+            "data",
+            onDataReceived(stdOut, "stdOut", logger, outputLogger.step("stdOut"))
           );
-          return new Promise((done) => {
-            const stdOut = [];
-            const stdErr = [];
-            logger.info(`%s %o`, command, args);
-            logger("%O", spawnOptions);
-            let rejection = this._beforeSpawn(task, args);
-            if (rejection) {
-              return done({
+          spawned.stderr.on(
+            "data",
+            onDataReceived(stdErr, "stdErr", logger, outputLogger.step("stdErr"))
+          );
+          spawned.on("error", onErrorReceived(stdErr, logger));
+          if (outputHandler) {
+            logger(`Passing child process stdOut/stdErr to custom outputHandler`);
+            outputHandler(command, spawned.stdout, spawned.stderr, [...args]);
+          }
+          this._plugins.exec("spawn.after", void 0, {
+            ...pluginContext(task, args),
+            spawned,
+            close(exitCode, reason) {
+              done({
                 stdOut,
                 stdErr,
-                exitCode: 9901,
-                rejection
+                exitCode,
+                rejection: rejection || reason
               });
-            }
-            this._plugins.exec("spawn.before", void 0, __spreadProps(__spreadValues({}, pluginContext(task, args)), {
-              kill(reason) {
-                rejection = reason || rejection;
+            },
+            kill(reason) {
+              if (spawned.killed) {
+                return;
               }
-            }));
-            const spawned = (0, import_child_process.spawn)(command, args, spawnOptions);
-            spawned.stdout.on(
-              "data",
-              onDataReceived(stdOut, "stdOut", logger, outputLogger.step("stdOut"))
-            );
-            spawned.stderr.on(
-              "data",
-              onDataReceived(stdErr, "stdErr", logger, outputLogger.step("stdErr"))
-            );
-            spawned.on("error", onErrorReceived(stdErr, logger));
-            if (outputHandler) {
-              logger(`Passing child process stdOut/stdErr to custom outputHandler`);
-              outputHandler(command, spawned.stdout, spawned.stderr, [...args]);
+              rejection = reason;
+              spawned.kill("SIGINT");
             }
-            this._plugins.exec("spawn.after", void 0, __spreadProps(__spreadValues({}, pluginContext(task, args)), {
-              spawned,
-              close(exitCode, reason) {
-                done({
-                  stdOut,
-                  stdErr,
-                  exitCode,
-                  rejection: rejection || reason
-                });
-              },
-              kill(reason) {
-                if (spawned.killed) {
-                  return;
-                }
-                rejection = reason;
-                spawned.kill("SIGINT");
-              }
-            }));
           });
         });
       }
       _beforeSpawn(task, args) {
         let rejection;
-        this._plugins.exec("spawn.before", void 0, __spreadProps(__spreadValues({}, pluginContext(task, args)), {
+        this._plugins.exec("spawn.before", void 0, {
+          ...pluginContext(task, args),
           kill(reason) {
             rejection = reason || rejection;
           }
-        }));
+        });
         return rejection;
       }
     };
@@ -23663,7 +23582,7 @@ function taskCallback(task, response, callback = NOOP) {
     callback(null, data);
   };
   const onError2 = (err) => {
-    if ((err == null ? void 0 : err.task) === task) {
+    if (err?.task === task) {
       callback(
         err instanceof GitResponseError ? addDeprecationNoticeToError(err) : err,
         void 0
@@ -23793,7 +23712,7 @@ var init_count_objects = __esm({
       /([a-z-]+): (\d+)$/,
       (result, [key, value]) => {
         const property = asCamelCase(key);
-        if (result.hasOwnProperty(property)) {
+        if (Object.hasOwn(result, property)) {
           result[property] = asNumber(value);
         }
       }
@@ -23885,7 +23804,10 @@ function commit_default() {
       const task = rejectDeprecatedSignatures(message) || commitTask(
         asArray(message),
         asArray(filterType(rest[0], filterStringOrStringArray, [])),
-        [...filterType(rest[1], filterArray, []), ...getTrailingOptions(arguments, 0, true)]
+        [
+          ...asStringArray(filterType(rest[1], filterArray, [])),
+          ...getTrailingOptions(arguments, 0, true)
+        ]
       );
       return this._runTask(task, next);
     }
@@ -24083,8 +24005,8 @@ var init_parse_diff_summary = __esm({
           const inserted = /(\d+) i/.exec(summary);
           const deleted = /(\d+) d/.exec(summary);
           result.changed = asNumber(changed);
-          result.insertions = asNumber(inserted == null ? void 0 : inserted[1]);
-          result.deletions = asNumber(deleted == null ? void 0 : deleted[1]);
+          result.insertions = asNumber(inserted?.[1]);
+          result.deletions = asNumber(deleted?.[1]);
         }
       )
     ];
@@ -24134,7 +24056,7 @@ var init_parse_diff_summary = __esm({
         (result, [status, similarity, from, _to, to]) => {
           result.changed++;
           result.files.push({
-            file: to != null ? to : from,
+            file: to ?? from,
             changes: 0,
             insertions: 0,
             deletions: 0,
@@ -24264,7 +24186,7 @@ function userOptions(input) {
 }
 function parseLogOptions(opt = {}, customArgs = []) {
   const splitter = filterType(opt.splitter, filterString, SPLITTER);
-  const format = !filterPrimitives(opt.format) && opt.format ? opt.format : {
+  const format = filterPlainObject(opt.format) ? opt.format : {
     hash: "%H",
     date: opt.strictDate === false ? "%ai" : "%aI",
     message: "%s",
@@ -24288,7 +24210,7 @@ function parseLogOptions(opt = {}, customArgs = []) {
     suffix.push(`${opt.from || ""}${rangeOperator}${opt.to || ""}`);
   }
   if (filterString(opt.file)) {
-    command.push("--follow", pathspec(opt.file));
+    command.push("--follow", (0, import_args_pathspec5.pathspec)(opt.file));
   }
   appendTaskOptions(userOptions(opt), command);
   return {
@@ -24311,7 +24233,7 @@ function log_default() {
       const next = trailingFunctionArgument(arguments);
       const options = parseLogOptions(
         trailingOptionsArgument(arguments),
-        filterType(arguments[0], filterArray)
+        asStringArray(filterType(arguments[0], filterArray, []))
       );
       const task = rejectDeprecatedSignatures(...rest) || validateLogFormatConfig(options.commands) || createLogTask(options);
       return this._runTask(task, next);
@@ -24326,12 +24248,12 @@ function log_default() {
     );
   }
 }
-var excludeOptions;
+var import_args_pathspec5, excludeOptions;
 var init_log = __esm({
   "src/lib/tasks/log.ts"() {
     "use strict";
     init_log_format();
-    init_pathspec();
+    import_args_pathspec5 = __nccwpck_require__(6632);
     init_parse_list_log_summary();
     init_utils();
     init_task();
@@ -24683,9 +24605,10 @@ var init_parse_push = __esm({
         result.repo = repo;
       }),
       new LineParser(/^updating local tracking ref '(.+)'/, (result, [local]) => {
-        result.ref = __spreadProps(__spreadValues({}, result.ref || {}), {
+        result.ref = {
+          ...result.ref || {},
           local
-        });
+        };
       }),
       new LineParser(/^[=*-]\s+([^:]+):(\S+)\s+\[(.+)]$/, (result, [local, remote, type]) => {
         result.pushed.push(pushResultPushedItem(local, remote, type));
@@ -24693,11 +24616,12 @@ var init_parse_push = __esm({
       new LineParser(
         /^Branch '([^']+)' set up to track remote branch '([^']+)' from '([^']+)'/,
         (result, [local, remote, remoteName]) => {
-          result.branch = __spreadProps(__spreadValues({}, result.branch || {}), {
+          result.branch = {
+            ...result.branch || {},
             local,
             remote,
             remoteName
-          });
+          };
         }
       ),
       new LineParser(
@@ -24719,7 +24643,10 @@ var init_parse_push = __esm({
     parsePushResult = (stdOut, stdErr) => {
       const pushDetail = parsePushDetail(stdOut, stdErr);
       const responseDetail = parseRemoteMessages(stdOut, stdErr);
-      return __spreadValues(__spreadValues({}, pushDetail), responseDetail);
+      return {
+        ...pushDetail,
+        ...responseDetail
+      };
     };
     parsePushDetail = (stdOut, stdErr) => {
       return parseStringResponse({ pushed: [] }, parsers5, [stdOut, stdErr]);
@@ -24825,15 +24752,15 @@ function parser3(indexX, indexY, handler) {
   return [`${indexX}${indexY}`, handler];
 }
 function conflicts(indexX, ...indexY) {
-  return indexY.map((y) => parser3(indexX, y, (result, file) => append(result.conflicted, file)));
+  return indexY.map((y) => parser3(indexX, y, (result, file) => result.conflicted.push(file)));
 }
 function splitLine(result, lineStr) {
   const trimmed2 = lineStr.trim();
   switch (" ") {
     case trimmed2.charAt(2):
-      return data(trimmed2.charAt(0), trimmed2.charAt(1), trimmed2.substr(3));
+      return data(trimmed2.charAt(0), trimmed2.charAt(1), trimmed2.slice(3));
     case trimmed2.charAt(1):
-      return data(" " /* NONE */, trimmed2.charAt(0), trimmed2.substr(2));
+      return data(" " /* NONE */, trimmed2.charAt(0), trimmed2.slice(2));
     default:
       return;
   }
@@ -24879,58 +24806,54 @@ var init_StatusSummary = __esm({
       parser3(
         " " /* NONE */,
         "A" /* ADDED */,
-        (result, file) => append(result.created, file)
+        (result, file) => result.created.push(file)
       ),
       parser3(
         " " /* NONE */,
         "D" /* DELETED */,
-        (result, file) => append(result.deleted, file)
+        (result, file) => result.deleted.push(file)
       ),
       parser3(
         " " /* NONE */,
         "M" /* MODIFIED */,
-        (result, file) => append(result.modified, file)
+        (result, file) => result.modified.push(file)
       ),
-      parser3(
-        "A" /* ADDED */,
-        " " /* NONE */,
-        (result, file) => append(result.created, file) && append(result.staged, file)
-      ),
-      parser3(
-        "A" /* ADDED */,
-        "M" /* MODIFIED */,
-        (result, file) => append(result.created, file) && append(result.staged, file) && append(result.modified, file)
-      ),
-      parser3(
-        "D" /* DELETED */,
-        " " /* NONE */,
-        (result, file) => append(result.deleted, file) && append(result.staged, file)
-      ),
-      parser3(
-        "M" /* MODIFIED */,
-        " " /* NONE */,
-        (result, file) => append(result.modified, file) && append(result.staged, file)
-      ),
-      parser3(
-        "M" /* MODIFIED */,
-        "M" /* MODIFIED */,
-        (result, file) => append(result.modified, file) && append(result.staged, file)
-      ),
+      parser3("A" /* ADDED */, " " /* NONE */, (result, file) => {
+        result.created.push(file);
+        result.staged.push(file);
+      }),
+      parser3("A" /* ADDED */, "M" /* MODIFIED */, (result, file) => {
+        result.created.push(file);
+        result.staged.push(file);
+        result.modified.push(file);
+      }),
+      parser3("D" /* DELETED */, " " /* NONE */, (result, file) => {
+        result.deleted.push(file);
+        result.staged.push(file);
+      }),
+      parser3("M" /* MODIFIED */, " " /* NONE */, (result, file) => {
+        result.modified.push(file);
+        result.staged.push(file);
+      }),
+      parser3("M" /* MODIFIED */, "M" /* MODIFIED */, (result, file) => {
+        result.modified.push(file);
+        result.staged.push(file);
+      }),
       parser3("R" /* RENAMED */, " " /* NONE */, (result, file) => {
-        append(result.renamed, renamedFile(file));
+        result.renamed.push(renamedFile(file));
       }),
       parser3("R" /* RENAMED */, "M" /* MODIFIED */, (result, file) => {
         const renamed = renamedFile(file);
-        append(result.renamed, renamed);
-        append(result.modified, renamed.to);
+        result.renamed.push(renamed);
+        result.modified.push(renamed.to);
       }),
       parser3("!" /* IGNORED */, "!" /* IGNORED */, (_result, _file) => {
-        append(_result.ignored = _result.ignored || [], _file);
+        (_result.ignored = _result.ignored || []).push(_file);
       }),
       parser3(
         "?" /* UNTRACKED */,
         "?" /* UNTRACKED */,
-        (result, file) => append(result.not_added, file)
+        (result, file) => result.not_added.push(file)
       ),
       ...conflicts("A" /* ADDED */, "A" /* ADDED */, "U" /* UNMERGED */),
       ...conflicts(
@@ -24951,18 +24874,19 @@ var init_StatusSummary = __esm({
           const behindReg = /behind (\d+)/;
           const currentReg = /^(.+?(?=(?:\.{3}|\s|$)))/;
           const trackingReg = /\.{3}(\S*)/;
-          const onEmptyBranchReg = /\son\s([\S]+)$/;
-          let regexResult;
-          regexResult = aheadReg.exec(line);
+          const onEmptyBranchReg = /\son\s(\S+?)(?=\.{3}|$)/;
+          let regexResult = aheadReg.exec(line);
           result.ahead = regexResult && +regexResult[1] || 0;
           regexResult = behindReg.exec(line);
           result.behind = regexResult && +regexResult[1] || 0;
           regexResult = currentReg.exec(line);
-          result.current = regexResult && regexResult[1];
+          result.current = filterType(regexResult?.[1], filterString, null);
           regexResult = trackingReg.exec(line);
-          result.tracking = regexResult && regexResult[1];
+          result.tracking = filterType(regexResult?.[1], filterString, null);
           regexResult = onEmptyBranchReg.exec(line);
-          result.current = regexResult && regexResult[1] || result.current;
+          if (regexResult) {
+            result.current = filterType(regexResult?.[1], filterString, result.current);
+          }
           result.detached = /\(no branch\)/.test(line);
         }
       ]
@@ -25084,6 +25008,49 @@ var init_version = __esm({
   }
 });
 
+// src/lib/tasks/clone.ts
+function createCloneTask(api, task, repoPath, ...args) {
+  if (!filterString(repoPath)) {
+    return configurationErrorTask(`git.${api}() requires a string 'repoPath'`);
+  }
+  return task(repoPath, filterType(args[0], filterString), getTrailingOptions(arguments));
+}
+function clone_default() {
+  return {
+    clone(repo, ...rest) {
+      return this._runTask(
+        createCloneTask("clone", cloneTask, filterType(repo, filterString), ...rest),
+        trailingFunctionArgument(arguments)
+      );
+    },
+    mirror(repo, ...rest) {
+      return this._runTask(
+        createCloneTask("mirror", cloneMirrorTask, filterType(repo, filterString), ...rest),
+        trailingFunctionArgument(arguments)
+      );
+    }
+  };
+}
+var import_args_pathspec6, cloneTask, cloneMirrorTask;
+var init_clone = __esm({
+  "src/lib/tasks/clone.ts"() {
+    "use strict";
+    init_task();
+    init_utils();
+    import_args_pathspec6 = __nccwpck_require__(6632);
+    cloneTask = (repo, directory, customArgs) => {
+      const commands = ["clone", ...customArgs];
+      filterString(repo) && commands.push((0, import_args_pathspec6.pathspec)(repo));
+      filterString(directory) && commands.push((0, import_args_pathspec6.pathspec)(directory));
+      return straightThroughStringTask(commands);
+    };
+    cloneMirrorTask = (repo, directory, customArgs) => {
+      append(customArgs, "--mirror");
+      return cloneTask(repo, directory, customArgs);
+    };
+  }
+});
+
 // src/lib/simple-git-api.ts
 var simple_git_api_exports = {};
 __export(simple_git_api_exports, {
@@ -25111,6 +25078,7 @@ var init_simple_git_api = __esm({
     init_task();
     init_version();
     init_utils();
+    init_clone();
     SimpleGitApi = class {
       constructor(_executor) {
         this._executor = _executor;
@@ -25138,7 +25106,7 @@ var init_simple_git_api = __esm({
         if (typeof directory === "string") {
           return this._runTask(changeWorkingDirectoryTask(directory, this._executor), next);
         }
-        if (typeof (directory == null ? void 0 : directory.path) === "string") {
+        if (typeof directory?.path === "string") {
           return this._runTask(
             changeWorkingDirectoryTask(
               directory.path,
@@ -25213,6 +25181,7 @@ var init_simple_git_api = __esm({
     Object.assign(
       SimpleGitApi.prototype,
       checkout_default(),
+      clone_default(),
       commit_default(),
       config_default(),
       count_objects_default(),
@@ -25237,7 +25206,7 @@ var init_scheduler = __esm({
     init_utils();
     import_promise_deferred2 = __nccwpck_require__(9997);
     init_git_logger();
-    createScheduledTask = (() => {
+    createScheduledTask = /* @__PURE__ */ (() => {
       let id = 0;
       return () => {
         id++;
@@ -25397,10 +25366,14 @@ var init_BranchSummary = __esm({
 function branchStatus(input) {
   return input ? input.charAt(0) : "";
 }
-function parseBranchSummary(stdOut) {
-  return parseStringResponse(new BranchSummaryResult(), parsers9, stdOut);
+function parseBranchSummary(stdOut, currentOnly = false) {
+  return parseStringResponse(
+    new BranchSummaryResult(),
+    currentOnly ? [currentBranchParser] : parsers9,
+    stdOut
+  );
 }
-var parsers9;
+var parsers9, currentBranchParser;
 var init_parse_branch = __esm({
   "src/lib/parsers/parse-branch.ts"() {
     "use strict";
@@ -25414,12 +25387,15 @@ var init_parse_branch = __esm({
         }
       ),
       new LineParser(
-        new RegExp("^([*+]\\s)?(\\S+)\\s+([a-z0-9]+)\\s?(.*)$", "s"),
+        /^([*+]\s)?(\S+)\s+([a-z0-9]+)\s?(.*)$/s,
         (result, [current, name, commit, label]) => {
           result.push(branchStatus(current), false, name, commit, label);
         }
       )
     ];
+    currentBranchParser = new LineParser(/^(\S+)$/s, (result, [name]) => {
+      result.push("*" /* CURRENT */, false, name, "", "");
+    });
   }
 });
 
@@ -25438,6 +25414,7 @@ function containsDeleteBranchCommand(commands) {
 }
 function branchTask(customArgs) {
   const isDelete = containsDeleteBranchCommand(customArgs);
+  const isCurrentOnly = customArgs.includes("--show-current");
   const commands = ["branch", ...customArgs];
   if (commands.length === 1) {
     commands.push("-a");
@@ -25452,16 +25429,17 @@ function branchTask(customArgs) {
       if (isDelete) {
         return parseBranchDeletions(stdOut, stdErr).all[0];
       }
-      return parseBranchSummary(stdOut);
+      return parseBranchSummary(stdOut, isCurrentOnly);
     }
   };
 }
 function branchLocalTask() {
-  const parser4 = parseBranchSummary;
   return {
     format: "utf-8",
     commands: ["branch", "-v"],
-    parser: parser4
+    parser(stdOut) {
+      return parseBranchSummary(stdOut);
+    }
   };
 }
 function deleteBranchesTask(branches, forceDelete = false) {
@@ -25509,12 +25487,17 @@ var init_branch = __esm({
 });
 
 // src/lib/responses/CheckIgnore.ts
-var parseCheckIgnore;
+function toPath(input) {
+  const path = input.trim().replace(/^["']|["']$/g, "");
+  return path && (0, import_node_path.normalize)(path);
+}
+var import_node_path, parseCheckIgnore;
 var init_CheckIgnore = __esm({
   "src/lib/responses/CheckIgnore.ts"() {
     "use strict";
+    import_node_path = __nccwpck_require__(6760);
     parseCheckIgnore = (text) => {
-      return text.split(/\n/g).map((line) => line.trim()).filter((file) => !!file);
+      return text.split(/\n/g).map(toPath).filter(Boolean);
     };
   }
 });
@@ -25535,37 +25518,6 @@ var init_check_ignore = __esm({
   "src/lib/tasks/check-ignore.ts"() {
     "use strict";
     init_CheckIgnore();
-  }
-});
-
-// src/lib/tasks/clone.ts
-var clone_exports = {};
-__export(clone_exports, {
-  cloneMirrorTask: () => cloneMirrorTask,
-  cloneTask: () => cloneTask
-});
-function disallowedCommand(command) {
-  return /^--upload-pack(=|$)/.test(command);
-}
-function cloneTask(repo, directory, customArgs) {
-  const commands = ["clone", ...customArgs];
-  filterString(repo) && commands.push(repo);
-  filterString(directory) && commands.push(directory);
-  const banned = commands.find(disallowedCommand);
-  if (banned) {
-    return configurationErrorTask(`git.fetch: potential exploit argument blocked.`);
-  }
-  return straightThroughStringTask(commands);
-}
-function cloneMirrorTask(repo, directory, customArgs) {
-  append(customArgs, "--mirror");
-  return cloneTask(repo, directory, customArgs);
-}
-var init_clone = __esm({
-  "src/lib/tasks/clone.ts"() {
-    "use strict";
-    init_task();
-    init_utils();
   }
 });
 
@@ -25627,7 +25579,7 @@ var fetch_exports = {};
 __export(fetch_exports, {
   fetchTask: () => fetchTask
 });
-function disallowedCommand2(command) {
+function disallowedCommand(command) {
   return /^--upload-pack(=|$)/.test(command);
 }
 function fetchTask(remote, branch, customArgs) {
@@ -25635,7 +25587,7 @@ function fetchTask(remote, branch, customArgs) {
   if (remote && branch) {
     commands.push(remote, branch);
   }
-  const banned = commands.find(disallowedCommand2);
+  const banned = commands.find(disallowedCommand);
   if (banned) {
     return configurationErrorTask(`git.fetch: potential exploit argument blocked.`);
   }
@@ -25736,7 +25688,7 @@ function parseGetRemotes(text) {
 function parseGetRemotesVerbose(text) {
   const remotes = {};
   forEach(text, ([name, url, purpose]) => {
-    if (!remotes.hasOwnProperty(name)) {
+    if (!Object.hasOwn(remotes, name)) {
       remotes[name] = {
         name,
         refs: { fetch: "", push: "" }
@@ -25868,8 +25820,8 @@ var init_sub_module = __esm({
 
 // src/lib/responses/TagList.ts
 function singleSorted(a, b) {
-  const aIsNum = isNaN(a);
-  const bIsNum = isNaN(b);
+  const aIsNum = Number.isNaN(a);
+  const bIsNum = Number.isNaN(b);
   if (aIsNum !== bIsNum) {
     return aIsNum ? 1 : -1;
   }
@@ -25970,7 +25922,7 @@ var require_git = __commonJS({
     var { GitExecutor: GitExecutor2 } = (init_git_executor(), __toCommonJS(git_executor_exports));
     var { SimpleGitApi: SimpleGitApi2 } = (init_simple_git_api(), __toCommonJS(simple_git_api_exports));
     var { Scheduler: Scheduler2 } = (init_scheduler(), __toCommonJS(scheduler_exports));
-    var { configurationErrorTask: configurationErrorTask2 } = (init_task(), __toCommonJS(task_exports));
+    var { adhocExecTask: adhocExecTask2, configurationErrorTask: configurationErrorTask2 } = (init_task(), __toCommonJS(task_exports));
     var {
       asArray: asArray2,
       filterArray: filterArray2,
@@ -25991,7 +25943,6 @@ var require_git = __commonJS({
     } = (init_branch(), __toCommonJS(branch_exports));
     var { checkIgnoreTask: checkIgnoreTask2 } = (init_check_ignore(), __toCommonJS(check_ignore_exports));
     var { checkIsRepoTask: checkIsRepoTask2 } = (init_check_is_repo(), __toCommonJS(check_is_repo_exports));
-    var { cloneTask: cloneTask2, cloneMirrorTask: cloneMirrorTask2 } = (init_clone(), __toCommonJS(clone_exports));
     var { cleanWithOptionsTask: cleanWithOptionsTask2, isCleanOptionsArray: isCleanOptionsArray2 } = (init_clean(), __toCommonJS(clean_exports));
     var { diffSummaryTask: diffSummaryTask2 } = (init_diff(), __toCommonJS(diff_exports));
     var { fetchTask: fetchTask2 } = (init_fetch(), __toCommonJS(fetch_exports));
@@ -26046,24 +25997,6 @@ var require_git = __commonJS({
         trailingFunctionArgument2(arguments)
       );
     };
-    function createCloneTask(api, task, repoPath, localPath) {
-      if (typeof repoPath !== "string") {
-        return configurationErrorTask2(`git.${api}() requires a string 'repoPath'`);
-      }
-      return task(repoPath, filterType2(localPath, filterString2), getTrailingOptions2(arguments));
-    }
-    Git2.prototype.clone = function() {
-      return this._runTask(
-        createCloneTask("clone", cloneTask2, ...arguments),
-        trailingFunctionArgument2(arguments)
-      );
-    };
-    Git2.prototype.mirror = function() {
-      return this._runTask(
-        createCloneTask("mirror", cloneMirrorTask2, ...arguments),
-        trailingFunctionArgument2(arguments)
-      );
-    };
     Git2.prototype.mv = function(from, to) {
       return this._runTask(moveTask2(from, to), trailingFunctionArgument2(arguments));
     };
@@ -26096,10 +26029,13 @@ var require_git = __commonJS({
       );
     };
     Git2.prototype.silent = function(silence) {
-      console.warn(
-        "simple-git deprecation notice: git.silent: logging should be configured using the `debug` library / `DEBUG` environment variable, this will be an error in version 3"
+      return this._runTask(
+        adhocExecTask2(
+          () => console.warn(
+            "simple-git deprecation notice: git.silent: logging should be configured using the `debug` library / `DEBUG` environment variable, this method will be removed."
+          )
+        )
       );
-      return this;
     };
     Git2.prototype.tags = function(options, then) {
       return this._runTask(
@@ -26325,7 +26261,13 @@ var require_git = __commonJS({
       return this._runTask(task);
     };
     Git2.prototype.clearQueue = function() {
-      return this;
+      return this._runTask(
+        adhocExecTask2(
+          () => console.warn(
+            "simple-git deprecation notice: clearQueue() is deprecated and will be removed, switch to using the abortPlugin instead."
+          )
+        )
+      );
     };
     Git2.prototype.checkIgnore = function(pathnames, then) {
       return this._runTask(
@@ -26360,7 +26302,6 @@ function gitExportFactory(factory) {
   return Object.assign(factory.bind(null), api_exports);
 }
 function gitInstanceFactory(baseDir, options) {
-  var _a2;
   const plugins = new PluginStore();
   const config = createInstanceConfig(
     baseDir && (typeof baseDir === "string" ? { baseDir } : baseDir) || {},
@@ -26376,15 +26317,15 @@ function gitInstanceFactory(baseDir, options) {
     plugins.add(commandConfigPrefixingPlugin(config.config));
   }
   plugins.add(blockUnsafeOperationsPlugin(config.unsafe));
-  plugins.add(suffixPathsPlugin());
   plugins.add(completionDetectionPlugin(config.completion));
   config.abort && plugins.add(abortPlugin(config.abort));
   config.progress && plugins.add(progressMonitorPlugin(config.progress));
   config.timeout && plugins.add(timeoutPlugin(config.timeout));
   config.spawnOptions && plugins.add(spawnOptionsPlugin(config.spawnOptions));
+  plugins.add(suffixPathsPlugin());
   plugins.add(errorDetectionPlugin(errorDetectionHandler(true)));
   config.errors && plugins.add(errorDetectionPlugin(config.errors));
-  customBinaryPlugin(plugins, config.binary, (_a2 = config.unsafe) == null ? void 0 : _a2.allowUnsafeCustomBinary);
+  customBinaryPlugin(plugins, config.binary, config.unsafe?.allowUnsafeCustomBinary);
   return new Git(config, plugins);
 }
 var Git;
@@ -60648,6 +60589,26 @@ class LRUCache {
 }
 exports.LRUCache = LRUCache;
 //# sourceMappingURL=index.js.map
+
+/***/ }),
+
+/***/ 6632:
+/***/ ((__unused_webpack_module, exports) => {
+
+"use strict";
+Object.defineProperty(exports,Symbol.toStringTag,{value:"Module"});const e=new WeakMap;function c(...t){const n=new String(t);return e.set(n,t),n}function o(t){return t instanceof String&&e.has(t)}function r(t){return e.get(t)??[]}exports.isPathSpec=o;exports.pathspec=c;exports.toPaths=r;
+//# sourceMappingURL=index.cjs.map
+
+
+/***/ }),
+
+/***/ 7202:
+/***/ ((__unused_webpack_module, exports, __nccwpck_require__) => {
+
+"use strict";
+Object.defineProperty(exports,Symbol.toStringTag,{value:"Module"});const h=__nccwpck_require__(6632);function*v(e,t){const n=t==="global";for(const o of e)o.isGlobal===n&&(yield o)}const S=new Set(["--add","--edit","--remove-section","--rename-section","--replace-all","--unset","--unset-all","-e"]),P=new Set(["--get","--get-all","--get-color","--get-colorbool","--get-regexp","--get-urlmatch","--list","-l"]),E=new Set(["edit","remove-section","rename-section","set","unset"]),A=new Set(["get","get-color","get-colorbool","list"]);function F(e,t){for(const{name:o}of v(e,"task")){if(S.has(o))return p(!0,t);if(P.has(o))return p(!1,t)}const n=t.at(0)?.toLowerCase();return n===void 0?null:E.has(n)?p(!0,t.slice(1)):A.has(n)?p(!1,t.slice(1)):t.length===1?p(!1,t):p(!0,t)}function p(e=!1,t=[]){const n=t.at(0)?.toLowerCase();return n===void 0?null:{isWrite:e,isRead:!e,key:n,value:t.at(1)}}function M(e,t){return t.isWrite&&t.value!==void 0?{key:t.key,value:t.value,scope:e}:{key:t.key,scope:e}}function N(e){const t=e?.indexOf("=")||-1;return!e||t<0?null:{key:e.slice(0,t).trim().toLowerCase(),value:e.slice(t+1)}}function O(e){for(const{name:t}of v(e,"task"))switch(t){case"--global":return"global";case"--system":return"system";case"--worktree":return"worktree";case"--local":return"local";case"--file":case"-f":return"file"}return"local"}function G({name:e}){if(e==="-c"||e==="--config")return"inline";if(e==="--config-env")return"env"}function*L(e){for(const t of e){const n=G(t),o=n&&N(t.value);o&&(yield{...o,scope:n})}}function $(e,t,n){const o={read:[],write:[...L(t)]};return e==="config"&&D(o,O(t),F(t,n)),o}function D(e,t,n){if(n===null)return;const o=M(t,n);n.isWrite?e.write.push(o):e.read.push(o)}const U={short:new Map([["c",!0]])},T={short:new Map([["C",!0],["P",!1],["h",!1],["p",!1],["v",!1],...U.short.entries()]),long:new Set(["attr-source","config-env","exec-path","git-dir","list-cmds","namespace","super-prefix","work-tree"])},R={clone:{short:new Map([["b",!0],["j",!0],["l",!1],["n",!1],["o",!0],["q",!1],["s",!1],["u",!0]]),long:new Set(["branch","config","jobs","origin","upload-pack","u","template"])},commit:{short:new Map([["C",!0],["F",!0],["c",!0],["m",!0],["t",!0]]),long:new Set(["file","message","reedit-message","reuse-message","template"])},config:{short:new Map([["e",!1],["f",!0],["l",!1]]),long:new Set(["blob","comment","default","file","type","value"])},fetch:{short:new Map,long:new Set(["upload-pack"])},init:{short:new Map,long:new Set(["template"])},pull:{short:new Map,long:new Set(["upload-pack"])},push:{short:new Map,long:new Set(["exec","receive-pack"])}},I={short:new Map,long:new Set};function j(e){const t=R[e??""]??I;return{short:new Map([...U.short.entries(),...t.short.entries()]),long:t.long}}function b(e,t=T){if(e.startsWith("--")){const n=e.indexOf("=");if(n>2)return[{name:e.slice(0,n),value:e.slice(n+1),needsNext:!1}];const o=e.slice(2);return[{name:e,needsNext:t.long.has(o)}]}if(e.length===2){const n=e.charAt(1),o=t.short.get(n);return[{name:e,needsNext:o===!0}]}return W(e,t.short)}function W(e,t){const n=e.slice(1).split(""),o=[];for(let s=0;s<n.length;s++){const r=n[s],a=t.get(r);if(a===void 0)return[{name:e,needsNext:!1}];if(a){const l=n.slice(s+1).join("");if(l&&![...l].every(m=>t.has(m)))return o.push({name:`-${r}`,value:l,needsNext:!1}),o}o.push({name:`-${r}`,needsNext:a})}return o}function B(e,t=[]){let n=0;for(;n<e.length;){const o=String(e[n]);if(!o.startsWith("-")||o.length<2)break;const s=b(o);let r=n+1;for(const a of s){const l={name:a.name,value:a.value,absorbedNext:!1,isGlobal:!0};a.needsNext&&l.value===void 0&&r<e.length&&(l.value=String(e[r]),l.absorbedNext=!0,r++),t.push(l)}n=r}return{flags:t,taskIndex:n}}function q(e,t,n=[]){const o=j(t),s=[],r=[];let a=0;for(;a<e.length;){const l=e[a];if(h.isPathSpec(l)){r.push(...h.toPaths(l)),a++;continue}const f=String(l);if(f==="--"){for(let g=a+1;g<e.length;g++){const u=e[g];h.isPathSpec(u)?r.push(...h.toPaths(u)):r.push(String(u))}break}if(!f.startsWith("-")||f.length<2){s.push(f),a++;continue}const m=b(f,o);let d=a+1;for(const g of m){const u={name:g.name,value:g.value,absorbedNext:!1,isGlobal:!1};g.needsNext&&u.value===void 0&&d<e.length&&!h.isPathSpec(e[d])&&(u.value=String(e[d]),u.absorbedNext=!0,d++),n.push(u)}a=d}return{flags:n,positionals:s,pathspecs:r}}function*V({write:e}){for(const t of e)for(const n of K){const o=n(t.key);o&&(yield o)}}function c(e,t,n=String(e)){const o=typeof e=="string"?new RegExp(`\\s*${e.toLowerCase()}`):e;return function(r){if(o.test(r))return{category:t,message:`Configuring ${n} is not permitted without enabling ${t}`}}}function i(e,t){const n=new RegExp(`\\s*${e.toLowerCase().replace(/\./g,"(..+)?.")}`);return c(n,t,e)}const K=[c("alias","allowUnsafeAlias"),c("core.askPass","allowUnsafeAskPass"),c("core.editor","allowUnsafeEditor"),c("core.fsmonitor","allowUnsafeFsMonitor"),c("core.gitProxy","allowUnsafeGitProxy"),c("core.hooksPath","allowUnsafeHooksPath"),c("core.pager","allowUnsafePager"),c("core.sshCommand","allowUnsafeSshCommand"),i("credential.helper","allowUnsafeCredentialHelper"),i("diff.command","allowUnsafeDiffExternal"),c("diff.external","allowUnsafeDiffExternal"),i("diff.textconv","allowUnsafeDiffTextConv"),i("filter.clean","allowUnsafeFilter"),i("filter.smudge","allowUnsafeFilter"),i("gpg.program","allowUnsafeGpgProgram"),c("init.templateDir","allowUnsafeTemplateDir"),i("merge.driver","allowUnsafeMergeDriver"),i("mergetool.path","allowUnsafeMergeDriver"),i("mergetool.cmd","allowUnsafeMergeDriver"),i("protocol.allow","allowUnsafeProtocolOverride"),i("remote.receivepack","allowUnsafePack"),i("remote.uploadpack","allowUnsafePack"),c("sequence.editor","allowUnsafeEditor")];function*H(e,t){for(const n of t)for(const o of Y){const s=o(e,n.name);s&&(yield s)}}function w(e,t,n,o=String(t)){const s=typeof t=="string"?new RegExp(`\\s*${t.toLowerCase()}`):t,r=`Use of ${e?`${e} with option `:""}${o} is not permitted without enabling ${n}`;return function(l,f){if((!e||l===e)&&s.test(f))return{category:n,message:r}}}const Y=[w(null,/--(upload|receive)-pack/,"allowUnsafePack","--upload-pack or --receive-pack"),w("clone",/^-\w*u/,"allowUnsafePack"),w("clone","--u","allowUnsafePack"),w("push","--exec","allowUnsafePack"),w(null,"--template","allowUnsafeTemplateDir")];function C(e,t,n){return[...H(e,t),...V(n)]}function x(...e){const{flags:t,taskIndex:n}=B(e),o=n<e.length?String(e[n]).toLowerCase():null,s=o!==null?e.slice(n+1):[],{positionals:r,pathspecs:a}=q(s,o,t),l=$(o,t,r);return{task:o,flags:t.map(J),paths:a,config:l,vulnerabilities:z(C(o,t,l))}}function z(e){return Object.defineProperty(e,"vulnerabilities",{value:e})}function J({value:e,name:t}){return e!==void 0?{name:t,value:e}:{name:t}}const y={editor:"allowUnsafeEditor",git_askpass:"allowUnsafeAskPass",git_config_global:"allowUnsafeConfigPaths",git_config_system:"allowUnsafeConfigPaths",git_config_count:"allowUnsafeConfigEnvCount",git_config:"allowUnsafeConfigPaths",git_editor:"allowUnsafeEditor",git_exec_path:"allowUnsafeConfigPaths",git_external_diff:"allowUnsafeDiffExternal",git_pager:"allowUnsafePager",git_proxy_command:"allowUnsafeGitProxy",git_template_dir:"allowUnsafeTemplateDir",git_sequence_editor:"allowUnsafeEditor",git_ssh:"allowUnsafeSshCommand",git_ssh_command:"allowUnsafeSshCommand",pager:"allowUnsafePager",prefix:"allowUnsafeConfigPaths",ssh_askpass:"allowUnsafeAskPass"};function*Q(e){const t=parseInt(e.git_config_count??"0",10);for(let n=0;n<t;n++){const o=e[`git_config_key_${n}`],s=e[`git_config_value_${n}`];o!==void 0&&(yield{key:o.toLowerCase().trim(),value:s,scope:"env"})}}function*X(e){for(const t of Object.keys(e))if(k(t)){const n=y[t];yield{category:n,message:`Use of "${t.toUpperCase()}" is not permitted without enabling ${n}`}}}function k(e){return Object.hasOwn(y,e)}function Z(e){const t={};for(const[n,o]of Object.entries(e)){const s=n.toLowerCase().trim();(k(s)||s.startsWith("git"))&&(t[s]=String(o))}return t}function _(e){const t=Z(e),n={read:[],write:[...Q(t)]},o=[...X(t),...C(null,[],n)];return{config:n,vulnerabilities:o}}function ee(e,t){return[...x(...e).vulnerabilities,..._(t).vulnerabilities]}exports.parseArgv=x;exports.parseEnv=_;exports.vulnerabilityCheck=ee;
+//# sourceMappingURL=index.cjs.map
+
 
 /***/ }),
 
