@@ -25,8 +25,8 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "@actions/core": "^1.11.1",
-    "@actions/http-client": "^2.2.3",
+    "@actions/core": "^2.0.3",
+    "@actions/http-client": "^3.0.2",
     "@particle/device-constants": "^3.7.0",
     "execa": "^5.0.0",
     "glob": "^11.1.0",
