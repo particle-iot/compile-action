@@ -7,7 +7,7 @@ import {
 } from './git';
 
 jest.mock('simple-git');
-import simpleGit, { SimpleGit } from 'simple-git';
+import { simpleGit, SimpleGit } from 'simple-git';
 
 const gitMock = simpleGit as jest.MockedFunction<typeof simpleGit>;
 

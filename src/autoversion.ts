@@ -1,6 +1,6 @@
 import { readFile, writeFile } from 'fs/promises';
 import { info, warning, debug, error } from '@actions/core';
-import simpleGit, { SimpleGit } from 'simple-git';
+import { simpleGit, SimpleGit } from 'simple-git';
 import {
 	currentFirmwareVersion,
 	findProductVersionMacroFile,
