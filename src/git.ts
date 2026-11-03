@@ -1,6 +1,6 @@
 import { readdir, readFile, stat } from 'fs/promises';
 import { dirname, join } from 'path';
-import simpleGit, { SimpleGit } from 'simple-git';
+import { simpleGit, SimpleGit } from 'simple-git';
 import { debug } from '@actions/core';
 
 export async function currentFirmwareVersion(
